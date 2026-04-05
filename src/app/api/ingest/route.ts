@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 import { generateEmbedding } from "@/lib/gemini";
+import { parsePDF } from "@/lib/pdf-service";
 
 export async function POST(req: NextRequest) {
   try {
-    // pdf-parse is a CJS module, we import it dynamically only in server-side
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const pdf = require("pdf-parse");
-
     const formData = await req.formData();
     const file = formData.get("file") as File;
     const documentName = file.name;
@@ -20,7 +17,7 @@ export async function POST(req: NextRequest) {
     const buffer = Buffer.from(bytes);
 
     // 1. Extract text from PDF
-    const pdfData = await pdf(buffer);
+    const pdfData = await parsePDF(buffer);
     const fullText = pdfData.text;
 
     // 2. Initial record in 'documents' table
