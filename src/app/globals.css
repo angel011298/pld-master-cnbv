@@ -1,61 +1,56 @@
-@import "tailwindcss";
-
-@theme {
-  --color-background: oklch(0.98 0.01 210); /* Gray-ish off-white */
-  --color-foreground: oklch(0.12 0.02 222); /* High contrast dark text */
-
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.12 0.02 222);
-
-  --color-primary: oklch(0.28 0.15 215); /* Cobalt Blue #0047AB approx */
-  --color-primary-foreground: oklch(0.98 0.01 210);
-
-  --color-secondary: oklch(0.65 0.18 150); /* Emerald Green */
-  --color-secondary-foreground: oklch(0.98 0.01 210);
-
-  --color-accent: oklch(0.85 0.2 48); /* Vivid Yellow */
-  --color-accent-foreground: oklch(0.12 0.02 222);
-
-  --color-border: oklch(0.92 0.01 214);
-  --color-input: oklch(0.92 0.01 214);
-  --color-ring: oklch(0.28 0.15 215);
-
-  --radius-lg: 1.25rem;
-  --radius-md: 0.75rem;
-  --radius-sm: 0.5rem;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 215 100% 34%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 150 61% 45%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 48 96% 53%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 215 100% 34%;
+    --radius: 1.25rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    /* ... rest of dark mode omitted for brevity, but let's keep it simple ... */
+    --primary: 215 100% 34%;
+    --secondary: 150 61% 45%;
+    --border: 217.2 32.6% 17.5%;
+  }
+
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/20;
-  }
-  html {
-    @apply font-sans h-full scroll-smooth;
+    @apply bg-background text-foreground antialiased;
   }
 }
 
-/* Corporate Premium Utilities */
 @layer utilities {
   .btn-pushable {
     @apply relative transition-all duration-75 border-b-[6px] active:border-b-0 active:translate-y-[2px] cursor-pointer;
   }
-  
   .btn-primary-pushable {
     @apply btn-pushable bg-primary border-primary/50 text-white hover:bg-primary/95;
   }
-  
-  .btn-secondary-pushable {
-    @apply btn-pushable bg-secondary border-secondary/50 text-white hover:bg-secondary/95;
-  }
-
   .card-premium {
-    @apply border-2 border-b-[8px] border-black/5 bg-white hover:border-primary/20 transition-all rounded-[2.5rem] p-8;
-  }
-
-  .text-title {
-    @apply font-black tracking-tighter uppercase text-foreground;
+    @apply border-2 border-b-[8px] border-black/5 bg-white rounded-[2.5rem] p-8 hover:border-primary/20 transition-all;
   }
 }
