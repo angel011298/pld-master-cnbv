@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+export const dynamic = "force-dynamic";
 import { supabaseAdmin } from "@/lib/supabase";
 import { generateEmbedding, flashModel } from "@/lib/gemini";
 

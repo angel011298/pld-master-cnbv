@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 import { supabaseAdmin } from "@/lib/supabase";
 import { generateEmbedding } from "@/lib/gemini";
 import { parsePDF } from "@/lib/pdf-service";
