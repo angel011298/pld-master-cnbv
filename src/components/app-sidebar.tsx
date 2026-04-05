@@ -6,7 +6,6 @@ import {
   GraduationCap,
   MessageSquare,
   Library,
-  Settings,
   Trophy,
   Building2,
 } from "lucide-react"
@@ -22,7 +21,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuBadge,
 } from "@/components/ui/sidebar"
 
 const navItems = [
@@ -69,12 +67,15 @@ export function AppSidebar() {
             <SidebarMenu>
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
+                  <SidebarMenuButton 
+                    tooltip={item.title}
+                    render={(props) => (
+                      <a href={item.url} {...props}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </a>
+                    )}
+                  />
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>

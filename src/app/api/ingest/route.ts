@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 import { generateEmbedding } from "@/lib/gemini";
 
-// @ts-expect-error - pdf-parse lacks proper ESM types
-import pdf from "pdf-parse/lib/pdf-parse.js";
-
 export async function POST(req: NextRequest) {
   try {
+    // pdf-parse is a CJS module, we import it dynamically only in server-side
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const pdf = require("pdf-parse");
+
     const formData = await req.formData();
     const file = formData.get("file") as File;
     const documentName = file.name;
