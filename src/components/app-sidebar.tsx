@@ -10,6 +10,7 @@ import {
   Building2,
   Zap,
   Flame,
+  ClipboardList,
 } from "lucide-react"
 
 import {
@@ -33,6 +34,7 @@ const navItems = [
   { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
   { title: "Entidades Financieras", url: "/entities", icon: Building2 },
   { title: "Base de Conocimiento", url: "/knowledge", icon: Library },
+  { title: "Guía de Trámites", url: "/tramites", icon: ClipboardList },
 ]
 
 const LEVEL_XP = 1000

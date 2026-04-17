@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, Lock, Play, Star, Zap, Flame, Trophy, GraduationCap, MessageSquare } from "lucide-react"
+import { Check, Lock, Play, Star, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -166,7 +166,7 @@ export default function Home() {
               {[
                 { href: "/simulator", icon: GraduationCap, label: "Simulador CENEVAL", color: "bg-primary" },
                 { href: "/chatbot", icon: MessageSquare, label: "Chatbot IA", color: "bg-secondary" },
-                { href: "/knowledge", icon: Star, label: "Base de Conocimiento", color: "bg-orange-500" },
+                { href: "/tramites", icon: ClipboardList, label: "Guía de Trámites", color: "bg-orange-500" },
               ].map((item, i) => (
                 <motion.div key={item.href} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link href={item.href}>
