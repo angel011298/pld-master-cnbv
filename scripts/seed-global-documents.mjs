@@ -1,0 +1,148 @@
+#!/usr/bin/env node
+/**
+ * Pre-ingest 18 official CNBV PLD/FT PDFs from Google Drive as global documents.
+ * Run: node scripts/seed-global-documents.mjs
+ * Requires: .env.local with SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY
+ */
+
+import { readFileSync, existsSync } from "fs";
+import { createClient } from "@supabase/supabase-js";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { createRequire } from "module";
+
+// Load .env.local manually
+function loadEnv() {
+  const envFile = ".env.local";
+  if (!existsSync(envFile)) {
+    console.error("❌ .env.local not found. Create it first.");
+    process.exit(1);
+  }
+  const lines = readFileSync(envFile, "utf-8").split("\n");
+  for (const line of lines) {
+    const [key, ...rest] = line.split("=");
+    if (key && rest.length) process.env[key.trim()] = rest.join("=").trim();
+  }
+}
+
+loadEnv();
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const GEMINI_KEY = process.env.GEMINI_API_KEY;
+
+if (!SUPABASE_URL || !SERVICE_KEY || !GEMINI_KEY) {
+  console.error("❌ Missing env vars: NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY");
+  process.exit(1);
+}
+
+const DRIVE_FILES = [
+  // Trámites
+  { id: "1febe6e9PcQTKtVXb6duqLxOh76A3XjAq", name: "Convocatoria 2026" },
+  { id: "1IAfuhZVZvZYgivKBhqiMSzlPaS149Fm3", name: "Preguntas Frecuentes CertPLD 2026" },
+  { id: "1wnKQD6JvPqMS-K3lacbiJZnI4K3fxcD2", name: "Manual de Pago de Derechos PLD" },
+  { id: "1dsSWWEFNrAk5B931tLoVoYkrJq_fAXVl", name: "Instructivo Obtención Certificado" },
+  { id: "12z7as4W82qzXzB-tZjKl_pohuF5rtwHs", name: "Más Información Certificación PLD" },
+  { id: "1-_dAuQOOm4VBFEICHJ2KuemNztogbQj_", name: "Aviso de Privacidad Certificación 2026" },
+  // Estudio
+  { id: "1dxwxrLF_0solq0y7lFHOb_jltDEG1nAb", name: "Guía CNBV PLD/FT 11ª ed. 2025" },
+  { id: "1CzO-2bna1hLI25OO00NYYwpJafY583Ti", name: "Temario Oficial CNBV PLD/FT 2026" },
+  { id: "16HS0HVfFOndTJWtOnmiZ-KfnGLlivTub", name: "LFPIORPI - Ley Federal PLD" },
+  { id: "1xcBBonqQf6OUsqiQhbCP8yg6ZHDi-n-4", name: "Recomendaciones y Metodología Dic 2025" },
+  { id: "1tiA9V2druGEuM2zo2s7MM_sqWktVfQhj", name: "Guía de Estudio Módulo 1" },
+  { id: "1Zcn_3J-v4Jy50dgzh81W5KXBt9ozqUNM", name: "Repaso General PLD (compress)" },
+  { id: "1ultvTFfO3c8-70ePPAeF_1XEEKYwYf-8", name: "Definiciones PLD FT" },
+  { id: "1XTNB7qr1pTVO_WGY1YBHq7Ywa2kb87P6", name: "Glosario PLD" },
+  // Ejercicios
+  { id: "19f35GOm1YTl7jahnUWl9gbQWPCS5ZCle", name: "Cliente de Alto Riesgo" },
+  { id: "14V6OP6TKtqoj9DInBEPPCx8EzptEzml3", name: "Bonus Reportes 24 - Ejercicio" },
+  { id: "1PfeJra3N2gjk0H5DxxRsjnQB8yBPKfiZ", name: "Bonus Reportes 24 - Respuestas" },
+  { id: "1DVm4duvBmb6Czlxs4PWHZL1vPIhnDw_I", name: "Bonus Reportes 24 - Colores" },
+];
+
+const MAX_BYTES = 5 * 1024 * 1024;
+const CHUNK_SIZE = 1000;
+const CHUNK_OVERLAP = 200;
+
+function chunkText(text) {
+  const chunks = [];
+  for (let i = 0; i < text.length; i += CHUNK_SIZE - CHUNK_OVERLAP) {
+    chunks.push(text.substring(i, i + CHUNK_SIZE));
+  }
+  return chunks;
+}
+
+const sb = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: false } });
+const genAI = new GoogleGenerativeAI(GEMINI_KEY);
+const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
+const req = createRequire(import.meta.url);
+
+async function ingestFile(file) {
+  process.stdout.write(`📄 ${file.name} ... `);
+
+  const { data: existing } = await sb
+    .from("documents")
+    .select("id")
+    .eq("name", file.name)
+    .eq("is_global", true)
+    .limit(1);
+
+  if (existing?.length > 0) {
+    console.log("⏭  ya existe");
+    return;
+  }
+
+  const downloadUrl = `https://drive.google.com/uc?export=download&id=${file.id}`;
+  const res = await fetch(downloadUrl, { redirect: "follow" });
+  if (!res.ok) { console.log(`❌ HTTP ${res.status}`); return; }
+
+  const bytes = await res.arrayBuffer();
+  if (bytes.byteLength > MAX_BYTES) {
+    console.log(`⚠️  demasiado grande (${(bytes.byteLength/1024/1024).toFixed(1)} MB)`);
+    return;
+  }
+
+  const pdfParse = req("pdf-parse");
+  const pdfData = await pdfParse(Buffer.from(bytes));
+  if (pdfData.numpages > 150) { console.log("⚠️  >150 páginas"); return; }
+
+  const { data: doc, error: docErr } = await sb
+    .from("documents")
+    .insert({
+      user_id: null,
+      name: file.name,
+      content: pdfData.text,
+      file_type: "pdf",
+      page_count: pdfData.numpages,
+      file_size_bytes: bytes.byteLength,
+      is_global: true,
+    })
+    .select()
+    .single();
+
+  if (docErr) { console.log(`❌ DB error: ${docErr.message}`); return; }
+
+  const chunks = chunkText(pdfData.text);
+  const entries = await Promise.all(
+    chunks.map(async (c) => {
+      const result = await embeddingModel.embedContent(c);
+      return {
+        document_id: doc.id,
+        user_id: null,
+        content: c,
+        embedding: result.embedding.values,
+        metadata: { source: file.name, source_file_id: file.id, is_global: true },
+      };
+    })
+  );
+
+  const { error: embErr } = await sb.from("document_embeddings").insert(entries);
+  if (embErr) { console.log(`❌ Embed error: ${embErr.message}`); return; }
+
+  console.log(`✅ ${chunks.length} fragmentos`);
+}
+
+console.log(`\n🚀 Ingiriendo ${DRIVE_FILES.length} PDFs oficiales CNBV como documentos globales...\n`);
+for (const file of DRIVE_FILES) {
+  await ingestFile(file);
+}
+console.log("\n✨ ¡Ingesta completada!");

@@ -54,8 +54,9 @@ const STEPS: Step[] = [
         "Si tu entidad aún no está inscrita en el padrón CNBV, deberá regularizarse primero.",
       ],
       links: [
+        { label: "Más Información Certificación CNBV (PDF oficial)", url: "https://drive.google.com/file/d/12z7as4W82qzXzB-tZjKl_pohuF5rtwHs/view" },
+        { label: "Preguntas Frecuentes CertPLD 2026 (PDF)", url: "https://drive.google.com/file/d/1IAfuhZVZvZYgivKBhqiMSzlPaS149Fm3/view" },
         { label: "Lista de entidades supervisadas CNBV", url: "https://www.cnbv.gob.mx/Paginas/entidades.aspx" },
-        { label: "Disposiciones de Carácter General PLD/FT (DOF)", url: "https://www.dof.gob.mx" },
       ],
     },
   },
@@ -77,8 +78,10 @@ const STEPS: Step[] = [
         "Descarga tu ficha de pago una vez validada tu solicitud",
       ],
       links: [
+        { label: "Convocatoria 2026 (PDF oficial)", url: "https://drive.google.com/file/d/1febe6e9PcQTKtVXb6duqLxOh76A3XjAq/view" },
+        { label: "Instructivo Obtención Certificado (PDF)", url: "https://drive.google.com/file/d/1dsSWWEFNrAk5B931tLoVoYkrJq_fAXVl/view" },
+        { label: "Aviso de Privacidad Certificación (PDF)", url: "https://drive.google.com/file/d/1-_dAuQOOm4VBFEICHJ2KuemNztogbQj_/view" },
         { label: "Portal CENEVAL (registro)", url: "https://portal.ceneval.edu.mx" },
-        { label: "Guía de registro CENEVAL (PDF oficial)", url: "https://www.ceneval.edu.mx/guia-registro" },
       ],
       tips: [
         "Usa tu correo institucional (@nombreempresa.com), evita correos gratuitos como Gmail para documentos oficiales.",
@@ -117,7 +120,8 @@ const STEPS: Step[] = [
         "No existen reembolsos una vez confirmado el pago. En caso de cancelación, puedes solicitar reprogramación con al menos 5 días hábiles de anticipación.",
       ],
       links: [
-        { label: "Convocatoria y costos vigentes CENEVAL", url: "https://www.ceneval.edu.mx/convocatorias" },
+        { label: "Manual de Pago de Derechos PLD (PDF oficial)", url: "https://drive.google.com/file/d/1wnKQD6JvPqMS-K3lacbiJZnI4K3fxcD2/view" },
+        { label: "Convocatoria 2026 (costos vigentes)", url: "https://drive.google.com/file/d/1febe6e9PcQTKtVXb6duqLxOh76A3XjAq/view" },
       ],
     },
   },
@@ -144,8 +148,8 @@ const STEPS: Step[] = [
         "El examen dura aproximadamente 3 horas con 120 reactivos de opción múltiple.",
       ],
       links: [
-        { label: "Sedes presenciales autorizadas CENEVAL", url: "https://www.ceneval.edu.mx/sedes" },
-        { label: "Requisitos técnicos ProProctor (en línea)", url: "https://www.proproctor.com/requirements" },
+        { label: "Instructivo Certificación CNBV (PDF completo)", url: "https://drive.google.com/file/d/1dsSWWEFNrAk5B931tLoVoYkrJq_fAXVl/view" },
+        { label: "Preguntas Frecuentes 2026", url: "https://drive.google.com/file/d/1IAfuhZVZvZYgivKBhqiMSzlPaS149Fm3/view" },
       ],
     },
   },
@@ -207,12 +211,37 @@ const STEPS: Step[] = [
         "El certificado vencido implica inhabilitación para operar como LAFT — programa tu renovación a tiempo.",
       ],
       links: [
-        { label: "Consulta de resultados CENEVAL", url: "https://portal.ceneval.edu.mx/resultados" },
-        { label: "Vigencia y renovación de certificados CNBV", url: "https://www.cnbv.gob.mx/certificacion" },
+        { label: "Instructivo Obtención Certificado (paso a paso)", url: "https://drive.google.com/file/d/1dsSWWEFNrAk5B931tLoVoYkrJq_fAXVl/view" },
+        { label: "Preguntas Frecuentes sobre Resultados", url: "https://drive.google.com/file/d/1IAfuhZVZvZYgivKBhqiMSzlPaS149Fm3/view" },
+        { label: "Portal de Resultados CENEVAL", url: "https://portal.ceneval.edu.mx/resultados" },
       ],
     },
   },
 ]
+
+const RECURSOS = [
+  // Trámites
+  { name: "Convocatoria 2026", size: "175 KB", url: "https://drive.google.com/file/d/1febe6e9PcQTKtVXb6duqLxOh76A3XjAq/view", category: "tramites" },
+  { name: "Preguntas Frecuentes CertPLD 2026", size: "236 KB", url: "https://drive.google.com/file/d/1IAfuhZVZvZYgivKBhqiMSzlPaS149Fm3/view", category: "tramites" },
+  { name: "Manual de Pago de Derechos", size: "953 KB", url: "https://drive.google.com/file/d/1wnKQD6JvPqMS-K3lacbiJZnI4K3fxcD2/view", category: "tramites" },
+  { name: "Instructivo Obtención Certificado", size: "1.5 MB", url: "https://drive.google.com/file/d/1dsSWWEFNrAk5B931tLoVoYkrJq_fAXVl/view", category: "tramites" },
+  { name: "Más Información Certificación", size: "195 KB", url: "https://drive.google.com/file/d/12z7as4W82qzXzB-tZjKl_pohuF5rtwHs/view", category: "tramites" },
+  { name: "Aviso de Privacidad 2026", size: "161 KB", url: "https://drive.google.com/file/d/1-_dAuQOOm4VBFEICHJ2KuemNztogbQj_/view", category: "tramites" },
+  // Estudio
+  { name: "Guía CNBV PLD/FT 11ª ed. 2025", size: "1.97 MB", url: "https://drive.google.com/file/d/1dxwxrLF_0solq0y7lFHOb_jltDEG1nAb/view", category: "estudio" },
+  { name: "Temario Oficial CNBV 2026", size: "365 KB", url: "https://drive.google.com/file/d/1CzO-2bna1hLI25OO00NYYwpJafY583Ti/view", category: "estudio" },
+  { name: "LFPIORPI (Ley Federal PLD)", size: "570 KB", url: "https://drive.google.com/file/d/16HS0HVfFOndTJWtOnmiZ-KfnGLlivTub/view", category: "estudio" },
+  { name: "Recomendaciones y Metodología Dic 2025", size: "4.3 MB", url: "https://drive.google.com/file/d/1xcBBonqQf6OUsqiQhbCP8yg6ZHDi-n-4/view", category: "estudio" },
+  { name: "Guía de Estudio Módulo 1", size: "2.7 MB", url: "https://drive.google.com/file/d/1tiA9V2druGEuM2zo2s7MM_sqWktVfQhj/view", category: "estudio" },
+  { name: "Repaso General PLD (compress)", size: "1.1 MB", url: "https://drive.google.com/file/d/1Zcn_3J-v4Jy50dgzh81W5KXBt9ozqUNM/view", category: "estudio" },
+  { name: "Definiciones PLD FT", size: "1.4 MB", url: "https://drive.google.com/file/d/1ultvTFfO3c8-70ePPAeF_1XEEKYwYf-8/view", category: "estudio" },
+  { name: "Glosario PLD", size: "209 KB", url: "https://drive.google.com/file/d/1XTNB7qr1pTVO_WGY1YBHq7Ywa2kb87P6/view", category: "estudio" },
+  // Ejercicios
+  { name: "Cliente de Alto Riesgo", size: "76 KB", url: "https://drive.google.com/file/d/19f35GOm1YTl7jahnUWl9gbQWPCS5ZCle/view", category: "ejercicios" },
+  { name: "Bonus Reportes 24 — Ejercicio", size: "429 KB", url: "https://drive.google.com/file/d/14V6OP6TKtqoj9DInBEPPCx8EzptEzml3/view", category: "ejercicios" },
+  { name: "Bonus Reportes 24 — Respuestas", size: "431 KB", url: "https://drive.google.com/file/d/1PfeJra3N2gjk0H5DxxRsjnQB8yBPKfiZ/view", category: "ejercicios" },
+  { name: "Bonus Reportes 24 — Colores", size: "487 KB", url: "https://drive.google.com/file/d/1DVm4duvBmb6Czlxs4PWHZL1vPIhnDw_I/view", category: "ejercicios" },
+] as const
 
 const CONTACTS = [
   { icon: <Building2 className="h-4 w-4" />, label: "CENEVAL Atención", value: "55 5601-6182" },
@@ -427,6 +456,52 @@ export function TramitesGuide() {
           )
         })}
       </div>
+
+      {/* Recursos Descargables */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+        <Card className="border-2 border-primary/20">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-base font-black flex items-center gap-2">
+              <FileText className="h-4 w-4 text-primary" /> Documentos Oficiales
+            </CardTitle>
+            <CardDescription>PDFs de la CNBV disponibles para descarga directa</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {RECURSOS.map((r, i) => (
+                <a
+                  key={i}
+                  href={r.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "flex items-center gap-3 p-3 rounded-xl border-2 hover:border-primary/40 hover:bg-primary/5 transition-all group",
+                    r.category === "tramites" ? "border-violet-200" :
+                    r.category === "estudio" ? "border-blue-200" : "border-gray-200"
+                  )}
+                >
+                  <div className={cn(
+                    "h-8 w-8 rounded-lg flex items-center justify-center shrink-0",
+                    r.category === "tramites" ? "bg-violet-100" :
+                    r.category === "estudio" ? "bg-blue-100" : "bg-gray-100"
+                  )}>
+                    <FileText className={cn(
+                      "h-4 w-4",
+                      r.category === "tramites" ? "text-violet-600" :
+                      r.category === "estudio" ? "text-blue-600" : "text-gray-500"
+                    )} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold truncate group-hover:text-primary transition-colors">{r.name}</p>
+                    <p className="text-xs text-muted-foreground">{r.size}</p>
+                  </div>
+                  <ExternalLink className="h-3.5 w-3.5 text-muted-foreground shrink-0 group-hover:text-primary transition-colors" />
+                </a>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
 
       {/* Contact Box */}
       <motion.div

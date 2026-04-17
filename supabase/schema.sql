@@ -61,6 +61,7 @@ create table if not exists public.documents (
   content text not null,
   page_count integer not null default 0,
   file_size_bytes integer not null default 0,
+  is_global boolean not null default false,  -- true = disponible para todos los usuarios
   created_at timestamptz not null default now()
 );
 
@@ -126,7 +127,12 @@ as $$
     de.metadata,
     1 - (de.embedding <=> query_embedding) as similarity
   from public.document_embeddings de
-  where (p_user_id is null or de.user_id = p_user_id)
+  join public.documents d on d.id = de.document_id
+  where (
+    p_user_id is null
+    or de.user_id = p_user_id
+    or d.is_global = true
+  )
     and (1 - (de.embedding <=> query_embedding)) >= match_threshold
   order by de.embedding <=> query_embedding
   limit match_count;
@@ -156,7 +162,7 @@ drop policy if exists "documents_select_own" on public.documents;
 create policy "documents_select_own"
 on public.documents
 for select
-using (auth.uid() = user_id);
+using (auth.uid() = user_id or is_global = true);
 
 drop policy if exists "documents_insert_own" on public.documents;
 create policy "documents_insert_own"
@@ -174,7 +180,13 @@ drop policy if exists "embeddings_select_own" on public.document_embeddings;
 create policy "embeddings_select_own"
 on public.document_embeddings
 for select
-using (auth.uid() = user_id);
+using (
+  auth.uid() = user_id
+  or exists (
+    select 1 from public.documents d
+    where d.id = document_id and d.is_global = true
+  )
+);
 
 drop policy if exists "embeddings_insert_own" on public.document_embeddings;
 create policy "embeddings_insert_own"
