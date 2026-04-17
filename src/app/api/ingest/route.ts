@@ -28,10 +28,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Debes iniciar sesión con Google." }, { status: 401 });
     }
 
-    const { count: totalDocuments = 0 } = await sb
+    const { count: totalDocumentsCount } = await sb
       .from("documents")
       .select("*", { count: "exact", head: true })
       .eq("user_id", userId);
+    const totalDocuments = totalDocumentsCount ?? 0;
 
     if (totalDocuments >= 3) {
       return NextResponse.json(
