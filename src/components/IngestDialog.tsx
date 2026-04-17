@@ -12,9 +12,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { buildAuthHeaders } from "@/lib/auth-client"
 
 export function IngestDialog() {
   const [file, setFile] = React.useState<File | null>(null)
+  const [driveUrl, setDriveUrl] = React.useState("")
   const [status, setStatus] = React.useState<"idle" | "uploading" | "success" | "error">("idle")
   const [message, setMessage] = React.useState("")
 
@@ -33,8 +35,10 @@ export function IngestDialog() {
     formData.append("file", file)
 
     try {
+      const headers = await buildAuthHeaders()
       const res = await fetch("/api/ingest", {
         method: "POST",
+        headers,
         body: formData,
       })
 
@@ -49,6 +53,30 @@ export function IngestDialog() {
     } catch (err: unknown) {
       setStatus("error")
       const message = err instanceof Error ? err.message : "Error desconocido";
+      setMessage(message)
+    }
+  }
+
+  const handleDriveImport = async () => {
+    if (!driveUrl.trim()) return
+    setStatus("uploading")
+    try {
+      const headers = await buildAuthHeaders({ "Content-Type": "application/json" })
+      const res = await fetch("/api/ingest-drive", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ url: driveUrl }),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setStatus("success")
+        setMessage(`Importación exitosa desde Drive. Fragmentos creados: ${data.chunks}.`)
+      } else {
+        throw new Error(data.error || "No se pudo importar desde Drive")
+      }
+    } catch (err: unknown) {
+      setStatus("error")
+      const message = err instanceof Error ? err.message : "Error desconocido"
       setMessage(message)
     }
   }
@@ -73,6 +101,25 @@ export function IngestDialog() {
             onChange={handleFileChange}
             disabled={status === "uploading"}
           />
+        </div>
+        <div className="space-y-2">
+          <label className="text-xs font-bold uppercase text-muted-foreground">
+            O importa desde Google Drive (link público de archivo)
+          </label>
+          <Input
+            placeholder="https://drive.google.com/file/d/..."
+            value={driveUrl}
+            onChange={(e) => setDriveUrl(e.target.value)}
+            disabled={status === "uploading"}
+          />
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={handleDriveImport}
+            disabled={!driveUrl.trim() || status === "uploading"}
+          >
+            Importar desde Drive
+          </Button>
         </div>
 
         {status === "uploading" && (

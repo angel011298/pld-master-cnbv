@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
+import { buildAuthHeaders } from "@/lib/auth-client"
 
 interface Question {
   id: number
@@ -36,8 +37,10 @@ export function QuizSimulator() {
   const fetchQuiz = async () => {
     setGameState("loading")
     try {
+      const headers = await buildAuthHeaders({ "Content-Type": "application/json" })
       const res = await fetch("/api/generate-quiz", {
         method: "POST",
+        headers,
         body: JSON.stringify({ topic, difficulty, count: 5 }),
       })
       const data = await res.json()

@@ -2,17 +2,51 @@ import { NextRequest } from "next/server";
 export const dynamic = "force-dynamic";
 import { supabaseAdmin } from "@/lib/supabase";
 import { generateEmbedding, flashModel } from "@/lib/gemini";
+import { applyRateLimit } from "@/lib/rate-limit";
+import { getAuthenticatedUserId, getClientIp, validateMessagesPayload } from "@/lib/security";
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json();
+    const ip = getClientIp(req);
+    const userId = await getAuthenticatedUserId(req);
+    if (!userId) {
+      return new Response(JSON.stringify({ error: "Debes iniciar sesión con Google." }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    const rate = applyRateLimit({
+      key: `${userId ?? "anon"}:${ip}`,
+      route: "chat",
+      limit: 30,
+      windowMs: 24 * 60 * 60 * 1000,
+    });
+
+    if (!rate.allowed) {
+      return new Response(
+        JSON.stringify({ error: "Límite diario alcanzado (30 interacciones). Intenta mañana." }),
+        { status: 429, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    const sb = supabaseAdmin();
+    const payload = await req.json();
+    const parsed = validateMessagesPayload(payload);
+    if (!parsed.ok) {
+      return new Response(JSON.stringify({ error: parsed.error }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+    const messages = parsed.data;
     const lastMessage = messages[messages.length - 1].content;
 
     // 1. RAG Search
     const embedding = await generateEmbedding(lastMessage);
-    const { data: contextChunks } = await supabaseAdmin.rpc(
+    const { data: contextChunks } = await sb.rpc(
       "match_document_embeddings",
       {
+        p_user_id: userId,
         query_embedding: embedding,
         match_threshold: 0.5,
         match_count: 5,
@@ -34,12 +68,14 @@ export async function POST(req: NextRequest) {
       INSTRUCCIONES:
       - Sé directo, profesional y didáctico.
       - Si el usuario comete un error conceptual, explícaselo amablemente.
-      - Si la respuesta no está en el contexto, usa tu conocimiento general especificado como tal.
+      - Incluye citas textuales del contexto cuando existan.
+      - Si el contexto no alcanza, consulta información pública web confiable y entrega respuesta aproximada con enlaces de fuente.
+      - Nunca digas solo "no sé"; explica lo más probable y qué faltaría confirmar.
     `;
 
     // 3. Simple Streaming implementation using the Gemini SDK 
     // note: standard Next.js streaming requires some careful iteration
-    const chat = flashModel.startChat({
+    const chat = flashModel().startChat({
       history: [
         { role: "user", parts: [{ text: systemPrompt }] },
         { role: "model", parts: [{ text: "Entendido. Soy tu Tutor PLD-Master. ¿En qué puedo ayudarte hoy?" }] },

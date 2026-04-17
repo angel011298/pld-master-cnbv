@@ -2,18 +2,45 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 import { supabaseAdmin } from "@/lib/supabase";
 import { generateEmbedding, proModel } from "@/lib/gemini";
+import { applyRateLimit } from "@/lib/rate-limit";
+import { getAuthenticatedUserId, getClientIp, validateQuizPayload } from "@/lib/security";
 
 export async function POST(req: NextRequest) {
   try {
-    const { topic, difficulty = "Intermedio", count = 5 } = await req.json();
+    const ip = getClientIp(req);
+    const userId = await getAuthenticatedUserId(req);
+    if (!userId) {
+      return NextResponse.json({ error: "Debes iniciar sesión con Google." }, { status: 401 });
+    }
+    const rate = applyRateLimit({
+      key: `${userId ?? "anon"}:${ip}`,
+      route: "generate-quiz",
+      limit: 30,
+      windowMs: 24 * 60 * 60 * 1000,
+    });
+    if (!rate.allowed) {
+      return NextResponse.json(
+        { error: "Límite diario alcanzado (30 interacciones). Intenta mañana." },
+        { status: 429 }
+      );
+    }
+
+    const sb = supabaseAdmin();
+    const payload = await req.json();
+    const parsed = validateQuizPayload(payload);
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: 400 });
+    }
+    const { topic, difficulty, count } = parsed.data;
 
     // 1. Generate embedding for the topic to search context
     const topicEmbedding = await generateEmbedding(topic);
 
     // 2. Perform vector search (match_document_embeddings)
-    const { data: contextChunks, error: searchError } = await supabaseAdmin.rpc(
+    const { data: contextChunks, error: searchError } = await sb.rpc(
       "match_document_embeddings",
       {
+        p_user_id: userId,
         query_embedding: topicEmbedding,
         match_threshold: 0.5,
         match_count: 10,
@@ -26,11 +53,9 @@ export async function POST(req: NextRequest) {
       ?.map((chunk: { content: string }) => chunk.content)
       .join("\n\n---\n\n");
 
-    if (!contextText) {
-      return NextResponse.json({ 
-        error: "No se encontró información relevante en los documentos subidos." 
-      }, { status: 404 });
-    }
+    const finalContext =
+      contextText ||
+      "No hay contexto suficiente en documentos internos. Usa fuentes públicas oficiales recientes de México (DOF, CNBV, SHCP, UIF) e incluye referencias.";
 
     // 3. Prompt Gemini Pro to generate the quiz
     const prompt = `
@@ -38,13 +63,14 @@ export async function POST(req: NextRequest) {
       Utiliza el siguiente contexto extraído de leyes y guías oficiales para generar un examen de certificación:
       
       CONTEXTO:
-      ${contextText}
+      ${finalContext}
       
       INSTRUCCIONES:
       - Genera exactamente ${count} preguntas de opción múltiple.
       - Nivel de dificultad: ${difficulty}.
       - Cada pregunta debe tener 4 opciones (A, B, C, D).
       - Incluye la justificación legal basada en el contexto.
+      - Incluye referencia de la fuente (documento interno o URL oficial).
       - Formato: JSON puro (un arreglo de objetos).
       
       EJEMPLO DE FORMATO:
@@ -59,7 +85,7 @@ export async function POST(req: NextRequest) {
       ]
     `;
 
-    const result = await proModel.generateContent(prompt);
+    const result = await proModel().generateContent(prompt);
     const response = await result.response;
     const text = response.text();
     

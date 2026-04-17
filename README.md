@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PLD-Master (Duolingo-style) — Estudio + RAG + Simulador + Tutor IA
 
-## Getting Started
+Plataforma de microaprendizaje gamificada: subes tus documentos (PDF), se indexan con embeddings (RAG) y puedes:
 
-First, run the development server:
+- **Hacer preguntas** al Tutor IA usando tu material como fuente.
+- **Generar exámenes** (estilo certificación) por tema y dificultad.
+- **Simular** un examen en UI tipo Duolingo.
+
+> Objetivo del producto: que puedas **estudiar cualquier tema** (no solo PLD) usando tus propios archivos y medir progreso.
+
+## Requisitos
+
+- Node.js 18+ (recomendado 20+)
+- Una cuenta gratuita de Supabase
+- Una API key de Gemini (Google AI Studio)
+
+## Configuración rápida (local)
+
+1) Instala dependencias
+
+```bash
+npm install
+```
+
+2) Variables de entorno
+
+- Copia `.env.example` a `.env.local`
+- Llena los valores
+
+3) Base de datos (Supabase)
+
+- Abre el **SQL Editor** de tu proyecto Supabase
+- Ejecuta `supabase/schema.sql`
+
+4) Corre el proyecto
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Activación de Google Login (Supabase)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1) En Supabase: `Authentication` → `Providers` → activa `Google`.
+2) Configura credenciales OAuth de Google (Client ID / Secret).
+3) En Supabase: `Authentication` → `URL Configuration`:
+   - `Site URL`: tu dominio principal (local: `http://localhost:3000`)
+   - Agrega redirect URL para local y producción.
+4) En Google Cloud OAuth, agrega URIs de redirección autorizadas de Supabase.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Endpoints (API)
 
-## Learn More
+- **`POST /api/ingest`**: recibe `multipart/form-data` con `file` (PDF). Extrae texto, lo guarda en `documents` y crea embeddings en `document_embeddings`.
+- **`POST /api/chat`**: chat con RAG (busca contexto en embeddings y responde con Gemini streaming).
+- **`POST /api/generate-quiz`**: genera preguntas tipo examen en JSON usando contexto de tus documentos.
+- **`POST /api/ingest-drive`**: importa un PDF público de Google Drive por URL de archivo.
 
-To learn more about Next.js, take a look at the following resources:
+## Seguridad aplicada
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Rate limiting** en rutas IA e ingesta (límite diario por usuario/IP).
+- **Sanitización de entradas** para texto y nombres de archivo.
+- **Validación de archivos**: solo PDF, máximo 5MB, máximo 150 páginas.
+- **Autenticación obligatoria** por Google (Supabase) en rutas sensibles.
+- **Variables sensibles** solo en servidor (`GEMINI_API_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
+- **ID maestro de cliente** en base de datos (`public_customer_id`) para mapear Stripe y sistemas internos.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notas importantes (para que no “se rompa”)
 
-## Deploy on Vercel
+- **Sin llaves**: si faltan `GEMINI_API_KEY` o variables de Supabase, las APIs responderán con error claro (la UI debe seguir cargando).
+- **Dimensión del vector**: este proyecto asume **768** dims (Gemini `text-embedding-004`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy a Vercel (gratis)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1) Importa el repo en Vercel
+2) Configura variables de entorno (las mismas de `.env.local`)
+3) Deploy
+
+## Importación desde Google Drive (Opción A)
+
+- Soporta links de archivo tipo `https://drive.google.com/file/d/...`
+- No acepta links de carpeta.
+- El archivo debe ser público y cumplir límites: PDF, 5MB, 150 páginas.
+
+## Roadmap sugerido (siguiente versión)
+
+- **Progreso “exacto”**: tracking por “conceptos” y “evidencias” (preguntas respondidas, repasos espaciados, simulaciones).
+- **Modo “elige tu tema”**: crear “Cursos” desde PDFs + objetivos (temario) + nivel.
+- **Banco de reactivos**: cachear preguntas y re-usarlas (barato) + explicación y fuente.
+- **Verificación/Referencias**: al responder, incluir *citas* al fragmento del documento (y links si aplica).
+- **Animaciones didácticas**: micro-ilustraciones por concepto (Lottie/Framer) sin costos.
+

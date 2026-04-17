@@ -1,26 +1,43 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.GEMINI_API_KEY!;
-const genAI = new GoogleGenerativeAI(apiKey);
+function getApiKey() {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) {
+    throw new Error(
+      "Falta configurar GEMINI_API_KEY. Crea un .env.local con GEMINI_API_KEY=... (solo server) o configura la variable en Vercel."
+    );
+  }
+  return key;
+}
 
-// Gemini 1.5 Pro with Search Grounding
-export const proModel = genAI.getGenerativeModel({
-  model: "gemini-1.5-pro",
-  tools: [{ googleSearchRetrieval: {} }] as { googleSearchRetrieval: Record<string, unknown> }[],
-});
+function getGenAI() {
+  return new GoogleGenerativeAI(getApiKey());
+}
 
-// Gemini 1.5 Flash with Search Grounding
-export const flashModel = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  tools: [{ googleSearchRetrieval: {} }] as { googleSearchRetrieval: Record<string, unknown> }[],
-});
+function getModels() {
+  const genAI = getGenAI();
 
-// Embedding model
-export const embeddingModel = genAI.getGenerativeModel({
-  model: "text-embedding-004",
-});
+  // Nota: el “grounding”/búsqueda depende del proveedor y puede cambiar.
+  // Si causa errores, desactívalo y usa solo RAG (documentos) o un verificador externo.
+  const tools = [{ googleSearchRetrieval: {} }] as { googleSearchRetrieval: Record<string, unknown> }[];
+
+  const proModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro", tools });
+  const flashModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash", tools });
+  const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
+
+  return { proModel, flashModel, embeddingModel };
+}
+
+export function proModel() {
+  return getModels().proModel;
+}
+
+export function flashModel() {
+  return getModels().flashModel;
+}
 
 export async function generateEmbedding(text: string) {
+  const { embeddingModel } = getModels();
   const result = await embeddingModel.embedContent(text);
   return result.embedding.values;
 }

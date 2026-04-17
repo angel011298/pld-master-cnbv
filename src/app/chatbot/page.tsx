@@ -5,6 +5,7 @@ import { Send, Bot, User, Loader2, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import { buildAuthHeaders } from "@/lib/auth-client"
 
 type Message = {
   role: "user" | "assistant"
@@ -34,8 +35,10 @@ export default function ChatbotPage() {
     setIsLoading(true)
 
     try {
+      const headers = await buildAuthHeaders({ "Content-Type": "application/json" })
       const response = await fetch("/api/chat", {
         method: "POST",
+        headers,
         body: JSON.stringify({ messages: [...messages, userMsg] }),
       })
 
