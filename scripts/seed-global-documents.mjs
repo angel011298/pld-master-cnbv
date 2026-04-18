@@ -2,15 +2,14 @@
 /**
  * Pre-ingest 18 official CNBV PLD/FT PDFs from Google Drive as global documents.
  * Run: node scripts/seed-global-documents.mjs
- * Requires: .env.local with SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY
+ * Requires: .env.local with SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY, GOOGLE_DRIVE_API_KEY
  */
 
 import { readFileSync, existsSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { createRequire } from "module";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
-// Load .env.local manually
 function loadEnv() {
   const envFile = ".env.local";
   if (!existsSync(envFile)) {
@@ -29,9 +28,10 @@ loadEnv();
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
+const DRIVE_API_KEY = process.env.GOOGLE_DRIVE_API_KEY;
 
-if (!SUPABASE_URL || !SERVICE_KEY || !GEMINI_KEY) {
-  console.error("❌ Missing env vars: NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY");
+if (!SUPABASE_URL || !SERVICE_KEY || !GEMINI_KEY || !DRIVE_API_KEY) {
+  console.error("❌ Missing env vars: NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY, GOOGLE_DRIVE_API_KEY");
   process.exit(1);
 }
 
@@ -71,10 +71,21 @@ function chunkText(text) {
   return chunks;
 }
 
+async function parsePdf(buffer) {
+  const data = new Uint8Array(buffer);
+  const doc = await pdfjsLib.getDocument({ data, disableWorker: true }).promise;
+  const pageTexts = [];
+  for (let i = 1; i <= doc.numPages; i++) {
+    const page = await doc.getPage(i);
+    const tc = await page.getTextContent();
+    pageTexts.push(tc.items.map((t) => t.str).join(" "));
+  }
+  return { text: pageTexts.join("\n"), numpages: doc.numPages };
+}
+
 const sb = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: false } });
 const genAI = new GoogleGenerativeAI(GEMINI_KEY);
 const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
-const req = createRequire(import.meta.url);
 
 async function ingestFile(file) {
   process.stdout.write(`📄 ${file.name} ... `);
@@ -91,18 +102,17 @@ async function ingestFile(file) {
     return;
   }
 
-  const downloadUrl = `https://drive.google.com/uc?export=download&id=${file.id}`;
-  const res = await fetch(downloadUrl, { redirect: "follow" });
+  const downloadUrl = `https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${DRIVE_API_KEY}`;
+  const res = await fetch(downloadUrl);
   if (!res.ok) { console.log(`❌ HTTP ${res.status}`); return; }
 
   const bytes = await res.arrayBuffer();
   if (bytes.byteLength > MAX_BYTES) {
-    console.log(`⚠️  demasiado grande (${(bytes.byteLength/1024/1024).toFixed(1)} MB)`);
+    console.log(`⚠️  demasiado grande (${(bytes.byteLength / 1024 / 1024).toFixed(1)} MB)`);
     return;
   }
 
-  const pdfParse = req("pdf-parse");
-  const pdfData = await pdfParse(Buffer.from(bytes));
+  const pdfData = await parsePdf(bytes);
   if (pdfData.numpages > 150) { console.log("⚠️  >150 páginas"); return; }
 
   const { data: doc, error: docErr } = await sb

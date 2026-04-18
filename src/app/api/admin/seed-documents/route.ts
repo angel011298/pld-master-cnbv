@@ -77,8 +77,13 @@ export async function POST(req: NextRequest) {
         continue;
       }
 
-      const downloadUrl = `https://drive.google.com/uc?export=download&id=${file.id}`;
-      const res = await fetch(downloadUrl, { redirect: "follow" });
+      const driveApiKey = process.env.GOOGLE_DRIVE_API_KEY;
+      if (!driveApiKey) {
+        results.push({ name: file.name, status: "error", error: "GOOGLE_DRIVE_API_KEY not set" });
+        continue;
+      }
+      const downloadUrl = `https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${driveApiKey}`;
+      const res = await fetch(downloadUrl);
       if (!res.ok) {
         results.push({ name: file.name, status: "error", error: `HTTP ${res.status}` });
         continue;
@@ -90,10 +95,8 @@ export async function POST(req: NextRequest) {
         continue;
       }
 
-      // Dynamic import of pdf-parse (CJS)
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const pdfParse = require("pdf-parse") as (b: Buffer) => Promise<{ text: string; numpages: number }>;
-      const pdfData = await pdfParse(Buffer.from(bytes));
+      const { parsePDF } = await import("@/lib/pdf-service");
+      const pdfData = await parsePDF(Buffer.from(bytes));
       if (pdfData.numpages > 150) {
         results.push({ name: file.name, status: "skipped (>150 pages)" });
         continue;
