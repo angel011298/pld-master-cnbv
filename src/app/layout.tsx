@@ -4,6 +4,7 @@ import "./globals.css";
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AuthControls } from "@/components/AuthControls";
+import { Providers } from "@/components/Providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full font-sans">
+        <Providers>
         <SidebarProvider>
           <AppSidebar />
           <SidebarInset>
@@ -35,6 +37,7 @@ export default function RootLayout({
             </main>
           </SidebarInset>
         </SidebarProvider>
+        </Providers>
       </body>
     </html>
   );
