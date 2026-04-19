@@ -22,10 +22,13 @@ export function AuthControls() {
     setLoading(true);
     try {
       const sb = supabase();
-      const redirectTo = typeof window !== "undefined" ? window.location.origin : undefined;
+      const callbackUrl =
+        typeof window !== "undefined"
+          ? `${window.location.origin}/auth/callback`
+          : undefined;
       await sb.auth.signInWithOAuth({
         provider: "google",
-        options: { redirectTo },
+        options: { redirectTo: callbackUrl },
       });
     } finally {
       setLoading(false);

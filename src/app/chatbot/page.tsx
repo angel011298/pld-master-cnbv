@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { buildAuthHeaders } from "@/lib/auth-client"
+import { PaywallGate } from "@/components/PaywallGate"
 
 type Message = {
   role: "user" | "assistant"
@@ -70,6 +71,7 @@ export default function ChatbotPage() {
   }
 
   return (
+    <PaywallGate>
     <div className="flex flex-col h-[calc(100vh-10rem)] max-w-4xl mx-auto border rounded-3xl overflow-hidden bg-white shadow-xl">
       {/* Header */}
       <div className="bg-primary/5 border-b p-4 flex items-center gap-3">
@@ -137,5 +139,6 @@ export default function ChatbotPage() {
         </p>
       </div>
     </div>
+    </PaywallGate>
   )
 }

@@ -9,6 +9,8 @@ export interface UserProfile {
   currentStreak: number;
   examScorePrediction: number | null;
   passProbability: number | null;
+  subscriptionStatus: "free" | "active" | "cancelled" | "past_due";
+  isPro: boolean;
 }
 
 export function useUserProfile() {
@@ -17,7 +19,9 @@ export function useUserProfile() {
 
   const fetchProfile = useCallback(async () => {
     const sb = supabase();
-    const { data: { session } } = await sb.auth.getSession();
+    const {
+      data: { session },
+    } = await sb.auth.getSession();
     if (!session?.user?.id) {
       setProfile(null);
       setLoading(false);
@@ -26,20 +30,33 @@ export function useUserProfile() {
 
     const { data } = await sb
       .from("user_profiles")
-      .select("user_id, total_xp, current_streak, exam_score_prediction, pass_probability")
+      .select(
+        "user_id, total_xp, current_streak, exam_score_prediction, pass_probability, subscription_status"
+      )
       .eq("user_id", session.user.id)
       .single();
 
     if (data) {
+      const status = (data.subscription_status ?? "free") as UserProfile["subscriptionStatus"];
       setProfile({
         userId: data.user_id,
         totalXp: data.total_xp ?? 0,
         currentStreak: data.current_streak ?? 0,
         examScorePrediction: data.exam_score_prediction ?? null,
         passProbability: data.pass_probability ?? null,
+        subscriptionStatus: status,
+        isPro: status === "active",
       });
     } else {
-      setProfile({ userId: session.user.id, totalXp: 0, currentStreak: 0, examScorePrediction: null, passProbability: null });
+      setProfile({
+        userId: session.user.id,
+        totalXp: 0,
+        currentStreak: 0,
+        examScorePrediction: null,
+        passProbability: null,
+        subscriptionStatus: "free",
+        isPro: false,
+      });
     }
     setLoading(false);
   }, []);
@@ -48,7 +65,9 @@ export function useUserProfile() {
     fetchProfile();
 
     const sb = supabase();
-    const { data: { subscription } } = sb.auth.onAuthStateChange(() => {
+    const {
+      data: { subscription },
+    } = sb.auth.onAuthStateChange(() => {
       fetchProfile();
     });
     return () => subscription.unsubscribe();
