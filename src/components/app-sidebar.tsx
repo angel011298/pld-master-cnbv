@@ -11,6 +11,10 @@ import {
   Zap,
   Flame,
   ClipboardList,
+  Users,
+  BookOpen,
+  Briefcase,
+  FileText,
 } from "lucide-react"
 
 import {
@@ -30,11 +34,15 @@ import { useUserProfile } from "@/hooks/useUserProfile"
 
 const navItems = [
   { title: "Ruta de Aprendizaje", url: "/", icon: Map },
-  { title: "Simulador CENEVAL", url: "/simulator", icon: GraduationCap },
+  { title: "Simulador CNBV", url: "/simulator", icon: GraduationCap },
+  { title: "Modo Estudio", url: "/estudio", icon: BookOpen },
   { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
+  { title: "Foro", url: "/foro", icon: Users },
   { title: "Entidades Financieras", url: "/entities", icon: Building2 },
   { title: "Base de Conocimiento", url: "/knowledge", icon: Library },
   { title: "Guía de Trámites", url: "/tramites", icon: ClipboardList },
+  { title: "B2B / Licencias", url: "/b2b", icon: Briefcase },
+  { title: "Blog", url: "/blog", icon: FileText },
 ]
 
 const LEVEL_XP = 1000
