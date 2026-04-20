@@ -1,21 +1,20 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, Lock, Play, Star, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList } from "lucide-react"
+import { Check, Lock, Play, Star, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
-import { IngestDialog } from "@/components/IngestDialog"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { cn } from "@/lib/utils"
 
 const MODULES = [
-  { id: "1", title: "Fundamentos e Instituciones Internacionales", status: "completed" as const },
-  { id: "2", title: "Marco Jurídico Mexicano", status: "current" as const },
-  { id: "3", title: "Prevención y Gestión de Riesgos (EBR)", status: "locked" as const },
-  { id: "4", title: "Auditoría y Supervisión", status: "locked" as const },
-  { id: "5", title: "Tipologías e Inteligencia Financiera", status: "locked" as const },
+  { id: "1", title: "Fundamentos e Instituciones Internacionales", status: "completed" as const, tier: "free" },
+  { id: "2", title: "Marco Jurídico Mexicano", status: "current" as const, tier: "free" },
+  { id: "3", title: "Prevención y Gestión de Riesgos (EBR)", status: "locked" as const, tier: "premium" },
+  { id: "4", title: "Auditoría y Supervisión", status: "locked" as const, tier: "premium" },
+  { id: "5", title: "Tipologías e Inteligencia Financiera", status: "locked" as const, tier: "premium" },
 ]
 
 const LEVEL_XP = 1000
@@ -25,17 +24,47 @@ const fadeUp = {
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.07, duration: 0.4, ease: "easeOut" } }),
 }
 
+async function goToPremium() {
+  const res = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ plan: "individual" }) })
+  const data = await res.json()
+  if (data.url) window.location.href = data.url
+}
+
 export default function Home() {
-  const { profile, loading, refetch } = useUserProfile()
+  const { profile, loading } = useUserProfile()
 
   const totalXp = profile?.totalXp ?? 0
   const streak = profile?.currentStreak ?? 0
+  const tier = profile?.tier ?? "free"
   const levelProgress = totalXp % LEVEL_XP
   const level = Math.floor(totalXp / LEVEL_XP) + 1
   const completedModules = MODULES.filter((m) => m.status === "completed").length
+  const isPremium = tier === "premium"
 
   return (
     <div className="p-4 space-y-4">
+      {/* Premium CTA banner (free users only) */}
+      {!loading && !isPremium && (
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="flex items-center justify-between gap-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-2xl p-4 shadow-md">
+            <div className="flex items-center gap-3">
+              <Crown className="h-6 w-6 text-white shrink-0" />
+              <div>
+                <p className="text-white font-black text-sm">Desbloquea todos los módulos Premium</p>
+                <p className="text-yellow-100 text-xs">+2,500 reactivos · Chatbot ilimitado · Simulador completo</p>
+              </div>
+            </div>
+            <Button
+              className="bg-white text-yellow-700 hover:bg-yellow-50 font-black text-sm shrink-0 shadow"
+              size="sm"
+              onClick={goToPremium}
+            >
+              Hazte Premium $2,999
+            </Button>
+          </div>
+        </motion.div>
+      )}
+
       {/* Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto">
 
@@ -43,7 +72,7 @@ export default function Home() {
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="md:col-span-2">
           <Card className="h-full border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-black tracking-tight">
+              <CardTitle className="text-2xl font-black tracking-tight text-foreground">
                 Ruta CNBV 2026 🎯
               </CardTitle>
               <p className="text-muted-foreground text-sm">
@@ -53,7 +82,7 @@ export default function Home() {
             <CardContent className="space-y-3">
               <div className="flex items-center justify-between text-sm font-semibold">
                 <span className="text-muted-foreground">Nivel {level}</span>
-                <span className="text-primary">{levelProgress}/{LEVEL_XP} XP</span>
+                <span className="text-primary font-black">{levelProgress}/{LEVEL_XP} XP</span>
               </div>
               <Progress value={(levelProgress / LEVEL_XP) * 100} className="h-3" />
               <div className="flex gap-2 pt-2">
@@ -63,7 +92,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/chatbot" className="flex-1">
-                  <Button variant="outline" className="w-full font-bold" size="sm">
+                  <Button variant="outline" className="w-full font-bold text-foreground border-border" size="sm">
                     <MessageSquare className="h-4 w-4 mr-1" /> Chatbot IA
                   </Button>
                 </Link>
@@ -76,10 +105,7 @@ export default function Home() {
         <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
           <Card className="h-full border-2 border-secondary/30 bg-gradient-to-br from-secondary/10 to-transparent">
             <CardContent className="flex flex-col items-center justify-center h-full py-8 gap-2">
-              <motion.div
-                whileHover={{ scale: 1.08 }}
-                className="flex flex-col items-center gap-1"
-              >
+              <motion.div whileHover={{ scale: 1.08 }} className="flex flex-col items-center gap-1">
                 <Zap className="h-10 w-10 text-secondary" />
                 <span className="text-4xl font-black text-foreground">
                   {loading ? "—" : totalXp.toLocaleString()}
@@ -92,7 +118,7 @@ export default function Home() {
 
         {/* Racha — 1 col */}
         <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
-          <Card className="h-full border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-transparent dark:from-orange-950/20">
+          <Card className="h-full border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-transparent">
             <CardContent className="flex flex-col items-center justify-center h-full py-8 gap-2">
               <motion.div
                 animate={{ scale: [1, 1.05, 1] }}
@@ -115,42 +141,52 @@ export default function Home() {
         <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible" className="md:col-span-2">
           <Card className="h-full border-2">
             <CardHeader className="pb-3">
-              <CardTitle className="text-lg font-black flex items-center gap-2">
+              <CardTitle className="text-lg font-black flex items-center gap-2 text-foreground">
                 <Trophy className="h-5 w-5 text-primary" /> Módulos de Estudio
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                {MODULES.map((mod, i) => (
-                  <motion.div
-                    key={mod.id}
-                    whileHover={mod.status !== "locked" ? { x: 4 } : {}}
-                    className={cn(
-                      "flex items-center gap-3 p-3 rounded-xl border-2 transition-all",
-                      mod.status === "completed" ? "border-primary/30 bg-primary/5" :
-                      mod.status === "current" ? "border-secondary/40 bg-secondary/5 shadow-sm" :
-                      "border-gray-100 opacity-50"
-                    )}
-                  >
-                    <div className={cn(
-                      "h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-white font-black text-sm",
-                      mod.status === "completed" ? "bg-primary" :
-                      mod.status === "current" ? "bg-secondary" :
-                      "bg-gray-300"
-                    )}>
-                      {mod.status === "completed" ? <Check className="h-4 w-4" /> :
-                       mod.status === "current" ? <Play className="h-3 w-3" /> :
-                       <Lock className="h-3 w-3" />}
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-bold truncate">{i + 1}. {mod.title}</p>
-                      <p className="text-xs text-muted-foreground capitalize">{mod.status === "completed" ? "Completado" : mod.status === "current" ? "En progreso" : "Bloqueado"}</p>
-                    </div>
-                    {mod.status === "current" && (
-                      <Star className="h-4 w-4 text-secondary shrink-0 ml-auto animate-pulse" />
-                    )}
-                  </motion.div>
-                ))}
+                {MODULES.map((mod, i) => {
+                  const isLocked = mod.status === "locked" && !isPremium
+                  return (
+                    <motion.div
+                      key={mod.id}
+                      whileHover={!isLocked ? { x: 4 } : {}}
+                      className={cn(
+                        "flex items-center gap-3 p-3 rounded-xl border-2 transition-all",
+                        mod.status === "completed" ? "border-primary/30 bg-primary/5" :
+                        mod.status === "current" ? "border-secondary/40 bg-secondary/5 shadow-sm" :
+                        "border-border opacity-60"
+                      )}
+                    >
+                      <div className={cn(
+                        "h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-white font-black text-sm",
+                        mod.status === "completed" ? "bg-primary" :
+                        mod.status === "current" ? "bg-secondary" :
+                        "bg-muted-foreground"
+                      )}>
+                        {mod.status === "completed" ? <Check className="h-4 w-4" /> :
+                         mod.status === "current" ? <Play className="h-3 w-3" /> :
+                         <Lock className="h-3 w-3" />}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-bold truncate text-foreground">{i + 1}. {mod.title}</p>
+                        <p className="text-xs text-muted-foreground capitalize">
+                          {mod.status === "completed" ? "Completado" : mod.status === "current" ? "En progreso" : "Bloqueado"}
+                        </p>
+                      </div>
+                      {mod.status === "current" && (
+                        <Star className="h-4 w-4 text-secondary shrink-0 ml-auto animate-pulse" />
+                      )}
+                      {isLocked && (
+                        <button onClick={goToPremium} className="shrink-0 text-xs font-black text-yellow-600 bg-yellow-50 border border-yellow-200 px-2 py-0.5 rounded-full hover:bg-yellow-100 transition-colors">
+                          Premium
+                        </button>
+                      )}
+                    </motion.div>
+                  )
+                })}
               </div>
             </CardContent>
           </Card>
@@ -160,21 +196,21 @@ export default function Home() {
         <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible">
           <Card className="h-full border-2">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-black">Acceso Rápido</CardTitle>
+              <CardTitle className="text-base font-black text-foreground">Acceso Rápido</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               {[
                 { href: "/simulator", icon: GraduationCap, label: "Simulador CENEVAL", color: "bg-primary" },
                 { href: "/chatbot", icon: MessageSquare, label: "Chatbot IA", color: "bg-secondary" },
                 { href: "/tramites", icon: ClipboardList, label: "Guía de Trámites", color: "bg-orange-500" },
-              ].map((item, i) => (
+              ].map((item) => (
                 <motion.div key={item.href} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link href={item.href}>
-                    <div className="flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all cursor-pointer">
+                    <div className="flex items-center gap-3 p-3 rounded-xl border-2 border-border hover:border-primary/30 hover:bg-primary/5 transition-all cursor-pointer">
                       <div className={cn("h-8 w-8 rounded-lg flex items-center justify-center", item.color)}>
                         <item.icon className="h-4 w-4 text-white" />
                       </div>
-                      <span className="text-sm font-bold">{item.label}</span>
+                      <span className="text-sm font-bold text-foreground">{item.label}</span>
                     </div>
                   </Link>
                 </motion.div>
@@ -183,9 +219,28 @@ export default function Home() {
           </Card>
         </motion.div>
 
-        {/* Ingest Dialog — 2 cols */}
-        <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible" className="md:col-span-2">
-          <IngestDialog onImportDone={refetch} />
+        {/* Premium upsell card — 1 col (free users) / success (premium) */}
+        <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible">
+          {isPremium ? (
+            <Card className="h-full border-2 border-yellow-200 bg-gradient-to-br from-yellow-50 to-white">
+              <CardContent className="flex flex-col items-center justify-center h-full py-8 gap-3 text-center">
+                <Crown className="h-10 w-10 text-yellow-500" />
+                <p className="font-black text-foreground">Plan Premium</p>
+                <p className="text-xs text-muted-foreground">Acceso completo desbloqueado</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="h-full border-2 border-dashed border-yellow-300 bg-gradient-to-br from-yellow-50 to-white">
+              <CardContent className="flex flex-col items-center justify-center h-full py-8 gap-3 text-center">
+                <Lock className="h-10 w-10 text-yellow-400" />
+                <p className="font-black text-foreground text-sm">Módulos Avanzados</p>
+                <p className="text-xs text-muted-foreground mb-1">Bloqueados en plan gratuito</p>
+                <Button size="sm" className="font-black bg-yellow-400 hover:bg-yellow-300 text-blue-900" onClick={goToPremium}>
+                  Hazte Premium
+                </Button>
+              </CardContent>
+            </Card>
+          )}
         </motion.div>
 
       </div>

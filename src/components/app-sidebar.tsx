@@ -11,6 +11,7 @@ import {
   Zap,
   Flame,
   ClipboardList,
+  Shield,
 } from "lucide-react"
 
 import {
@@ -27,8 +28,11 @@ import {
 } from "@/components/ui/sidebar"
 import { Progress } from "@/components/ui/progress"
 import { useUserProfile } from "@/hooks/useUserProfile"
+import { supabase } from "@/lib/supabase"
 
-const navItems = [
+const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
+
+const NAV_ITEMS = [
   { title: "Ruta de Aprendizaje", url: "/", icon: Map },
   { title: "Simulador CENEVAL", url: "/simulator", icon: GraduationCap },
   { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
@@ -41,18 +45,29 @@ const LEVEL_XP = 1000
 
 export function AppSidebar() {
   const { profile, loading } = useUserProfile()
+  const [userEmail, setUserEmail] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    const sb = supabase()
+    sb.auth.getUser().then(({ data }) => setUserEmail(data.user?.email ?? null))
+    const { data: { subscription } } = sb.auth.onAuthStateChange((_e, session) => {
+      setUserEmail(session?.user?.email ?? null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
 
   const totalXp = profile?.totalXp ?? 0
   const streak = profile?.currentStreak ?? 0
   const levelProgress = totalXp % LEVEL_XP
   const level = Math.floor(totalXp / LEVEL_XP) + 1
+  const isSuperAdmin = userEmail === SUPER_ADMIN_EMAIL
 
   return (
     <Sidebar variant="sidebar" collapsible="icon">
       <SidebarHeader className="border-b px-6 py-4">
         <div className="flex items-center gap-2 font-bold text-xl text-primary">
           <Trophy className="h-6 w-6" />
-          <span>PLD-Master</span>
+          <span>Certifik PLD</span>
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -60,7 +75,7 @@ export function AppSidebar() {
           <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     tooltip={item.title}
@@ -73,6 +88,19 @@ export function AppSidebar() {
                   />
                 </SidebarMenuItem>
               ))}
+              {isSuperAdmin && (
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    tooltip="Dashboard Maestro"
+                    render={(props) => (
+                      <a href="/admin" {...props} className={`${props.className ?? ""} text-blue-700 font-bold`}>
+                        <Shield />
+                        <span>Dashboard Maestro</span>
+                      </a>
+                    )}
+                  />
+                </SidebarMenuItem>
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

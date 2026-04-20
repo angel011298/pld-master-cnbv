@@ -9,6 +9,9 @@ export interface UserProfile {
   currentStreak: number;
   examScorePrediction: number | null;
   passProbability: number | null;
+  tier: "free" | "premium";
+  examDate: string | null;
+  onboardingCompleted: boolean;
 }
 
 export function useUserProfile() {
@@ -26,7 +29,7 @@ export function useUserProfile() {
 
     const { data } = await sb
       .from("user_profiles")
-      .select("user_id, total_xp, current_streak, exam_score_prediction, pass_probability")
+      .select("user_id, total_xp, current_streak, exam_score_prediction, pass_probability, tier, exam_date, onboarding_completed")
       .eq("user_id", session.user.id)
       .single();
 
@@ -37,9 +40,12 @@ export function useUserProfile() {
         currentStreak: data.current_streak ?? 0,
         examScorePrediction: data.exam_score_prediction ?? null,
         passProbability: data.pass_probability ?? null,
+        tier: (data.tier as "free" | "premium") ?? "free",
+        examDate: data.exam_date ?? null,
+        onboardingCompleted: data.onboarding_completed ?? false,
       });
     } else {
-      setProfile({ userId: session.user.id, totalXp: 0, currentStreak: 0, examScorePrediction: null, passProbability: null });
+      setProfile({ userId: session.user.id, totalXp: 0, currentStreak: 0, examScorePrediction: null, passProbability: null, tier: "free", examDate: null, onboardingCompleted: false });
     }
     setLoading(false);
   }, []);

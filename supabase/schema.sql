@@ -31,6 +31,10 @@ create table if not exists public.user_profiles (
   pass_probability numeric(5,2),
   stripe_customer_id text unique,
   external_refs jsonb not null default '{}'::jsonb,
+  -- Onboarding & subscription
+  tier text not null default 'free' check (tier in ('free', 'premium')),
+  exam_date date,
+  onboarding_completed boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
