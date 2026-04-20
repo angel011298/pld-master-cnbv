@@ -5,7 +5,10 @@ import { generateEmbedding } from "@/lib/gemini";
 import { parsePDF } from "@/lib/pdf-service";
 import { applyRateLimit } from "@/lib/rate-limit";
 import { getAuthenticatedUserId, getClientIp, sanitizeFileName, sanitizeText } from "@/lib/security";
-import { buildGoogleDriveDownloadUrl, extractGoogleDriveFileId, isGoogleDriveUrl } from "@/lib/google-drive";
+import { buildGoogleDriveDownloadUrl } from "@/lib/google-drive";
+
+const MAX_FILE_BYTES = 5 * 1024 * 1024;
+const MAX_DOCS = 3;
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,34 +31,54 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Debes iniciar sesión con Google." }, { status: 401 });
     }
 
-    const payload = (await req.json()) as { url?: string };
-    const url = typeof payload?.url === "string" ? sanitizeText(payload.url, 1000) : "";
-    if (!url) {
-      return NextResponse.json({ error: "Debes enviar una URL de Google Drive." }, { status: 400 });
-    }
-    if (!isGoogleDriveUrl(url)) {
-      return NextResponse.json({ error: "La URL debe ser de Google Drive." }, { status: 400 });
-    }
+    const payload = (await req.json()) as { fileId?: string; fileName?: string };
+    const fileId = typeof payload?.fileId === "string" ? sanitizeText(payload.fileId, 200) : "";
+    const rawFileName = typeof payload?.fileName === "string" ? payload.fileName : "";
 
-    const fileId = extractGoogleDriveFileId(url);
     if (!fileId) {
       return NextResponse.json(
-        { error: "No se pudo identificar el archivo. Usa un link de archivo compartido (no carpeta)." },
+        { error: "Debes enviar un fileId de Google Drive." },
         { status: 400 }
       );
     }
 
     const sb = supabaseAdmin();
-    const { count: totalDocuments = 0 } = await sb
-      .from("documents")
-      .select("*", { count: "exact", head: true })
-      .eq("user_id", userId);
 
-    if (totalDocuments >= 3) {
-      return NextResponse.json(
-        { error: "Límite alcanzado: máximo 3 documentos por usuario en el plan gratuito." },
-        { status: 400 }
-      );
+    // Upsert: if a document with this source_file_id already exists for this user, delete it first
+    const { data: existing } = await sb
+      .from("documents")
+      .select("id")
+      .eq("user_id", userId)
+      .filter("name", "like", `%drive-${fileId}%`)
+      .limit(1);
+
+    // Also check via metadata on embeddings
+    const { data: existingByMeta } = await sb
+      .from("document_embeddings")
+      .select("document_id")
+      .eq("user_id", userId)
+      .contains("metadata", { source_file_id: fileId })
+      .limit(1);
+
+    const existingDocId =
+      existingByMeta?.[0]?.document_id ?? existing?.[0]?.id ?? null;
+
+    if (existingDocId) {
+      // Cascade deletes embeddings automatically via FK
+      await sb.from("documents").delete().eq("id", existingDocId).eq("user_id", userId);
+    } else {
+      // Only enforce the 3-doc limit when it's a new document (not an update)
+      const { count: totalDocuments = 0 } = await sb
+        .from("documents")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", userId);
+
+      if ((totalDocuments ?? 0) >= MAX_DOCS) {
+        return NextResponse.json(
+          { error: "Límite alcanzado: máximo 3 documentos por usuario en el plan gratuito." },
+          { status: 400 }
+        );
+      }
     }
 
     const downloadUrl = buildGoogleDriveDownloadUrl(fileId);
@@ -69,20 +92,19 @@ export async function POST(req: NextRequest) {
 
     const bytes = await driveRes.arrayBuffer();
     const fileSize = bytes.byteLength;
-    const maxFileBytes = 5 * 1024 * 1024;
-    if (fileSize > maxFileBytes) {
+    if (fileSize > MAX_FILE_BYTES) {
       return NextResponse.json({ error: "El archivo excede 5MB." }, { status: 400 });
     }
 
-    const contentType = driveRes.headers.get("content-type") || "";
-    if (!contentType.includes("pdf") && !downloadUrl.toLowerCase().includes(".pdf")) {
+    const contentType = driveRes.headers.get("content-type") ?? "";
+    if (!contentType.includes("pdf")) {
       return NextResponse.json({ error: "Solo se aceptan PDFs de Drive." }, { status: 400 });
     }
 
-    const contentDisposition = driveRes.headers.get("content-disposition") || "";
+    const contentDisposition = driveRes.headers.get("content-disposition") ?? "";
     const extractedName = contentDisposition.match(/filename\*?=(?:UTF-8'')?"?([^";]+)"?/i)?.[1];
     const documentName = sanitizeFileName(
-      decodeURIComponent(extractedName || `drive-${fileId}.pdf`).replace(/\+/g, " ")
+      decodeURIComponent(extractedName ?? rawFileName ?? `drive-${fileId}.pdf`).replace(/\+/g, " ")
     );
 
     const pdfData = await parsePDF(Buffer.from(bytes));
@@ -126,7 +148,7 @@ export async function POST(req: NextRequest) {
           embedding,
           metadata: {
             source: documentName,
-            source_url: url,
+            source_file_id: fileId,
             page_count: pdfData.numpages,
           },
         };
@@ -140,6 +162,7 @@ export async function POST(req: NextRequest) {
       success: true,
       documentId: document.id,
       chunks: chunks.length,
+      updated: !!existingDocId,
       source: "google-drive",
     });
   } catch (error: unknown) {
@@ -148,4 +171,3 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
-

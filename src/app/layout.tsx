@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { AuthControls } from "@/components/AuthControls";
+import { ClientLayout } from "@/components/ClientLayout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PLD-Master | Certificación CNBV 2026",
-  description: "Plataforma de microaprendizaje gamificada para aprobar el examen PLD/FT.",
+  title: "Certifik PLD | Certificación CNBV 2026",
+  description: "Plataforma de microaprendizaje gamificada para aprobar el examen PLD/FT de la CNBV.",
 };
 
 export default function RootLayout({
@@ -23,18 +21,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full font-sans">
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset>
-            <header className="flex h-16 shrink-0 items-center gap-2 px-4 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-              <SidebarTrigger className="-ml-1" />
-              <AuthControls />
-            </header>
-            <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
-              {children}
-            </main>
-          </SidebarInset>
-        </SidebarProvider>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
