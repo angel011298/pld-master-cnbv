@@ -49,10 +49,10 @@ export function AppSidebar() {
 
   return (
     <Sidebar variant="sidebar" collapsible="icon">
-      <SidebarHeader className="border-b px-6 py-4">
-        <div className="flex items-center gap-2 font-bold text-xl text-primary">
-          <Trophy className="h-6 w-6" />
-          <span>Certifik PLD</span>
+      <SidebarHeader className="border-b px-3 py-4">
+        <div className="flex items-center gap-2 font-bold text-xl text-primary overflow-hidden">
+          <Trophy className="h-6 w-6 shrink-0" />
+          <span className="truncate group-data-[collapsible=icon]:hidden">Certifik PLD</span>
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -77,9 +77,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="border-t p-4 space-y-3">
+      <SidebarFooter className="border-t p-4">
         {!loading && (
-          <>
+          <div className="space-y-3 group-data-[collapsible=icon]:hidden">
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-1 text-muted-foreground font-medium">
                 <Zap className="h-3.5 w-3.5 text-secondary" />
@@ -94,7 +94,7 @@ export function AppSidebar() {
                 <span>{streak} día{streak !== 1 ? "s" : ""} de racha</span>
               </div>
             )}
-          </>
+          </div>
         )}
       </SidebarFooter>
     </Sidebar>

@@ -30,9 +30,9 @@ export default function RootLayout({
               <SidebarTrigger className="-ml-1" />
               <AuthControls />
             </header>
-            <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
               {children}
-            </main>
+            </div>
           </SidebarInset>
         </SidebarProvider>
       </body>
