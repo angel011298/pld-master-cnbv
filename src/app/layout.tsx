@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PLD-Master | Certificación CNBV 2026",
+  title: "Certifik PLD | Certificación CNBV 2026",
   description: "Plataforma de microaprendizaje gamificada para aprobar el examen PLD/FT.",
 };
 

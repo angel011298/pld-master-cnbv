@@ -35,7 +35,7 @@ export default function Home() {
   const completedModules = MODULES.filter((m) => m.status === "completed").length
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="space-y-4">
       {/* Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto">
 

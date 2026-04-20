@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     // 2. Prepare Chat with Context
     const systemPrompt = `
-      Eres el "Tutor PLD-Master", un asistente IA experto en Prevención de Lavado de Dinero y Financiamiento al Terrorismo.
+      Eres el "Tutor Certifik PLD", un asistente IA experto en Prevención de Lavado de Dinero y Financiamiento al Terrorismo.
       Tu objetivo es ayudar al usuario a entender conceptos complejos, resolver dudas y prepararse para el examen de la CNBV.
       
       Utiliza el siguiente contexto oficial si es relevante para responder:
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
     const chat = flashModel().startChat({
       history: [
         { role: "user", parts: [{ text: systemPrompt }] },
-        { role: "model", parts: [{ text: "Entendido. Soy tu Tutor PLD-Master. ¿En qué puedo ayudarte hoy?" }] },
+        { role: "model", parts: [{ text: "Entendido. Soy tu Tutor Certifik PLD. ¿En qué puedo ayudarte hoy?" }] },
         ...messages.slice(0, -1).map((m: { role: string; content: string }) => ({
           role: m.role === "user" ? "user" : "model",
           parts: [{ text: m.content }]

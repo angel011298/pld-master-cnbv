@@ -14,7 +14,7 @@ type Message = {
 
 export default function ChatbotPage() {
   const [messages, setMessages] = React.useState<Message[]>([
-    { role: "assistant", content: "Hola, soy tu Tutor PLD-Master. ¿Qué concepto de la certificación CNBV te gustaría repasar hoy?" }
+    { role: "assistant", content: "Hola, soy tu Tutor Certifik PLD. ¿Qué concepto de la certificación CNBV te gustaría repasar hoy?" }
   ])
   const [input, setInput] = React.useState("")
   const [isLoading, setIsLoading] = React.useState(false)

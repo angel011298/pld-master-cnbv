@@ -52,7 +52,7 @@ export function AppSidebar() {
       <SidebarHeader className="border-b px-6 py-4">
         <div className="flex items-center gap-2 font-bold text-xl text-primary">
           <Trophy className="h-6 w-6" />
-          <span>PLD-Master</span>
+          <span>Certifik PLD</span>
         </div>
       </SidebarHeader>
       <SidebarContent>
