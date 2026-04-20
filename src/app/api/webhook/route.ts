@@ -14,11 +14,17 @@ export async function POST(req: Request) {
   const body = await req.text()
   const sig = req.headers.get("stripe-signature")
 
-  let event: { type: string; data: { object: Record<string, unknown> } }
-  try {
-    const stripe = await import("stripe").then((m) => new m.default(STRIPE_SECRET_KEY!, { apiVersion: "2025-01-27.acacia" as never }))
-    event = stripe.webhooks.constructEvent(body, sig!, STRIPE_WEBHOOK_SECRET!) as typeof event
-  } catch (err) {
+  let event: any; 
+
+try {
+  const stripe = await import("stripe").then((m) => new m.default(STRIPE_SECRET_KEY!, {
+    apiVersion: "2023-10-16", // o la versión que estés usando
+  }));
+
+  // Cambia la línea donde se asigna el event eliminando el "as typeof event":
+  event = stripe.webhooks.constructEvent(body, sig!, STRIPE_WEBHOOK_SECRET!);
+  
+} catch (err) {
     const msg = err instanceof Error ? err.message : "Webhook signature verification failed"
     return NextResponse.json({ error: msg }, { status: 400 })
   }
