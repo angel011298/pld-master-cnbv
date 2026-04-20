@@ -4,13 +4,14 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   ChevronRight, CheckCircle2, XCircle, Trophy, Loader2,
-  BrainCircuit, Lightbulb, Zap, Flame, Target
+  BrainCircuit, Lightbulb, Zap, Flame, Target, Lock, Crown, Sparkles
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { buildAuthHeaders } from "@/lib/auth-client"
+import { useUserProfile } from "@/hooks/useUserProfile"
 
 interface Question {
   id: number
@@ -28,10 +29,15 @@ const TOPICS = [
   "Tipologías de Lavado de Dinero",
 ]
 
+const FREE_TOPIC = TOPICS[0]
+
 export function QuizSimulator() {
+  const { profile } = useUserProfile()
+  const isFree = profile?.tier !== "premium"
+
   const [topic, setTopic] = React.useState(TOPICS[0])
   const [difficulty, setDifficulty] = React.useState("Intermedio")
-  const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
+  const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished" | "paywall">("idle")
   const [questions, setQuestions] = React.useState<Question[]>([])
   const [currentIdx, setCurrentIdx] = React.useState(0)
   const [selectedOption, setSelectedOption] = React.useState<string | null>(null)
@@ -42,7 +48,19 @@ export function QuizSimulator() {
   const [streak, setStreak] = React.useState<number | null>(null)
   const [startTime, setStartTime] = React.useState<number>(0)
 
+  const handleTopicSelect = (t: string) => {
+    if (isFree && t !== FREE_TOPIC) {
+      setGameState("paywall")
+      return
+    }
+    setTopic(t)
+  }
+
   const fetchQuiz = async () => {
+    if (isFree && topic !== FREE_TOPIC) {
+      setGameState("paywall")
+      return
+    }
     setGameState("loading")
     try {
       const headers = await buildAuthHeaders({ "Content-Type": "application/json" })
@@ -113,6 +131,100 @@ export function QuizSimulator() {
     }
   }
 
+  // ——— PAYWALL STATE ———
+  if (gameState === "paywall") {
+    return (
+      <div className="max-w-2xl mx-auto py-10">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <div className="relative overflow-hidden rounded-3xl border-2 border-purple-500/40 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 p-8 text-white shadow-2xl">
+            {/* Animated background particles */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute h-1 w-1 rounded-full bg-purple-300/40"
+                  style={{ left: `${10 + i * 11}%`, top: `${8 + (i % 4) * 22}%` }}
+                  animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.8, 1] }}
+                  transition={{ repeat: Infinity, duration: 2 + i * 0.35, delay: i * 0.25 }}
+                />
+              ))}
+            </div>
+
+            <div className="relative space-y-6">
+              {/* Crown icon */}
+              <div className="flex justify-center">
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                  className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-amber-500 shadow-xl shadow-amber-500/30"
+                >
+                  <Crown className="h-12 w-12 text-white" />
+                </motion.div>
+              </div>
+
+              {/* Title */}
+              <div className="text-center space-y-3">
+                <div className="inline-flex items-center gap-2 rounded-full border border-purple-400/40 bg-purple-400/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-purple-300">
+                  <Sparkles className="h-3 w-3" /> Función Premium
+                </div>
+                <h2 className="text-3xl font-black tracking-tight leading-tight">
+                  Desbloquea el Simulador<br />
+                  <span className="text-yellow-400">RAG Completo</span> con<br />
+                  Inteligencia Artificial
+                </h2>
+                <p className="text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">
+                  Accede a los 5 módulos, temas avanzados y preguntas generadas con IA basadas en tus propios documentos.
+                </p>
+              </div>
+
+              {/* Feature list */}
+              <div className="grid grid-cols-1 gap-2 rounded-2xl border border-white/10 bg-white/5 p-4">
+                {[
+                  "✓ Los 5 módulos PLD/FT desbloqueados",
+                  "✓ Preguntas generadas con IA (RAG)",
+                  "✓ Análisis de documentos propios",
+                  "✓ Estadísticas avanzadas de desempeño",
+                  "✓ Predicción de probabilidad de aprobación",
+                ].map((feat) => (
+                  <p key={feat} className="text-sm font-semibold text-slate-200">{feat}</p>
+                ))}
+              </div>
+
+              {/* CTA buttons */}
+              <div className="space-y-3">
+                <motion.a
+                  href="/api/checkout"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="block"
+                >
+                  <Button
+                    size="lg"
+                    className="w-full h-14 text-lg font-black rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 border-0 hover:from-yellow-300 hover:to-amber-400 shadow-lg shadow-amber-500/30"
+                  >
+                    <Crown className="h-5 w-5 mr-2" />
+                    Actualizar a Premium
+                  </Button>
+                </motion.a>
+                <Button
+                  variant="ghost"
+                  className="w-full text-slate-300 hover:text-white hover:bg-white/10"
+                  onClick={() => setGameState("idle")}
+                >
+                  Continuar con Plan Gratuito (solo Módulo 1)
+                </Button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
   // ——— IDLE STATE ———
   if (gameState === "idle") {
     return (
@@ -127,27 +239,51 @@ export function QuizSimulator() {
                 <CardDescription>Preguntas generadas con IA basadas en tus documentos</CardDescription>
               </div>
             </div>
+            {isFree && (
+              <div className="flex items-center gap-2 mt-2 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-800 px-3 py-2">
+                <Lock className="h-4 w-4 text-amber-600 shrink-0" />
+                <span className="text-xs font-bold text-amber-700 dark:text-amber-400">
+                  Plan Gratuito · Solo Módulo 1 disponible.{" "}
+                  <a href="/api/checkout" className="underline underline-offset-2">
+                    Actualiza a Premium
+                  </a>{" "}
+                  para acceder a todos los temas.
+                </span>
+              </div>
+            )}
           </CardHeader>
           <CardContent className="space-y-5">
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-muted-foreground">Tema de Estudio</label>
               <div className="grid grid-cols-1 gap-2">
-                {TOPICS.map((t) => (
-                  <motion.button
-                    key={t}
-                    whileHover={{ x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setTopic(t)}
-                    className={cn(
-                      "p-3 rounded-xl border-2 text-left text-sm font-semibold transition-all",
-                      topic === t
-                        ? "border-primary bg-primary/5 text-primary"
-                        : "border-gray-200 hover:border-primary/40"
-                    )}
-                  >
-                    {t}
-                  </motion.button>
-                ))}
+                {TOPICS.map((t) => {
+                  const isLocked = isFree && t !== FREE_TOPIC
+                  return (
+                    <motion.button
+                      key={t}
+                      whileHover={!isLocked ? { x: 4 } : {}}
+                      whileTap={!isLocked ? { scale: 0.98 } : {}}
+                      onClick={() => handleTopicSelect(t)}
+                      className={cn(
+                        "p-3 rounded-xl border-2 text-left text-sm font-semibold transition-all flex items-center justify-between gap-2",
+                        isLocked
+                          ? "border-gray-100 opacity-50 cursor-pointer hover:border-purple-200 hover:opacity-70"
+                          : topic === t
+                          ? "border-primary bg-primary/5 text-primary"
+                          : "border-gray-200 hover:border-primary/40"
+                      )}
+                    >
+                      <span>{t}</span>
+                      {isLocked ? (
+                        <Lock className="h-3.5 w-3.5 text-gray-400 shrink-0" />
+                      ) : t === FREE_TOPIC && isFree ? (
+                        <span className="text-[10px] font-black text-primary bg-primary/10 px-1.5 py-0.5 rounded-full shrink-0">
+                          Gratis
+                        </span>
+                      ) : null}
+                    </motion.button>
+                  )
+                })}
               </div>
             </div>
             <div className="space-y-2">
@@ -203,6 +339,22 @@ export function QuizSimulator() {
               <span className="text-xs uppercase font-bold text-muted-foreground">Preguntas por Quiz</span>
             </CardContent>
           </Card>
+          {isFree && (
+            <motion.a
+              href="/api/checkout"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="block"
+            >
+              <Card className="border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-amber-50 dark:from-purple-950/30 dark:to-amber-950/30 cursor-pointer hover:shadow-md transition-shadow">
+                <CardContent className="py-5 flex flex-col items-center gap-2 text-center">
+                  <Crown className="h-8 w-8 text-amber-500" />
+                  <span className="text-sm font-black text-purple-700 dark:text-purple-300">Actualizar a Premium</span>
+                  <span className="text-xs text-muted-foreground">Desbloquea todos los módulos</span>
+                </CardContent>
+              </Card>
+            </motion.a>
+          )}
         </div>
       </div>
     )
@@ -417,6 +569,19 @@ export function QuizSimulator() {
                 <span className="text-2xl font-black text-primary">{totalXp.toLocaleString()} XP</span>
               </CardContent>
             </Card>
+          )}
+
+          {isFree && (
+            <motion.a href="/api/checkout" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }} className="block">
+              <div className="relative overflow-hidden rounded-2xl border-2 border-purple-400/50 bg-gradient-to-br from-slate-900 via-purple-950 to-slate-900 p-5 text-white text-center">
+                <Crown className="h-8 w-8 text-yellow-400 mx-auto mb-2" />
+                <p className="font-black text-lg">¿Quieres practicar más?</p>
+                <p className="text-sm text-slate-300 mb-3">Desbloquea los 5 módulos con Premium</p>
+                <Button className="bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 font-black border-0 hover:from-yellow-300 hover:to-amber-400">
+                  Actualizar a Premium
+                </Button>
+              </div>
+            </motion.a>
           )}
 
           <motion.div whileTap={{ scale: 0.98 }}>

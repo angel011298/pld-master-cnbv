@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, Lock, Play, Star, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList } from "lucide-react"
+import { Check, Lock, Play, Star, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -33,9 +33,37 @@ export default function Home() {
   const levelProgress = totalXp % LEVEL_XP
   const level = Math.floor(totalXp / LEVEL_XP) + 1
   const completedModules = MODULES.filter((m) => m.status === "completed").length
+  const isFree = !loading && profile?.tier !== "premium"
 
   return (
     <div className="p-4 space-y-4">
+
+      {/* Upgrade banner — free users only */}
+      {isFree && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <a href="/api/checkout" className="block group">
+            <div className="flex items-center justify-between gap-3 rounded-2xl border-2 border-purple-300 bg-gradient-to-r from-purple-50 via-white to-amber-50 dark:from-purple-950/40 dark:via-slate-900 dark:to-amber-950/40 px-4 py-3 hover:shadow-md transition-all">
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-yellow-400 to-amber-500 shadow-sm shrink-0">
+                  <Crown className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <p className="text-sm font-black text-purple-700 dark:text-purple-300">Estás en el Plan Gratuito</p>
+                  <p className="text-xs text-muted-foreground">Desbloquea todos los módulos y funciones Premium</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1 rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 px-3 py-1.5 text-xs font-black text-slate-900 shadow-sm shrink-0 group-hover:shadow-amber-300/50 transition-shadow">
+                Actualizar <ArrowRight className="h-3 w-3 ml-0.5" />
+              </div>
+            </div>
+          </a>
+        </motion.div>
+      )}
+
       {/* Bento Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto">
 
@@ -43,9 +71,22 @@ export default function Home() {
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="md:col-span-2">
           <Card className="h-full border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
             <CardHeader className="pb-2">
-              <CardTitle className="text-2xl font-black tracking-tight">
-                Ruta CNBV 2026 🎯
-              </CardTitle>
+              <div className="flex items-start justify-between gap-2">
+                <CardTitle className="text-2xl font-black tracking-tight">
+                  Ruta CNBV 2026 🎯
+                </CardTitle>
+                {!loading && (
+                  profile?.tier === "premium" ? (
+                    <span className="inline-flex items-center gap-1 rounded-full border border-amber-300 bg-amber-50 dark:bg-amber-950/30 px-2 py-0.5 text-xs font-black text-amber-700 dark:text-amber-400 shrink-0">
+                      <Crown className="h-3 w-3" /> Premium
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 rounded-full border bg-muted px-2 py-0.5 text-xs font-bold text-muted-foreground shrink-0">
+                      Plan Gratuito
+                    </span>
+                  )
+                )}
+              </div>
               <p className="text-muted-foreground text-sm">
                 Certifícate en PLD/FT · {completedModules}/{MODULES.length} módulos completados
               </p>
@@ -68,6 +109,17 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
+              {isFree && (
+                <a href="/api/checkout" className="block">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full font-black border-2 border-purple-300 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/30"
+                  >
+                    <Crown className="h-4 w-4 mr-1 text-amber-500" /> Actualizar a Premium
+                  </Button>
+                </a>
+              )}
             </CardContent>
           </Card>
         </motion.div>
@@ -167,7 +219,7 @@ export default function Home() {
                 { href: "/simulator", icon: GraduationCap, label: "Simulador CENEVAL", color: "bg-primary" },
                 { href: "/chatbot", icon: MessageSquare, label: "Chatbot IA", color: "bg-secondary" },
                 { href: "/tramites", icon: ClipboardList, label: "Guía de Trámites", color: "bg-orange-500" },
-              ].map((item, i) => (
+              ].map((item) => (
                 <motion.div key={item.href} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link href={item.href}>
                     <div className="flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-primary/30 hover:bg-primary/5 transition-all cursor-pointer">
@@ -179,6 +231,18 @@ export default function Home() {
                   </Link>
                 </motion.div>
               ))}
+              {isFree && (
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <a href="/api/checkout">
+                    <div className="flex items-center gap-3 p-3 rounded-xl border-2 border-purple-200 bg-gradient-to-r from-purple-50 to-amber-50 dark:from-purple-950/30 dark:to-amber-950/30 hover:border-purple-400 transition-all cursor-pointer">
+                      <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-yellow-400 to-amber-500 shrink-0">
+                        <Crown className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-sm font-black text-purple-700 dark:text-purple-300">Actualizar a Premium</span>
+                    </div>
+                  </a>
+                </motion.div>
+              )}
             </CardContent>
           </Card>
         </motion.div>
