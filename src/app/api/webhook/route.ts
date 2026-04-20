@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
 try {
   const stripe = await import("stripe").then((m) => new m.default(STRIPE_SECRET_KEY!, {
-    apiVersion: "2023-10-16", // o la versión que estés usando
+    apiVersion: "2026-03-25.dahlia", // o la versión que estés usando
   }));
 
   // Cambia la línea donde se asigna el event eliminando el "as typeof event":
