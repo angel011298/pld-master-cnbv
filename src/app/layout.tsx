@@ -5,49 +5,39 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { AuthControls } from "@/components/AuthControls";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "Certifik PLD | Certificación CNBV 2026",
   description: "Plataforma de microaprendizaje gamificada para aprobar el examen PLD/FT.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" className={`${inter.variable} antialiased h-full`}>
-      <body className="font-sans h-full overflow-hidden bg-background">
+      <body className="h-full font-sans bg-background overflow-x-hidden">
         <SidebarProvider>
-          {/* Contenedor principal que parte la pantalla en columnas estrictas */}
-          <div className="flex h-screen w-full">
+          {/* FORZAMOS EL LAYOUT: 
+            Usamos un div con 'relative' y 'flex' para que el Sidebar 
+            sea un bloque sólido a la izquierda.
+          */}
+          <div className="relative flex min-h-screen w-full">
+            <AppSidebar />
             
-            {/* Columna 1: El Menú Lateral (Toma solo el espacio que necesita) */}
-            <div className="flex-none border-r bg-sidebar">
-              <AppSidebar />
-            </div>
-
-            {/* Columna 2: El Dashboard (Toma el resto de la pantalla) */}
-            <div className="flex-1 flex flex-col h-full overflow-hidden relative">
-              <header className="flex h-16 shrink-0 items-center justify-between px-4 border-b bg-background">
+            <div className="flex flex-1 flex-col min-w-0 w-full bg-background">
+              <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between px-4 border-b bg-background/95 backdrop-blur">
                 <div className="flex items-center gap-2">
-                  <SidebarTrigger title="Ocultar/Mostrar Menú" />
+                  <SidebarTrigger className="-ml-1" />
                 </div>
                 <AuthControls />
               </header>
               
-              <main className="flex-1 overflow-y-auto p-4 md:p-6 w-full">
+              <main className="flex-1 p-4 md:p-6 lg:p-8">
                 <div className="max-w-7xl mx-auto">
                   {children}
                 </div>
               </main>
             </div>
-
           </div>
         </SidebarProvider>
       </body>

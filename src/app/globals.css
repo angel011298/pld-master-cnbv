@@ -2,41 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --sidebar-width: 16rem;
+/* Corrección Crítica: Las variables del sidebar deben ser globales 
+  para que SidebarProvider pueda empujar el contenido correctamente.
+*/
+:root {
+  --sidebar-width: 16rem;
   --sidebar-width-icon: 3rem;
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 215 100% 34%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 150 61% 45%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 48 96% 53%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 215 100% 34%;
-    --radius: 1.25rem;
-  }
+  
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 215 100% 34%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 150 61% 45%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 48 96% 53%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 215 100% 34%;
+  --radius: 1.25rem;
+}
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    /* ... rest of dark mode omitted for brevity, but let's keep it simple ... */
-    --primary: 215 100% 34%;
-    --secondary: 150 61% 45%;
-    --border: 217.2 32.6% 17.5%;
-  }
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --primary: 215 100% 34%;
+  --secondary: 150 61% 45%;
+  --border: 217.2 32.6% 17.5%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 212.7 26.8% 83.9%;
+}
 
+@layer base {
   * {
     @apply border-border;
   }
@@ -55,4 +69,21 @@
   .card-premium {
     @apply border-2 border-b-[8px] border-black/5 bg-white rounded-[2.5rem] p-8 hover:border-primary/20 transition-all;
   }
+  /* FUERZA BRUTA: 
+  Aseguramos que el contenido principal nunca se encime 
+  cuando el sidebar está expandido o colapsado.
+*/
+[data-side="left"] {
+  position: relative !important;
+}
+
+.peer[data-state="expanded"] ~ div {
+  margin-left: 0;
+}
+
+/* Si el sidebar es 'fixed' por error de Shadcn, esto lo arregla */
+header, main {
+  position: relative !important;
+  z-index: 10;
+}
 }
