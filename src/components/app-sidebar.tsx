@@ -28,6 +28,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar, // Importamos el gancho lógico
 } from "@/components/ui/sidebar"
 import { Progress } from "@/components/ui/progress"
 import { useUserProfile } from "@/hooks/useUserProfile"
@@ -49,23 +50,31 @@ const LEVEL_XP = 1000
 
 export function AppSidebar() {
   const { profile, loading } = useUserProfile()
+  const { state } = useSidebar() // Obtenemos el estado real (expanded o collapsed)
 
   const totalXp = profile?.totalXp ?? 0
   const streak = profile?.currentStreak ?? 0
   const levelProgress = totalXp % LEVEL_XP
   const level = Math.floor(totalXp / LEVEL_XP) + 1
 
+  // Variable de control absoluto
+  const isCollapsed = state === "collapsed"
+
   return (
     <Sidebar variant="sidebar" collapsible="icon">
-      <SidebarHeader className="border-b px-6 py-4">
-        <div className="flex items-center gap-2 font-bold text-xl text-primary">
-          <Trophy className="h-6 w-6" />
-          <span>PLD-Master</span>
+      <SidebarHeader className="flex h-16 items-center justify-center border-b p-0 overflow-hidden">
+        <div className="flex w-full items-center gap-3 px-4">
+          <Trophy className="h-6 w-6 shrink-0 text-primary" />
+          {/* Si está colapsado, el texto deja de existir, evitando la sobreposición */}
+          {!isCollapsed && <span className="font-bold text-xl text-primary truncate">Certifik PLD</span>}
         </div>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            {!isCollapsed ? "Menú Principal" : "..."}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {navItems.map((item) => (
@@ -74,8 +83,9 @@ export function AppSidebar() {
                     tooltip={item.title}
                     render={(props) => (
                       <a href={item.url} {...props}>
-                        <item.icon />
-                        <span>{item.title}</span>
+                        <item.icon className="shrink-0" />
+                        {/* El título desaparece lógicamente */}
+                        {!isCollapsed && <span className="truncate">{item.title}</span>}
                       </a>
                     )}
                   />
@@ -85,9 +95,11 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="border-t p-4 space-y-3">
-        {!loading && (
-          <>
+
+      <SidebarFooter className="border-t p-0 overflow-hidden">
+        {/* El pie de página completo desaparece cuando se colapsa el menú */}
+        {!loading && !isCollapsed && (
+          <div className="p-4 space-y-3 w-full">
             <div className="flex items-center justify-between text-sm">
               <div className="flex items-center gap-1 text-muted-foreground font-medium">
                 <Zap className="h-3.5 w-3.5 text-secondary" />
@@ -102,7 +114,7 @@ export function AppSidebar() {
                 <span>{streak} día{streak !== 1 ? "s" : ""} de racha</span>
               </div>
             )}
-          </>
+          </div>
         )}
       </SidebarFooter>
     </Sidebar>
