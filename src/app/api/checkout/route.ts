@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-export const dynamic = "force-dynamic";
 import { getAuthenticatedUserId } from "@/lib/security";
 import { getActivePricing } from "@/lib/pricing";
 import { createCheckoutSession } from "@/lib/stripe";
 import { supabaseAdmin } from "@/lib/supabase";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
