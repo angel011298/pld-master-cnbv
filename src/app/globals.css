@@ -12,8 +12,3 @@ aside.sidebar-master[data-state="expanded"] {
   min-width: 16rem !important;
 }
 
-/* Ocultar elementos sobrantes al colapsar */
-[data-state="collapsed"] aside.sidebar-master span.whitespace-nowrap {
-  opacity: 0 !important;
-  visibility: hidden !important;
-}

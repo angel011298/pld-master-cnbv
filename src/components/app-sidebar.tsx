@@ -67,16 +67,16 @@ export function AppSidebar() {
   const isSuperAdmin = userEmail === SUPER_ADMIN_EMAIL
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon" className="sidebar-master transition-all duration-300">
-      <SidebarHeader className="border-b px-6 py-4">
+    <Sidebar variant="sidebar" collapsible="icon">
+      <SidebarHeader className="border-b px-4 py-4">
         <div className="flex items-center gap-2 font-bold text-xl text-primary overflow-hidden">
           <Trophy className="h-6 w-6 shrink-0" />
-          <span className="whitespace-nowrap">Certifik PLD</span>
+          <span className="truncate group-data-[collapsible=icon]:hidden">Certifik PLD</span>
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="whitespace-nowrap">Menu Principal</SidebarGroupLabel>
+          <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {NAV_ITEMS.map((item) => (
@@ -86,7 +86,7 @@ export function AppSidebar() {
                     render={(props) => (
                       <a href={item.url} {...props}>
                         <item.icon className="shrink-0" />
-                        <span className="whitespace-nowrap">{item.title}</span>
+                        <span className="truncate group-data-[collapsible=icon]:hidden">{item.title}</span>
                       </a>
                     )}
                   />
@@ -99,7 +99,7 @@ export function AppSidebar() {
                     render={(props) => (
                       <a href="/admin" {...props} className={`${props.className ?? ""} text-blue-700 font-bold`}>
                         <Shield className="shrink-0" />
-                        <span className="whitespace-nowrap">Dashboard Maestro</span>
+                        <span className="truncate group-data-[collapsible=icon]:hidden">Dashboard Maestro</span>
                       </a>
                     )}
                   />
@@ -109,21 +109,22 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="border-t p-4 space-y-3">
+      {/* Ocultamos todo el footer al colapsar para que no se aplaste la barra de progreso */}
+      <SidebarFooter className="border-t p-4 space-y-3 group-data-[collapsible=icon]:hidden">
         {!loading && (
           <div className="overflow-hidden">
             <div className="flex items-center justify-between text-sm mb-2">
               <div className="flex items-center gap-1 text-muted-foreground font-medium">
                 <Zap className="h-3.5 w-3.5 text-secondary shrink-0" />
-                <span className="whitespace-nowrap">Nivel {level}</span>
+                <span>Nivel {level}</span>
               </div>
-              <span className="font-black text-primary whitespace-nowrap">{totalXp.toLocaleString()} XP</span>
+              <span className="font-black text-primary">{totalXp.toLocaleString()} XP</span>
             </div>
             <Progress value={(levelProgress / LEVEL_XP) * 100} className="h-2" />
             {streak > 0 && (
               <div className="flex items-center gap-1 text-xs text-orange-500 font-bold mt-2">
                 <Flame className="h-3.5 w-3.5 shrink-0" />
-                <span className="whitespace-nowrap">{streak} día{streak !== 1 ? "s" : ""} de racha</span>
+                <span>{streak} día{streak !== 1 ? "s" : ""} de racha</span>
               </div>
             )}
           </div>
