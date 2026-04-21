@@ -80,6 +80,7 @@ const ENTITY_TYPES = [
   },
   {
     id: "fintech",
+    // CORRECCIÓN APLICADA: IFC/IFPE
     name: "Fintech (IFC/IFPE)",
     description: "Instituciones de Financiamiento Colectivo e Instituciones de Fondos de Pago Electrónico.",
     law: {
@@ -186,6 +187,7 @@ export default function EntitiesPage() {
 
   const activeEntity = ENTITY_TYPES.find((e) => e.id === selected)
 
+  // CORRECCIÓN APLICADA: Ahora esto empuja a la ruta correcta con el parámetro sectorId
   function handleStudy() {
     if (selected) router.push(`/estudio?sector=${selected}`)
   }

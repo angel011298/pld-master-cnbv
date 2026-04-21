@@ -8,6 +8,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+// CORRECCIÓN APLICADA: Actualizado el metadata para Certifik PLD
 export const metadata: Metadata = {
   title: "Certifik PLD | Certificación CNBV 2026",
   description: "Plataforma de microaprendizaje gamificada para aprobar el examen PLD/FT de la CNBV.",
