@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Zap } from "lucide-react"
@@ -36,7 +36,7 @@ const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: str
   },
 }
 
-export default function EstudioPage() {
+function EstudioPage() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const sectorId = searchParams.get("sector") ?? ""
@@ -153,5 +153,17 @@ export default function EstudioPage() {
         </Link>
       </div>
     </div>
+  )
+}
+// Este es el nuevo envoltorio que Next.js exige
+export default function Estudio() {
+  return (
+    <Suspense fallback={
+      <div className="flex h-full w-full items-center justify-center p-8 text-muted-foreground">
+        Cargando módulo de estudio...
+      </div>
+    }>
+      <EstudioContent />
+    </Suspense>
   )
 }
