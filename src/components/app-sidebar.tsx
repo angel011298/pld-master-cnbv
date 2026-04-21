@@ -2,18 +2,7 @@
 
 import * as React from "react"
 import {
-  Map,
-  GraduationCap,
-  MessageSquare,
-  Library,
-  Trophy,
-  Building2,
-  Zap,
-  Flame,
-  ClipboardList,
-  Shield,
-  BookOpen,
-  Users
+  Map, GraduationCap, MessageSquare, Library, Trophy, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users
 } from "lucide-react"
 
 import {
@@ -67,64 +56,65 @@ export function AppSidebar() {
   const isSuperAdmin = userEmail === SUPER_ADMIN_EMAIL
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon">
-      <SidebarHeader className="border-b px-4 py-4">
-        <div className="flex items-center gap-2 font-bold text-xl text-primary overflow-hidden">
-          <Trophy className="h-6 w-6 shrink-0" />
-          <span className="truncate group-data-[collapsible=icon]:hidden">Certifik PLD</span>
-        </div>
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="py-4">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" className="hover:bg-transparent">
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shrink-0">
+                <Trophy className="size-5" />
+              </div>
+              <div className="flex flex-col gap-0.5 leading-none overflow-hidden">
+                <span className="font-bold text-lg text-primary truncate">Certifik PLD</span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">Menu Principal</SidebarGroupLabel>
+          <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {NAV_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    tooltip={item.title}
-                    render={(props) => (
-                      <a href={item.url} {...props}>
-                        <item.icon className="shrink-0" />
-                        <span className="truncate group-data-[collapsible=icon]:hidden">{item.title}</span>
-                      </a>
-                    )}
-                  />
+                  <SidebarMenuButton tooltip={item.title} asChild>
+                    <a href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
               {isSuperAdmin && (
                 <SidebarMenuItem>
-                  <SidebarMenuButton
-                    tooltip="Dashboard Maestro"
-                    render={(props) => (
-                      <a href="/admin" {...props} className={`${props.className ?? ""} text-blue-700 font-bold`}>
-                        <Shield className="shrink-0" />
-                        <span className="truncate group-data-[collapsible=icon]:hidden">Dashboard Maestro</span>
-                      </a>
-                    )}
-                  />
+                  <SidebarMenuButton tooltip="Dashboard Maestro" asChild className="text-blue-700 font-bold">
+                    <a href="/admin">
+                      <Shield />
+                      <span>Dashboard Maestro</span>
+                    </a>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      {/* Ocultamos todo el footer al colapsar para que no se aplaste la barra de progreso */}
-      <SidebarFooter className="border-t p-4 space-y-3 group-data-[collapsible=icon]:hidden">
+      <SidebarFooter className="p-4">
         {!loading && (
-          <div className="overflow-hidden">
-            <div className="flex items-center justify-between text-sm mb-2">
-              <div className="flex items-center gap-1 text-muted-foreground font-medium">
-                <Zap className="h-3.5 w-3.5 text-secondary shrink-0" />
-                <span>Nivel {level}</span>
+          <div className="space-y-3 overflow-hidden">
+            <div className="flex items-center gap-2">
+              <Zap className="h-4 w-4 text-secondary shrink-0" />
+              <div className="flex flex-col overflow-hidden">
+                <span className="text-sm font-medium text-muted-foreground truncate">Nivel {level}</span>
+                <span className="font-black text-primary truncate">{totalXp.toLocaleString()} XP</span>
               </div>
-              <span className="font-black text-primary">{totalXp.toLocaleString()} XP</span>
             </div>
-            <Progress value={(levelProgress / LEVEL_XP) * 100} className="h-2" />
+            <Progress value={(levelProgress / LEVEL_XP) * 100} className="h-2 w-full" />
             {streak > 0 && (
-              <div className="flex items-center gap-1 text-xs text-orange-500 font-bold mt-2">
-                <Flame className="h-3.5 w-3.5 shrink-0" />
-                <span>{streak} día{streak !== 1 ? "s" : ""} de racha</span>
+              <div className="flex items-center gap-2 mt-2">
+                <Flame className="h-4 w-4 text-orange-500 shrink-0" />
+                <span className="text-xs text-orange-500 font-bold truncate">{streak} días de racha</span>
               </div>
             )}
           </div>
