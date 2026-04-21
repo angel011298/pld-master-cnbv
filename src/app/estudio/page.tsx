@@ -36,7 +36,8 @@ const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: str
   },
 }
 
-function EstudioPage() {
+// CORRECCIÓN: Cambiamos el nombre de EstudioPage a EstudioContent
+function EstudioContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const sectorId = searchParams.get("sector") ?? ""
@@ -155,7 +156,8 @@ function EstudioPage() {
     </div>
   )
 }
-// Este es el nuevo envoltorio que Next.js exige
+
+// Este es el envoltorio que Next.js exige, ahora coincidiendo con el nombre correcto
 export default function Estudio() {
   return (
     <Suspense fallback={
