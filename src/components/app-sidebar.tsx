@@ -13,7 +13,7 @@ import {
   ClipboardList,
   Shield,
   BookOpen,
-  Users
+  Users // Icono de Foro
 } from "lucide-react"
 
 import {
@@ -67,16 +67,17 @@ export function AppSidebar() {
   const isSuperAdmin = userEmail === SUPER_ADMIN_EMAIL
 
   return (
-    <Sidebar variant="sidebar" collapsible="icon">
+    {/* CORRECCIÓN: Agregamos la clase "sidebar-master" */}
+    <Sidebar variant="sidebar" collapsible="icon" className="sidebar-master transition-all duration-300">
       <SidebarHeader className="border-b px-6 py-4">
-        <div className="flex items-center gap-2 font-bold text-xl text-primary">
-          <Trophy className="h-6 w-6" />
-          <span>Certifik PLD</span>
+        <div className="flex items-center gap-2 font-bold text-xl text-primary overflow-hidden">
+          <Trophy className="h-6 w-6 shrink-0" />
+          <span className="whitespace-nowrap">Certifik PLD</span>
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
+          <SidebarGroupLabel className="whitespace-nowrap">Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {NAV_ITEMS.map((item) => (
@@ -85,8 +86,8 @@ export function AppSidebar() {
                     tooltip={item.title}
                     render={(props) => (
                       <a href={item.url} {...props}>
-                        <item.icon />
-                        <span>{item.title}</span>
+                        <item.icon className="shrink-0" />
+                        <span className="whitespace-nowrap">{item.title}</span>
                       </a>
                     )}
                   />
@@ -98,8 +99,8 @@ export function AppSidebar() {
                     tooltip="Dashboard Maestro"
                     render={(props) => (
                       <a href="/admin" {...props} className={`${props.className ?? ""} text-blue-700 font-bold`}>
-                        <Shield />
-                        <span>Dashboard Maestro</span>
+                        <Shield className="shrink-0" />
+                        <span className="whitespace-nowrap">Dashboard Maestro</span>
                       </a>
                     )}
                   />
@@ -111,22 +112,22 @@ export function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="border-t p-4 space-y-3">
         {!loading && (
-          <>
-            <div className="flex items-center justify-between text-sm">
+          <div className="overflow-hidden">
+            <div className="flex items-center justify-between text-sm mb-2">
               <div className="flex items-center gap-1 text-muted-foreground font-medium">
-                <Zap className="h-3.5 w-3.5 text-secondary" />
-                <span>Nivel {level}</span>
+                <Zap className="h-3.5 w-3.5 text-secondary shrink-0" />
+                <span className="whitespace-nowrap">Nivel {level}</span>
               </div>
-              <span className="font-black text-primary">{totalXp.toLocaleString()} XP</span>
+              <span className="font-black text-primary whitespace-nowrap">{totalXp.toLocaleString()} XP</span>
             </div>
             <Progress value={(levelProgress / LEVEL_XP) * 100} className="h-2" />
             {streak > 0 && (
-              <div className="flex items-center gap-1 text-xs text-orange-500 font-bold">
-                <Flame className="h-3.5 w-3.5" />
-                <span>{streak} día{streak !== 1 ? "s" : ""} de racha</span>
+              <div className="flex items-center gap-1 text-xs text-orange-500 font-bold mt-2">
+                <Flame className="h-3.5 w-3.5 shrink-0" />
+                <span className="whitespace-nowrap">{streak} día{streak !== 1 ? "s" : ""} de racha</span>
               </div>
             )}
-          </>
+          </div>
         )}
       </SidebarFooter>
     </Sidebar>

@@ -1,88 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  :root {
-    --background: 0 0% 98%;
-    --foreground: 222 47% 8%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 8%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 8%;
-    --primary: 215 100% 30%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 150 61% 38%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 210 20% 93%;
-    --muted-foreground: 215 15% 35%;
-    --accent: 48 96% 48%;
-    --accent-foreground: 222 47% 8%;
-    --destructive: 0 84% 55%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 214 25% 85%;
-    --input: 214 25% 85%;
-    --ring: 215 100% 30%;
-    --radius: 1.25rem;
-
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 8%;
-    --sidebar-primary: 215 100% 30%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 20% 96%;
-    --sidebar-accent-foreground: 222 47% 8%;
-    --sidebar-border: 214 25% 85%;
-    --sidebar-ring: 215 100% 30%;
-    
-    /* ESTAS SON LAS MEDIDAS QUE FALTABAN */
-    --sidebar-width: 16rem;
-    --sidebar-width-icon: 4rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 215 100% 60%;
-    --primary-foreground: 222 47% 8%;
-    --secondary: 150 61% 55%;
-    --secondary-foreground: 222 47% 8%;
-    --muted-foreground: 215 20% 70%;
-    --border: 217.2 32.6% 17.5%;
-    --card-foreground: 210 40% 98%;
-
-    --sidebar-background: 222.2 84% 4.9%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 215 100% 60%;
-    --sidebar-primary-foreground: 222 47% 8%;
-    --sidebar-accent: 215 20% 15%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217.2 32.6% 17.5%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-    
-    /* ESTAS SON LAS MEDIDAS QUE FALTABAN */
-    --sidebar-width: 16rem;
-    --sidebar-width-icon: 4rem;
-  }
-
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground antialiased;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply text-foreground;
-  }
+/* FORZAR COLAPSO DEL SIDEBAR */
+[data-state="collapsed"] aside.sidebar-master,
+aside.sidebar-master[data-state="collapsed"] {
+  width: 4rem !important;
+  min-width: 4rem !important;
+  overflow-x: hidden !important;
 }
 
-@layer utilities {
-  .btn-pushable {
-    @apply relative transition-all duration-75 border-b-[6px] active:border-b-0 active:translate-y-[2px] cursor-pointer;
-  }
-  .btn-primary-pushable {
-    @apply btn-pushable bg-primary border-primary/50 text-white hover:bg-primary/95;
-  }
-  .card-premium {
-    @apply border-2 border-b-[8px] border-black/5 bg-white rounded-[2.5rem] p-8 hover:border-primary/20 transition-all;
-  }
+[data-state="expanded"] aside.sidebar-master,
+aside.sidebar-master[data-state="expanded"] {
+  width: 16rem !important;
+  min-width: 16rem !important;
+}
+
+/* Ocultar elementos sobrantes al colapsar */
+[data-state="collapsed"] aside.sidebar-master span.whitespace-nowrap {
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
