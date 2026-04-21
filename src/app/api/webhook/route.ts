@@ -42,13 +42,24 @@ try {
 
     if (email) {
       // Upgrade the purchasing user to premium
-      const { data: authUser } = await supabase.auth.admin.getUserByEmail(email).catch(() => ({ data: null }))
-      if (authUser?.user) {
-        await supabase
-          .from("user_profiles")
-          .update({ tier: "premium" })
-          .eq("user_id", authUser.user.id)
-      }
+      // 1. Buscamos al usuario en la lista global
+const { data: authData } = await supabase.auth.admin.listUsers();
+const targetUser = authData?.users.find((u: any) => u.email === email);
+
+// 2. Si existe, actualizamos su perfil
+if (targetUser) {
+  const { error: updateError } = await supabase
+    .from("user_profiles")
+    .update({ 
+      is_premium: true,
+      plan_type: 'individual' 
+    })
+    .eq("id", targetUser.id);
+
+  if (updateError) {
+    console.error("Error al actualizar perfil a premium:", updateError);
+  }
+}
     }
 
     // For B2B: send invite emails (placeholder — integrate with email provider)
