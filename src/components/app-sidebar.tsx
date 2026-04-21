@@ -57,48 +57,51 @@ export function AppSidebar() {
 
   return (
     <Sidebar variant="sidebar" collapsible="icon">
-      <SidebarHeader className="border-b px-6 py-4">
+      <SidebarHeader className="border-b px-4 py-4">
         <div className="flex items-center gap-2 font-bold text-xl text-primary overflow-hidden">
           <Trophy className="h-6 w-6 shrink-0" />
-          <span className="truncate">Certifik PLD</span>
+          {/* Ocultamos el texto del logo cuando está colapsado */}
+          <span className="truncate group-data-[collapsible=icon]:hidden">Certifik PLD</span>
         </div>
       </SidebarHeader>
+      
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="truncate">Menu Principal</SidebarGroupLabel>
+          {/* Ocultamos el label del grupo cuando está colapsado */}
+          <SidebarGroupLabel className="truncate group-data-[collapsible=icon]:hidden">
+            Menu Principal
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {NAV_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    tooltip={item.title}
-                    render={(props) => (
-                      <a href={item.url} {...props}>
-                        <item.icon className="shrink-0" />
-                        <span className="truncate">{item.title}</span>
-                      </a>
-                    )}
-                  />
+                  {/* Cambiamos render por asChild (estándar de Shadcn) */}
+                  <SidebarMenuButton tooltip={item.title} asChild>
+                    <a href={item.url}>
+                      <item.icon className="shrink-0" />
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              
               {isSuperAdmin && (
                 <SidebarMenuItem>
-                  <SidebarMenuButton
-                    tooltip="Dashboard Maestro"
-                    render={(props) => (
-                      <a href="/admin" {...props} className={`${props.className ?? ""} text-blue-700 font-bold`}>
-                        <Shield className="shrink-0" />
-                        <span className="truncate">Dashboard Maestro</span>
-                      </a>
-                    )}
-                  />
+                  <SidebarMenuButton tooltip="Dashboard Maestro" asChild>
+                    <a href="/admin" className="text-blue-700 font-bold">
+                      <Shield className="shrink-0" />
+                      <span>Dashboard Maestro</span>
+                    </a>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="border-t p-4 space-y-3">
+
+      {/* Ocultamos todo el footer (nivel, progreso, racha) cuando está colapsado */}
+      <SidebarFooter className="border-t p-4 space-y-3 group-data-[collapsible=icon]:hidden">
         {!loading && (
           <div className="overflow-hidden">
             <div className="flex items-center justify-between text-sm mb-2">

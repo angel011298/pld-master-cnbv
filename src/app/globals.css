@@ -68,14 +68,6 @@
   }
 }
 
-/* FORZAR COLAPSO DEL SIDEBAR (Tus estilos originales) */
-[data-state="collapsed"] aside.sidebar-master,
-aside.sidebar-master[data-state="collapsed"] {
-  width: 4rem !important;
-  min-width: 4rem !important;
-  overflow-x: hidden !important;
-}
-
 [data-state="expanded"] aside.sidebar-master,
 aside.sidebar-master[data-state="expanded"] {
   width: 16rem !important;
