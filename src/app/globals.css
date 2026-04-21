@@ -24,6 +24,16 @@
     --input: 214 25% 85%;
     --ring: 215 100% 30%;
     --radius: 1.25rem;
+
+    /* CORRECCIÓN: El Sidebar necesita sus propios colores obligatorios */
+    --sidebar-background: 0 0% 100%; /* Fondo blanco sólido */
+    --sidebar-foreground: 222 47% 8%;
+    --sidebar-primary: 215 100% 30%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 96%;
+    --sidebar-accent-foreground: 222 47% 8%;
+    --sidebar-border: 214 25% 85%;
+    --sidebar-ring: 215 100% 30%;
   }
 
   .dark {
@@ -36,6 +46,15 @@
     --muted-foreground: 215 20% 70%;
     --border: 217.2 32.6% 17.5%;
     --card-foreground: 210 40% 98%;
+
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 215 100% 60%;
+    --sidebar-primary-foreground: 222 47% 8%;
+    --sidebar-accent: 215 20% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   * {
@@ -44,7 +63,6 @@
   body {
     @apply bg-background text-foreground antialiased;
   }
-  /* Ensure headings are always dark/legible */
   h1, h2, h3, h4, h5, h6 {
     @apply text-foreground;
   }

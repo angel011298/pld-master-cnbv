@@ -18,13 +18,20 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="flex flex-col flex-1 w-full min-h-screen overflow-hidden bg-background">
-        <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between px-4 border-b bg-background/95 backdrop-blur">
-          <SidebarTrigger className="text-primary hover:text-blue-700 transition-colors" title="Ocultar/Mostrar Menú" />
+      {/* CORRECCIÓN: flex-1 y min-w-0 forzan al contenedor a respetar el ancho del menú */}
+      <div className="flex-1 flex flex-col min-h-screen min-w-0 bg-background relative">
+        <header className="sticky top-0 z-50 flex h-16 shrink-0 items-center justify-between px-4 border-b bg-white/95 backdrop-blur-sm shadow-sm">
+          <div className="flex items-center gap-4">
+            {/* CORRECCIÓN: Botón estilizado y con prioridad de click */}
+            <SidebarTrigger 
+              className="h-10 w-10 border border-gray-200 bg-white shadow-sm hover:bg-gray-100 rounded-lg text-primary transition-all" 
+              title="Ocultar/Mostrar Menú" 
+            />
+          </div>
           <AuthControls />
         </header>
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 relative">
-          <div className="max-w-7xl mx-auto w-full">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-4 md:p-6 lg:p-8">
+          <div className="mx-auto w-full max-w-7xl">
             {children}
           </div>
         </main>
