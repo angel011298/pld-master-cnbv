@@ -25,8 +25,7 @@
     --ring: 215 100% 30%;
     --radius: 1.25rem;
 
-    /* CORRECCIÓN: El Sidebar necesita sus propios colores obligatorios */
-    --sidebar-background: 0 0% 100%; /* Fondo blanco sólido */
+    --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 222 47% 8%;
     --sidebar-primary: 215 100% 30%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -34,6 +33,10 @@
     --sidebar-accent-foreground: 222 47% 8%;
     --sidebar-border: 214 25% 85%;
     --sidebar-ring: 215 100% 30%;
+    
+    /* ESTAS SON LAS MEDIDAS QUE FALTABAN */
+    --sidebar-width: 16rem;
+    --sidebar-width-icon: 4rem;
   }
 
   .dark {
@@ -55,6 +58,10 @@
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217.2 32.6% 17.5%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* ESTAS SON LAS MEDIDAS QUE FALTABAN */
+    --sidebar-width: 16rem;
+    --sidebar-width-icon: 4rem;
   }
 
   * {
