@@ -13,7 +13,7 @@ import {
   ClipboardList,
   Shield,
   BookOpen,
-  Users // Icono de Foro
+  Users
 } from "lucide-react"
 
 import {
@@ -67,7 +67,6 @@ export function AppSidebar() {
   const isSuperAdmin = userEmail === SUPER_ADMIN_EMAIL
 
   return (
-    {/* CORRECCIÓN: Agregamos la clase "sidebar-master" */}
     <Sidebar variant="sidebar" collapsible="icon" className="sidebar-master transition-all duration-300">
       <SidebarHeader className="border-b px-6 py-4">
         <div className="flex items-center gap-2 font-bold text-xl text-primary overflow-hidden">
