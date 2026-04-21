@@ -12,7 +12,8 @@ import {
   Flame,
   ClipboardList,
   Shield,
-  BookOpen // CORRECCIÓN APLICADA: Añadido icono para Modo Estudio
+  BookOpen,
+  Users
 } from "lucide-react"
 
 import {
@@ -33,7 +34,6 @@ import { supabase } from "@/lib/supabase"
 
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 
-// CORRECCIÓN APLICADA: Añadido Modo Estudio al menú y reordenado para flujo lógico
 const NAV_ITEMS = [
   { title: "Ruta de Aprendizaje", url: "/", icon: Map },
   { title: "Entidades Financieras", url: "/entities", icon: Building2 },
@@ -42,6 +42,7 @@ const NAV_ITEMS = [
   { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
   { title: "Base de Conocimiento", url: "/knowledge", icon: Library },
   { title: "Guía de Trámites", url: "/tramites", icon: ClipboardList },
+  { title: "Foro", url: "/foro", icon: Users },
 ]
 
 const LEVEL_XP = 1000
@@ -70,7 +71,6 @@ export function AppSidebar() {
       <SidebarHeader className="border-b px-6 py-4">
         <div className="flex items-center gap-2 font-bold text-xl text-primary">
           <Trophy className="h-6 w-6" />
-          {/* CORRECCIÓN APLICADA: Branding correcto */}
           <span>Certifik PLD</span>
         </div>
       </SidebarHeader>
