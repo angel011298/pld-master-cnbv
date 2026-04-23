@@ -36,7 +36,7 @@ export default function RegisterCorporativo() {
           <div className="h-14 w-14 rounded-2xl bg-yellow-400 flex items-center justify-center mx-auto mb-4">
             <Building2 className="h-7 w-7 text-blue-900" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900">Configuración B2B</h2>
+          <h2 className="text-2xl font-black text-slate-900">Configuración de Licencia</h2>
           <p className="text-sm text-slate-500 mt-1">Ingresa los datos fiscales y asigna tus plazas.</p>
         </div>
 

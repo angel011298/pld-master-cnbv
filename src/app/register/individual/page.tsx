@@ -32,7 +32,7 @@ export default function RegisterIndividual() {
         <div className="text-center mb-8">
           <Shield className="h-10 w-10 text-blue-600 mx-auto mb-3" />
           <h2 className="text-2xl font-black text-slate-900">Crea tu Cuenta</h2>
-          <p className="text-sm text-slate-500 mt-1">Premium Individual B2C</p>
+          <p className="text-sm text-slate-500 mt-1">Plan Premium Individual</p>
         </div>
 
         <Button variant="outline" className="w-full mb-6 font-bold h-12">

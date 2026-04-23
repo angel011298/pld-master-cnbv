@@ -2,35 +2,29 @@
 
 import * as React from "react"
 import { usePathname } from "next/navigation"
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
-import { AuthControls } from "@/components/AuthControls"
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar" // Ajusta la ruta si es necesario
 
 export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const isFullScreenRoute = pathname?.startsWith("/onboarding") || pathname?.startsWith("/welcome")
+  
+  // Lista de rutas donde el sidebar NO debe aparecer
+  const noSidebarRoutes = ["/", "/trial", "/register/individual", "/register/corporativo", "/invite"]
+  const hideSidebar = noSidebarRoutes.includes(pathname)
 
-  if (isFullScreenRoute) {
-    return <main className="min-h-screen w-full bg-background">{children}</main>
+  // Si estamos en onboarding, prueba o registro, no renderizamos el Sidebar
+  if (hideSidebar) {
+    return <main className="w-full min-h-screen bg-slate-50">{children}</main>
   }
 
+  // De lo contrario, renderizamos la app completa
   return (
     <SidebarProvider>
       <AppSidebar />
-      {/* SidebarInset es el componente oficial de Shadcn para evitar sobreposiciones */}
-      <SidebarInset>
-        <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between px-4 border-b bg-white/95 backdrop-blur-sm shadow-sm">
-          <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1 h-9 w-9 border border-gray-200 bg-white shadow-sm hover:bg-gray-100 rounded-md text-primary transition-all flex items-center justify-center" />
-          </div>
-          <AuthControls />
-        </header>
-        <main className="flex-1 p-4 md:p-6 lg:p-8">
-          <div className="mx-auto w-full max-w-7xl">
-            {children}
-          </div>
-        </main>
-      </SidebarInset>
+      <main className="w-full flex-1 overflow-hidden relative">
+        <SidebarTrigger className="absolute top-4 left-4 z-50 md:hidden" />
+        {children}
+      </main>
     </SidebarProvider>
   )
 }
