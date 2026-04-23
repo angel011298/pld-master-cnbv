@@ -24,7 +24,7 @@ import { supabase } from "@/lib/supabase"
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 
 const NAV_ITEMS = [
-  { title: "Ruta de Aprendizaje", url: "/", icon: Map },
+  { title: "Ruta de Aprendizaje", url: "/dashboard", icon: Map }, // <--- RUTA ACTUALIZADA AQUÍ
   { title: "Entidades Financieras", url: "/entities", icon: Building2 },
   { title: "Modo Estudio", url: "/estudio", icon: BookOpen },
   { title: "Simulador CENEVAL", url: "/simulator", icon: GraduationCap },
