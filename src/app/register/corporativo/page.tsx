@@ -14,7 +14,7 @@ export default function RegisterCorporativo() {
   const handleGoogleLogin = async () => {
     try {
       setGoogleLoading(true)
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { error } = await supabase().auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/welcome`, // O a donde quieras redirigir tras el login
