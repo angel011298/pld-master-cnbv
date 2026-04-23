@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, Lock, Play, Star, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown, ArrowRight } from "lucide-react"
+import { Check, Lock, Play, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { cn } from "@/lib/utils"
 
-const MODULES = [
+const BASE_MODULES = [
   { id: "1", title: "Fundamentos e Instituciones Internacionales", status: "completed" as const, isPremium: false },
   { id: "2", title: "Marco Jurídico Mexicano", status: "current" as const, isPremium: false },
   { id: "3", title: "Prevención y Gestión de Riesgos (EBR)", status: "locked" as const, isPremium: true },
@@ -31,7 +31,21 @@ export default function Home() {
   const streak = profile?.currentStreak ?? 0
   const levelProgress = totalXp % LEVEL_XP
   const level = Math.floor(totalXp / LEVEL_XP) + 1
-  const completedModules = MODULES.filter((m) => m.status === "completed").length
+  
+  // Lógica de Paywall: Forzar 'locked' si es premium y el usuario es free
+  const isFreeTier = profile?.tier !== 'premium'
+  
+  const modules = BASE_MODULES.map(mod => ({
+    ...mod,
+    // Si el módulo es premium y el usuario es free, forzamos que esté bloqueado
+    status: (mod.isPremium && isFreeTier) ? "locked" : mod.status
+  }))
+
+  const completedModules = modules.filter((m) => m.status === "completed").length
+
+  const handleCheckout = () => {
+    window.location.href = '/api/checkout?type=individual'
+  }
 
   return (
     <div className="p-4 space-y-4">
@@ -46,7 +60,7 @@ export default function Home() {
                 Ruta CNBV 2026 🎯
               </CardTitle>
               <p className="text-muted-foreground text-sm font-medium">
-                Certifícate en PLD/FT · {completedModules}/{MODULES.length} módulos completados
+                Certifícate en PLD/FT · {completedModules}/{modules.length} módulos completados
               </p>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -120,7 +134,7 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                {MODULES.map((mod, i) => (
+                {modules.map((mod, i) => (
                   <motion.div
                     key={mod.id}
                     whileHover={mod.status !== "locked" ? { x: 4 } : {}}
@@ -151,7 +165,7 @@ export default function Home() {
                         </p>
                       </div>
                       {/* Badge Premium para módulos bloqueados */}
-                      {mod.status === "locked" && mod.isPremium && (
+                      {mod.status === "locked" && mod.isPremium && isFreeTier && (
                         <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-black uppercase rounded-md tracking-wider">
                           Premium
                         </span>
@@ -191,32 +205,35 @@ export default function Home() {
           </Card>
         </motion.div>
 
-        {/* PREMIUM BANNER (Reemplaza a IngestDialog) — 1 col o 2 dependiendo del layout, lo dejamos a 1 col que se estira */}
-        <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible" className="md:col-span-1">
-          <Card className="h-full border-2 border-amber-300 border-b-[6px] bg-gradient-to-br from-amber-50 to-yellow-100 overflow-hidden relative group">
-            <div className="absolute -right-4 -top-4 opacity-20 group-hover:opacity-40 transition-opacity">
-              <Crown className="h-32 w-32 text-amber-500" />
-            </div>
-            <CardHeader className="pb-2 relative z-10">
-              <CardTitle className="text-xl font-black text-amber-800 flex items-center gap-2 tracking-tight">
-                <Crown className="h-6 w-6 text-amber-600" /> Certifik Pro
-              </CardTitle>
-              <p className="text-xs font-bold text-amber-700/80 uppercase tracking-widest mt-1">
-                Desbloquea Todo
-              </p>
-            </CardHeader>
-            <CardContent className="relative z-10 space-y-4">
-              <p className="text-sm font-medium text-amber-900/80 leading-snug">
-                Accede a simuladores infinitos y materiales exclusivos para asegurar tu certificación CNBV 2026.
-              </p>
-              <Link href="/onboarding" className="block">
-                <Button className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl border-b-4 border-amber-700 active:border-b-0 active:translate-y-1 transition-all">
-                  Actualizar a PRO <ArrowRight className="ml-2 h-4 w-4" />
+        {/* PREMIUM BANNER (Se oculta si el usuario ya es premium) — 1 col */}
+        {isFreeTier && (
+          <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible" className="md:col-span-1">
+            <Card className="h-full border-2 border-amber-300 border-b-[6px] bg-gradient-to-br from-amber-50 to-yellow-100 overflow-hidden relative group">
+              <div className="absolute -right-4 -top-4 opacity-20 group-hover:opacity-40 transition-opacity">
+                <Crown className="h-32 w-32 text-amber-500" />
+              </div>
+              <CardHeader className="pb-2 relative z-10">
+                <CardTitle className="text-xl font-black text-amber-800 flex items-center gap-2 tracking-tight">
+                  <Crown className="h-6 w-6 text-amber-600" /> Certifik Pro
+                </CardTitle>
+                <p className="text-xs font-bold text-amber-700/80 uppercase tracking-widest mt-1">
+                  Desbloquea Todo
+                </p>
+              </CardHeader>
+              <CardContent className="relative z-10 space-y-4">
+                <p className="text-sm font-medium text-amber-900/80 leading-snug">
+                  Accede a simuladores infinitos y materiales exclusivos para asegurar tu certificación CNBV 2026.
+                </p>
+                <Button 
+                  onClick={handleCheckout}
+                  className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black rounded-xl border-b-4 border-amber-700 active:border-b-0 active:translate-y-1 transition-all"
+                >
+                  Hazte Premium <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
 
       </div>
     </div>

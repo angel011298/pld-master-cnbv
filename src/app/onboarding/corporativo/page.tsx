@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import { Shield, Building2, Users, Mail, Plus, Trash2, ArrowLeft, CheckCircle2, Zap } from "lucide-react"
+import { Shield, Building2, Users, Mail, Trash2, ArrowLeft, CheckCircle2, Zap, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
@@ -41,7 +41,8 @@ export default function CorporativoPage() {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan: "b2b", seats: SEATS, invites: valid }),
+        // Actualizado para usar 'type' en lugar de 'plan' para consistencia con la API
+        body: JSON.stringify({ type: "b2b", seats: SEATS, invites: valid }),
       })
       const data = await res.json()
       if (data.url) {
@@ -75,13 +76,13 @@ export default function CorporativoPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         {/* Back */}
-        <Link href="/onboarding" className="flex items-center gap-2 text-blue-300 hover:text-white transition-colors mb-6 font-bold">
-          <ArrowLeft className="h-4 w-4" /> Volver
+        <Link href="/" className="flex items-center gap-2 text-blue-300 hover:text-white transition-colors mb-6 font-bold">
+          <ArrowLeft className="h-4 w-4" /> Volver al Inicio
         </Link>
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-8">
-          <div className="h-12 w-12 rounded-2xl bg-yellow-400 flex items-center justify-center">
+          <div className="h-12 w-12 rounded-2xl bg-yellow-400 flex items-center justify-center shadow-lg">
             <Shield className="h-7 w-7 text-blue-900" />
           </div>
           <div>
@@ -92,7 +93,7 @@ export default function CorporativoPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
           {/* Features */}
-          <div className="md:col-span-2 bg-white/5 border border-white/10 rounded-3xl p-6">
+          <div className="md:col-span-2 bg-white/5 border border-white/10 rounded-3xl p-6 shadow-inner">
             <div className="flex items-center gap-2 mb-4">
               <Building2 className="h-5 w-5 text-yellow-400" />
               <span className="text-white font-black">Plan Corporativo</span>
@@ -137,11 +138,11 @@ export default function CorporativoPage() {
                       placeholder={`correo${idx + 1}@empresa.com`}
                       value={email}
                       onChange={(e) => updateEmail(idx, e.target.value)}
-                      className="pl-9 rounded-xl border-2 focus:border-blue-500 text-gray-900 placeholder:text-gray-400"
+                      className="pl-9 rounded-xl border-2 focus:border-blue-500 text-gray-900 placeholder:text-gray-400 transition-all"
                     />
                   </div>
                   {email && (
-                    <button onClick={() => updateEmail(idx, "")} className="text-gray-300 hover:text-red-400 transition-colors">
+                    <button onClick={() => updateEmail(idx, "")} className="text-gray-300 hover:text-red-400 transition-colors p-1">
                       <Trash2 className="h-4 w-4" />
                     </button>
                   )}
@@ -149,8 +150,8 @@ export default function CorporativoPage() {
               ))}
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-6 text-xs text-blue-700 font-medium">
-              💡 Al estilo Spotify Familiar: cada usuario recibirá un correo con su link de activación personal.
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-6 text-xs text-blue-700 font-medium leading-relaxed">
+              💡 Al estilo Spotify Familiar: cada usuario recibirá un correo con su link de activación personal. No es necesario llenar todos ahora.
             </div>
 
             {error && (
@@ -160,13 +161,17 @@ export default function CorporativoPage() {
             )}
 
             <Button
-              className="w-full py-6 text-lg font-black rounded-2xl bg-yellow-400 hover:bg-yellow-300 text-blue-900 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all disabled:opacity-50"
+              className="w-full py-6 text-lg font-black rounded-2xl bg-yellow-400 hover:bg-yellow-300 text-blue-900 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all disabled:opacity-70"
               onClick={handleCheckout}
               disabled={loading}
             >
-              {loading ? "Procesando..." : "💳 Contratar por $4,995 MXN"}
+              {loading ? (
+                <span className="flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" /> Conectando con Stripe...</span>
+              ) : (
+                "💳 Contratar por $4,995 MXN"
+              )}
             </Button>
-            <p className="text-center text-xs text-gray-400 mt-3">Pago seguro vía Stripe · Factura CFDI 4.0 disponible</p>
+            <p className="text-center text-xs text-gray-400 mt-4 font-medium">Pago seguro vía Stripe · Factura CFDI 4.0 disponible</p>
           </div>
         </div>
       </div>

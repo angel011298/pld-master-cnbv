@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Shield, Calendar, CheckCircle2, XCircle, ArrowRight, Zap, Trophy, Lock, Star } from "lucide-react"
+import { Shield, Calendar, CheckCircle2, XCircle, ArrowRight, Zap, Trophy, Lock, Star, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { supabase } from "@/lib/supabase"
@@ -59,7 +59,11 @@ export default function IndividualOnboarding() {
   const [correct, setCorrect] = React.useState(0)
   const [showResult, setShowResult] = React.useState(false)
   const [xpEarned, setXpEarned] = React.useState(0)
+  
+  // Loading states
   const [saving, setSaving] = React.useState(false)
+  const [isCheckingOut, setIsCheckingOut] = React.useState(false)
+  const [isRedirectingFree, setIsRedirectingFree] = React.useState(false)
 
   const current = QUIZ_QUESTIONS[quizIdx]
   const progress = ((quizIdx + (confirmed ? 1 : 0)) / QUIZ_QUESTIONS.length) * 100
@@ -83,7 +87,6 @@ export default function IndividualOnboarding() {
     if (quizIdx + 1 >= QUIZ_QUESTIONS.length) {
       const earned = 50
       setXpEarned(earned)
-      // Save XP and exam date to profile
       setSaving(true)
       try {
         const sb = supabase()
@@ -105,26 +108,45 @@ export default function IndividualOnboarding() {
     }
   }
 
-  async function handleChallenge() {
+  function handleChallenge() {
     setStep("paywall")
   }
 
   async function handleCheckout() {
+    setIsCheckingOut(true)
     try {
-      const res = await fetch("/api/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ plan: "individual" }) })
+      const res = await fetch("/api/checkout", { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify({ type: "individual" }) // Aseguramos usar 'type' por consistencia con tu API
+      })
       const data = await res.json()
       if (data.url) window.location.href = data.url
-    } catch {/* noop */}
+    } catch {
+      setIsCheckingOut(false)
+    }
+  }
+
+  function handleFreeContinue() {
+    setIsRedirectingFree(true)
+    // Animación rápida simulando carga antes de redirigir al Dashboard / Guía
+    setTimeout(() => {
+      router.push("/")
+    }, 800)
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-indigo-900 flex flex-col items-center justify-center p-4 overflow-hidden">
       <div className="w-full max-w-xl">
         {/* Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="h-10 w-10 rounded-xl bg-yellow-400 flex items-center justify-center">
+          <motion.div 
+            initial={{ scale: 0.8, rotate: -10 }} 
+            animate={{ scale: 1, rotate: 0 }} 
+            className="h-10 w-10 rounded-xl bg-yellow-400 flex items-center justify-center shadow-lg"
+          >
             <Shield className="h-6 w-6 text-blue-900" />
-          </div>
+          </motion.div>
           <span className="text-2xl font-black text-white">Certifik PLD</span>
         </div>
 
@@ -138,7 +160,7 @@ export default function IndividualOnboarding() {
               </div>
               <h1 className="text-2xl font-black text-gray-900 mb-2">¡Bienvenido a Certifik PLD!</h1>
               <p className="text-gray-600 mb-6">Vas a prepararte para el examen de certificación de PLD/FT de la CNBV. Primero, selecciona tu fecha de examen.</p>
-              <Button className="w-full py-6 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white" onClick={() => setStep("date")}>
+              <Button className="w-full py-6 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white transition-all active:scale-[0.98]" onClick={() => setStep("date")}>
                 Comenzar <ArrowRight className="ml-2" />
               </Button>
             </motion.div>
@@ -159,9 +181,9 @@ export default function IndividualOnboarding() {
                     key={d.value}
                     onClick={() => setExamDate(d.value)}
                     className={cn(
-                      "w-full p-5 rounded-2xl border-3 border-2 text-left transition-all",
+                      "w-full p-5 rounded-2xl border-3 border-2 text-left transition-all active:scale-[0.99]",
                       examDate === d.value
-                        ? "border-blue-600 bg-blue-50 shadow-md shadow-blue-100"
+                        ? "border-blue-600 bg-blue-50 shadow-md shadow-blue-100 scale-[1.01]"
                         : "border-gray-200 hover:border-blue-300 bg-white"
                     )}
                   >
@@ -174,7 +196,7 @@ export default function IndividualOnboarding() {
                 ))}
               </div>
               <Button
-                className="w-full py-6 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40"
+                className="w-full py-6 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 transition-all active:scale-[0.98]"
                 disabled={!examDate}
                 onClick={() => setStep("quiz")}
               >
@@ -213,7 +235,7 @@ export default function IndividualOnboarding() {
                     onClick={() => handleAnswer(i)}
                     disabled={confirmed}
                     className={cn(
-                      "w-full p-4 rounded-2xl border-2 text-left text-sm font-bold transition-all",
+                      "w-full p-4 rounded-2xl border-2 text-left text-sm font-bold transition-all active:scale-[0.99]",
                       !confirmed && selected === i ? "border-blue-500 bg-blue-50 text-blue-700" :
                       !confirmed ? "border-gray-200 text-gray-700 hover:border-blue-300" :
                       i === current.correct ? "border-green-500 bg-green-50 text-green-700" :
@@ -232,14 +254,14 @@ export default function IndividualOnboarding() {
 
               {!confirmed ? (
                 <Button
-                  className="w-full py-5 font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40"
+                  className="w-full py-5 font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-40 transition-all active:scale-[0.98]"
                   disabled={selected === null}
                   onClick={handleConfirm}
                 >
                   Verificar
                 </Button>
               ) : (
-                <div className="space-y-3">
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
                   <div className={cn(
                     "p-4 rounded-2xl border-2 text-center font-black",
                     selected === current.correct ? "bg-green-50 border-green-300 text-green-700" : "bg-red-50 border-red-200 text-red-600"
@@ -247,13 +269,13 @@ export default function IndividualOnboarding() {
                     {selected === current.correct ? "✅ ¡Correcto!" : "❌ Incorrecto — sigue practicando"}
                   </div>
                   <Button
-                    className="w-full py-5 font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full py-5 font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white transition-all active:scale-[0.98]"
                     onClick={handleNext}
                     disabled={saving}
                   >
-                    {quizIdx + 1 >= QUIZ_QUESTIONS.length ? (saving ? "Guardando..." : "Ver mis resultados") : "Siguiente →"}
+                    {saving ? <Loader2 className="h-5 w-5 animate-spin" /> : (quizIdx + 1 >= QUIZ_QUESTIONS.length ? "Ver mis resultados" : "Siguiente →")}
                   </Button>
-                </div>
+                </motion.div>
               )}
             </motion.div>
           )}
@@ -264,7 +286,7 @@ export default function IndividualOnboarding() {
               <motion.div
                 animate={{ rotate: [0, -10, 10, -10, 0], scale: [1, 1.2, 1] }}
                 transition={{ duration: 0.6 }}
-                className="text-6xl mb-4"
+                className="text-6xl mb-4 inline-block"
               >
                 🎉
               </motion.div>
@@ -296,14 +318,18 @@ export default function IndividualOnboarding() {
           {step === "paywall" && (
             <motion.div key="paywall" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-white rounded-3xl p-8 shadow-2xl">
               <div className="text-center mb-6">
-                <div className="h-16 w-16 rounded-2xl bg-yellow-400 flex items-center justify-center mx-auto mb-3">
+                <motion.div 
+                  animate={{ rotate: 360 }} 
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="h-16 w-16 rounded-2xl bg-yellow-400 flex items-center justify-center mx-auto mb-3"
+                >
                   <Star className="h-8 w-8 text-blue-900" />
-                </div>
+                </motion.div>
                 <h2 className="text-2xl font-black text-gray-900">Hazte Premium</h2>
                 <p className="text-gray-600 mt-1">Desbloquea todos los módulos y aprueba tu examen</p>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 mb-6 text-white">
+              <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 mb-6 text-white shadow-inner">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-3xl font-black">$2,999</span>
                   <span className="text-blue-200 text-sm">MXN IVA incluido</span>
@@ -316,8 +342,16 @@ export default function IndividualOnboarding() {
                     "✅ Simulador de examen oficial",
                     "✅ Guías descargables en PDF",
                     "✅ Soporte hasta aprobar",
-                  ].map((f) => (
-                    <li key={f} className="text-sm font-medium text-blue-100">{f}</li>
+                  ].map((f, i) => (
+                    <motion.li 
+                      key={f} 
+                      initial={{ opacity: 0, x: -10 }} 
+                      animate={{ opacity: 1, x: 0 }} 
+                      transition={{ delay: i * 0.1 }}
+                      className="text-sm font-medium text-blue-100"
+                    >
+                      {f}
+                    </motion.li>
                   ))}
                 </ul>
               </div>
@@ -342,14 +376,20 @@ export default function IndividualOnboarding() {
               <Button
                 className="w-full py-6 text-lg font-black rounded-2xl bg-yellow-400 hover:bg-yellow-300 text-blue-900 border-b-4 border-yellow-600 active:border-b-0 active:translate-y-1 transition-all"
                 onClick={handleCheckout}
+                disabled={isCheckingOut || isRedirectingFree}
               >
-                💳 Pagar $2,999 MXN con Stripe
+                {isCheckingOut ? (
+                  <span className="flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" /> Conectando con Stripe...</span>
+                ) : (
+                  "💳 Pagar $2,999 MXN con Stripe"
+                )}
               </Button>
               <button
-                className="w-full mt-3 text-sm font-medium text-gray-400 hover:text-gray-600 transition-colors"
-                onClick={() => router.push("/")}
+                className="w-full mt-3 text-sm font-medium text-gray-400 hover:text-gray-600 transition-colors flex items-center justify-center gap-2"
+                onClick={handleFreeContinue}
+                disabled={isCheckingOut || isRedirectingFree}
               >
-                Continuar con la versión gratuita →
+                {isRedirectingFree ? <Loader2 className="h-4 w-4 animate-spin" /> : "Continuar con la versión gratuita →"}
               </button>
             </motion.div>
           )}
