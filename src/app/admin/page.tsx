@@ -29,37 +29,26 @@ const TABS: { id: AdminTab; label: string; icon: React.ElementType }[] = [
   { id: "logs", label: "Auditoría & Logs", icon: Activity },
 ]
 
-// ─── Mock data ────────────────────────────────────────────────────
-const MOCK_USERS = [
-  { email: "usuario1@banco.com", name: "Ana García", xp: 4200, streak: 12, tier: "premium", examDate: "2026-06-27" },
-  { email: "usuario2@sofom.mx", name: "Carlos López", xp: 1800, streak: 5, tier: "free", examDate: "2026-10-24" },
-  { email: "usuario3@fintech.io", name: "María Torres", xp: 8750, streak: 31, tier: "premium", examDate: "2026-06-27" },
-  { email: "usuario4@cnbv.mx", name: "Roberto Díaz", xp: 320, streak: 2, tier: "free", examDate: "2026-10-24" },
-]
-
-const MOCK_TRANSACTIONS = [
-  { id: "pi_001", amount: 2999, currency: "MXN", status: "succeeded", customer: "ana@banco.com", date: "2026-04-18" },
-  { id: "pi_002", amount: 4995, currency: "MXN", status: "succeeded", customer: "corp@empresa.mx", date: "2026-04-17" },
-  { id: "pi_003", amount: 2999, currency: "MXN", status: "failed", customer: "test@user.com", date: "2026-04-16" },
-  { id: "pi_004", amount: 2999, currency: "MXN", status: "refunded", customer: "refund@user.com", date: "2026-04-15" },
-]
-
-const MOCK_QUESTIONS = [
-  { id: "q001", text: "¿Cuál es el umbral para reportes en efectivo?", area: "Reportería", sector: "Banca", correct: "$10,000 USD" },
-  { id: "q002", text: "¿Quién supervisa PLD/FT en Fintechs?", area: "Marco Jurídico", sector: "Fintech", correct: "CNBV" },
-  { id: "q003", text: "¿Qué es el EBR?", area: "Prevención", sector: "General", correct: "Enfoque Basado en Riesgo" },
-]
-
 export default function AdminPage() {
   const [email, setEmail] = React.useState<string | null>(null)
   const [loading, setLoading] = React.useState(true)
+  const [loadingData, setLoadingData] = React.useState(true)
   const [tab, setTab] = React.useState<AdminTab>("fiscal")
   const [search, setSearch] = React.useState("")
 
-  // Datos simulados para RESICO
+  // Estados de datos reales
+  const [users, setUsers] = React.useState<any[]>([])
+  const [documents, setDocuments] = React.useState<any[]>([])
+  const [stats, setStats] = React.useState({ mrr: 0, b2b: 0, activeUsers: 0, reactivos: 0 })
+  const [transactions, setTransactions] = React.useState<any[]>([])
+  const [questions, setQuestions] = React.useState<any[]>([])
+  const [logs, setLogs] = React.useState<any[]>([])
+
+  // Datos simulados para RESICO (Esto requeriría conexión al middleware de facturación)
   const currentRevenue = 1250000 
   const resicoPercentage = (currentRevenue / RESICO_LIMIT) * 100
 
+  // 1. Autenticación inicial
   React.useEffect(() => {
     const sb = supabase()
     sb.auth.getUser().then(({ data }) => {
@@ -67,6 +56,75 @@ export default function AdminPage() {
       setLoading(false)
     })
   }, [])
+
+  // 2. Carga de datos y suscripción en tiempo real
+  React.useEffect(() => {
+    if (email !== SUPER_ADMIN_EMAIL) return;
+
+    const sb = supabase();
+
+    const fetchRealtimeData = async () => {
+      try {
+        // Cargar perfiles de usuario
+        const { data: profiles } = await sb
+          .from('user_profiles')
+          .select('*')
+          .order('total_xp', { ascending: false });
+
+        if (profiles) {
+          setUsers(profiles);
+          // Estimación básica de MRR basada en usuarios premium (ajustar según lógica real)
+          const premiumCount = profiles.filter(p => p.tier === 'premium').length;
+          setStats(prev => ({ 
+            ...prev, 
+            activeUsers: profiles.length,
+            mrr: premiumCount * 2999 // Estimado
+          }));
+        }
+
+        // Cargar documentos globales (Biblioteca RAG)
+        const { data: docs, count: docsCount } = await sb
+          .from('documents')
+          .select('*', { count: 'exact' })
+          .order('created_at', { ascending: false });
+
+        if (docs) {
+          setDocuments(docs);
+          setStats(prev => ({ ...prev, reactivos: docsCount || 0 }));
+        }
+
+        // Nota: Para integraciones externas (Stripe, SW Sapien, Logs del servidor), 
+        // se deben crear y llamar rutas API propias ej. /api/admin/stripe
+        // fetch('/api/admin/stripe-transactions').then(r => r.json()).then(setTransactions);
+        
+      } catch (error) {
+        console.error("Error fetching admin data:", error);
+      } finally {
+        setLoadingData(false);
+      }
+    };
+
+    fetchRealtimeData();
+
+    // Suscripciones en Tiempo Real a la BD
+    const channel = sb.channel('admin_dashboard')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'user_profiles' }, payload => {
+        console.log('Cambio en user_profiles:', payload);
+        fetchRealtimeData(); // Refrescar datos
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'documents' }, payload => {
+        console.log('Cambio en documents:', payload);
+        fetchRealtimeData();
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'study_events' }, payload => {
+        fetchRealtimeData();
+      })
+      .subscribe();
+
+    return () => {
+      sb.removeChannel(channel);
+    };
+  }, [email]);
 
   if (loading) {
     return (
@@ -93,8 +151,9 @@ export default function AdminPage() {
     )
   }
 
-  const filteredUsers = MOCK_USERS.filter(
-    (u) => u.email.includes(search) || u.name.toLowerCase().includes(search.toLowerCase())
+  const filteredUsers = users.filter(
+    (u) => u.full_name?.toLowerCase().includes(search.toLowerCase()) || 
+           u.public_customer_id?.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
@@ -111,19 +170,25 @@ export default function AdminPage() {
           </div>
         </div>
         <div className="flex gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 text-sm font-bold border border-emerald-200">
-            <Activity className="h-4 w-4" /> Sist. Operativo
-          </span>
+          {loadingData ? (
+             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 text-amber-700 text-sm font-bold border border-amber-200">
+               <RefreshCw className="h-4 w-4 animate-spin" /> Sincronizando...
+             </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 text-sm font-bold border border-emerald-200">
+              <Activity className="h-4 w-4" /> Sist. Operativo (Tiempo Real)
+            </span>
+          )}
         </div>
       </div>
 
       {/* Global KPI Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "MRR", value: "$17,994", sub: "MXN / mes", icon: TrendingUp, color: "text-emerald-700", bg: "bg-emerald-50" },
-          { label: "B2B Sales", value: "$9,990", sub: "2 licencias corp.", icon: Building2, color: "text-blue-700", bg: "bg-blue-50" },
-          { label: "Usuarios Activos", value: "4", sub: "2 premium · 2 free", icon: Users, color: "text-indigo-700", bg: "bg-indigo-50" },
-          { label: "Reactivos", value: "2,543", sub: "banco de preguntas", icon: FileText, color: "text-yellow-700", bg: "bg-yellow-50" },
+          { label: "MRR Estimado", value: `$${stats.mrr.toLocaleString()}`, sub: "MXN / mes", icon: TrendingUp, color: "text-emerald-700", bg: "bg-emerald-50" },
+          { label: "B2B Sales", value: `$${stats.b2b.toLocaleString()}`, sub: "Licencias corporativas", icon: Building2, color: "text-blue-700", bg: "bg-blue-50" },
+          { label: "Usuarios Activos", value: stats.activeUsers, sub: "Registrados", icon: Users, color: "text-indigo-700", bg: "bg-indigo-50" },
+          { label: "Documentos (RAG)", value: stats.reactivos, sub: "Base de conocimiento", icon: FileText, color: "text-yellow-700", bg: "bg-yellow-50" },
         ].map((kpi) => (
           <motion.div key={kpi.label} whileHover={{ scale: 1.02 }}>
             <Card className="border-2 border-gray-200 shadow-sm">
@@ -179,7 +244,6 @@ export default function AdminPage() {
                   <span className="text-4xl font-black text-gray-900">${currentRevenue.toLocaleString()}</span>
                   <span className="text-sm font-bold text-gray-500">{resicoPercentage.toFixed(1)}% del límite</span>
                 </div>
-                {/* Progress bar manual en Tailwind puro */}
                 <div className="h-4 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div 
                     className={`h-full rounded-full transition-all duration-500 ${resicoPercentage > 80 ? 'bg-red-500' : 'bg-emerald-500'}`} 
@@ -245,39 +309,43 @@ export default function AdminPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b-2 border-gray-200">
-                      {["ID", "Monto", "Estado", "Cliente", "Fecha", "Acciones"].map((h) => (
-                        <th key={h} className="text-left pb-3 font-black text-gray-700 pr-4">{h}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-100">
-                    {MOCK_TRANSACTIONS.map((tx) => (
-                      <tr key={tx.id} className="hover:bg-gray-50">
-                        <td className="py-3 pr-4 font-mono text-xs text-gray-500">{tx.id}</td>
-                        <td className="py-3 pr-4 font-black text-gray-900">${tx.amount.toLocaleString()} {tx.currency}</td>
-                        <td className="py-3 pr-4">
-                          <span className={`px-2 py-1 rounded-md text-xs font-black ${
-                            tx.status === "succeeded" ? "bg-emerald-100 text-emerald-700" :
-                            tx.status === "failed" ? "bg-red-100 text-red-600" :
-                            "bg-gray-100 text-gray-600"
-                          }`}>{tx.status}</span>
-                        </td>
-                        <td className="py-3 pr-4 text-gray-700 text-xs font-medium">{tx.customer}</td>
-                        <td className="py-3 pr-4 text-gray-400 text-xs">{tx.date}</td>
-                        <td className="py-3">
-                          <Button size="sm" variant="ghost" className="text-xs font-bold text-gray-500 hover:text-blue-600 hover:bg-blue-50">
-                            Reembolsar
-                          </Button>
-                        </td>
+              {transactions.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">No hay transacciones recientes para mostrar. (Requiere conexión API Stripe)</div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b-2 border-gray-200">
+                        {["ID", "Monto", "Estado", "Cliente", "Fecha", "Acciones"].map((h) => (
+                          <th key={h} className="text-left pb-3 font-black text-gray-700 pr-4">{h}</th>
+                        ))}
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {transactions.map((tx: any) => (
+                        <tr key={tx.id} className="hover:bg-gray-50">
+                          <td className="py-3 pr-4 font-mono text-xs text-gray-500">{tx.id}</td>
+                          <td className="py-3 pr-4 font-black text-gray-900">${tx.amount.toLocaleString()} {tx.currency}</td>
+                          <td className="py-3 pr-4">
+                            <span className={`px-2 py-1 rounded-md text-xs font-black ${
+                              tx.status === "succeeded" ? "bg-emerald-100 text-emerald-700" :
+                              tx.status === "failed" ? "bg-red-100 text-red-600" :
+                              "bg-gray-100 text-gray-600"
+                            }`}>{tx.status}</span>
+                          </td>
+                          <td className="py-3 pr-4 text-gray-700 text-xs font-medium">{tx.customer}</td>
+                          <td className="py-3 pr-4 text-gray-400 text-xs">{tx.date}</td>
+                          <td className="py-3">
+                            <Button size="sm" variant="ghost" className="text-xs font-bold text-gray-500 hover:text-blue-600 hover:bg-blue-50">
+                              Reembolsar
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -295,16 +363,6 @@ export default function AdminPage() {
                 <Button className="bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-black shrink-0 px-6">
                   <Plus className="h-4 w-4 mr-1" /> Crear Cupón
                 </Button>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {["CERTIFIK2026 — 20% off", "BANCO2026 — $500 MXN", "LAUNCH50 — 50% off"].map((c) => (
-                  <div key={c} className="flex items-center justify-between p-3 rounded-xl bg-yellow-50 border border-yellow-200 shadow-sm">
-                    <span className="text-sm font-bold text-yellow-800">{c}</span>
-                    <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-red-400 hover:text-red-600 hover:bg-red-50">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                ))}
               </div>
             </CardContent>
           </Card>
@@ -341,27 +399,30 @@ export default function AdminPage() {
               </Button>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {MOCK_QUESTIONS.map((q) => (
-                  <div key={q.id} className="flex items-start justify-between gap-3 p-4 rounded-xl bg-white border border-gray-200 shadow-sm hover:border-blue-300 transition-colors">
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-gray-900 mb-1">{q.text}</p>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="text-xs bg-blue-50 text-blue-700 font-bold px-2 py-1 rounded-md border border-blue-100">{q.area}</span>
-                        <span className="text-xs bg-gray-100 text-gray-600 font-bold px-2 py-1 rounded-md border border-gray-200">{q.sector}</span>
+              {questions.length === 0 ? (
+                 <div className="text-center py-6 text-gray-500">No hay reactivos cargados. (Requiere tabla dedicada o integración con documents)</div>
+              ) : (
+                <div className="space-y-3">
+                  {questions.map((q: any) => (
+                    <div key={q.id} className="flex items-start justify-between gap-3 p-4 rounded-xl bg-white border border-gray-200 shadow-sm hover:border-blue-300 transition-colors">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold text-gray-900 mb-1">{q.text}</p>
+                        <div className="flex flex-wrap gap-2">
+                          <span className="text-xs bg-blue-50 text-blue-700 font-bold px-2 py-1 rounded-md border border-blue-100">{q.area}</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-1 shrink-0">
+                        <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50" title="Editar Retroalimentación">
+                          <Edit3 className="h-4 w-4" />
+                        </Button>
+                        <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-red-500 hover:bg-red-50">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
-                    <div className="flex gap-1 shrink-0">
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50" title="Editar Retroalimentación">
-                        <Edit3 className="h-4 w-4" />
-                      </Button>
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-red-500 hover:bg-red-50">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -373,25 +434,26 @@ export default function AdminPage() {
           <Card className="border-2 shadow-sm">
             <CardHeader>
               <CardTitle className="font-black flex items-center gap-2 text-indigo-900">
-                <HardDrive className="w-5 h-5 text-indigo-600"/> Sincronización Google Drive
+                <HardDrive className="w-5 h-5 text-indigo-600"/> Sincronización Base RAG
               </CardTitle>
-              <CardDescription>Actualiza leyes y reglamentos desde la carpeta matriz.</CardDescription>
+              <CardDescription>Documentos procesados e integrados para el modelo RAG global.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 mb-4">
-                <p className="text-xs text-slate-500 font-mono">Folder ID: 1X7uJ3TBUvR4PYxkeakKoakl3a1HuFZ_Y</p>
-              </div>
               <Button className="w-full bg-indigo-600 hover:bg-indigo-700 font-bold">
-                <RefreshCw className="w-4 h-4 mr-2"/> Sincronizar Nuevos PDF/Markdown
+                <RefreshCw className="w-4 h-4 mr-2"/> Forzar Sincronización Global
               </Button>
-              <div className="mt-4 space-y-2">
-                <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">Documentos Activos</p>
-                {["LFPIORPI 2024", "Disposiciones CNBV Banca v3.2", "Guía EBR 2024"].map((doc, i) => (
-                  <div key={doc} className="flex items-center justify-between p-2 rounded-lg bg-white border border-gray-100 text-sm">
-                    <span className="font-medium text-gray-700 flex items-center gap-2"><FileText className="w-4 h-4 text-indigo-400"/> {doc}</span>
-                    <span className="text-xs text-gray-400">v{i + 1}.0</span>
+              <div className="mt-4 space-y-2 max-h-96 overflow-y-auto">
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-wider sticky top-0 bg-white py-1">Documentos Activos en BD ({documents.length})</p>
+                {documents.map((doc) => (
+                  <div key={doc.id} className="flex items-center justify-between p-2 rounded-lg bg-white border border-gray-100 text-sm hover:border-indigo-200">
+                    <div className="flex items-center gap-2 overflow-hidden">
+                       <FileText className="w-4 h-4 text-indigo-400 shrink-0"/> 
+                       <span className="font-medium text-gray-700 truncate">{doc.name}</span>
+                    </div>
+                    <span className="text-xs text-gray-400 shrink-0 px-2">{doc.is_global ? 'Global' : 'Privado'}</span>
                   </div>
                 ))}
+                {documents.length === 0 && <p className="text-xs text-gray-400 mt-2">No se encontraron documentos en la tabla public.documents.</p>}
               </div>
             </CardContent>
           </Card>
@@ -430,7 +492,7 @@ export default function AdminPage() {
                   <Users className="h-5 w-5 text-indigo-600" />
                   Directorio Maestro & Control B2B
                 </CardTitle>
-                <CardDescription>Visualiza asientos corporativos y otorga soporte técnico ("Impersonate").</CardDescription>
+                <CardDescription>Visualiza asientos corporativos y otorga soporte técnico.</CardDescription>
               </div>
               <Button size="sm" className="gap-1 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md">
                 <Plus className="h-4 w-4" /> Alta Manual
@@ -440,28 +502,28 @@ export default function AdminPage() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  placeholder="Buscar por correo, nombre o empresa..."
+                  placeholder="Buscar por nombre o ID público..."
                   className="pl-9 rounded-xl border-2 border-gray-200 text-gray-800 placeholder:text-gray-400"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2">
                 {filteredUsers.map((u) => (
-                  <div key={u.email} className="flex items-center gap-3 p-4 rounded-xl bg-white border border-gray-200 shadow-sm hover:border-blue-200 transition-colors">
+                  <div key={u.user_id} className="flex items-center gap-3 p-4 rounded-xl bg-white border border-gray-200 shadow-sm hover:border-blue-200 transition-colors">
                     <div className="h-10 w-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                      <span className="text-blue-700 font-black text-sm">{u.name[0]}</span>
+                      <span className="text-blue-700 font-black text-sm">{(u.full_name || 'U')[0].toUpperCase()}</span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-gray-900 truncate">{u.name}</p>
-                      <p className="text-xs font-medium text-gray-500">{u.email}</p>
+                      <p className="text-sm font-bold text-gray-900 truncate">{u.full_name || 'Usuario sin nombre'}</p>
+                      <p className="text-xs font-medium text-gray-500">{u.public_customer_id}</p>
                     </div>
                     <div className="flex items-center gap-3 shrink-0 mr-4 hidden md:flex">
                       <span className="flex items-center gap-1 text-xs font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded-md">
-                        <Zap className="h-3.5 w-3.5" />{u.xp.toLocaleString()} XP
+                        <Zap className="h-3.5 w-3.5" />{u.total_xp?.toLocaleString() || 0} XP
                       </span>
                       <span className="flex items-center gap-1 text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-md">
-                        <Flame className="h-3.5 w-3.5" />{u.streak}d
+                        <Flame className="h-3.5 w-3.5" />{u.current_streak || 0}d
                       </span>
                       <span className={`px-2 py-1 rounded-md text-xs font-black uppercase tracking-wider ${
                         u.tier === "premium" ? "bg-indigo-100 text-indigo-700" : "bg-gray-100 text-gray-500"
@@ -480,6 +542,7 @@ export default function AdminPage() {
                     </div>
                   </div>
                 ))}
+                {filteredUsers.length === 0 && <p className="text-sm text-gray-500 text-center py-4">No se encontraron usuarios.</p>}
               </div>
             </CardContent>
           </Card>
@@ -496,29 +559,12 @@ export default function AdminPage() {
                   <BarChart3 className="h-5 w-5 text-red-500" />
                   Mapa de Calor de Conocimiento
                 </CardTitle>
-                <CardDescription>Tópicos con mayor tasa de fallo. Útil para crear material de refuerzo.</CardDescription>
+                <CardDescription>Tópicos con mayor tasa de fallo. (Cálculo basado en study_events requeriría agregación DB)</CardDescription>
               </CardHeader>
               <CardContent className="space-y-5 pt-4">
-                {[
-                  { topic: "Reportes de Operaciones Inusuales (24h)", fail: 78 },
-                  { topic: "Umbrales para operaciones en efectivo", fail: 65 },
-                  { topic: "EBR — Clasificación de Riesgo Integral", fail: 61 },
-                  { topic: "Integración de Expedientes (Personas Morales)", fail: 54 },
-                ].map((item) => (
-                  <div key={item.topic} className="space-y-1.5">
-                    <div className="flex justify-between text-sm font-bold text-gray-800">
-                      <span className="truncate">{item.topic}</span>
-                      <span className={`${item.fail > 70 ? 'text-red-500' : 'text-amber-500'} shrink-0 ml-2`}>{item.fail}% Fallo</span>
-                    </div>
-                    {/* Barra de progreso Tailwind */}
-                    <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                      <div 
-                        className={`h-full rounded-full ${item.fail > 70 ? 'bg-red-500' : 'bg-amber-400'}`} 
-                        style={{ width: `${item.fail}%` }} 
-                      />
-                    </div>
-                  </div>
-                ))}
+                <div className="text-sm text-gray-500 italic text-center py-10">
+                  Agregación de study_events en construcción...
+                </div>
               </CardContent>
             </Card>
 
@@ -527,20 +573,22 @@ export default function AdminPage() {
                 <CardHeader className="pb-2">
                   <CardTitle className="text-base font-black text-gray-900 flex items-center gap-2">
                     <Flame className="h-4 w-4 text-orange-500" />
-                    Métricas de Retención
+                    Métricas de Retención (Tiempo Real)
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {[
-                    { label: "Racha promedio global", value: "8.3 días" },
-                    { label: "Hora pico de estudio", value: "8–9 PM" },
-                    { label: "Sesiones / semana", value: "4.2 / user" },
-                  ].map((m) => (
-                    <div key={m.label} className="flex justify-between items-center border-b border-orange-100 pb-2 last:border-0 last:pb-0">
-                      <span className="text-xs font-medium text-gray-600">{m.label}</span>
-                      <span className="text-sm font-black text-gray-900">{m.value}</span>
-                    </div>
-                  ))}
+                  <div className="flex justify-between items-center border-b border-orange-100 pb-2">
+                    <span className="text-xs font-medium text-gray-600">Racha promedio global</span>
+                    <span className="text-sm font-black text-gray-900">
+                      {users.length > 0 ? (users.reduce((acc, u) => acc + (u.current_streak || 0), 0) / users.length).toFixed(1) : 0} días
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-orange-100 pb-2">
+                    <span className="text-xs font-medium text-gray-600">Usuarios Premium</span>
+                    <span className="text-sm font-black text-gray-900">
+                      {users.filter(u => u.tier === 'premium').length}
+                    </span>
+                  </div>
                 </CardContent>
               </Card>
 
@@ -552,17 +600,20 @@ export default function AdminPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 pt-4">
-                  {MOCK_USERS.sort((a, b) => b.xp - a.xp).slice(0, 3).map((u, i) => (
-                    <div key={u.email} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
+                  {users.sort((a, b) => (b.total_xp || 0) - (a.total_xp || 0)).slice(0, 3).map((u, i) => (
+                    <div key={u.user_id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50">
                       <span className="text-lg font-black w-6 text-center">
                         {i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉"}
                       </span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-800 truncate">{u.name}</p>
+                        <p className="text-sm font-bold text-gray-800 truncate">{u.full_name || 'Anónimo'}</p>
                       </div>
-                      <span className="text-xs font-black text-yellow-700 bg-yellow-100 px-2 py-1 rounded-md">{u.xp.toLocaleString()} XP</span>
+                      <span className="text-xs font-black text-yellow-700 bg-yellow-100 px-2 py-1 rounded-md">
+                        {(u.total_xp || 0).toLocaleString()} XP
+                      </span>
                     </div>
                   ))}
+                  {users.length === 0 && <p className="text-xs text-gray-400 text-center">Sin usuarios con XP.</p>}
                 </CardContent>
               </Card>
             </div>
@@ -582,25 +633,8 @@ export default function AdminPage() {
               <CardDescription>Registro inmutable para cumplimiento corporativo y control preventivo.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-slate-900 rounded-xl p-4 h-64 overflow-y-auto space-y-3 font-mono text-xs shadow-inner">
-                {[
-                  { time: "2026-04-20 10:32:01", level: "INFO", src: "SYS_ADMIN", msg: "553angelortiz@gmail.com actualizó configuración de sector Bancario." },
-                  { time: "2026-04-20 10:28:45", level: "WARN", src: "AI_RAG_MISS", msg: "Documento missing context for query: 'Nuevos formatos UIF 2026'" },
-                  { time: "2026-04-20 10:15:22", level: "INFO", src: "STRIPE", msg: "Webhook checkout.session.completed received - User: ana@banco.com" },
-                  { time: "2026-04-20 09:55:11", level: "INFO", src: "BILLING", msg: "Factura global CFDI 4.0 pre-timbrada exitosamente." },
-                  { time: "2026-04-20 09:41:03", level: "ERROR", src: "STRIPE", msg: "PaymentIntent falló: fondos insuficientes." },
-                  { time: "2026-04-20 09:30:00", level: "WARN", src: "AI_CHATBOT", msg: "Token usage spike detected: 4,500 tokens. Prompt: 'Diferencia entre SOFOM y Banco en EBR'" },
-                ].map((log, i) => (
-                  <div key={i} className="flex gap-3">
-                    <span className="text-gray-500 shrink-0">[{log.time}]</span>
-                    <span className={`font-bold shrink-0 ${
-                      log.level === "ERROR" ? "text-red-400" :
-                      log.level === "WARN" ? "text-yellow-400" :
-                      "text-emerald-400"
-                    }`}>[{log.src}]</span>
-                    <span className={log.level === "ERROR" ? "text-red-300" : "text-gray-300"}>{log.msg}</span>
-                  </div>
-                ))}
+              <div className="bg-slate-900 rounded-xl p-4 h-64 flex items-center justify-center font-mono text-xs shadow-inner">
+                <span className="text-gray-500">Conectando a stream de logs del servidor...</span>
               </div>
               <div className="flex gap-3">
                 <Button variant="outline" className="text-gray-700 font-bold border-gray-300">
@@ -622,10 +656,10 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { service: "Vercel (Next.js Edge)", status: "Operational", latency: "42ms" },
-                { service: "Supabase (PostgreSQL)", status: "Operational", latency: "15ms" },
-                { service: "Google Gemini (RAG Engine)", status: "Operational", latency: "812ms" },
-                { service: "Stripe API", status: "Operational", latency: "230ms" },
+                { service: "Vercel (Next.js Edge)", status: "Operational", latency: "Conectado" },
+                { service: "Supabase (PostgreSQL)", status: "Operational", latency: "Conectado" },
+                { service: "Google Gemini (RAG Engine)", status: "Operational", latency: "Conectado" },
+                { service: "Stripe API", status: "Operational", latency: "Conectado" },
               ].map((svc) => (
                 <div key={svc.service} className="flex items-center justify-between p-3 rounded-xl border border-gray-100 bg-white">
                   <div className="flex items-center gap-2">

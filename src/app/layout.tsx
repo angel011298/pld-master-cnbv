@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ClientLayout } from "@/components/ClientLayout";
 
-const inter = Inter({
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "Certifik PLD | Certificación CNBV 2026",
-  description: "Plataforma de microaprendizaje gamificada para aprobar el examen PLD/FT de la CNBV.",
+  title: "Certifik PLD - CNBV",
+  description: "Plataforma de preparación para certificación PLD",
 };
 
 export default function RootLayout({
@@ -19,9 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${inter.variable} antialiased`}>
-      <body className="font-sans min-h-screen bg-background">
-        <ClientLayout>{children}</ClientLayout>
+    <html lang="es">
+      <body className={`${geistSans.variable} antialiased`}>
+        {children}
       </body>
     </html>
   );
