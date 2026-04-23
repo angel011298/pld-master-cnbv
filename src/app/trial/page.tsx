@@ -101,15 +101,26 @@ export default function TrialPage() {
           
           <h2 className="text-3xl font-black text-slate-900 mb-2">¡Desempeño Sobresaliente!</h2>
           <p className="text-slate-600 mb-8 font-medium">
-            Has demostrado gran potencial. Tu racha inicia hoy. Continúa tu entrenamiento para asegurar tu certificación CNBV 2026.
+            Has demostrado gran potencial. Tu racha inicia hoy. Continúa tu entrenamiento para asegurar tu certificación CNBV.
           </p>
 
-          <Button 
-            onClick={() => router.push("/register/individual")}
-            className="w-full h-16 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-2"
-          >
-            Reclamar XP y Crear Cuenta <ArrowRight className="h-5 w-5" />
-          </Button>
+          {/* LOS DOS BOTONES NUEVOS DE REGISTRO */}
+          <div className="flex flex-col gap-4">
+            <Button 
+              onClick={() => router.push("/register/individual")}
+              className="w-full h-14 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-2"
+            >
+              Registro Individual <ArrowRight className="h-5 w-5" />
+            </Button>
+
+            <Button 
+              onClick={() => router.push("/register/corporativo")}
+              variant="outline"
+              className="w-full h-14 text-md font-bold rounded-2xl border-2 border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-2"
+            >
+              Registro Corporativo (Empresas)
+            </Button>
+          </div>
         </motion.div>
       </div>
     )
