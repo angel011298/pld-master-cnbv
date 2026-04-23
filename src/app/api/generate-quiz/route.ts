@@ -31,7 +31,10 @@ export async function POST(req: NextRequest) {
     if (!parsed.ok) {
       return NextResponse.json({ error: parsed.error }, { status: 400 });
     }
+    
     const { topic, difficulty, count } = parsed.data;
+    // Capturamos el tipo de formato solicitado, si no viene, asumimos simulador ceneval por defecto
+    const formatType = payload.formatType || 'ceneval';
 
     // 1. Generate embedding for the topic to search context
     const topicEmbedding = await generateEmbedding(topic);
@@ -57,43 +60,48 @@ export async function POST(req: NextRequest) {
       contextText ||
       "No hay contexto suficiente en documentos internos. Usa fuentes públicas oficiales recientes de México (DOF, CNBV, SHCP, UIF) e incluye referencias.";
 
-    // 3. Prompt Gemini Pro to generate the quiz
+    // 3. Prompt Gemini Pro to generate the educational material (Multi-formato y Jerarquía estricta)
     const prompt = `
-      Eres un experto en PLD/FT certificado por la CNBV.
-      Utiliza el siguiente contexto extraído de leyes y guías oficiales para generar un examen de certificación:
+      Eres un experto pedagogo y examinador especializado en la Certificación de Prevención de Lavado de Dinero y Financiamiento al Terrorismo (PLD/FT) de la CNBV en México.
       
-      CONTEXTO:
+      INSTRUCCIONES DE FUENTE DE VERDAD (JERARQUÍA ESTRICTA):
+      1. FUENTE PRINCIPAL Y DEFINITIVA: Debes basar tus respuestas PRIMORDIALMENTE en la "Guía PLD/FT_CNBV".
+      2. FUENTES SECUNDARIAS: Leyes, reglamentos, Disposiciones de Carácter General (DCG), circulares de Banxico y marco jurídico publicado en el DOF y la Cámara de Diputados, así como los documentos aportados a continuación.
+      
+      CONTEXTO RECUPERADO (Base de Datos Vectorial de la Carpeta Drive):
       ${finalContext}
       
-      INSTRUCCIONES:
-      - Genera exactamente ${count} preguntas de opción múltiple.
-      - Nivel de dificultad: ${difficulty}.
-      - Cada pregunta debe tener 4 opciones (A, B, C, D).
-      - Incluye la justificación legal basada en el contexto.
-      - Incluye referencia de la fuente (documento interno o URL oficial).
-      - Formato: JSON puro (un arreglo de objetos).
-      
-      EJEMPLO DE FORMATO:
-      [
-        {
-          "id": 1,
-          "question": "¿Cuál es el plazo para reportar Operaciones Inusuales?",
-          "options": ["24 horas", "3 días hábiles", "60 días naturales", "Inmediatamente"],
-          "answer": "60 días naturales",
-          "justification": "Según las Disposiciones de Carácter General, el reporte debe enviarse dentro de los 60 días siguientes a que se dictamine la operación."
-        }
-      ]
+      INSTRUCCIONES DE GENERACIÓN:
+      Se te ha solicitado generar material educativo sobre el tema: "${topic}".
+      Nivel de dificultad: ${difficulty}.
+      El formato solicitado es: "${formatType}".
+      Cantidad de elementos solicitada: ${count}.
+
+      REGLAS POR FORMATO (Usa estrictamente las siguientes estructuras):
+      - 'ceneval': Genera un arreglo de preguntas de opción múltiple (4 opciones: A, B, C, D) con alto rigor técnico. Ejemplo de objeto: {"id": 1, "question": "...", "options": ["A", "B", "C", "D"], "answer": "...", "justification": "...", "source": "..."}
+      - 'true_false': Genera un arreglo de afirmaciones. Ejemplo de objeto: {"id": 1, "statement": "...", "isTrue": true/false, "justification": "...", "source": "..."}
+      - 'crossword_clues': Genera un arreglo de conceptos de una sola palabra sin espacios ni guiones. Ejemplo de objeto: {"id": 1, "word": "...", "clue": "..."}
+      - 'concept_matching': Genera un objeto con dos arreglos aleatorizados. Ejemplo: {"concepts": [{"id": 1, "text": "..."}], "definitions": [{"id": 1, "conceptId": 1, "text": "..."}]}
+      - 'word_search_terms': Genera un arreglo de palabras clave. Ejemplo de objeto: {"word": "...", "explanation": "..."}
+
+      IMPORTANTE:
+      Devuelve el resultado ESTRICTAMENTE en formato JSON válido puro. 
+      NO uses formato markdown ni bloques de código (como \`\`\`json). No agregues ningún texto introductorio, el primer y último carácter deben ser las llaves o corchetes del JSON ([ o {).
     `;
 
     const result = await proModel().generateContent(prompt);
     const response = await result.response;
     const text = response.text();
     
-    // Extract JSON from response (handling potential markdown fences)
+    // Extract JSON from response (handling potential markdown fences just in case Gemini gets stubborn)
     const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
     const quiz = JSON.parse(jsonStr);
 
-    return NextResponse.json({ success: true, quiz });
+    return NextResponse.json({ 
+      success: true, 
+      quiz,
+      source_context_used: contextChunks?.length || 0 // Útil para mostrar en frontend si la IA usó los PDF reales
+    });
 
   } catch (error: unknown) {
     console.error("Quiz generation error:", error);

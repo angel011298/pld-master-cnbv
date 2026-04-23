@@ -7,7 +7,7 @@ import {
   TrendingUp, AlertTriangle, CheckCircle2, Clock, Download, Plus,
   Search, Filter, Ban, RefreshCw, Activity, Zap, Flame, Trophy,
   Building2, Edit3, Trash2, Eye, Lock, Landmark, Database, BookOpen,
-  HardDrive
+  HardDrive, X, CheckCircle
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -44,7 +44,12 @@ export default function AdminPage() {
   const [questions, setQuestions] = React.useState<any[]>([])
   const [logs, setLogs] = React.useState<any[]>([])
 
-  // Datos simulados para RESICO (Esto requeriría conexión al middleware de facturación)
+  // Estados UI para Modales de Administración de Usuarios
+  const [showAddModal, setShowAddModal] = React.useState(false)
+  const [actionLoading, setActionLoading] = React.useState(false)
+  const [newUser, setNewUser] = React.useState({ email: '', fullName: '', password: 'Certifik2026!' })
+
+  // Datos simulados para RESICO
   const currentRevenue = 1250000 
   const resicoPercentage = (currentRevenue / RESICO_LIMIT) * 100
 
@@ -57,60 +62,56 @@ export default function AdminPage() {
     })
   }, [])
 
+  // Extraemos la función de fetch para poder llamarla al modificar usuarios
+  const fetchRealtimeData = React.useCallback(async () => {
+    const sb = supabase();
+    try {
+      // Cargar perfiles de usuario
+      const { data: profiles } = await sb
+        .from('user_profiles')
+        .select('*')
+        .order('total_xp', { ascending: false });
+
+      if (profiles) {
+        setUsers(profiles);
+        // Estimación básica de MRR basada en usuarios premium
+        const premiumCount = profiles.filter(p => p.tier === 'premium').length;
+        setStats(prev => ({ 
+          ...prev, 
+          activeUsers: profiles.length,
+          mrr: premiumCount * 2999
+        }));
+      }
+
+      // Cargar documentos globales
+      const { data: docs, count: docsCount } = await sb
+        .from('documents')
+        .select('*', { count: 'exact' })
+        .order('created_at', { ascending: false });
+
+      if (docs) {
+        setDocuments(docs);
+        setStats(prev => ({ ...prev, reactivos: docsCount || 0 }));
+      }
+    } catch (error) {
+      console.error("Error fetching admin data:", error);
+    } finally {
+      setLoadingData(false);
+    }
+  }, []);
+
   // 2. Carga de datos y suscripción en tiempo real
   React.useEffect(() => {
     if (email !== SUPER_ADMIN_EMAIL) return;
 
-    const sb = supabase();
-
-    const fetchRealtimeData = async () => {
-      try {
-        // Cargar perfiles de usuario
-        const { data: profiles } = await sb
-          .from('user_profiles')
-          .select('*')
-          .order('total_xp', { ascending: false });
-
-        if (profiles) {
-          setUsers(profiles);
-          // Estimación básica de MRR basada en usuarios premium (ajustar según lógica real)
-          const premiumCount = profiles.filter(p => p.tier === 'premium').length;
-          setStats(prev => ({ 
-            ...prev, 
-            activeUsers: profiles.length,
-            mrr: premiumCount * 2999 // Estimado
-          }));
-        }
-
-        // Cargar documentos globales (Biblioteca RAG)
-        const { data: docs, count: docsCount } = await sb
-          .from('documents')
-          .select('*', { count: 'exact' })
-          .order('created_at', { ascending: false });
-
-        if (docs) {
-          setDocuments(docs);
-          setStats(prev => ({ ...prev, reactivos: docsCount || 0 }));
-        }
-
-        // Nota: Para integraciones externas (Stripe, SW Sapien, Logs del servidor), 
-        // se deben crear y llamar rutas API propias ej. /api/admin/stripe
-        // fetch('/api/admin/stripe-transactions').then(r => r.json()).then(setTransactions);
-        
-      } catch (error) {
-        console.error("Error fetching admin data:", error);
-      } finally {
-        setLoadingData(false);
-      }
-    };
-
     fetchRealtimeData();
 
+    const sb = supabase();
     // Suscripciones en Tiempo Real a la BD
     const channel = sb.channel('admin_dashboard')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'user_profiles' }, payload => {
         console.log('Cambio en user_profiles:', payload);
-        fetchRealtimeData(); // Refrescar datos
+        fetchRealtimeData();
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'documents' }, payload => {
         console.log('Cambio en documents:', payload);
@@ -124,7 +125,66 @@ export default function AdminPage() {
     return () => {
       sb.removeChannel(channel);
     };
-  }, [email]);
+  }, [email, fetchRealtimeData]);
+
+  // ---- FUNCIONES DE ADMINISTRACIÓN DE USUARIOS ----
+
+  const handleCreatePremiumUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setActionLoading(true);
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create', ...newUser })
+      });
+      if (!res.ok) throw new Error("Error al crear usuario");
+      
+      setShowAddModal(false);
+      setNewUser({ email: '', fullName: '', password: 'Certifik2026!' });
+      fetchRealtimeData();
+      alert("Usuario Premium creado exitosamente.");
+    } catch (err: any) {
+      alert(err.message || "Hubo un error de conexión");
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleToggleStatus = async (userId: string, currentStatus: string) => {
+    const newStatus = currentStatus === 'suspended' ? 'active' : 'suspended';
+    const confirmMsg = newStatus === 'suspended' ? '¿Suspender el acceso a este usuario?' : '¿Reactivar el acceso de este usuario?';
+    
+    if (!confirm(confirmMsg)) return;
+
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'update_status', userId, status: newStatus })
+      });
+      if (!res.ok) throw new Error("Error al actualizar estado");
+      fetchRealtimeData();
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    if (!confirm("⚠️ ADVERTENCIA: Esta acción es irreversible. ¿Eliminar usuario permanentemente?")) return;
+
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'delete', userId })
+      });
+      if (!res.ok) throw new Error("Error al eliminar usuario");
+      fetchRealtimeData();
+    } catch (err: any) {
+      alert(err.message);
+    }
+  };
 
   if (loading) {
     return (
@@ -153,11 +213,47 @@ export default function AdminPage() {
 
   const filteredUsers = users.filter(
     (u) => u.full_name?.toLowerCase().includes(search.toLowerCase()) || 
-           u.public_customer_id?.toLowerCase().includes(search.toLowerCase())
+           u.public_customer_id?.toLowerCase().includes(search.toLowerCase()) ||
+           u.email?.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
-    <div className="container mx-auto py-8 space-y-8 max-w-7xl px-4">
+    <div className="container mx-auto py-8 space-y-8 max-w-7xl px-4 relative">
+      
+      {/* MODAL CREAR USUARIO MANUAL */}
+      {showAddModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <Card className="w-full max-w-md shadow-2xl">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle className="flex items-center gap-2 text-indigo-900">
+                <Users className="w-5 h-5"/> Alta Premium Gratuita
+              </CardTitle>
+              <Button variant="ghost" size="icon" onClick={() => setShowAddModal(false)}><X className="w-5 h-5"/></Button>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleCreatePremiumUser} className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">Nombre Completo</label>
+                  <Input required placeholder="Ej. Ana Torres" value={newUser.fullName} onChange={(e) => setNewUser({...newUser, fullName: e.target.value})} />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">Correo Electrónico</label>
+                  <Input required type="email" placeholder="ana@empresa.com" value={newUser.email} onChange={(e) => setNewUser({...newUser, email: e.target.value})} />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700">Contraseña Inicial</label>
+                  <Input required value={newUser.password} onChange={(e) => setNewUser({...newUser, password: e.target.value})} />
+                  <p className="text-xs text-gray-500">Se otorgará acceso "premium" activo por defecto.</p>
+                </div>
+                <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 font-bold mt-4" disabled={actionLoading}>
+                  {actionLoading ? "Procesando..." : "Crear y Conceder Acceso"}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-3xl shadow-sm border border-gray-200">
         <div className="flex items-center gap-4">
@@ -486,23 +582,23 @@ export default function AdminPage() {
       {tab === "usuarios" && (
         <div className="space-y-6">
           <Card className="border-2 shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between pb-3">
+            <CardHeader className="flex flex-col md:flex-row md:items-center justify-between pb-3 gap-4">
               <div>
                 <CardTitle className="text-gray-900 flex items-center gap-2">
                   <Users className="h-5 w-5 text-indigo-600" />
                   Directorio Maestro & Control B2B
                 </CardTitle>
-                <CardDescription>Visualiza asientos corporativos y otorga soporte técnico.</CardDescription>
+                <CardDescription>Visualiza asientos, suspende cuentas u otorga soporte técnico.</CardDescription>
               </div>
-              <Button size="sm" className="gap-1 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md">
-                <Plus className="h-4 w-4" /> Alta Manual
+              <Button onClick={() => setShowAddModal(true)} size="sm" className="gap-1 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md font-bold">
+                <Plus className="h-4 w-4" /> Alta Manual Premium
               </Button>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  placeholder="Buscar por nombre o ID público..."
+                  placeholder="Buscar por nombre, correo o ID público..."
                   className="pl-9 rounded-xl border-2 border-gray-200 text-gray-800 placeholder:text-gray-400"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -510,14 +606,19 @@ export default function AdminPage() {
               </div>
               <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2">
                 {filteredUsers.map((u) => (
-                  <div key={u.user_id} className="flex items-center gap-3 p-4 rounded-xl bg-white border border-gray-200 shadow-sm hover:border-blue-200 transition-colors">
-                    <div className="h-10 w-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                      <span className="text-blue-700 font-black text-sm">{(u.full_name || 'U')[0].toUpperCase()}</span>
+                  <div key={u.user_id} className={`flex items-center gap-3 p-4 rounded-xl border shadow-sm transition-colors ${u.status === 'suspended' ? 'bg-red-50 border-red-200 opacity-75' : 'bg-white border-gray-200 hover:border-blue-200'}`}>
+                    <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${u.status === 'suspended' ? 'bg-red-100 text-red-700' : 'bg-blue-50 border border-blue-100 text-blue-700'}`}>
+                      <span className="font-black text-sm">{(u.full_name || 'U')[0].toUpperCase()}</span>
                     </div>
+                    
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-gray-900 truncate">{u.full_name || 'Usuario sin nombre'}</p>
+                      <p className="text-sm font-bold text-gray-900 flex items-center gap-2 truncate">
+                        {u.full_name || 'Usuario sin nombre'}
+                        {u.status === 'suspended' && <span className="text-[10px] uppercase bg-red-200 text-red-800 px-1.5 py-0.5 rounded font-black">Suspendido</span>}
+                      </p>
                       <p className="text-xs font-medium text-gray-500">{u.public_customer_id}</p>
                     </div>
+
                     <div className="flex items-center gap-3 shrink-0 mr-4 hidden md:flex">
                       <span className="flex items-center gap-1 text-xs font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded-md">
                         <Zap className="h-3.5 w-3.5" />{u.total_xp?.toLocaleString() || 0} XP
@@ -527,17 +628,25 @@ export default function AdminPage() {
                       </span>
                       <span className={`px-2 py-1 rounded-md text-xs font-black uppercase tracking-wider ${
                         u.tier === "premium" ? "bg-indigo-100 text-indigo-700" : "bg-gray-100 text-gray-500"
-                      }`}>{u.tier}</span>
+                      }`}>{u.tier || 'free'}</span>
                     </div>
+                    
                     <div className="flex gap-1 shrink-0 border-l pl-4 border-gray-100">
+                      {/* Suspender/Reactivar Botón */}
+                      <Button size="sm" variant="ghost" onClick={() => handleToggleStatus(u.user_id, u.status)} className={`h-8 w-8 p-0 ${u.status === 'suspended' ? 'text-emerald-600 hover:bg-emerald-50' : 'text-orange-500 hover:bg-orange-50'}`} title={u.status === 'suspended' ? 'Reactivar Cuenta' : 'Suspender Cuenta'}>
+                        {u.status === 'suspended' ? <CheckCircle className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
+                      </Button>
+
                       <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-blue-500 hover:text-blue-700 hover:bg-blue-50" title="Impersonate (Ver como usuario)">
                         <Eye className="h-4 w-4" />
                       </Button>
                       <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-yellow-600 hover:bg-yellow-50" title="Reset password">
                         <RefreshCw className="h-4 w-4" />
                       </Button>
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-red-600 hover:bg-red-50" title="Suspender / Banear">
-                        <Ban className="h-4 w-4" />
+
+                      {/* Eliminar Permanente Botón */}
+                      <Button size="sm" variant="ghost" onClick={() => handleDeleteUser(u.user_id)} className="h-8 w-8 p-0 text-red-400 hover:text-red-700 hover:bg-red-50" title="Eliminar Usuario Permanentemente">
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
