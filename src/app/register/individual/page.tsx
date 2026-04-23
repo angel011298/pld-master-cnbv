@@ -4,9 +4,28 @@ import * as React from "react"
 import { Shield, Mail, Lock, Phone, User, Calendar, Loader2, Trophy, Zap, Clock, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { supabase } from "@/lib/supabase" // <-- Importamos tu cliente de Supabase
 
 export default function RegisterIndividual() {
   const [loading, setLoading] = React.useState(false)
+  const [googleLoading, setGoogleLoading] = React.useState(false)
+
+  // Función para manejar el login con Google
+  const handleGoogleLogin = async () => {
+    try {
+      setGoogleLoading(true)
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/welcome`, // O a donde quieras redirigir tras el login
+        }
+      })
+      if (error) throw error
+    } catch (error) {
+      console.error("Error iniciando sesión con Google:", error)
+      setGoogleLoading(false)
+    }
+  }
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -27,9 +46,8 @@ export default function RegisterIndividual() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row">
       
-      {/* Lado Izquierdo - Beneficios (Oculto en móviles pequeños, visible en tablets/desktop) */}
+      {/* Lado Izquierdo - Beneficios */}
       <div className="hidden md:flex md:w-1/2 lg:w-5/12 bg-blue-900 p-12 text-white flex-col justify-center relative overflow-hidden">
-        {/* Patrón de fondo sutil */}
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(#ffffff 2px, transparent 2px)", backgroundSize: "30px 30px" }}></div>
         
         <div className="relative z-10">
@@ -53,7 +71,7 @@ export default function RegisterIndividual() {
               </div>
               <div>
                 <h3 className="font-bold text-lg mb-1">Especialización Total CNBV</h3>
-                <p className="text-blue-200 text-sm leading-relaxed">A diferencia de plataformas generalistas como Thomson Reuters, nosotros estamos 100% enfocados en la estructura exacta del examen CENEVAL/CNBV mexicano.</p>
+                <p className="text-blue-200 text-sm leading-relaxed">A diferencia de plataformas generalistas, nosotros estamos 100% enfocados en la estructura exacta del examen CENEVAL/CNBV mexicano.</p>
               </div>
             </div>
 
@@ -74,13 +92,25 @@ export default function RegisterIndividual() {
       <div className="flex-1 flex items-center justify-center p-6 py-12 lg:p-12">
         <div className="w-full max-w-md bg-white rounded-3xl p-8 shadow-xl border border-slate-100">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-black text-slate-900">Crea tu Cuenta</h2>
+            <h2 className="text-2xl font-black text-slate-900">Crea tu Cuenta Individual</h2>
             <p className="text-sm text-slate-500 mt-2">Completa tu registro para desbloquear el acceso Premium.</p>
           </div>
 
-          <Button variant="outline" className="w-full mb-6 font-bold h-12 rounded-xl">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5 mr-2" />
-            Continuar con Google
+          {/* BOTÓN DE GOOGLE AHORA ES FUNCIONAL */}
+          <Button 
+            onClick={handleGoogleLogin} 
+            disabled={googleLoading}
+            variant="outline" 
+            className="w-full mb-6 font-bold h-12 rounded-xl relative overflow-hidden group"
+          >
+            {googleLoading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <>
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
+                Continuar con Google
+              </>
+            )}
           </Button>
 
           <div className="relative flex items-center py-2 mb-6">
@@ -128,7 +158,7 @@ export default function RegisterIndividual() {
             <div className="bg-blue-50 p-4 rounded-xl mt-6 border border-blue-100 flex gap-3 items-start">
               <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
               <p className="text-xs text-blue-800 font-medium">
-                Al crear tu cuenta, se te enviará un código de verificación de 6 dígitos. Posteriormente, serás redirigido al portal de pago para <strong>desbloquear todas las funciones y beneficios</strong>.
+                Al crear tu cuenta, serás redirigido de forma segura al portal de pago para <strong>desbloquear todas las funciones y beneficios</strong>.
               </p>
             </div>
 
