@@ -170,7 +170,8 @@ export default function WelcomePage() {
   const isLast = slide === total - 1
 
   function handleFinish() {
-    router.push("/")
+    // CORRECCIÓN: Tras el welcome, te dirige al dashboard (ya con funciones premium). Rompe el bucle de ir a "/"
+    router.push("/dashboard")
   }
 
   return (

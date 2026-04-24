@@ -43,8 +43,19 @@ export default function Home() {
 
   const completedModules = modules.filter((m) => m.status === "completed").length
 
-  const handleCheckout = () => {
-    window.location.href = '/api/checkout?type=individual'
+  // CORRECCIÓN: El endpoint de checkout espera un POST. Hacerlo con window.location crearía un error GET.
+  const handleCheckout = async () => {
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "individual" }), // O extrae del plan
+      })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
+    } catch (e) {
+      console.error("Error al iniciar pago", e)
+    }
   }
 
   return (

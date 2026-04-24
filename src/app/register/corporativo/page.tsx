@@ -4,20 +4,20 @@ import * as React from "react"
 import { Building2, Mail, Lock, Phone, User, Loader2, CheckCircle, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { supabase } from "@/lib/supabase" // <-- Importamos tu cliente de Supabase
+import { supabase } from "@/lib/supabase"
 
 export default function RegisterCorporativo() {
   const [loading, setLoading] = React.useState(false)
   const [googleLoading, setGoogleLoading] = React.useState(false)
 
-  // Función para manejar el login con Google
   const handleGoogleLogin = async () => {
     try {
       setGoogleLoading(true)
       const { error } = await supabase().auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/welcome`, // O a donde quieras redirigir tras el login
+          // CORRECCIÓN: Al registrarse, va al dashboard con funciones limitadas
+          redirectTo: `${window.location.origin}/dashboard`, 
         }
       })
       if (error) throw error
@@ -77,7 +77,6 @@ export default function RegisterCorporativo() {
             <p className="text-sm text-slate-500 mt-2">Crea la cuenta administradora para tu empresa.</p>
           </div>
 
-          {/* BOTÓN DE GOOGLE AHORA ES FUNCIONAL */}
           <Button 
             onClick={handleGoogleLogin} 
             disabled={googleLoading}

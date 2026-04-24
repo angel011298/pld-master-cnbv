@@ -4,7 +4,7 @@ import * as React from "react"
 import { Shield, Mail, Lock, Phone, User, Calendar, Loader2, Trophy, Zap, Clock, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { supabase } from "@/lib/supabase" // <-- Importamos tu cliente de Supabase
+import { supabase } from "@/lib/supabase" 
 
 export default function RegisterIndividual() {
   const [loading, setLoading] = React.useState(false)
@@ -17,7 +17,8 @@ export default function RegisterIndividual() {
       const { error } = await supabase().auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/welcome`, // O a donde quieras redirigir tras el login
+          // CORRECCIÓN: Al registrarse, va al dashboard con funciones limitadas (módulo 1)
+          redirectTo: `${window.location.origin}/dashboard`, 
         }
       })
       if (error) throw error
@@ -96,7 +97,6 @@ export default function RegisterIndividual() {
             <p className="text-sm text-slate-500 mt-2">Completa tu registro para desbloquear el acceso Premium.</p>
           </div>
 
-          {/* BOTÓN DE GOOGLE AHORA ES FUNCIONAL */}
           <Button 
             onClick={handleGoogleLogin} 
             disabled={googleLoading}

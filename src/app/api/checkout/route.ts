@@ -57,8 +57,8 @@ export async function POST(req: Request) {
         },
       ],
       mode: "payment",
+      // CORRECCIÓN CONFIRMADA: Redirige a welcome tras pagar con éxito.
       success_url: `${BASE_URL}/welcome?session_id={CHECKOUT_SESSION_ID}`,
-      // Redirige de vuelta a la página de registro correcta si el usuario cancela
       cancel_url: `${BASE_URL}/register/${planForUrl}`,
       metadata: {
         plan: planForUrl,
