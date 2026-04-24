@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 function getSupabaseUrl() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -20,8 +20,23 @@ function getAnonKey() {
   return key;
 }
 
+// Variable global para almacenar la instancia única en el cliente (Navegador)
+let supabaseClientInstance: SupabaseClient | null = null;
+
 export function supabase() {
-  return createClient(getSupabaseUrl(), getAnonKey());
+  // Si estamos en el lado del servidor (SSR, API Routes), SIEMPRE creamos una 
+  // nueva instancia para evitar mezclar las sesiones de diferentes usuarios.
+  if (typeof window === "undefined") {
+    return createClient(getSupabaseUrl(), getAnonKey());
+  }
+
+  // Si estamos en el navegador (Cliente), reutilizamos la misma instancia siempre
+  // para prevenir fugas de memoria y bucles de eventos.
+  if (!supabaseClientInstance) {
+    supabaseClientInstance = createClient(getSupabaseUrl(), getAnonKey());
+  }
+  
+  return supabaseClientInstance;
 }
 
 export function supabaseAdmin() {
