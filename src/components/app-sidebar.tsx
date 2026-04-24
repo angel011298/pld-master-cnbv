@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import {
-  Map, GraduationCap, MessageSquare, Library, Trophy, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users
+  Map, GraduationCap, MessageSquare, Library, Trophy, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle
 } from "lucide-react"
 
 import {
@@ -24,7 +24,7 @@ import { supabase } from "@/lib/supabase"
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 
 const NAV_ITEMS = [
-  { title: "Ruta de Aprendizaje", url: "/dashboard", icon: Map }, // <--- RUTA ACTUALIZADA AQUÍ
+  { title: "Ruta de Aprendizaje", url: "/dashboard", icon: Map },
   { title: "Entidades Financieras", url: "/entities", icon: Building2 },
   { title: "Modo Estudio", url: "/estudio", icon: BookOpen },
   { title: "Simulador CENEVAL", url: "/simulator", icon: GraduationCap },
@@ -103,9 +103,12 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="border-t p-4 space-y-3 group-data-[collapsible=icon]:hidden">
+      {/* FOOTER CON MEDIDORES Y MI PERFIL */}
+      <SidebarFooter className="border-t p-2 md:p-4 space-y-4">
+        
+        {/* BLOQUE DE XP Y RACHA (Se oculta por completo al colapsar el menú) */}
         {!loading && (
-          <div className="overflow-hidden">
+          <div className="overflow-hidden px-2 group-data-[collapsible=icon]:hidden">
             <div className="flex items-center justify-between text-sm mb-2">
               <div className="flex items-center gap-1 text-muted-foreground font-medium">
                 <Zap className="h-3.5 w-3.5 text-secondary shrink-0" />
@@ -122,6 +125,28 @@ export function AppSidebar() {
             )}
           </div>
         )}
+
+        {/* BOTÓN DE MI PERFIL */}
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton 
+              tooltip="Mi Perfil" 
+              size="lg" 
+              className="bg-slate-50 hover:bg-slate-100 border border-slate-200 transition-colors"
+              render={(props) => (
+                <a href="/perfil" {...props}>
+                  <UserCircle className="h-5 w-5 text-blue-600 shrink-0" />
+                  {/* Textos del perfil: Solo se muestran si el menú está expandido */}
+                  <div className="flex flex-col text-left overflow-hidden group-data-[collapsible=icon]:hidden">
+                    <span className="font-bold text-slate-800 text-sm leading-tight">Mi Perfil</span>
+                    <span className="text-[11px] text-slate-500 font-medium truncate">Ver progreso y logros</span>
+                  </div>
+                </a>
+              )}
+            />
+          </SidebarMenuItem>
+        </SidebarMenu>
+
       </SidebarFooter>
     </Sidebar>
   )
