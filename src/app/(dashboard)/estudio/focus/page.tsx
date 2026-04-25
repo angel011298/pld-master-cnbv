@@ -1,79 +1,128 @@
-// Archivo: src/app/estudio/focus/page.tsx
 "use client"
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowLeft, BookOpen, BrainCircuit, Gamepad2, CheckCircle2, Bot, BookmarkPlus } from "lucide-react"
+import { ArrowLeft, BookOpen, BrainCircuit, Gamepad2, CheckCircle2, Bot, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { useRouter } from "next/navigation"
+import { supabase } from "@/lib/supabase"
 import confetti from "canvas-confetti"
+
+type GeneratedQuestion = {
+  id: number
+  question: string
+  options?: string[]
+  answer?: string
+  justification?: string
+  source?: string
+}
 
 export default function ModoEstudioFocus() {
   const router = useRouter()
   const [activeTab, setActiveTab] = React.useState<"lector" | "flashcards" | "minijuegos">("lector")
-  const [flashcardIndex, setFlashcardIndex] = React.useState(0)
-  const [isFlipped, setIsFlipped] = React.useState(false)
-  const [savingNote, setSavingNote] = React.useState(false)
+  const [questionIndex, setQuestionIndex] = React.useState(0)
+  const [showAnswer, setShowAnswer] = React.useState(false)
+  const [questions, setQuestions] = React.useState<GeneratedQuestion[]>([])
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState<string | null>(null)
 
-  // Datos mockeados (Estos vendrían de tu API /api/generate-quiz con formatType)
-  const capsuleData = {
-    title: "Identificación del Cliente (EBR)",
-    step: 2,
-    totalSteps: 5,
-    bullets: [
-      "Las entidades deben integrar un expediente de identificación antes de celebrar contratos.",
-      "El Enfoque Basado en Riesgos (EBR) exige debida diligencia reforzada para clientes de Alto Riesgo.",
-      "Personas Políticamente Expuestas (PEPs) extranjeras son siempre riesgo alto."
-    ],
-    originalLaw: "Artículo 115 de la LIC, Capítulo II: 'Las Instituciones de Crédito deberán formular y desarrollar manuales de cumplimiento... integrando expedientes para la identificación de los clientes...'",
-    flashcards: [
-      { id: 1, front: "Cliente PEP (Persona Políticamente Expuesta)", back: "Individuo que desempeña funciones públicas destacadas. Requiere Debida Diligencia Reforzada. Fundamento: Art. 115 LIC." },
-      { id: 2, front: "Debida Diligencia Simplificada", back: "Aplica solo a clientes catalogados como de Bajo Riesgo en la metodología de la Entidad." }
-    ]
-  }
+  React.useEffect(() => {
+    const loadMaterial = async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        const sb = supabase()
+        const { data: { session } } = await sb.auth.getSession()
+        const token = session?.access_token
+        if (!token) {
+          setError("Debes iniciar sesión para generar material real.")
+          return
+        }
+
+        const res = await fetch("/api/generate-quiz", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            topic: "Identificación del Cliente y Enfoque Basado en Riesgos",
+            difficulty: "Intermedio",
+            count: 4,
+            formatType: "ceneval",
+          }),
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error ?? "No se pudo generar el material.")
+        setQuestions(Array.isArray(data.quiz) ? data.quiz : [])
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "No se pudo generar el material.")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadMaterial()
+  }, [])
+
+  const activeQuestion = questions[questionIndex]
+  const progress = questions.length > 0 ? ((questionIndex + 1) / questions.length) * 100 : 0
 
   const handleFinish = async () => {
     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } })
-    // Llamar a tu API real de update-xp
-    await fetch('/api/update-xp', { method: 'POST', body: JSON.stringify({ amount: 50, reason: "Completar Cápsula" }) })
-    setTimeout(() => router.push('/dashboard'), 3000)
+    const sb = supabase()
+    const { data: { session } } = await sb.auth.getSession()
+    await fetch("/api/update-xp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(session?.access_token ? { Authorization: `Bearer ${session.access_token}` } : {}),
+      },
+      body: JSON.stringify({
+        xpGained: 50,
+        correct: true,
+        topic: "Identificación del Cliente y EBR",
+        difficulty: "Intermedio",
+      }),
+    })
+    setTimeout(() => router.push("/dashboard"), 1500)
   }
 
-  const nextFlashcard = () => {
-    setIsFlipped(false)
-    if (flashcardIndex < capsuleData.flashcards.length - 1) setFlashcardIndex(prev => prev + 1)
+  const nextQuestion = () => {
+    setShowAnswer(false)
+    if (questionIndex < questions.length - 1) setQuestionIndex((prev) => prev + 1)
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center">
-      {/* Barra de Progreso Superior (Modo Enfoque) */}
-      <div className="w-full bg-white border-b border-slate-200 px-6 py-4 sticky top-0 z-50 flex items-center justify-between shadow-sm">
+    <div className="flex min-h-screen flex-col items-center bg-slate-50">
+      <div className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-slate-200 bg-white px-6 py-4 shadow-sm">
         <div className="flex items-center gap-4">
-          <button onClick={() => router.push('/dashboard')} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+          <button onClick={() => router.push("/dashboard")} className="rounded-full p-2 transition-colors hover:bg-slate-100">
             <ArrowLeft className="h-5 w-5 text-slate-600" />
           </button>
           <div>
-            <h1 className="font-black text-slate-800 text-lg">{capsuleData.title}</h1>
-            <p className="text-xs font-bold text-blue-600">Paso {capsuleData.step} de {capsuleData.totalSteps}</p>
+            <h1 className="text-lg font-black text-slate-800">Material real generado desde tu base de conocimiento</h1>
+            <p className="text-xs font-bold text-blue-600">
+              {questions.length > 0 ? `Reactivo ${questionIndex + 1} de ${questions.length}` : "Preparando contenido"}
+            </p>
           </div>
         </div>
-        <div className="flex items-center gap-4 w-1/3 max-w-xs">
-          <Progress value={(capsuleData.step / capsuleData.totalSteps) * 100} className="h-2" />
+        <div className="flex w-1/3 max-w-xs items-center gap-4">
+          <Progress value={progress} className="h-2" />
         </div>
       </div>
 
-      {/* Navegación de Tabs */}
-      <div className="flex bg-white rounded-full p-1 mt-6 shadow-sm border border-slate-200">
+      <div className="mt-6 flex rounded-full border border-slate-200 bg-white p-1 shadow-sm">
         {[
           { id: "lector", label: "Teoría", icon: BookOpen },
           { id: "flashcards", label: "Flashcards", icon: BrainCircuit },
-          { id: "minijuegos", label: "Práctica", icon: Gamepad2 }
-        ].map(tab => (
+          { id: "minijuegos", label: "Práctica", icon: Gamepad2 },
+        ].map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all ${
+            onClick={() => setActiveTab(tab.id as typeof activeTab)}
+            className={`flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold transition-all ${
               activeTab === tab.id ? "bg-blue-600 text-white shadow-md" : "text-slate-500 hover:text-slate-800"
             }`}
           >
@@ -82,91 +131,96 @@ export default function ModoEstudioFocus() {
         ))}
       </div>
 
-      {/* Contenido Dinámico */}
-      <div className="w-full max-w-3xl flex-1 p-6 flex flex-col relative">
-        
-        {/* BOTÓN FLOTANTE ASK AI */}
-        <button className="fixed bottom-8 right-8 h-14 w-14 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform">
+      <div className="relative flex w-full max-w-3xl flex-1 flex-col p-6">
+        <button className="fixed bottom-8 right-8 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-2xl transition-transform hover:scale-110">
           <Bot className="h-6 w-6" />
         </button>
 
-        <AnimatePresence mode="wait">
-          {activeTab === "lector" && (
-            <motion.div key="lector" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 text-slate-700 text-lg leading-relaxed">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-black text-slate-900">Puntos Clave</h2>
-                  <Button variant="outline" size="sm" onClick={() => setSavingNote(true)} className="gap-2 text-blue-600 border-blue-200 bg-blue-50">
-                    <BookmarkPlus className="h-4 w-4" /> {savingNote ? "Guardado" : "Guardar Apunte"}
-                  </Button>
-                </div>
-                <ul className="space-y-4">
-                  {capsuleData.bullets.map((b, i) => (
-                    <li key={i} className="flex gap-3 items-start">
-                      <div className="mt-1.5 h-2 w-2 rounded-full bg-blue-500 shrink-0" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        {loading && (
+          <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center font-bold text-slate-500">
+            Generando contenido real con tus documentos y fuentes oficiales...
+          </div>
+        )}
 
-              {/* Acordeón de la Ley Original */}
-              <details className="group bg-slate-100 rounded-2xl border border-slate-200 overflow-hidden cursor-pointer">
-                <summary className="p-4 font-bold text-slate-700 flex items-center justify-between">
-                  📖 Ver Artículo Original de la Ley
-                  <span className="transition group-open:rotate-180">▼</span>
-                </summary>
-                <div className="p-4 pt-0 text-sm text-slate-600 italic bg-white/50 border-t border-slate-200">
-                  {capsuleData.originalLaw}
-                </div>
-              </details>
-            </motion.div>
-          )}
+        {!loading && error && (
+          <div className="rounded-3xl border border-amber-200 bg-amber-50 p-8 text-center text-amber-800">
+            <AlertTriangle className="mx-auto mb-3 h-8 w-8" />
+            <p className="font-bold">{error}</p>
+          </div>
+        )}
 
-          {activeTab === "flashcards" && (
-            <motion.div key="flashcards" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex-1 flex flex-col items-center justify-center">
-              <div 
-                onClick={() => setIsFlipped(!isFlipped)}
-                className="w-full max-w-md aspect-[3/4] perspective-1000 cursor-pointer"
-              >
-                <motion.div 
-                  className="w-full h-full relative preserve-3d"
-                  animate={{ rotateY: isFlipped ? 180 : 0 }}
-                  transition={{ duration: 0.4, type: "spring" }}
+        {!loading && !error && questions.length === 0 && (
+          <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">
+            No hay material generado todavía para este tema.
+          </div>
+        )}
+
+        {!loading && !error && activeQuestion && (
+          <AnimatePresence mode="wait">
+            {activeTab === "lector" && (
+              <motion.div key="lector" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                <div className="rounded-3xl border border-slate-100 bg-white p-8 text-lg leading-relaxed text-slate-700 shadow-sm">
+                  <h2 className="mb-4 text-xl font-black text-slate-900">Reactivo generado</h2>
+                  <p>{activeQuestion.question}</p>
+                  {activeQuestion.options && (
+                    <div className="mt-5 space-y-2">
+                      {activeQuestion.options.map((option) => (
+                        <div key={option} className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm font-semibold">
+                          {option}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <details className="group cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+                  <summary className="flex items-center justify-between p-4 font-bold text-slate-700">
+                    Ver fuente y justificación
+                    <span className="transition group-open:rotate-180">v</span>
+                  </summary>
+                  <div className="border-t border-slate-200 bg-white/50 p-4 pt-3 text-sm text-slate-600">
+                    <p className="font-bold text-slate-800">Respuesta: {activeQuestion.answer ?? "Sin respuesta registrada"}</p>
+                    <p className="mt-2">{activeQuestion.justification ?? "Sin justificación registrada."}</p>
+                    {activeQuestion.source && <p className="mt-2 text-xs font-bold text-blue-700">Fuente: {activeQuestion.source}</p>}
+                  </div>
+                </details>
+              </motion.div>
+            )}
+
+            {activeTab === "flashcards" && (
+              <motion.div key="flashcards" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-1 flex-col items-center justify-center">
+                <button
+                  onClick={() => setShowAnswer((value) => !value)}
+                  className="flex aspect-[3/4] w-full max-w-md flex-col items-center justify-center rounded-3xl border-2 border-slate-200 bg-white p-8 text-center shadow-xl"
                 >
-                  {/* Frente */}
-                  <div className="absolute inset-0 backface-hidden bg-white border-2 border-slate-200 rounded-3xl shadow-xl flex flex-col items-center justify-center p-8 text-center">
-                    <BrainCircuit className="h-12 w-12 text-blue-200 mb-6" />
-                    <h3 className="text-2xl font-black text-slate-800">{capsuleData.flashcards[flashcardIndex].front}</h3>
-                    <p className="text-slate-400 font-bold uppercase tracking-widest text-xs absolute bottom-6">Toca para girar</p>
-                  </div>
-                  {/* Reverso */}
-                  <div className="absolute inset-0 backface-hidden bg-blue-600 border-2 border-blue-700 rounded-3xl shadow-xl flex flex-col items-center justify-center p-8 text-center text-white" style={{ transform: "rotateY(180deg)" }}>
-                    <p className="text-lg font-medium leading-relaxed">{capsuleData.flashcards[flashcardIndex].back}</p>
-                  </div>
-                </motion.div>
-              </div>
+                  <BrainCircuit className="mb-6 h-12 w-12 text-blue-200" />
+                  <h3 className="text-2xl font-black text-slate-800">
+                    {showAnswer ? activeQuestion.answer ?? activeQuestion.justification : activeQuestion.question}
+                  </h3>
+                  <p className="absolute bottom-10 text-xs font-bold uppercase tracking-widest text-slate-400">Toca para girar</p>
+                </button>
 
-              {isFlipped && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-4 mt-8">
-                  <Button variant="outline" className="border-red-200 bg-red-50 text-red-600 hover:bg-red-100" onClick={nextFlashcard}>Dudé (Repasar)</Button>
-                  <Button variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100" onClick={nextFlashcard}>Lo dominé</Button>
-                </motion.div>
-              )}
-            </motion.div>
-          )}
+                {showAnswer && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-8 flex gap-4">
+                    <Button variant="outline" className="border-red-200 bg-red-50 text-red-600 hover:bg-red-100" onClick={nextQuestion}>Repasar</Button>
+                    <Button variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-600 hover:bg-emerald-100" onClick={nextQuestion}>Lo dominé</Button>
+                  </motion.div>
+                )}
+              </motion.div>
+            )}
 
-          {activeTab === "minijuegos" && (
-             <motion.div key="minijuegos" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex-1 flex flex-col items-center justify-center text-center">
-                <Gamepad2 className="h-16 w-16 text-slate-300 mb-4" />
-                <h3 className="text-xl font-bold text-slate-700 mb-8">Zona de Práctica CENEVAL</h3>
-                <Button onClick={handleFinish} className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-white font-black text-lg py-6 px-12 rounded-2xl shadow-lg hover:scale-105 transition-transform">
-                  <CheckCircle2 className="mr-2 h-6 w-6" /> Marcar Módulo como Completado
+            {activeTab === "minijuegos" && (
+              <motion.div key="minijuegos" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-1 flex-col items-center justify-center text-center">
+                <Gamepad2 className="mb-4 h-16 w-16 text-slate-300" />
+                <h3 className="mb-8 text-xl font-bold text-slate-700">Práctica con material generado</h3>
+                <Button onClick={handleFinish} className="rounded-2xl bg-gradient-to-r from-yellow-400 to-orange-500 px-12 py-6 text-lg font-black text-white shadow-lg transition-transform hover:scale-105 hover:from-yellow-500 hover:to-orange-600">
+                  <CheckCircle2 className="mr-2 h-6 w-6" /> Registrar avance real
                 </Button>
-                <p className="text-sm font-bold text-slate-400 mt-4">+50 XP y Aumento de Racha</p>
-             </motion.div>
-          )}
-        </AnimatePresence>
+                <p className="mt-4 text-sm font-bold text-slate-400">Se guardará un evento real de estudio y +50 XP</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        )}
       </div>
     </div>
   )

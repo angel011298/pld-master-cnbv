@@ -49,8 +49,7 @@ export default function AdminPage() {
   const [actionLoading, setActionLoading] = React.useState(false)
   const [newUser, setNewUser] = React.useState({ email: '', fullName: '', password: 'Certifik2026!' })
 
-  // Datos simulados para RESICO
-  const currentRevenue = 1250000 
+  const currentRevenue = stats.mrr
   const resicoPercentage = (currentRevenue / RESICO_LIMIT) * 100
 
   // 1. Autenticación inicial
@@ -74,12 +73,10 @@ export default function AdminPage() {
 
       if (profiles) {
         setUsers(profiles);
-        // Estimación básica de MRR basada en usuarios premium
-        const premiumCount = profiles.filter(p => p.tier === 'premium').length;
         setStats(prev => ({ 
           ...prev, 
           activeUsers: profiles.length,
-          mrr: premiumCount * 2999
+          mrr: 0
         }));
       }
 
@@ -281,7 +278,7 @@ export default function AdminPage() {
       {/* Global KPI Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "MRR Estimado", value: `$${stats.mrr.toLocaleString()}`, sub: "MXN / mes", icon: TrendingUp, color: "text-emerald-700", bg: "bg-emerald-50" },
+          { label: "Ingresos Stripe", value: stats.mrr > 0 ? `$${stats.mrr.toLocaleString()}` : "No conectado", sub: "Dato real pendiente", icon: TrendingUp, color: "text-emerald-700", bg: "bg-emerald-50" },
           { label: "B2B Sales", value: `$${stats.b2b.toLocaleString()}`, sub: "Licencias corporativas", icon: Building2, color: "text-blue-700", bg: "bg-blue-50" },
           { label: "Usuarios Activos", value: stats.activeUsers, sub: "Registrados", icon: Users, color: "text-indigo-700", bg: "bg-indigo-50" },
           { label: "Documentos (RAG)", value: stats.reactivos, sub: "Base de conocimiento", icon: FileText, color: "text-yellow-700", bg: "bg-yellow-50" },

@@ -1,9 +1,10 @@
 "use client"
 
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { usePathname } from "next/navigation"
 import {
-  Map, GraduationCap, MessageSquare, Library, Trophy, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle
+  Map, GraduationCap, MessageSquare, Library, Trophy, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle, LogOut
 } from "lucide-react"
 
 import {
@@ -57,8 +58,10 @@ const LEVEL_XP = 1000
 
 export function AppSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
   const { profile, loading } = useUserProfile()
   const [userEmail, setUserEmail] = React.useState<string | null>(null)
+  const [signingOut, setSigningOut] = React.useState(false)
 
   React.useEffect(() => {
     const sb = supabase()
@@ -73,7 +76,18 @@ export function AppSidebar() {
   const streak = profile?.currentStreak ?? 0
   const levelProgress = totalXp % LEVEL_XP
   const level = Math.floor(totalXp / LEVEL_XP) + 1
-  const isSuperAdmin = userEmail === SUPER_ADMIN_EMAIL
+  const isSuperAdmin = profile?.isSuperAdmin ?? userEmail === SUPER_ADMIN_EMAIL
+
+  const handleSignOut = async () => {
+    setSigningOut(true)
+    try {
+      const sb = supabase()
+      await sb.auth.signOut()
+      router.replace("/")
+    } finally {
+      setSigningOut(false)
+    }
+  }
 
   return (
     <Sidebar 
@@ -211,6 +225,17 @@ export function AppSidebar() {
                 </a>
               )}
             />
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Cerrar Sesión"
+              className="text-red-600 hover:bg-red-50 hover:text-red-700"
+              disabled={signingOut}
+              onClick={handleSignOut}
+            >
+              <LogOut className="h-5 w-5 shrink-0" />
+              <span className="truncate group-data-[collapsible=icon]:hidden">Cerrar Sesión</span>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

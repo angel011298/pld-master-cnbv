@@ -3,6 +3,44 @@ import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { proModel } from '@/lib/gemini'; // Tu modelo de IA actual
 
+export async function GET() {
+  try {
+    const sb = supabaseAdmin();
+    const { data, error } = await sb
+      .from('forum_posts')
+      .select(`
+        id,
+        title,
+        content,
+        tags,
+        upvotes,
+        created_at,
+        author_id,
+        forum_comments(id, is_ai_bot)
+      `)
+      .order('created_at', { ascending: false })
+      .limit(50);
+
+    if (error) throw error;
+
+    return NextResponse.json({
+      posts: (data ?? []).map((post: any) => ({
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        tags: Array.isArray(post.tags) ? post.tags : [],
+        upvotes: post.upvotes ?? 0,
+        createdAt: post.created_at,
+        authorId: post.author_id,
+        replies: post.forum_comments?.length ?? 0,
+        hasBotReply: Boolean(post.forum_comments?.some((comment: any) => comment.is_ai_bot)),
+      })),
+    });
+  } catch (error: any) {
+    return NextResponse.json({ posts: [], error: error.message }, { status: 200 });
+  }
+}
+
 export async function POST(request: Request) {
   try {
     const { title, content, author_id, tags } = await request.json();

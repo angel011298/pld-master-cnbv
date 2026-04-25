@@ -1,5 +1,14 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
+const browserAuthOptions = {
+  auth: {
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+    persistSession: true,
+    storage: typeof window !== "undefined" ? window.localStorage : undefined,
+  },
+};
+
 function getSupabaseUrl() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   if (!url) {
@@ -33,7 +42,7 @@ export function supabase() {
   // Si estamos en el navegador (Cliente), reutilizamos la misma instancia siempre
   // para prevenir fugas de memoria y bucles de eventos.
   if (!supabaseClientInstance) {
-    supabaseClientInstance = createClient(getSupabaseUrl(), getAnonKey());
+    supabaseClientInstance = createClient(getSupabaseUrl(), getAnonKey(), browserAuthOptions);
   }
   
   return supabaseClientInstance;

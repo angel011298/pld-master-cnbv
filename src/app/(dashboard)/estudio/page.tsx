@@ -3,11 +3,12 @@
 import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Zap, Scale, AlertTriangle, FileText } from "lucide-react"
+import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Scale, AlertTriangle, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import { useUserProfile } from "@/hooks/useUserProfile"
 
 const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: string[] }> = {
   banca: {
@@ -40,8 +41,10 @@ const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: str
 function EstudioContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const { profile } = useUserProfile()
   const sectorId = searchParams.get("sector") ?? ""
   const sector = SECTOR_INFO[sectorId]
+  const isPremium = profile?.effectiveTier === "premium"
 
   // VISTA 1: DASHBOARD GENERAL (Cuando no hay sector en la URL)
   if (!sector) {
@@ -66,7 +69,7 @@ function EstudioContent() {
                 <div className="p-2 bg-blue-100 rounded-lg">
                   <Scale className="h-6 w-6 text-blue-700" />
                 </div>
-                <Badge variant="secondary" className="bg-blue-50 text-blue-700">XP x2</Badge>
+                <Badge variant="secondary" className="bg-blue-50 text-blue-700">Disponible</Badge>
               </div>
               <CardTitle className="mt-4 text-xl">Marco Legal General</CardTitle>
               <CardDescription>Leyes, normativas y disposiciones aplicables a todas las entidades.</CardDescription>
@@ -90,7 +93,7 @@ function EstudioContent() {
             </CardHeader>
             <CardContent>
               <button className="w-full py-2.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors">
-                Bloqueado (Nivel 2)
+                {isPremium ? "Iniciar Lección" : "Disponible con Premium"}
               </button>
             </CardContent>
           </Card>
@@ -107,7 +110,7 @@ function EstudioContent() {
             </CardHeader>
             <CardContent>
               <button className="w-full py-2.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors">
-                Bloqueado (Nivel 3)
+                {isPremium ? "Iniciar Lección" : "Disponible con Premium"}
               </button>
             </CardContent>
           </Card>
@@ -155,12 +158,10 @@ function EstudioContent() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[
           { icon: BookOpen, label: "Temas", value: sector.topics.length, color: "text-blue-700", bg: "bg-blue-50" },
           { icon: GraduationCap, label: "Módulos", value: sector.modules.length, color: "text-emerald-700", bg: "bg-emerald-50" },
-          { icon: Target, label: "Reactivos", value: "150+", color: "text-indigo-700", bg: "bg-indigo-50" },
-          { icon: Zap, label: "XP disponible", value: "500", color: "text-yellow-700", bg: "bg-yellow-50" },
         ].map((stat) => (
           <motion.div key={stat.label} whileHover={{ scale: 1.02 }}>
             <Card className="border-2 border-gray-200 hover:border-blue-200 transition-colors">

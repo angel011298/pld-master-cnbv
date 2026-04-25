@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, Lock, Play, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown, ArrowRight } from "lucide-react"
+import { Check, Lock, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -10,11 +10,11 @@ import { useUserProfile } from "@/hooks/useUserProfile"
 import { cn } from "@/lib/utils"
 
 const BASE_MODULES = [
-  { id: "1", title: "Fundamentos e Instituciones Internacionales", status: "completed" as const, isPremium: false },
-  { id: "2", title: "Marco Jurídico Mexicano", status: "current" as const, isPremium: false },
-  { id: "3", title: "Prevención y Gestión de Riesgos (EBR)", status: "locked" as const, isPremium: true },
-  { id: "4", title: "Auditoría y Supervisión", status: "locked" as const, isPremium: true },
-  { id: "5", title: "Tipologías e Inteligencia Financiera", status: "locked" as const, isPremium: true },
+  { id: "1", title: "Fundamentos e Instituciones Internacionales", isPremium: false },
+  { id: "2", title: "Marco Jurídico Mexicano", isPremium: false },
+  { id: "3", title: "Prevención y Gestión de Riesgos (EBR)", isPremium: true },
+  { id: "4", title: "Auditoría y Supervisión", isPremium: true },
+  { id: "5", title: "Tipologías e Inteligencia Financiera", isPremium: true },
 ]
 
 const LEVEL_XP = 1000
@@ -32,16 +32,14 @@ export default function Home() {
   const levelProgress = totalXp % LEVEL_XP
   const level = Math.floor(totalXp / LEVEL_XP) + 1
   
-  // Lógica de Paywall: Forzar 'locked' si es premium y el usuario es free
-  const isFreeTier = profile?.tier !== 'premium'
+  const isFreeTier = profile?.effectiveTier !== "premium"
   
   const modules = BASE_MODULES.map(mod => ({
     ...mod,
-    // Si el módulo es premium y el usuario es free, forzamos que esté bloqueado
-    status: (mod.isPremium && isFreeTier) ? "locked" : mod.status
+    status: mod.isPremium && isFreeTier ? "locked" as const : "available" as const,
   }))
 
-  const completedModules = modules.filter((m) => m.status === "completed").length
+  const availableModules = modules.filter((m) => m.status === "available").length
 
   // CORRECCIÓN: El endpoint de checkout espera un POST. Hacerlo con window.location crearía un error GET.
   const handleCheckout = async () => {
@@ -71,7 +69,7 @@ export default function Home() {
                 Ruta CNBV 2026 🎯
               </CardTitle>
               <p className="text-muted-foreground text-sm font-medium">
-                Certifícate en PLD/FT · {completedModules}/{modules.length} módulos completados
+                Certifícate en PLD/FT · {availableModules}/{modules.length} módulos disponibles con tu plan actual
               </p>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -151,20 +149,16 @@ export default function Home() {
                     whileHover={mod.status !== "locked" ? { x: 4 } : {}}
                     className={cn(
                       "flex items-center gap-3 p-3 rounded-xl border-2 transition-all",
-                      mod.status === "completed" ? "border-primary/30 bg-primary/5" :
-                      mod.status === "current" ? "border-secondary/40 bg-secondary/5 shadow-sm" :
-                      "border-gray-100 bg-gray-50/50"
+                      mod.status === "available"
+                        ? "border-primary/30 bg-primary/5"
+                        : "border-gray-100 bg-gray-50/50"
                     )}
                   >
                     <div className={cn(
                       "h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-white font-black text-sm",
-                      mod.status === "completed" ? "bg-primary" :
-                      mod.status === "current" ? "bg-secondary" :
-                      "bg-gray-300"
+                      mod.status === "available" ? "bg-primary" : "bg-gray-300"
                     )}>
-                      {mod.status === "completed" ? <Check className="h-4 w-4" /> :
-                       mod.status === "current" ? <Play className="h-3 w-3" /> :
-                       <Lock className="h-3 w-3" />}
+                      {mod.status === "available" ? <Check className="h-4 w-4" /> : <Lock className="h-3 w-3" />}
                     </div>
                     <div className="min-w-0 flex-1 flex items-center justify-between">
                       <div>
@@ -172,10 +166,9 @@ export default function Home() {
                           {i + 1}. {mod.title}
                         </p>
                         <p className="text-xs font-semibold text-muted-foreground capitalize">
-                          {mod.status === "completed" ? "Completado" : mod.status === "current" ? "En progreso" : "Bloqueado"}
+                          {mod.status === "available" ? "Disponible" : "Bloqueado por plan"}
                         </p>
                       </div>
-                      {/* Badge Premium para módulos bloqueados */}
                       {mod.status === "locked" && mod.isPremium && isFreeTier && (
                         <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-black uppercase rounded-md tracking-wider">
                           Premium

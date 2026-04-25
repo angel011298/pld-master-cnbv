@@ -2,138 +2,136 @@
 
 import * as React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { FileText, Scale, BookOpen, Download, ExternalLink, Search, Library } from "lucide-react"
+import { FileText, Search, Library, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { supabase } from "@/lib/supabase"
 
-// Simulamos la base de datos de documentos oficiales
-const DOCUMENTS = [
-  {
-    category: "Leyes y Reglamentos",
-    icon: Scale,
-    color: "text-blue-600",
-    bgColor: "bg-blue-100",
-    borderColor: "border-blue-200",
-    items: [
-      { title: "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI)", date: "Actualizado 2024" },
-      { title: "Ley de Instituciones de Crédito (Art. 115)", date: "Actualizado 2024" },
-      { title: "Ley para Regular las Instituciones de Tecnología Financiera", date: "Actualizado 2024" },
-    ]
-  },
-  {
-    category: "Disposiciones Generales",
-    icon: FileText,
-    color: "text-emerald-600",
-    bgColor: "bg-emerald-100",
-    borderColor: "border-emerald-200",
-    items: [
-      { title: "DCG aplicables a las Instituciones de Crédito (Banca Múltiple)", date: "Resolución Modificatoria 2023" },
-      { title: "DCG aplicables a las SOFOM ENR", date: "Resolución Modificatoria 2023" },
-      { title: "DCG aplicables a las Instituciones de Tecnología Financiera", date: "Resolución Modificatoria 2023" },
-    ]
-  },
-  {
-    category: "Guías y Tipologías",
-    icon: BookOpen,
-    color: "text-purple-600",
-    bgColor: "bg-purple-100",
-    borderColor: "border-purple-200",
-    items: [
-      { title: "Guía para la elaboración de la Metodología de Evaluación de Riesgos", date: "CNBV - 2022" },
-      { title: "Guía de Enfoque Basado en Riesgo (EBR)", date: "GAFI - 2021" },
-      { title: "Tipologías de Lavado de Dinero en México", date: "UIF - 2023" },
-    ]
-  }
-]
+type DocumentRecord = {
+  id: string
+  name: string
+  file_type: string
+  page_count: number
+  file_size_bytes: number
+  is_global: boolean
+  created_at: string
+}
 
 export default function KnowledgeBase() {
   const [search, setSearch] = React.useState("")
+  const [documents, setDocuments] = React.useState<DocumentRecord[]>([])
+  const [loading, setLoading] = React.useState(true)
+
+  React.useEffect(() => {
+    const loadDocuments = async () => {
+      setLoading(true)
+      try {
+        const sb = supabase()
+        const { data } = await sb
+          .from("documents")
+          .select("id, name, file_type, page_count, file_size_bytes, is_global, created_at")
+          .order("created_at", { ascending: false })
+        setDocuments((data ?? []) as DocumentRecord[])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadDocuments()
+  }, [])
+
+  const filteredDocuments = documents.filter((document) =>
+    document.name.toLowerCase().includes(search.trim().toLowerCase())
+  )
+
+  const handleDownloadMetadata = (record: DocumentRecord) => {
+    const blob = new Blob([JSON.stringify(record, null, 2)], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement("a")
+    anchor.href = url
+    anchor.download = `${record.name.replace(/[^\w.-]+/g, "-")}.json`
+    anchor.click()
+    URL.revokeObjectURL(url)
+  }
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 md:px-8 space-y-8">
-      
-      {/* Header Premium */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
-        <Library className="absolute -right-8 -top-8 h-48 w-48 text-slate-50 opacity-50 pointer-events-none" />
-        <div className="space-y-2 relative z-10">
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 flex items-center gap-3">
+    <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 md:px-8">
+      <div className="relative flex flex-col justify-between gap-6 overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:p-8">
+        <Library className="pointer-events-none absolute -right-8 -top-8 h-48 w-48 text-slate-50 opacity-50" />
+        <div className="relative z-10 space-y-2">
+          <h1 className="flex items-center gap-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
             <Library className="h-8 w-8 text-blue-600" /> Base de Conocimiento
           </h1>
-          <p className="text-slate-500 font-medium max-w-xl">
-            Biblioteca regulatoria oficial. Consulta, lee y descarga el marco normativo indispensable para tu certificación CNBV.
+          <p className="max-w-xl font-medium text-slate-500">
+            Biblioteca regulatoria conectada a los documentos reales guardados en Supabase.
           </p>
         </div>
-        <div className="relative w-full md:w-96 z-10">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-          <Input 
-            placeholder="Buscar por nombre de ley, artículo o tema..." 
-            className="pl-12 rounded-2xl border-2 border-slate-200 h-14 font-medium focus-visible:ring-0 focus-visible:border-blue-500 transition-colors shadow-sm text-base"
+        <div className="relative z-10 w-full md:w-96">
+          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+          <Input
+            placeholder="Buscar por nombre de documento..."
+            className="h-14 rounded-2xl border-2 border-slate-200 pl-12 text-base font-medium shadow-sm transition-colors focus-visible:border-blue-500 focus-visible:ring-0"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(event) => setSearch(event.target.value)}
           />
         </div>
       </div>
 
-      {/* Grid de Documentos */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {DOCUMENTS.map((section) => (
-          <Card key={section.category} className="border-2 border-b-4 border-slate-200 rounded-3xl flex flex-col h-full bg-white overflow-hidden hover:border-slate-300 transition-colors shadow-sm">
-            
-            <CardHeader className={`pb-4 border-b border-slate-100 bg-gradient-to-b from-${section.bgColor}/50 to-white`}>
+      {loading && (
+        <div className="rounded-3xl border border-slate-200 bg-white p-8 text-sm font-bold text-slate-500">
+          Cargando documentos reales...
+        </div>
+      )}
+
+      {!loading && filteredDocuments.length === 0 && (
+        <div className="rounded-3xl border-2 border-dashed border-slate-200 bg-white p-10 text-center">
+          <Library className="mx-auto mb-3 h-10 w-10 text-slate-300" />
+          <h2 className="font-black text-slate-800">No hay documentos para mostrar</h2>
+          <p className="mt-1 text-sm text-slate-500">Cuando se ingesten documentos reales aparecerán aquí.</p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {filteredDocuments.map((document) => (
+          <Card key={document.id} className="flex h-full flex-col overflow-hidden rounded-3xl border-2 border-b-4 border-slate-200 bg-white shadow-sm transition-colors hover:border-slate-300">
+            <CardHeader className="border-b border-slate-100 pb-4">
               <div className="flex items-center gap-4">
-                <div className={`h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 ${section.bgColor} border border-white shadow-sm`}>
-                  <section.icon className={`h-6 w-6 ${section.color}`} />
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white bg-blue-100 shadow-sm">
+                  <FileText className="h-6 w-6 text-blue-600" />
                 </div>
                 <CardTitle className="text-lg font-black leading-tight text-slate-800">
-                  {section.category}
+                  {document.name}
                 </CardTitle>
               </div>
             </CardHeader>
 
-            <CardContent className="flex-1 p-5 flex flex-col space-y-4 bg-slate-50/30">
-              <div className="flex flex-col gap-4 flex-1">
-                {section.items.filter(i => i.title.toLowerCase().includes(search.toLowerCase())).map((item, index) => (
-                  
-                  // Tarjeta individual del documento
-                  <div key={index} className="flex flex-col h-full p-4 bg-white rounded-2xl border-2 border-slate-100 hover:border-blue-200 hover:shadow-md transition-all group">
-                    <div className="flex-1 mb-4">
-                      <p className="text-sm font-bold text-slate-800 leading-snug mb-1.5 group-hover:text-blue-700 transition-colors line-clamp-3">
-                        {item.title}
-                      </p>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                        {item.date}
-                      </p>
-                    </div>
-                    
-                    {/* Botones de acción simétricos */}
-                    <div className="flex items-center gap-2 mt-auto pt-2 border-t border-slate-50">
-                      <Button 
-                        variant="outline" 
-                        className="flex-1 h-10 bg-white text-slate-600 border-2 border-slate-200 hover:border-blue-600 hover:text-blue-700 hover:bg-blue-50 font-bold shadow-none rounded-xl transition-colors"
-                      >
-                        <ExternalLink className="h-4 w-4 mr-2" /> Leer
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="icon" 
-                        className="h-10 w-10 shrink-0 border-2 border-slate-200 text-slate-500 hover:text-blue-700 hover:border-blue-600 hover:bg-blue-50 shadow-none rounded-xl transition-colors"
-                        title="Descargar PDF"
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-
-                ))}
-                
-                {/* Mensaje de estado vacío en caso de que la búsqueda no coincida */}
-                {section.items.filter(i => i.title.toLowerCase().includes(search.toLowerCase())).length === 0 && (
-                  <div className="flex-1 flex flex-col items-center justify-center text-center p-6 border-2 border-dashed border-slate-200 rounded-2xl">
-                    <Search className="h-8 w-8 text-slate-300 mb-2" />
-                    <p className="text-sm font-bold text-slate-500">No se encontraron resultados en esta categoría.</p>
-                  </div>
-                )}
+            <CardContent className="flex flex-1 flex-col space-y-4 bg-slate-50/30 p-5">
+              <div className="grid grid-cols-2 gap-3 text-xs font-bold text-slate-500">
+                <div className="rounded-xl border border-slate-100 bg-white p-3">
+                  Tipo
+                  <p className="mt-1 text-sm font-black text-slate-800">{document.file_type}</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-3">
+                  Páginas
+                  <p className="mt-1 text-sm font-black text-slate-800">{document.page_count}</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-3">
+                  Alcance
+                  <p className="mt-1 text-sm font-black text-slate-800">{document.is_global ? "Global" : "Personal"}</p>
+                </div>
+                <div className="rounded-xl border border-slate-100 bg-white p-3">
+                  Alta
+                  <p className="mt-1 text-sm font-black text-slate-800">{new Date(document.created_at).toLocaleDateString("es-MX")}</p>
+                </div>
               </div>
+
+              <Button
+                variant="outline"
+                onClick={() => handleDownloadMetadata(document)}
+                className="mt-auto h-10 rounded-xl border-2 border-slate-200 bg-white font-bold text-slate-600 shadow-none transition-colors hover:border-blue-600 hover:bg-blue-50 hover:text-blue-700"
+              >
+                <Download className="mr-2 h-4 w-4" /> Descargar ficha
+              </Button>
             </CardContent>
           </Card>
         ))}
