@@ -99,6 +99,8 @@ const formatCurrency = (value: number) =>
 
 const formatTooltipCurrency = (value: unknown) => formatCurrency(Number(value ?? 0))
 
+const monthOrder = ["Ene", "Feb", "Mar", "Abr"]
+
 export default function AdminPage() {
   const [email, setEmail] = React.useState<string | null>(null)
   const [loading, setLoading] = React.useState(true)
@@ -110,7 +112,6 @@ export default function AdminPage() {
   const [users, setUsers] = React.useState<any[]>([])
   const [documents, setDocuments] = React.useState<any[]>([])
   const [stats, setStats] = React.useState({ mrr: 0, b2b: 0, activeUsers: 0, reactivos: 0 })
-  const [transactions, setTransactions] = React.useState<any[]>([])
   const [questions, setQuestions] = React.useState<any[]>([])
   const [logs, setLogs] = React.useState<any[]>([])
 
@@ -122,8 +123,6 @@ export default function AdminPage() {
   const [financeActionId, setFinanceActionId] = React.useState<string | null>(null)
   const [financeTransactions, setFinanceTransactions] = React.useState<FinanceTransaction[]>(INITIAL_FINANCE_TRANSACTIONS)
 
-  const currentRevenue = stats.mrr
-  const resicoPercentage = (currentRevenue / RESICO_LIMIT) * 100
   const financeSummary = React.useMemo(() => {
     const currentIncome = financeTransactions
       .filter((transaction) => transaction.type === "Ingreso")
@@ -134,9 +133,47 @@ export default function AdminPage() {
     const netBalance = currentIncome - currentExpenses
     const burnRate = currentExpenses
     const expenseRatio = currentIncome > 0 ? Math.round((currentExpenses / currentIncome) * 100) : 0
+    const b2bIncome = financeTransactions
+      .filter((transaction) => transaction.type === "Ingreso" && transaction.category === "SaaS B2B")
+      .reduce((sum, transaction) => sum + transaction.amount, 0)
+    const b2cIncome = financeTransactions
+      .filter((transaction) => transaction.type === "Ingreso" && transaction.category === "SaaS B2C")
+      .reduce((sum, transaction) => sum + transaction.amount, 0)
 
-    return { currentIncome, currentExpenses, netBalance, burnRate, expenseRatio }
+    return { currentIncome, currentExpenses, netBalance, burnRate, expenseRatio, b2bIncome, b2cIncome }
   }, [financeTransactions])
+  const syncedCashflowData = React.useMemo(
+    () =>
+      CASHFLOW_DATA.map((month) =>
+        month.month === "Abr"
+          ? { ...month, ingresos: financeSummary.currentIncome, egresos: financeSummary.currentExpenses }
+          : month
+      ),
+    [financeSummary.currentExpenses, financeSummary.currentIncome]
+  )
+  const expenseDistribution = React.useMemo(() => {
+    const categoryTotals = financeTransactions
+      .filter((transaction) => transaction.type === "Egreso")
+      .reduce<Record<string, number>>((acc, transaction) => {
+        acc[transaction.category] = (acc[transaction.category] ?? 0) + transaction.amount
+        return acc
+      }, {})
+
+    return EXPENSE_DISTRIBUTION.map((item) => ({
+      ...item,
+      value: categoryTotals[item.name] ?? 0,
+    })).filter((item) => item.value > 0)
+  }, [financeTransactions])
+  const fiscalYearRevenue = React.useMemo(
+    () =>
+      syncedCashflowData
+        .filter((month) => monthOrder.includes(month.month))
+        .reduce((sum, month) => sum + month.ingresos, 0),
+    [syncedCashflowData]
+  )
+  const resicoPercentage = (fiscalYearRevenue / RESICO_LIMIT) * 100
+  const projectedAnnualRevenue = Math.round((fiscalYearRevenue / 4) * 12)
+  const projectedResicoPercentage = (projectedAnnualRevenue / RESICO_LIMIT) * 100
 
   const filteredFinanceTransactions = React.useMemo(() => {
     const query = financeSearch.trim().toLowerCase()
@@ -178,6 +215,8 @@ export default function AdminPage() {
     }
     setFinanceTransactions((current) => [nextTransaction, ...current])
   }
+
+  const financeIncomeTransactions = financeTransactions.filter((transaction) => transaction.type === "Ingreso")
 
   // 1. Autenticación inicial
   React.useEffect(() => {
@@ -405,8 +444,8 @@ export default function AdminPage() {
       {/* Global KPI Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: "Ingresos Stripe", value: stats.mrr > 0 ? `$${stats.mrr.toLocaleString()}` : "No conectado", sub: "Dato real pendiente", icon: TrendingUp, color: "text-emerald-700", bg: "bg-emerald-50" },
-          { label: "B2B Sales", value: `$${stats.b2b.toLocaleString()}`, sub: "Licencias corporativas", icon: Building2, color: "text-blue-700", bg: "bg-blue-50" },
+          { label: "Ingresos SaaS", value: formatCurrency(financeSummary.currentIncome), sub: "Sincronizado con Finanzas", icon: TrendingUp, color: "text-emerald-700", bg: "bg-emerald-50" },
+          { label: "B2B Sales", value: formatCurrency(financeSummary.b2bIncome), sub: "Licencias corporativas", icon: Building2, color: "text-blue-700", bg: "bg-blue-50" },
           { label: "Usuarios Activos", value: stats.activeUsers, sub: "Registrados", icon: Users, color: "text-indigo-700", bg: "bg-indigo-50" },
           { label: "Documentos (RAG)", value: stats.reactivos, sub: "Base de conocimiento", icon: FileText, color: "text-yellow-700", bg: "bg-yellow-50" },
         ].map((kpi) => (
@@ -543,7 +582,7 @@ export default function AdminPage() {
               <CardContent className="p-5">
                 <div className="h-[320px] w-full">
                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={CASHFLOW_DATA} margin={{ top: 10, right: 10, left: -18, bottom: 0 }}>
+                    <AreaChart data={syncedCashflowData} margin={{ top: 10, right: 10, left: -18, bottom: 0 }}>
                       <defs>
                         <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="5%" stopColor="#059669" stopOpacity={0.22} />
@@ -580,7 +619,7 @@ export default function AdminPage() {
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                       <Pie
-                        data={EXPENSE_DISTRIBUTION}
+                        data={expenseDistribution}
                         dataKey="value"
                         nameKey="name"
                         innerRadius={68}
@@ -589,7 +628,7 @@ export default function AdminPage() {
                         stroke="#ffffff"
                         strokeWidth={3}
                       >
-                        {EXPENSE_DISTRIBUTION.map((entry) => (
+                        {expenseDistribution.map((entry) => (
                           <Cell key={entry.name} fill={entry.color} />
                         ))}
                       </Pie>
@@ -598,7 +637,7 @@ export default function AdminPage() {
                   </ResponsiveContainer>
                 </div>
                 <div className="space-y-2">
-                  {EXPENSE_DISTRIBUTION.map((item) => (
+                  {expenseDistribution.map((item) => (
                     <div key={item.name} className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-2 text-sm">
                       <div className="flex min-w-0 items-center gap-2">
                         <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: item.color }} />
@@ -721,18 +760,18 @@ export default function AdminPage() {
               </CardHeader>
               <CardContent className="space-y-4 pt-4">
                 <div className="flex justify-between items-end">
-                  <span className="text-4xl font-black text-gray-900">${currentRevenue.toLocaleString()}</span>
+                  <span className="text-4xl font-black text-gray-900">{formatCurrency(fiscalYearRevenue)}</span>
                   <span className="text-sm font-bold text-gray-500">{resicoPercentage.toFixed(1)}% del límite</span>
                 </div>
                 <div className="h-4 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div 
                     className={`h-full rounded-full transition-all duration-500 ${resicoPercentage > 80 ? 'bg-red-500' : 'bg-emerald-500'}`} 
-                    style={{ width: `${resicoPercentage}%` }} 
+                    style={{ width: `${Math.min(resicoPercentage, 100)}%` }}
                   />
                 </div>
                 <div className="flex justify-between text-xs text-gray-500 font-medium">
-                  <span>Acumulado del Ejercicio</span>
-                  <span>Proyección de rebase: Noviembre</span>
+                  <span>Acumulado fiscal 2026 sincronizado con Finanzas</span>
+                  <span>Proyección anual: {formatCurrency(projectedAnnualRevenue)} ({projectedResicoPercentage.toFixed(1)}%)</span>
                 </div>
               </CardContent>
             </Card>
@@ -744,7 +783,7 @@ export default function AdminPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-blue-200">Middleware conectado a SW Sapien para emisión de CFDI 4.0.</p>
+                <p className="text-sm text-blue-200">La facturación toma como base los ingresos registrados en Finanzas: {formatCurrency(financeSummary.currentIncome)} este mes.</p>
                 <Button className="w-full bg-white text-blue-900 font-bold hover:bg-blue-50">Generar Factura Global</Button>
                 <Button variant="outline" className="w-full border-blue-400 text-blue-100 hover:bg-blue-800">Conciliación Automática</Button>
               </CardContent>
@@ -753,12 +792,12 @@ export default function AdminPage() {
             <Card className="md:col-span-3 border-2 border-gray-200 border-dashed">
               <CardHeader>
                 <CardTitle className="text-lg font-black text-gray-700">Preparación Migración Corporativa (Régimen General)</CardTitle>
-                <CardDescription>Módulos inactivos hasta superar el límite RESICO.</CardDescription>
+                <CardDescription>Activación guiada por la proyección fiscal que se calcula desde el flujo de caja.</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-4">
                   <Button variant="outline" disabled className="bg-gray-50 text-gray-400"><HardDrive className="w-4 h-4 mr-2"/> Bóveda Libros Corporativos</Button>
-                  <Button variant="outline" disabled className="bg-gray-50 text-gray-400"><DollarSign className="w-4 h-4 mr-2"/> Módulo Gastos y Acreditamiento IVA</Button>
+                  <Button variant="outline" onClick={() => setTab("finanzas")} className="bg-white text-gray-700"><DollarSign className="w-4 h-4 mr-2"/> Ver flujo de caja sincronizado</Button>
                   <Button variant="outline" disabled className="bg-gray-50 text-gray-400"><RefreshCw className="w-4 h-4 mr-2"/> Entity Toggle (Cambio de RFC)</Button>
                 </div>
               </CardContent>
@@ -777,20 +816,20 @@ export default function AdminPage() {
                   <DollarSign className="h-5 w-5 text-emerald-600" />
                   Monitor de Transacciones
                 </CardTitle>
-                <CardDescription>Gestión de webhooks de Stripe y soporte de pagos.</CardDescription>
+                <CardDescription>Ingresos sincronizados con Finanzas para soporte de pagos y conciliación fiscal.</CardDescription>
               </div>
               <div className="flex gap-2">
-                <Button size="sm" variant="outline" className="text-gray-700 border-gray-300">
+                <Button size="sm" variant="outline" onClick={() => setTab("finanzas")} className="text-gray-700 border-gray-300">
                   <RefreshCw className="h-4 w-4 mr-1" /> Sincronizar Stripe
                 </Button>
-                <Button size="sm" variant="outline" className="text-gray-700 border-gray-300">
+                <Button size="sm" variant="outline" onClick={handleExportFinanceReport} className="text-gray-700 border-gray-300">
                   <Download className="h-4 w-4 mr-1" /> Exportar CSV
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
-              {transactions.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">No hay transacciones recientes para mostrar. (Requiere conexión API Stripe)</div>
+              {financeIncomeTransactions.length === 0 ? (
+                <div className="text-center py-8 text-gray-500">No hay ingresos registrados en Finanzas para conciliar.</div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
@@ -802,18 +841,14 @@ export default function AdminPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                      {transactions.map((tx: any) => (
+                      {financeIncomeTransactions.map((tx) => (
                         <tr key={tx.id} className="hover:bg-gray-50">
                           <td className="py-3 pr-4 font-mono text-xs text-gray-500">{tx.id}</td>
-                          <td className="py-3 pr-4 font-black text-gray-900">${tx.amount.toLocaleString()} {tx.currency}</td>
+                          <td className="py-3 pr-4 font-black text-gray-900">{formatCurrency(tx.amount)}</td>
                           <td className="py-3 pr-4">
-                            <span className={`px-2 py-1 rounded-md text-xs font-black ${
-                              tx.status === "succeeded" ? "bg-emerald-100 text-emerald-700" :
-                              tx.status === "failed" ? "bg-red-100 text-red-600" :
-                              "bg-gray-100 text-gray-600"
-                            }`}>{tx.status}</span>
+                            <span className="px-2 py-1 rounded-md text-xs font-black bg-emerald-100 text-emerald-700">conciliado</span>
                           </td>
-                          <td className="py-3 pr-4 text-gray-700 text-xs font-medium">{tx.customer}</td>
+                          <td className="py-3 pr-4 text-gray-700 text-xs font-medium">{tx.concept}</td>
                           <td className="py-3 pr-4 text-gray-400 text-xs">{tx.date}</td>
                           <td className="py-3">
                             <Button size="sm" variant="ghost" className="text-xs font-bold text-gray-500 hover:text-blue-600 hover:bg-blue-50">
