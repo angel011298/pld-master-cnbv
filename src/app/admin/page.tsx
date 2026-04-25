@@ -7,20 +7,43 @@ import {
   TrendingUp, AlertTriangle, CheckCircle2, Clock, Download, Plus,
   Search, Filter, Ban, RefreshCw, Activity, Zap, Flame, Trophy,
   Building2, Edit3, Trash2, Eye, Lock, Landmark, Database, BookOpen,
-  HardDrive, X, CheckCircle
+  HardDrive, X, CheckCircle, WalletCards, ArrowUpRight, ArrowDownRight,
+  MoreHorizontal, ReceiptText, Gauge
 } from "lucide-react"
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  Cell,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { supabase } from "@/lib/supabase"
 
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 const RESICO_LIMIT = 3500000 // 3.5 Millones MXN
 
-type AdminTab = "fiscal" | "ventas" | "cms" | "knowledge" | "usuarios" | "analytics" | "logs"
+type AdminTab = "fiscal" | "finanzas" | "ventas" | "cms" | "knowledge" | "usuarios" | "analytics" | "logs"
 
 const TABS: { id: AdminTab; label: string; icon: React.ElementType }[] = [
   { id: "fiscal", label: "Control Fiscal", icon: Landmark },
+  { id: "finanzas", label: "Finanzas", icon: WalletCards },
   { id: "ventas", label: "Ventas / Stripe", icon: DollarSign },
   { id: "cms", label: "CMS Reactivos", icon: Database },
   { id: "knowledge", label: "Biblioteca & Docs", icon: BookOpen },
@@ -28,6 +51,53 @@ const TABS: { id: AdminTab; label: string; icon: React.ElementType }[] = [
   { id: "analytics", label: "Analytics", icon: BarChart3 },
   { id: "logs", label: "Auditoría & Logs", icon: Activity },
 ]
+
+type FinanceTransaction = {
+  id: string
+  date: string
+  concept: string
+  category: string
+  type: "Ingreso" | "Egreso"
+  amount: number
+}
+
+const CASHFLOW_DATA = [
+  { month: "Nov", ingresos: 84500, egresos: 39200 },
+  { month: "Dic", ingresos: 96500, egresos: 43800 },
+  { month: "Ene", ingresos: 112400, egresos: 52100 },
+  { month: "Feb", ingresos: 128900, egresos: 58400 },
+  { month: "Mar", ingresos: 146200, egresos: 61750 },
+  { month: "Abr", ingresos: 169800, egresos: 69430 },
+]
+
+const EXPENSE_DISTRIBUTION = [
+  { name: "APIs de IA", value: 24850, color: "#e11d48" },
+  { name: "Servidores/Dominios", value: 18640, color: "#64748b" },
+  { name: "Propiedad Intelectual/Legal", value: 14300, color: "#7c3aed" },
+  { name: "Marketing", value: 11640, color: "#0891b2" },
+]
+
+const INITIAL_FINANCE_TRANSACTIONS: FinanceTransaction[] = [
+  { id: "trx-001", date: "2026-04-24", concept: "Suscripción Enterprise Certifik PLD - Grupo Finanza Norte", category: "SaaS B2B", type: "Ingreso", amount: 74950 },
+  { id: "trx-002", date: "2026-04-23", concept: "Stripe Checkout - Plan Individual Premium", category: "SaaS B2C", type: "Ingreso", amount: 2999 },
+  { id: "trx-003", date: "2026-04-22", concept: "Anthropic Claude Code API", category: "APIs de IA", type: "Egreso", amount: 18450 },
+  { id: "trx-004", date: "2026-04-21", concept: "Vercel Pro - Hosting Next.js", category: "Servidores/Dominios", type: "Egreso", amount: 3890 },
+  { id: "trx-005", date: "2026-04-19", concept: "Supabase Pro - Base de datos y Auth", category: "Servidores/Dominios", type: "Egreso", amount: 2450 },
+  { id: "trx-006", date: "2026-04-18", concept: "Registro dominio certifikpld.mx", category: "Servidores/Dominios", type: "Egreso", amount: 890 },
+  { id: "trx-007", date: "2026-04-16", concept: "Dictamen legal propiedad intelectual", category: "Propiedad Intelectual/Legal", type: "Egreso", amount: 14300 },
+  { id: "trx-008", date: "2026-04-15", concept: "Campaña LinkedIn Ads - Oficiales de Cumplimiento", category: "Marketing", type: "Egreso", amount: 11640 },
+  { id: "trx-009", date: "2026-04-12", concept: "Google Gemini API - Generación de reactivos", category: "APIs de IA", type: "Egreso", amount: 6400 },
+  { id: "trx-010", date: "2026-04-09", concept: "Licencia corporativa SOFOM Training Pack", category: "SaaS B2B", type: "Ingreso", amount: 91850 },
+]
+
+const formatCurrency = (value: number) =>
+  new Intl.NumberFormat("es-MX", {
+    style: "currency",
+    currency: "MXN",
+    maximumFractionDigits: 0,
+  }).format(value)
+
+const formatTooltipCurrency = (value: unknown) => formatCurrency(Number(value ?? 0))
 
 export default function AdminPage() {
   const [email, setEmail] = React.useState<string | null>(null)
@@ -48,9 +118,66 @@ export default function AdminPage() {
   const [showAddModal, setShowAddModal] = React.useState(false)
   const [actionLoading, setActionLoading] = React.useState(false)
   const [newUser, setNewUser] = React.useState({ email: '', fullName: '', password: 'Certifik2026!' })
+  const [financeSearch, setFinanceSearch] = React.useState("")
+  const [financeActionId, setFinanceActionId] = React.useState<string | null>(null)
+  const [financeTransactions, setFinanceTransactions] = React.useState<FinanceTransaction[]>(INITIAL_FINANCE_TRANSACTIONS)
 
   const currentRevenue = stats.mrr
   const resicoPercentage = (currentRevenue / RESICO_LIMIT) * 100
+  const financeSummary = React.useMemo(() => {
+    const currentIncome = financeTransactions
+      .filter((transaction) => transaction.type === "Ingreso")
+      .reduce((sum, transaction) => sum + transaction.amount, 0)
+    const currentExpenses = financeTransactions
+      .filter((transaction) => transaction.type === "Egreso")
+      .reduce((sum, transaction) => sum + transaction.amount, 0)
+    const netBalance = currentIncome - currentExpenses
+    const burnRate = currentExpenses
+    const expenseRatio = currentIncome > 0 ? Math.round((currentExpenses / currentIncome) * 100) : 0
+
+    return { currentIncome, currentExpenses, netBalance, burnRate, expenseRatio }
+  }, [financeTransactions])
+
+  const filteredFinanceTransactions = React.useMemo(() => {
+    const query = financeSearch.trim().toLowerCase()
+    if (!query) return financeTransactions
+    return financeTransactions.filter((transaction) =>
+      [transaction.concept, transaction.category, transaction.type].join(" ").toLowerCase().includes(query)
+    )
+  }, [financeSearch, financeTransactions])
+
+  const handleExportFinanceReport = () => {
+    const header = ["Fecha", "Concepto", "Categoria", "Tipo", "Monto"]
+    const rows = financeTransactions.map((transaction) => [
+      transaction.date,
+      transaction.concept,
+      transaction.category,
+      transaction.type,
+      transaction.amount.toString(),
+    ])
+    const csv = [header, ...rows]
+      .map((row) => row.map((cell) => `"${cell.replace(/"/g, '""')}"`).join(","))
+      .join("\n")
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" })
+    const url = URL.createObjectURL(blob)
+    const anchor = document.createElement("a")
+    anchor.href = url
+    anchor.download = "finanzas-flujo-caja-abril-2026.csv"
+    anchor.click()
+    URL.revokeObjectURL(url)
+  }
+
+  const handleAddFinanceTransaction = () => {
+    const nextTransaction: FinanceTransaction = {
+      id: `trx-${Date.now()}`,
+      date: "2026-04-25",
+      concept: "Nueva transacción administrativa",
+      category: "Operación Manual",
+      type: "Ingreso",
+      amount: 2999,
+    }
+    setFinanceTransactions((current) => [nextTransaction, ...current])
+  }
 
   // 1. Autenticación inicial
   React.useEffect(() => {
@@ -319,6 +446,266 @@ export default function AdminPage() {
           })}
         </div>
       </div>
+
+      {/* -- FINANZAS Y FLUJO DE CAJA -- */}
+      {tab === "finanzas" && (
+        <div className="space-y-6">
+          <div className="flex flex-col justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:flex-row md:items-center">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wide text-slate-500">Administración financiera</p>
+              <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">Finanzas y Flujo de Caja</h2>
+              <p className="mt-1 max-w-2xl text-sm text-slate-500">
+                Control ejecutivo de ingresos, egresos operativos, margen mensual y burn rate del SaaS.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Button
+                variant="outline"
+                onClick={handleExportFinanceReport}
+                className="h-9 rounded-xl border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+              >
+                <Download className="h-4 w-4" />
+                Exportar Reporte
+              </Button>
+              <Button
+                onClick={handleAddFinanceTransaction}
+                className="h-9 rounded-xl bg-slate-950 text-white hover:bg-slate-800"
+              >
+                <Plus className="h-4 w-4" />
+                Nueva Transacción
+              </Button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {[
+              {
+                label: "Ingresos",
+                value: formatCurrency(financeSummary.currentIncome),
+                sub: "Mes actual",
+                icon: ArrowUpRight,
+                accent: "text-emerald-600",
+                bg: "bg-emerald-50",
+              },
+              {
+                label: "Egresos",
+                value: formatCurrency(financeSummary.currentExpenses),
+                sub: "Mes actual",
+                icon: ArrowDownRight,
+                accent: "text-rose-600",
+                bg: "bg-rose-50",
+              },
+              {
+                label: "Balance Neto",
+                value: formatCurrency(financeSummary.netBalance),
+                sub: `${financeSummary.expenseRatio}% de gasto sobre ingresos`,
+                icon: WalletCards,
+                accent: financeSummary.netBalance >= 0 ? "text-slate-900" : "text-rose-600",
+                bg: "bg-slate-100",
+              },
+              {
+                label: "Burn Rate",
+                value: formatCurrency(financeSummary.burnRate),
+                sub: financeSummary.netBalance >= 0 ? "Flujo operativo positivo" : "Revisar runway",
+                icon: Gauge,
+                accent: "text-slate-700",
+                bg: "bg-slate-100",
+              },
+            ].map((kpi) => (
+              <Card key={kpi.label} className="rounded-xl border border-slate-200 bg-white shadow-sm">
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{kpi.label}</p>
+                      <p className={`mt-2 text-2xl font-black tracking-tight ${kpi.accent}`}>{kpi.value}</p>
+                      <p className="mt-1 text-xs font-medium text-slate-500">{kpi.sub}</p>
+                    </div>
+                    <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${kpi.bg}`}>
+                      <kpi.icon className={`h-5 w-5 ${kpi.accent}`} />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
+            <Card className="rounded-xl border border-slate-200 bg-white shadow-sm xl:col-span-3">
+              <CardHeader className="border-b border-slate-100 pb-4">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <CardTitle className="text-base font-black text-slate-950">Ingresos vs Egresos</CardTitle>
+                    <CardDescription className="text-sm text-slate-500">Comparativa mensual de los últimos 6 meses.</CardDescription>
+                  </div>
+                  <Badge variant="outline" className="rounded-lg border-slate-200 bg-slate-50 text-slate-600">6M</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="p-5">
+                <div className="h-[320px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={CASHFLOW_DATA} margin={{ top: 10, right: 10, left: -18, bottom: 0 }}>
+                      <defs>
+                        <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#059669" stopOpacity={0.22} />
+                          <stop offset="95%" stopColor="#059669" stopOpacity={0.02} />
+                        </linearGradient>
+                        <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#e11d48" stopOpacity={0.18} />
+                          <stop offset="95%" stopColor="#e11d48" stopOpacity={0.02} />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
+                      <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
+                      <YAxis axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} tickFormatter={(value) => `$${Number(value) / 1000}k`} />
+                      <Tooltip
+                        cursor={{ stroke: "#94a3b8", strokeWidth: 1 }}
+                        formatter={formatTooltipCurrency}
+                        contentStyle={{ borderRadius: 12, border: "1px solid #e2e8f0", boxShadow: "0 10px 30px rgba(15, 23, 42, 0.08)" }}
+                      />
+                      <Area type="monotone" dataKey="ingresos" name="Ingresos" stroke="#059669" strokeWidth={2} fill="url(#incomeGradient)" />
+                      <Area type="monotone" dataKey="egresos" name="Egresos" stroke="#e11d48" strokeWidth={2} fill="url(#expenseGradient)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-xl border border-slate-200 bg-white shadow-sm xl:col-span-2">
+              <CardHeader className="border-b border-slate-100 pb-4">
+                <CardTitle className="text-base font-black text-slate-950">Distribución de Egresos</CardTitle>
+                <CardDescription className="text-sm text-slate-500">Categorías operativas del mes actual.</CardDescription>
+              </CardHeader>
+              <CardContent className="p-5">
+                <div className="h-[260px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={EXPENSE_DISTRIBUTION}
+                        dataKey="value"
+                        nameKey="name"
+                        innerRadius={68}
+                        outerRadius={98}
+                        paddingAngle={3}
+                        stroke="#ffffff"
+                        strokeWidth={3}
+                      >
+                        {EXPENSE_DISTRIBUTION.map((entry) => (
+                          <Cell key={entry.name} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip formatter={formatTooltipCurrency} />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="space-y-2">
+                  {EXPENSE_DISTRIBUTION.map((item) => (
+                    <div key={item.name} className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-2 text-sm">
+                      <div className="flex min-w-0 items-center gap-2">
+                        <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: item.color }} />
+                        <span className="truncate font-medium text-slate-700">{item.name}</span>
+                      </div>
+                      <span className="font-bold text-slate-900">{formatCurrency(item.value)}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="rounded-xl border border-slate-200 bg-white shadow-sm">
+            <CardHeader className="border-b border-slate-100 pb-4">
+              <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                <div>
+                  <CardTitle className="flex items-center gap-2 text-base font-black text-slate-950">
+                    <ReceiptText className="h-5 w-5 text-slate-600" />
+                    Transacciones
+                  </CardTitle>
+                  <CardDescription className="text-sm text-slate-500">Detalle operativo de ingresos y egresos registrados.</CardDescription>
+                </div>
+                <div className="relative w-full md:w-80">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                  <Input
+                    value={financeSearch}
+                    onChange={(event) => setFinanceSearch(event.target.value)}
+                    placeholder="Filtrar por concepto"
+                    className="h-9 rounded-xl border-slate-200 pl-9 text-sm"
+                  />
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="p-0">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-slate-100 bg-slate-50/70 hover:bg-slate-50/70">
+                    <TableHead className="px-5 text-xs font-black uppercase tracking-wide text-slate-500">Fecha</TableHead>
+                    <TableHead className="text-xs font-black uppercase tracking-wide text-slate-500">Concepto</TableHead>
+                    <TableHead className="text-xs font-black uppercase tracking-wide text-slate-500">Categoría</TableHead>
+                    <TableHead className="text-xs font-black uppercase tracking-wide text-slate-500">Tipo</TableHead>
+                    <TableHead className="text-right text-xs font-black uppercase tracking-wide text-slate-500">Monto</TableHead>
+                    <TableHead className="w-12 px-5 text-right text-xs font-black uppercase tracking-wide text-slate-500">Acciones</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredFinanceTransactions.map((transaction) => (
+                    <TableRow key={transaction.id} className="border-slate-100 hover:bg-slate-50/80">
+                      <TableCell className="px-5 font-medium text-slate-600">{new Date(`${transaction.date}T00:00:00`).toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" })}</TableCell>
+                      <TableCell className="max-w-[320px] truncate font-semibold text-slate-900">{transaction.concept}</TableCell>
+                      <TableCell className="text-slate-600">{transaction.category}</TableCell>
+                      <TableCell>
+                        <Badge
+                          className={
+                            transaction.type === "Ingreso"
+                              ? "rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-50"
+                              : "rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-50"
+                          }
+                        >
+                          {transaction.type}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className={`text-right font-black ${transaction.type === "Ingreso" ? "text-emerald-700" : "text-rose-700"}`}>
+                        {transaction.type === "Ingreso" ? "+" : "-"}{formatCurrency(transaction.amount)}
+                      </TableCell>
+                      <TableCell className="relative px-5 text-right">
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
+                          onClick={() => setFinanceActionId((current) => current === transaction.id ? null : transaction.id)}
+                          className="rounded-lg text-slate-500 hover:bg-slate-100"
+                        >
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                        {financeActionId === transaction.id && (
+                          <div className="absolute right-5 top-9 z-20 w-36 rounded-xl border border-slate-200 bg-white p-1 text-left shadow-lg">
+                            <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                              <Edit3 className="h-3.5 w-3.5" /> Editar
+                            </button>
+                            <button
+                              onClick={() => {
+                                setFinanceTransactions((current) => current.filter((item) => item.id !== transaction.id))
+                                setFinanceActionId(null)
+                              }}
+                              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-50"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" /> Eliminar
+                            </button>
+                          </div>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                  {filteredFinanceTransactions.length === 0 && (
+                    <TableRow>
+                      <TableCell colSpan={6} className="py-10 text-center text-sm font-medium text-slate-500">
+                        No se encontraron transacciones con ese concepto.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       {/* ── 1. CONTROL FISCAL (RESICO) ── */}
       {tab === "fiscal" && (
