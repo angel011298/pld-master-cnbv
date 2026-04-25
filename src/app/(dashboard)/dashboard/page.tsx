@@ -59,9 +59,9 @@ export default function Home() {
   }
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
       {/* Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-auto">
+      <div className="grid w-full grid-cols-1 gap-4 auto-rows-auto md:grid-cols-4">
 
         {/* Welcome + Level — 2 cols */}
         <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible" className="md:col-span-2">

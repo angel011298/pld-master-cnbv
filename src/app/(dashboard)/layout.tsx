@@ -9,16 +9,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Cambiamos a true para que aparezca desplegado por defecto
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider
+      defaultOpen={true}
+      className="flex min-h-screen w-full overflow-hidden bg-slate-50"
+    >
       <AppSidebar />
-      {/* Añadimos w-full para asegurar que el contenido use todo el espacio restante */}
-      <SidebarInset className="w-full bg-slate-50">
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 bg-white">
-          {/* Este es el botón hamburguesa que permite colapsarlo/desplegarlo */}
+      <SidebarInset className="flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden bg-slate-50">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-white px-4">
           <SidebarTrigger className="-ml-1" />
         </header>
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
+        <main className="min-w-0 flex-1 overflow-y-auto p-4 md:p-6">
           {children}
         </main>
       </SidebarInset>
