@@ -3,9 +3,10 @@
 import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Zap } from "lucide-react"
+import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Zap, Scale, AlertTriangle, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 
 const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: string[] }> = {
@@ -36,33 +37,115 @@ const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: str
   },
 }
 
-// CORRECCIÓN: Cambiamos el nombre de EstudioPage a EstudioContent
 function EstudioContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const sectorId = searchParams.get("sector") ?? ""
   const sector = SECTOR_INFO[sectorId]
 
+  // VISTA 1: DASHBOARD GENERAL (Cuando no hay sector en la URL)
   if (!sector) {
     return (
-      <div className="container mx-auto py-16 text-center">
-        <h1 className="text-2xl font-black text-gray-700 mb-4">Sector no encontrado</h1>
-        <Button onClick={() => router.push("/entities")} variant="outline">
-          Volver a Entidades
-        </Button>
+      <div className="flex flex-col gap-6 w-full max-w-6xl mx-auto pb-10">
+        {/* Header del Módulo General */}
+        <div>
+          <h1 className="text-3xl font-black tracking-tight text-slate-900 flex items-center gap-3">
+            <BookOpen className="h-8 w-8 text-blue-600" />
+            Modo Estudio
+          </h1>
+          <p className="text-slate-500 mt-2 text-lg">
+            Domina los conceptos clave para tu certificación CNBV. Selecciona un área general o elige tu sector específico.
+          </p>
+        </div>
+
+        {/* Módulos Transversales / Generales */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-4">
+          <Card className="hover:shadow-md transition-all border-slate-200">
+            <CardHeader className="pb-3">
+              <div className="flex justify-between items-start">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <Scale className="h-6 w-6 text-blue-700" />
+                </div>
+                <Badge variant="secondary" className="bg-blue-50 text-blue-700">XP x2</Badge>
+              </div>
+              <CardTitle className="mt-4 text-xl">Marco Legal General</CardTitle>
+              <CardDescription>Leyes, normativas y disposiciones aplicables a todas las entidades.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <button className="w-full py-2.5 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors">
+                Iniciar Lección
+              </button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-all border-slate-200">
+            <CardHeader className="pb-3">
+              <div className="flex justify-between items-start">
+                <div className="p-2 bg-amber-100 rounded-lg">
+                  <AlertTriangle className="h-6 w-6 text-amber-700" />
+                </div>
+              </div>
+              <CardTitle className="mt-4 text-xl">Enfoque Basado en Riesgo</CardTitle>
+              <CardDescription>Metodologías de evaluación y mitigación (EBR) universales.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <button className="w-full py-2.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors">
+                Bloqueado (Nivel 2)
+              </button>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-md transition-all border-slate-200">
+            <CardHeader className="pb-3">
+              <div className="flex justify-between items-start">
+                <div className="p-2 bg-emerald-100 rounded-lg">
+                  <FileText className="h-6 w-6 text-emerald-700" />
+                </div>
+              </div>
+              <CardTitle className="mt-4 text-xl">Tipologías</CardTitle>
+              <CardDescription>Casos prácticos documentados sobre Lavado de Dinero y FT.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <button className="w-full py-2.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors">
+                Bloqueado (Nivel 3)
+              </button>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Catálogo de Sectores para navegar a la vista específica */}
+        <div className="mt-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <Target className="h-6 w-6 text-blue-600" />
+              Estudio Especializado por Sector
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {Object.entries(SECTOR_INFO).map(([key, info]) => (
+              <Link href={`/estudio?sector=${key}`} key={key}>
+                <Card className="hover:shadow-md transition-all border-slate-200 cursor-pointer h-full hover:border-blue-400 group bg-white">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg text-slate-800 group-hover:text-blue-700 transition-colors">{info.name}</CardTitle>
+                    <CardDescription className="text-slate-500">{info.topics.length} temas clave regulados</CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     )
   }
 
+  // VISTA 2: DASHBOARD ESPECÍFICO DE SECTOR (Mantiene tu funcionalidad actual)
   return (
     <div className="container mx-auto py-8 space-y-8">
       {/* Header */}
       <div className="flex items-center gap-4">
-        <Link href="/entities">
-          <Button variant="outline" size="sm" className="gap-2 text-gray-700 border-gray-300">
-            <ArrowLeft className="h-4 w-4" /> Entidades
-          </Button>
-        </Link>
+        <Button onClick={() => router.push("/estudio")} variant="outline" size="sm" className="gap-2 text-gray-700 border-gray-300">
+          <ArrowLeft className="h-4 w-4" /> Volver
+        </Button>
         <div>
           <h1 className="text-3xl font-black text-gray-900">
             Modo Estudio: <span className="text-blue-700">{sector.name}</span>
@@ -157,11 +240,10 @@ function EstudioContent() {
   )
 }
 
-// Este es el envoltorio que Next.js exige, ahora coincidiendo con el nombre correcto
 export default function Estudio() {
   return (
     <Suspense fallback={
-      <div className="flex h-full w-full items-center justify-center p-8 text-muted-foreground">
+      <div className="flex h-full w-full items-center justify-center p-8 text-slate-500">
         Cargando módulo de estudio...
       </div>
     }>
