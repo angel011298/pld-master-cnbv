@@ -8,7 +8,8 @@ import {
   Search, Filter, Ban, RefreshCw, Activity, Zap, Flame, Trophy,
   Building2, Edit3, Trash2, Eye, Lock, Landmark, Database, BookOpen,
   HardDrive, X, CheckCircle, WalletCards, ArrowUpRight, ArrowDownRight,
-  MoreHorizontal, ReceiptText, Gauge
+  MoreHorizontal, ReceiptText, Gauge, Bot, Sparkles, Target, Megaphone,
+  Linkedin, Facebook, Mail, Video, BrainCircuit
 } from "lucide-react"
 import {
   Area,
@@ -39,11 +40,12 @@ import { supabase } from "@/lib/supabase"
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 const RESICO_LIMIT = 3500000 // 3.5 Millones MXN
 
-type AdminTab = "fiscal" | "finanzas" | "ventas" | "cms" | "knowledge" | "usuarios" | "analytics" | "logs"
+type AdminTab = "fiscal" | "finanzas" | "marketing" | "ventas" | "cms" | "knowledge" | "usuarios" | "analytics" | "logs"
 
 const TABS: { id: AdminTab; label: string; icon: React.ElementType }[] = [
   { id: "fiscal", label: "Control Fiscal", icon: Landmark },
   { id: "finanzas", label: "Finanzas", icon: WalletCards },
+  { id: "marketing", label: "Marketing AI", icon: Sparkles },
   { id: "ventas", label: "Ventas / Stripe", icon: DollarSign },
   { id: "cms", label: "CMS Reactivos", icon: Database },
   { id: "knowledge", label: "Biblioteca & Docs", icon: BookOpen },
@@ -90,6 +92,23 @@ const INITIAL_FINANCE_TRANSACTIONS: FinanceTransaction[] = [
   { id: "trx-010", date: "2026-04-09", concept: "Licencia corporativa SOFOM Training Pack", category: "SaaS B2B", type: "Ingreso", amount: 91850 },
 ]
 
+// MOCK DATA MARKETING
+const CHANNELS = [
+  { name: "LinkedIn Ads", icon: Linkedin, status: "Activo", spend: "$5,200", color: "text-[#0A66C2]", bg: "bg-[#0A66C2]/10" },
+  { name: "Meta Ads", icon: Facebook, status: "Activo", spend: "$3,150", color: "text-[#1877F2]", bg: "bg-[#1877F2]/10" },
+  { name: "Google Ads", icon: Search, status: "Activo", spend: "$3,650", color: "text-[#EA4335]", bg: "bg-[#EA4335]/10" },
+  { name: "TikTok Ads", icon: Video, status: "Pausado", spend: "$0", color: "text-[#ff0050]", bg: "bg-[#ff0050]/10" },
+  { name: "Email Automático", icon: Mail, status: "Activo", spend: "$450", color: "text-emerald-600", bg: "bg-emerald-100" },
+];
+
+const ACTIVE_CAMPAIGNS = [
+  { id: 1, name: "Webinar LGOAC para SOFOMES", channel: "LinkedIn", channelIcon: Linkedin, ai: "Claude 3.5 Sonnet", budget: "$1,200", leads: 84, status: true },
+  { id: 2, name: "Certificación CNBV 2026 - Early Bird", channel: "Meta Ads", channelIcon: Facebook, ai: "GPT-4o", budget: "$800", leads: 112, status: true },
+  { id: 3, name: "Guía EBR Abogados Fintech", channel: "Google Ads", channelIcon: Search, ai: "Gemini 1.5 Pro", budget: "$1,500", leads: 95, status: true },
+  { id: 4, name: "Retargeting: Módulo Tipologías", channel: "Email", channelIcon: Mail, ai: "Claude 3.5 Sonnet", budget: "$150", leads: 41, status: true },
+  { id: 5, name: "Campaña Jovenes Oficiales PLD", channel: "TikTok", channelIcon: Video, ai: "GPT-4o", budget: "$500", leads: 10, status: false },
+];
+
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("es-MX", {
     style: "currency",
@@ -115,13 +134,24 @@ export default function AdminPage() {
   const [questions, setQuestions] = React.useState<any[]>([])
   const [logs, setLogs] = React.useState<any[]>([])
 
-  // Estados UI para Modales de Administración de Usuarios
+  // Estados UI para Modales y Módulos
   const [showAddModal, setShowAddModal] = React.useState(false)
   const [actionLoading, setActionLoading] = React.useState(false)
   const [newUser, setNewUser] = React.useState({ email: '', fullName: '', password: 'Certifik2026!' })
   const [financeSearch, setFinanceSearch] = React.useState("")
   const [financeActionId, setFinanceActionId] = React.useState<string | null>(null)
   const [financeTransactions, setFinanceTransactions] = React.useState<FinanceTransaction[]>(INITIAL_FINANCE_TRANSACTIONS)
+  
+  // Estado Marketing
+  const [activeAI, setActiveAI] = React.useState("Claude 3.5 Sonnet");
+  const [promptQuery, setPromptQuery] = React.useState("");
+
+  // INTERCONEXIÓN: Finanzas -> Marketing
+  const marketingTotalSpend = React.useMemo(() => {
+    return financeTransactions
+      .filter((t) => t.type === "Egreso" && (t.category === "Marketing" || t.category === "APIs de IA"))
+      .reduce((sum, t) => sum + t.amount, 0);
+  }, [financeTransactions]);
 
   const financeSummary = React.useMemo(() => {
     const currentIncome = financeTransactions
@@ -142,6 +172,7 @@ export default function AdminPage() {
 
     return { currentIncome, currentExpenses, netBalance, burnRate, expenseRatio, b2bIncome, b2cIncome }
   }, [financeTransactions])
+
   const syncedCashflowData = React.useMemo(
     () =>
       CASHFLOW_DATA.map((month) =>
@@ -164,6 +195,7 @@ export default function AdminPage() {
       value: categoryTotals[item.name] ?? 0,
     })).filter((item) => item.value > 0)
   }, [financeTransactions])
+  
   const fiscalYearRevenue = React.useMemo(
     () =>
       syncedCashflowData
@@ -227,11 +259,9 @@ export default function AdminPage() {
     })
   }, [])
 
-  // Extraemos la función de fetch para poder llamarla al modificar usuarios
   const fetchRealtimeData = React.useCallback(async () => {
     const sb = supabase();
     try {
-      // Cargar perfiles de usuario
       const { data: profiles } = await sb
         .from('user_profiles')
         .select('*')
@@ -246,7 +276,6 @@ export default function AdminPage() {
         }));
       }
 
-      // Cargar documentos globales
       const { data: docs, count: docsCount } = await sb
         .from('documents')
         .select('*', { count: 'exact' })
@@ -263,24 +292,17 @@ export default function AdminPage() {
     }
   }, []);
 
-  // 2. Carga de datos y suscripción en tiempo real
   React.useEffect(() => {
     if (email !== SUPER_ADMIN_EMAIL) return;
 
     fetchRealtimeData();
 
     const sb = supabase();
-    // Suscripciones en Tiempo Real a la BD
     const channel = sb.channel('admin_dashboard')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'user_profiles' }, payload => {
-        console.log('Cambio en user_profiles:', payload);
         fetchRealtimeData();
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'documents' }, payload => {
-        console.log('Cambio en documents:', payload);
-        fetchRealtimeData();
-      })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'study_events' }, payload => {
         fetchRealtimeData();
       })
       .subscribe();
@@ -289,8 +311,6 @@ export default function AdminPage() {
       sb.removeChannel(channel);
     };
   }, [email, fetchRealtimeData]);
-
-  // ---- FUNCIONES DE ADMINISTRACIÓN DE USUARIOS ----
 
   const handleCreatePremiumUser = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -485,6 +505,172 @@ export default function AdminPage() {
           })}
         </div>
       </div>
+
+      {/* ── MÓDULO: MARKETING AUTOMÁTICO ── */}
+      {tab === "marketing" && (
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-2xl font-black tracking-tight text-slate-900 flex items-center gap-3">
+                <Sparkles className="h-6 w-6 text-indigo-600" />
+                Marketing Automático & IA
+              </h2>
+              <p className="text-slate-500 mt-1 text-sm md:text-base">
+                Orquesta y optimiza tus campañas omnicanal con inteligencia artificial.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 bg-white border border-slate-200 p-2 rounded-xl shadow-sm transition-all hover:shadow-md">
+              <div className="p-1.5 bg-indigo-50 rounded-lg">
+                <BrainCircuit className="h-5 w-5 text-indigo-600" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none mb-1">Motor de IA Activo</span>
+                <select 
+                  className="bg-transparent border-none text-sm font-semibold text-slate-800 focus:ring-0 cursor-pointer p-0 pr-6 leading-none outline-none appearance-none"
+                  value={activeAI}
+                  onChange={(e) => setActiveAI(e.target.value)}
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0 center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
+                >
+                  <option value="Claude 3.5 Sonnet">Claude 3.5 Sonnet</option>
+                  <option value="GPT-4o">OpenAI GPT-4o</option>
+                  <option value="Gemini 1.5 Pro">Google Gemini 1.5 Pro</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { label: "Gasto Marketing + IA", value: formatCurrency(marketingTotalSpend), subtext: "Sincronizado con Finanzas", icon: TrendingUp, color: "text-slate-700", bg: "bg-slate-100" },
+              { label: "Leads Adquiridos", value: "342", subtext: "+12% vs mes anterior", icon: Users, color: "text-blue-700", bg: "bg-blue-50" },
+              { label: "CAC (Costo Adquisición)", value: formatCurrency(marketingTotalSpend > 0 ? marketingTotalSpend / 342 : 0), subtext: "Objetivo: < $40.00", icon: Target, color: "text-emerald-700", bg: "bg-emerald-50" },
+              { label: "Campañas Activas", value: "8", subtext: "Omnicanal", icon: Megaphone, color: "text-indigo-700", bg: "bg-indigo-50" },
+            ].map((kpi, idx) => (
+              <Card key={idx} className="border-slate-200 shadow-sm">
+                <CardContent className="p-5">
+                  <div className="flex items-center justify-between">
+                    <div className="space-y-1">
+                      <p className="text-xs font-bold text-slate-500 uppercase">{kpi.label}</p>
+                      <p className="text-xl font-black text-slate-900">{kpi.value}</p>
+                    </div>
+                    <div className={`p-2.5 rounded-xl ${kpi.bg}`}>
+                      <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-3 font-medium">{kpi.subtext}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="lg:col-span-2 border-slate-200 shadow-sm flex flex-col">
+              <CardHeader className="pb-3 border-b border-slate-100 bg-slate-50/50 rounded-t-xl">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="flex items-center gap-2 text-lg text-slate-800">
+                    <Bot className="h-5 w-5 text-indigo-600" />
+                    Copiloto de Campañas
+                  </CardTitle>
+                  <Badge variant="secondary" className="bg-indigo-50 text-indigo-700 border-indigo-100">
+                    Procesando con: {activeAI.split(' ')[0]}
+                  </Badge>
+                </div>
+                <CardDescription>Describe la campaña y la IA generará copys, segmentación y presupuesto.</CardDescription>
+              </CardHeader>
+              <CardContent className="p-6 flex-1 flex flex-col gap-4">
+                <textarea 
+                  className="w-full flex-1 min-h-[120px] p-4 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none resize-none placeholder:text-slate-400"
+                  placeholder="Ej: Crear campaña en LinkedIn orientada a Oficiales de Cumplimiento destacando la importancia del Enfoque Basado en Riesgo..."
+                  value={promptQuery}
+                  onChange={(e) => setPromptQuery(e.target.value)}
+                />
+                <div className="flex flex-wrap gap-3 mt-auto pt-2">
+                  <Button className="bg-slate-900 text-white hover:bg-slate-800 rounded-lg text-sm">
+                    <Sparkles className="mr-2 h-4 w-4" /> Generar Copy
+                  </Button>
+                  <Button variant="outline" className="border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 text-sm">
+                    <Users className="mr-2 h-4 w-4 text-blue-600" /> Generar Segmentación
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-slate-200 shadow-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg text-slate-800">Canales Activos</CardTitle>
+                <CardDescription>Distribución del gasto publicitario.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {CHANNELS.map((channel, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 rounded-lg ${channel.bg}`}>
+                        <channel.icon className={`h-4 w-4 ${channel.color}`} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-800">{channel.name}</p>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className={`h-1.5 w-1.5 rounded-full ${channel.status === 'Activo' ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
+                          <p className="text-[10px] uppercase font-bold text-slate-500">{channel.status}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-bold text-slate-900">{channel.spend}</p>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="border-slate-200 shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-white">
+              <div>
+                <h3 className="text-base font-bold text-slate-800">Campañas en Ejecución</h3>
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm text-left">
+                <thead className="text-xs text-slate-500 bg-slate-50 uppercase font-bold">
+                  <tr>
+                    <th className="px-5 py-3">Campaña</th>
+                    <th className="px-5 py-3">Canal</th>
+                    <th className="px-5 py-3">Motor IA</th>
+                    <th className="px-5 py-3">Presupuesto</th>
+                    <th className="px-5 py-3 text-center">Estado</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 bg-white">
+                  {ACTIVE_CAMPAIGNS.map((camp) => (
+                    <tr key={camp.id} className="hover:bg-slate-50/50 transition-colors">
+                      <td className="px-5 py-3 font-medium text-slate-900">{camp.name}</td>
+                      <td className="px-5 py-3">
+                        <div className="flex items-center gap-2">
+                          <camp.channelIcon className="h-4 w-4 text-slate-400" />
+                          <span className="text-slate-600 font-medium">{camp.channel}</span>
+                        </div>
+                      </td>
+                      <td className="px-5 py-3">
+                        <Badge variant="outline" className="bg-white text-slate-600 font-bold border-slate-200">
+                          {camp.ai}
+                        </Badge>
+                      </td>
+                      <td className="px-5 py-3 font-black text-slate-700">{camp.budget}</td>
+                      <td className="px-5 py-3 text-center">
+                        <button className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${camp.status ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                          <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${camp.status ? 'translate-x-4' : 'translate-x-1'}`} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </div>
+      )}
 
       {/* -- FINANZAS Y FLUJO DE CAJA -- */}
       {tab === "finanzas" && (
@@ -1051,7 +1237,6 @@ export default function AdminPage() {
                     </div>
                     
                     <div className="flex gap-1 shrink-0 border-l pl-4 border-gray-100">
-                      {/* Suspender/Reactivar Botón */}
                       <Button size="sm" variant="ghost" onClick={() => handleToggleStatus(u.user_id, u.status)} className={`h-8 w-8 p-0 ${u.status === 'suspended' ? 'text-emerald-600 hover:bg-emerald-50' : 'text-orange-500 hover:bg-orange-50'}`} title={u.status === 'suspended' ? 'Reactivar Cuenta' : 'Suspender Cuenta'}>
                         {u.status === 'suspended' ? <CheckCircle className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
                       </Button>
@@ -1063,7 +1248,6 @@ export default function AdminPage() {
                         <RefreshCw className="h-4 w-4" />
                       </Button>
 
-                      {/* Eliminar Permanente Botón */}
                       <Button size="sm" variant="ghost" onClick={() => handleDeleteUser(u.user_id)} className="h-8 w-8 p-0 text-red-400 hover:text-red-700 hover:bg-red-50" title="Eliminar Usuario Permanentemente">
                         <Trash2 className="h-4 w-4" />
                       </Button>
