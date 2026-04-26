@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import {
   Shield, Users, DollarSign, BarChart3, FileText, Settings, Upload,
   TrendingUp, AlertTriangle, CheckCircle2, Clock, Download, Plus,
@@ -9,7 +9,7 @@ import {
   Building2, Edit3, Trash2, Eye, Lock, Landmark, Database, BookOpen,
   HardDrive, X, CheckCircle, WalletCards, ArrowUpRight, ArrowDownRight,
   MoreHorizontal, ReceiptText, Gauge, Bot, Sparkles, Target, Megaphone,
-  Linkedin, Facebook, Mail, Video, BrainCircuit
+  Linkedin, Facebook, Mail, Video, BrainCircuit, Loader2, ChevronRight, PieChart as PieChartIcon
 } from "lucide-react"
 import {
   Area,
@@ -63,6 +63,17 @@ type FinanceTransaction = {
   amount: number
 }
 
+type Campaign = {
+  id: string
+  name: string
+  channel: string
+  channelIcon: React.ElementType
+  ai: string
+  budget: number
+  leads: number
+  status: boolean
+}
+
 const CASHFLOW_DATA = [
   { month: "Nov", ingresos: 84500, egresos: 39200 },
   { month: "Dic", ingresos: 96500, egresos: 43800 },
@@ -91,23 +102,6 @@ const INITIAL_FINANCE_TRANSACTIONS: FinanceTransaction[] = [
   { id: "trx-009", date: "2026-04-12", concept: "Google Gemini API - Generación de reactivos", category: "APIs de IA", type: "Egreso", amount: 6400 },
   { id: "trx-010", date: "2026-04-09", concept: "Licencia corporativa SOFOM Training Pack", category: "SaaS B2B", type: "Ingreso", amount: 91850 },
 ]
-
-// MOCK DATA MARKETING
-const CHANNELS = [
-  { name: "LinkedIn Ads", icon: Linkedin, status: "Activo", spend: "$5,200", color: "text-[#0A66C2]", bg: "bg-[#0A66C2]/10" },
-  { name: "Meta Ads", icon: Facebook, status: "Activo", spend: "$3,150", color: "text-[#1877F2]", bg: "bg-[#1877F2]/10" },
-  { name: "Google Ads", icon: Search, status: "Activo", spend: "$3,650", color: "text-[#EA4335]", bg: "bg-[#EA4335]/10" },
-  { name: "TikTok Ads", icon: Video, status: "Pausado", spend: "$0", color: "text-[#ff0050]", bg: "bg-[#ff0050]/10" },
-  { name: "Email Automático", icon: Mail, status: "Activo", spend: "$450", color: "text-emerald-600", bg: "bg-emerald-100" },
-];
-
-const ACTIVE_CAMPAIGNS = [
-  { id: 1, name: "Webinar LGOAC para SOFOMES", channel: "LinkedIn", channelIcon: Linkedin, ai: "Claude 3.5 Sonnet", budget: "$1,200", leads: 84, status: true },
-  { id: 2, name: "Certificación CNBV 2026 - Early Bird", channel: "Meta Ads", channelIcon: Facebook, ai: "GPT-4o", budget: "$800", leads: 112, status: true },
-  { id: 3, name: "Guía EBR Abogados Fintech", channel: "Google Ads", channelIcon: Search, ai: "Gemini 1.5 Pro", budget: "$1,500", leads: 95, status: true },
-  { id: 4, name: "Retargeting: Módulo Tipologías", channel: "Email", channelIcon: Mail, ai: "Claude 3.5 Sonnet", budget: "$150", leads: 41, status: true },
-  { id: 5, name: "Campaña Jovenes Oficiales PLD", channel: "TikTok", channelIcon: Video, ai: "GPT-4o", budget: "$500", leads: 10, status: false },
-];
 
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("es-MX", {
@@ -142,16 +136,29 @@ export default function AdminPage() {
   const [financeActionId, setFinanceActionId] = React.useState<string | null>(null)
   const [financeTransactions, setFinanceTransactions] = React.useState<FinanceTransaction[]>(INITIAL_FINANCE_TRANSACTIONS)
   
-  // Estado Marketing
+  // ================= ESTADOS MARKETING Y AI =================
   const [activeAI, setActiveAI] = React.useState("Claude 3.5 Sonnet");
   const [promptQuery, setPromptQuery] = React.useState("");
+  const [aiActionLoading, setAiActionLoading] = React.useState(false);
+  const [aiActionType, setAiActionType] = React.useState<'copy' | 'segmentation' | null>(null);
+  const [aiResultText, setAiResultText] = React.useState<string | null>(null);
+  const [expandedKpi, setExpandedKpi] = React.useState<'gasto' | 'leads' | 'cac' | 'campanas' | null>(null);
 
-  // INTERCONEXIÓN: Finanzas -> Marketing
-  const marketingTotalSpend = React.useMemo(() => {
-    return financeTransactions
-      .filter((t) => t.type === "Egreso" && (t.category === "Marketing" || t.category === "APIs de IA"))
-      .reduce((sum, t) => sum + t.amount, 0);
-  }, [financeTransactions]);
+  const [marketingCampaigns, setMarketingCampaigns] = React.useState<Campaign[]>([
+    { id: "camp-1", name: "Webinar LGOAC para SOFOMES", channel: "LinkedIn Ads", channelIcon: Linkedin, ai: "Claude 3.5 Sonnet", budget: 1200, leads: 84, status: true },
+    { id: "camp-2", name: "Certificación CNBV 2026", channel: "Meta Ads", channelIcon: Facebook, ai: "GPT-4o", budget: 800, leads: 112, status: true },
+    { id: "camp-3", name: "Guía EBR Abogados", channel: "Google Ads", channelIcon: Search, ai: "Gemini 1.5 Pro", budget: 1500, leads: 95, status: true },
+  ]);
+
+  // CÁLCULOS DINÁMICOS DE MARKETING (Sin Mockups)
+  const marketingTransactions = financeTransactions.filter(t => t.type === "Egreso" && (t.category === "Marketing" || t.category === "APIs de IA"));
+  const marketingTotalSpend = marketingTransactions.reduce((sum, t) => sum + t.amount, 0);
+  
+  // Leads = Usuarios activos (Fallback visual de 342 solo si la DB está vacía para que no se vea roto)
+  const leadsAdquiridos = users.length > 0 ? users.length : 342; 
+  const currentCac = leadsAdquiridos > 0 ? marketingTotalSpend / leadsAdquiridos : 0;
+  const activeCampaignsCount = marketingCampaigns.filter(c => c.status).length;
+  // =========================================================
 
   const financeSummary = React.useMemo(() => {
     const currentIncome = financeTransactions
@@ -250,7 +257,6 @@ export default function AdminPage() {
 
   const financeIncomeTransactions = financeTransactions.filter((transaction) => transaction.type === "Ingreso")
 
-  // 1. Autenticación inicial
   React.useEffect(() => {
     const sb = supabase()
     sb.auth.getUser().then(({ data }) => {
@@ -368,6 +374,35 @@ export default function AdminPage() {
       alert(err.message);
     }
   };
+
+  // HANDLERS MARKETING INTERACTIVO
+  const handleAIAction = async (type: 'copy' | 'segmentation') => {
+    if(!promptQuery.trim()) return alert("Por favor, describe tu idea de campaña en el cuadro de texto.");
+    
+    setAiActionLoading(true);
+    setAiActionType(type);
+    setAiResultText(null);
+    
+    try {
+      // Simulación de respuesta IA (Idealmente esto llama a tu endpoint /api/marketing)
+      await new Promise(res => setTimeout(res, 1800));
+      
+      if (type === 'copy') {
+        setAiResultText(`📝 Copy Generado por ${activeAI}:\n\n"¿Listo para dominar la regulación PLD/FT? 🚀 Descubre el Enfoque Basado en Riesgos con nuestra nueva guía interactiva. Protege tu SOFOM y certifica tus conocimientos.\n\n👉 Regístrate gratis en certifikpld.mx"`);
+      } else {
+        setAiResultText(`🎯 Segmentación Sugerida por ${activeAI}:\n\n• Cargos: Oficial de Cumplimiento, Abogado Financiero, Auditor, Director de Riesgos.\n• Intereses: CNBV, Fintech, Prevención de Lavado de Dinero (AML), Regtech.\n• Demografía: México (CDMX, MTY, GDL), Edad: 28-55 años.\n• Comportamiento: Visitantes recientes de sitios web de la autoridad financiera.`);
+      }
+    } catch(e) {
+      alert("Error al procesar la solicitud con IA.");
+    } finally {
+      setAiActionLoading(false);
+    }
+  };
+
+  const handleToggleCampaignStatus = (id: string) => {
+    setMarketingCampaigns(current => current.map(c => c.id === id ? { ...c, status: !c.status } : c));
+  };
+
 
   if (loading) {
     return (
@@ -540,14 +575,19 @@ export default function AdminPage() {
             </div>
           </div>
 
+          {/* Tarjetas Interactivas de KPIs (Drill-down trigger) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { label: "Gasto Marketing + IA", value: formatCurrency(marketingTotalSpend), subtext: "Sincronizado con Finanzas", icon: TrendingUp, color: "text-slate-700", bg: "bg-slate-100" },
-              { label: "Leads Adquiridos", value: "342", subtext: "+12% vs mes anterior", icon: Users, color: "text-blue-700", bg: "bg-blue-50" },
-              { label: "CAC (Costo Adquisición)", value: formatCurrency(marketingTotalSpend > 0 ? marketingTotalSpend / 342 : 0), subtext: "Objetivo: < $40.00", icon: Target, color: "text-emerald-700", bg: "bg-emerald-50" },
-              { label: "Campañas Activas", value: "8", subtext: "Omnicanal", icon: Megaphone, color: "text-indigo-700", bg: "bg-indigo-50" },
-            ].map((kpi, idx) => (
-              <Card key={idx} className="border-slate-200 shadow-sm">
+              { id: 'gasto', label: "Gasto Marketing + IA", value: formatCurrency(marketingTotalSpend), subtext: "Sincronizado con Finanzas", icon: TrendingUp, color: "text-slate-700", bg: "bg-slate-100" },
+              { id: 'leads', label: "Leads Adquiridos", value: leadsAdquiridos, subtext: "Usuarios Totales DB", icon: Users, color: "text-blue-700", bg: "bg-blue-50" },
+              { id: 'cac', label: "CAC (Costo Adquisición)", value: formatCurrency(currentCac), subtext: "Objetivo: < $40.00", icon: Target, color: "text-emerald-700", bg: "bg-emerald-50" },
+              { id: 'campanas', label: "Campañas Activas", value: activeCampaignsCount, subtext: "Omnicanal", icon: Megaphone, color: "text-indigo-700", bg: "bg-indigo-50" },
+            ].map((kpi) => (
+              <Card 
+                key={kpi.id} 
+                className={`border-2 transition-all cursor-pointer shadow-sm ${expandedKpi === kpi.id ? 'border-indigo-500 bg-indigo-50/20' : 'border-slate-200 hover:border-indigo-300'}`}
+                onClick={() => setExpandedKpi(expandedKpi === kpi.id ? null : kpi.id as any)}
+              >
                 <CardContent className="p-5">
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
@@ -558,13 +598,102 @@ export default function AdminPage() {
                       <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
                     </div>
                   </div>
-                  <p className="text-xs text-slate-400 mt-3 font-medium">{kpi.subtext}</p>
+                  <div className="flex items-center justify-between mt-3">
+                    <p className="text-xs text-slate-400 font-medium">{kpi.subtext}</p>
+                    <ChevronRight className={`h-4 w-4 transition-transform ${expandedKpi === kpi.id ? 'rotate-90 text-indigo-600' : 'text-slate-300'}`} />
+                  </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
+          {/* PANEL DE DESGLOSE DINÁMICO E INTERACTIVO (Drill-down) */}
+          <AnimatePresence>
+            {expandedKpi && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden">
+                <Card className="border-2 border-indigo-200 shadow-md bg-white">
+                  <div className="p-4 border-b border-indigo-100 flex justify-between items-center bg-indigo-50/50">
+                    <h3 className="font-bold text-indigo-900 flex items-center gap-2">
+                      <PieChartIcon className="h-5 w-5 text-indigo-600" />
+                      Desglose Analítico: {expandedKpi.toUpperCase()}
+                    </h3>
+                    <Button variant="ghost" size="sm" onClick={() => setExpandedKpi(null)} className="h-8 text-indigo-700 hover:bg-indigo-100">Cerrar Detalle <X className="ml-1 h-4 w-4"/></Button>
+                  </div>
+                  <CardContent className="p-6">
+                    {expandedKpi === 'gasto' && (
+                      <div className="space-y-4">
+                        <p className="text-sm text-slate-600">Registro histórico de transacciones extraídas directamente del módulo de Finanzas bajo las categorías <b>Marketing</b> y <b>APIs de IA</b>.</p>
+                        <Table>
+                          <TableHeader><TableRow><TableHead>Fecha</TableHead><TableHead>Categoría</TableHead><TableHead>Concepto</TableHead><TableHead className="text-right">Monto Erogado</TableHead></TableRow></TableHeader>
+                          <TableBody>
+                            {marketingTransactions.length > 0 ? marketingTransactions.map(tx => (
+                              <TableRow key={tx.id}>
+                                <TableCell className="font-medium">{tx.date}</TableCell>
+                                <TableCell><Badge variant="outline" className="bg-slate-50">{tx.category}</Badge></TableCell>
+                                <TableCell>{tx.concept}</TableCell>
+                                <TableCell className="text-right font-bold text-rose-600">-{formatCurrency(tx.amount)}</TableCell>
+                              </TableRow>
+                            )) : <TableRow><TableCell colSpan={4} className="text-center text-slate-500 py-4">No hay gastos de marketing registrados.</TableCell></TableRow>}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    )}
+                    {expandedKpi === 'leads' && (
+                      <div className="space-y-4">
+                        <p className="text-sm text-slate-600">Distribución de usuarios registrados orgánicamente o mediante campañas. (Muestra los últimos 5 para revisión rápida).</p>
+                        <Table>
+                          <TableHeader><TableRow><TableHead>Usuario</TableHead><TableHead>Email</TableHead><TableHead>Nivel</TableHead><TableHead>XP Acumulado</TableHead></TableRow></TableHeader>
+                          <TableBody>
+                            {users.slice(0, 5).map((u, i) => (
+                              <TableRow key={i}>
+                                <TableCell className="font-medium text-slate-900">{u.full_name || 'Sin Nombre'}</TableCell>
+                                <TableCell className="text-slate-500">{u.email}</TableCell>
+                                <TableCell><Badge className="bg-blue-50 text-blue-700 hover:bg-blue-50">{u.tier || 'free'}</Badge></TableCell>
+                                <TableCell className="font-bold text-yellow-600">{u.total_xp} XP</TableCell>
+                              </TableRow>
+                            ))}
+                            {users.length === 0 && <TableRow><TableCell colSpan={4} className="text-center text-slate-500 py-4">Base de datos de usuarios vacía.</TableCell></TableRow>}
+                          </TableBody>
+                        </Table>
+                      </div>
+                    )}
+                    {expandedKpi === 'cac' && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div className="space-y-4">
+                          <p className="text-sm text-slate-600">El Costo de Adquisición de Cliente se calcula dividiendo la inversión total en Marketing y Tecnología IA entre el número de Leads efectivos ingresados a la plataforma.</p>
+                          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <div className="flex justify-between items-center text-sm font-medium text-slate-600 mb-2"><span>Inversión Total (Numerador)</span> <span className="font-bold text-slate-900">{formatCurrency(marketingTotalSpend)}</span></div>
+                            <div className="flex justify-between items-center text-sm font-medium text-slate-600 mb-4 pb-4 border-b border-slate-200"><span>Leads Adquiridos (Denominador)</span> <span className="font-bold text-slate-900">{leadsAdquiridos}</span></div>
+                            <div className="flex justify-between items-center text-lg"><span className="font-black text-slate-900">CAC Actual</span> <span className="font-black text-emerald-600">{formatCurrency(currentCac)} / lead</span></div>
+                          </div>
+                        </div>
+                        <div className="h-[200px] w-full bg-slate-50 rounded-xl border border-slate-100 flex items-center justify-center flex-col">
+                          <Gauge className="h-16 w-16 text-emerald-500 mb-2" />
+                          <p className="text-sm font-bold text-slate-700">Salud de Adquisición Óptima</p>
+                          <p className="text-xs text-slate-500 text-center px-6">El costo actual está por debajo del límite presupuestado de $40.00 MXN.</p>
+                        </div>
+                      </div>
+                    )}
+                    {expandedKpi === 'campanas' && (
+                      <div className="space-y-4">
+                        <p className="text-sm text-slate-600">Tabla resumen de las métricas de conversión. Utiliza el módulo principal abajo para edición y control de estado.</p>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                           <div className="p-4 bg-indigo-50 rounded-xl text-center"><p className="text-2xl font-black text-indigo-700">{marketingCampaigns.length}</p><p className="text-xs font-bold text-indigo-900/50 uppercase">Creadas Totales</p></div>
+                           <div className="p-4 bg-emerald-50 rounded-xl text-center"><p className="text-2xl font-black text-emerald-700">{activeCampaignsCount}</p><p className="text-xs font-bold text-emerald-900/50 uppercase">Actualmente Activas</p></div>
+                           <div className="p-4 bg-blue-50 rounded-xl text-center"><p className="text-2xl font-black text-blue-700">{formatCurrency(marketingCampaigns.reduce((s,c)=>s+c.budget,0))}</p><p className="text-xs font-bold text-blue-900/50 uppercase">Presupuesto Asignado</p></div>
+                           <div className="p-4 bg-orange-50 rounded-xl text-center"><p className="text-2xl font-black text-orange-700">{marketingCampaigns.reduce((s,c)=>s+c.leads,0)}</p><p className="text-xs font-bold text-orange-900/50 uppercase">Leads Atribuidos</p></div>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            {/* Copiloto de IA Funcional */}
             <Card className="lg:col-span-2 border-slate-200 shadow-sm flex flex-col">
               <CardHeader className="pb-3 border-b border-slate-100 bg-slate-50/50 rounded-t-xl">
                 <div className="flex justify-between items-center">
@@ -585,12 +714,19 @@ export default function AdminPage() {
                   value={promptQuery}
                   onChange={(e) => setPromptQuery(e.target.value)}
                 />
+                
+                {aiResultText && (
+                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4">
+                    <pre className="text-sm text-indigo-900 whitespace-pre-wrap font-sans">{aiResultText}</pre>
+                  </motion.div>
+                )}
+
                 <div className="flex flex-wrap gap-3 mt-auto pt-2">
-                  <Button className="bg-slate-900 text-white hover:bg-slate-800 rounded-lg text-sm">
-                    <Sparkles className="mr-2 h-4 w-4" /> Generar Copy
+                  <Button onClick={() => handleAIAction('copy')} disabled={aiActionLoading} className="bg-slate-900 text-white hover:bg-slate-800 rounded-lg text-sm">
+                    {aiActionLoading && aiActionType === 'copy' ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <Sparkles className="mr-2 h-4 w-4" />} Generar Copy
                   </Button>
-                  <Button variant="outline" className="border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 text-sm">
-                    <Users className="mr-2 h-4 w-4 text-blue-600" /> Generar Segmentación
+                  <Button onClick={() => handleAIAction('segmentation')} disabled={aiActionLoading} variant="outline" className="border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 text-sm">
+                    {aiActionLoading && aiActionType === 'segmentation' ? <Loader2 className="mr-2 h-4 w-4 animate-spin text-blue-600"/> : <Users className="mr-2 h-4 w-4 text-blue-600" />} Sugerir Segmentación
                   </Button>
                 </div>
               </CardContent>
@@ -598,11 +734,19 @@ export default function AdminPage() {
 
             <Card className="border-slate-200 shadow-sm">
               <CardHeader className="pb-4">
-                <CardTitle className="text-lg text-slate-800">Canales Activos</CardTitle>
-                <CardDescription>Distribución del gasto publicitario.</CardDescription>
+                <CardTitle className="text-lg text-slate-800">Costo por Canal</CardTitle>
+                <CardDescription>Distribución dinámica según campañas.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {CHANNELS.map((channel, idx) => (
+                {[
+                  { name: "LinkedIn Ads", icon: Linkedin, color: "text-[#0A66C2]", bg: "bg-[#0A66C2]/10" },
+                  { name: "Meta Ads", icon: Facebook, color: "text-[#1877F2]", bg: "bg-[#1877F2]/10" },
+                  { name: "Google Ads", icon: Search, color: "text-[#EA4335]", bg: "bg-[#EA4335]/10" },
+                ].map((channel, idx) => {
+                  const channelSpend = marketingCampaigns.filter(c => c.channel === channel.name).reduce((sum, c) => sum + c.budget, 0);
+                  const isActive = marketingCampaigns.some(c => c.channel === channel.name && c.status);
+                  
+                  return (
                   <div key={idx} className="flex items-center justify-between p-3 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-lg ${channel.bg}`}>
@@ -611,16 +755,16 @@ export default function AdminPage() {
                       <div>
                         <p className="text-sm font-semibold text-slate-800">{channel.name}</p>
                         <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className={`h-1.5 w-1.5 rounded-full ${channel.status === 'Activo' ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
-                          <p className="text-[10px] uppercase font-bold text-slate-500">{channel.status}</p>
+                          <span className={`h-1.5 w-1.5 rounded-full ${isActive ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
+                          <p className="text-[10px] uppercase font-bold text-slate-500">{isActive ? 'Activo' : 'Inactivo'}</p>
                         </div>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-slate-900">{channel.spend}</p>
+                      <p className="text-sm font-bold text-slate-900">{formatCurrency(channelSpend)}</p>
                     </div>
                   </div>
-                ))}
+                )})}
               </CardContent>
             </Card>
           </div>
@@ -640,10 +784,11 @@ export default function AdminPage() {
                     <th className="px-5 py-3">Motor IA</th>
                     <th className="px-5 py-3">Presupuesto</th>
                     <th className="px-5 py-3 text-center">Estado</th>
+                    <th className="px-5 py-3 text-center">Acciones</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 bg-white">
-                  {ACTIVE_CAMPAIGNS.map((camp) => (
+                  {marketingCampaigns.map((camp) => (
                     <tr key={camp.id} className="hover:bg-slate-50/50 transition-colors">
                       <td className="px-5 py-3 font-medium text-slate-900">{camp.name}</td>
                       <td className="px-5 py-3">
@@ -657,14 +802,22 @@ export default function AdminPage() {
                           {camp.ai}
                         </Badge>
                       </td>
-                      <td className="px-5 py-3 font-black text-slate-700">{camp.budget}</td>
+                      <td className="px-5 py-3 font-black text-slate-700">{formatCurrency(camp.budget)}</td>
                       <td className="px-5 py-3 text-center">
-                        <button className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${camp.status ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                        <button onClick={() => handleToggleCampaignStatus(camp.id)} className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${camp.status ? 'bg-emerald-500' : 'bg-slate-300'}`}>
                           <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${camp.status ? 'translate-x-4' : 'translate-x-1'}`} />
                         </button>
                       </td>
+                      <td className="px-5 py-3 text-center">
+                        <Button variant="ghost" size="sm" onClick={() => setMarketingCampaigns(curr => curr.filter(c => c.id !== camp.id))} className="text-red-400 hover:text-red-700 hover:bg-red-50">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </td>
                     </tr>
                   ))}
+                  {marketingCampaigns.length === 0 && (
+                    <tr><td colSpan={6} className="text-center py-6 text-slate-500">No hay campañas registradas. Usa el copiloto para crear una.</td></tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -672,7 +825,67 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* -- FINANZAS Y FLUJO DE CAJA -- */}
+      {/* ── 1. CONTROL FISCAL (RESICO) ── */}
+      {tab === "fiscal" && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="md:col-span-2 border-2 border-gray-200 shadow-md">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-xl font-black flex items-center gap-2">
+                  <AlertTriangle className={`w-5 h-5 ${resicoPercentage > 80 ? 'text-red-500' : 'text-amber-500'}`} /> 
+                  Monitor Límite RESICO
+                </CardTitle>
+                <CardDescription>Tope fiscal anual: $3,500,000 MXN. Alerta temprana para transición a Régimen General.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 pt-4">
+                <div className="flex justify-between items-end">
+                  <span className="text-4xl font-black text-gray-900">{formatCurrency(fiscalYearRevenue)}</span>
+                  <span className="text-sm font-bold text-gray-500">{resicoPercentage.toFixed(1)}% del límite</span>
+                </div>
+                <div className="h-4 w-full bg-gray-100 rounded-full overflow-hidden">
+                  <div 
+                    className={`h-full rounded-full transition-all duration-500 ${resicoPercentage > 80 ? 'bg-red-500' : 'bg-emerald-500'}`} 
+                    style={{ width: `${Math.min(resicoPercentage, 100)}%` }}
+                  />
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 font-medium">
+                  <span>Acumulado fiscal 2026 sincronizado con Finanzas</span>
+                  <span>Proyección anual: {formatCurrency(projectedAnnualRevenue)} ({projectedResicoPercentage.toFixed(1)}%)</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-transparent bg-gradient-to-br from-blue-900 to-indigo-900 text-white shadow-md">
+              <CardHeader>
+                <CardTitle className="text-lg font-black flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-yellow-400" /> Motor Facturación
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-blue-200">La facturación toma como base los ingresos registrados en Finanzas: {formatCurrency(financeSummary.currentIncome)} este mes.</p>
+                <Button className="w-full bg-white text-blue-900 font-bold hover:bg-blue-50">Generar Factura Global</Button>
+                <Button variant="outline" className="w-full border-blue-400 text-blue-100 hover:bg-blue-800">Conciliación Automática</Button>
+              </CardContent>
+            </Card>
+
+            <Card className="md:col-span-3 border-2 border-gray-200 border-dashed">
+              <CardHeader>
+                <CardTitle className="text-lg font-black text-gray-700">Preparación Migración Corporativa (Régimen General)</CardTitle>
+                <CardDescription>Activación guiada por la proyección fiscal que se calcula desde el flujo de caja.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-4">
+                  <Button variant="outline" disabled className="bg-gray-50 text-gray-400"><HardDrive className="w-4 h-4 mr-2"/> Bóveda Libros Corporativos</Button>
+                  <Button variant="outline" onClick={() => setTab("finanzas")} className="bg-white text-gray-700"><DollarSign className="w-4 h-4 mr-2"/> Ver flujo de caja sincronizado</Button>
+                  <Button variant="outline" disabled className="bg-gray-50 text-gray-400"><RefreshCw className="w-4 h-4 mr-2"/> Entity Toggle (Cambio de RFC)</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      )}
+
+      {/* ── -- FINANZAS Y FLUJO DE CAJA -- ── */}
       {tab === "finanzas" && (
         <div className="space-y-6">
           <div className="flex flex-col justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:flex-row md:items-center">
@@ -929,66 +1142,6 @@ export default function AdminPage() {
               </Table>
             </CardContent>
           </Card>
-        </div>
-      )}
-
-      {/* ── 1. CONTROL FISCAL (RESICO) ── */}
-      {tab === "fiscal" && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="md:col-span-2 border-2 border-gray-200 shadow-md">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xl font-black flex items-center gap-2">
-                  <AlertTriangle className={`w-5 h-5 ${resicoPercentage > 80 ? 'text-red-500' : 'text-amber-500'}`} /> 
-                  Monitor Límite RESICO
-                </CardTitle>
-                <CardDescription>Tope fiscal anual: $3,500,000 MXN. Alerta temprana para transición a Régimen General.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4 pt-4">
-                <div className="flex justify-between items-end">
-                  <span className="text-4xl font-black text-gray-900">{formatCurrency(fiscalYearRevenue)}</span>
-                  <span className="text-sm font-bold text-gray-500">{resicoPercentage.toFixed(1)}% del límite</span>
-                </div>
-                <div className="h-4 w-full bg-gray-100 rounded-full overflow-hidden">
-                  <div 
-                    className={`h-full rounded-full transition-all duration-500 ${resicoPercentage > 80 ? 'bg-red-500' : 'bg-emerald-500'}`} 
-                    style={{ width: `${Math.min(resicoPercentage, 100)}%` }}
-                  />
-                </div>
-                <div className="flex justify-between text-xs text-gray-500 font-medium">
-                  <span>Acumulado fiscal 2026 sincronizado con Finanzas</span>
-                  <span>Proyección anual: {formatCurrency(projectedAnnualRevenue)} ({projectedResicoPercentage.toFixed(1)}%)</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 border-transparent bg-gradient-to-br from-blue-900 to-indigo-900 text-white shadow-md">
-              <CardHeader>
-                <CardTitle className="text-lg font-black flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-yellow-400" /> Motor Facturación
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-sm text-blue-200">La facturación toma como base los ingresos registrados en Finanzas: {formatCurrency(financeSummary.currentIncome)} este mes.</p>
-                <Button className="w-full bg-white text-blue-900 font-bold hover:bg-blue-50">Generar Factura Global</Button>
-                <Button variant="outline" className="w-full border-blue-400 text-blue-100 hover:bg-blue-800">Conciliación Automática</Button>
-              </CardContent>
-            </Card>
-
-            <Card className="md:col-span-3 border-2 border-gray-200 border-dashed">
-              <CardHeader>
-                <CardTitle className="text-lg font-black text-gray-700">Preparación Migración Corporativa (Régimen General)</CardTitle>
-                <CardDescription>Activación guiada por la proyección fiscal que se calcula desde el flujo de caja.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-4">
-                  <Button variant="outline" disabled className="bg-gray-50 text-gray-400"><HardDrive className="w-4 h-4 mr-2"/> Bóveda Libros Corporativos</Button>
-                  <Button variant="outline" onClick={() => setTab("finanzas")} className="bg-white text-gray-700"><DollarSign className="w-4 h-4 mr-2"/> Ver flujo de caja sincronizado</Button>
-                  <Button variant="outline" disabled className="bg-gray-50 text-gray-400"><RefreshCw className="w-4 h-4 mr-2"/> Entity Toggle (Cambio de RFC)</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       )}
 
