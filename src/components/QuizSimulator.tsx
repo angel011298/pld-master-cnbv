@@ -13,7 +13,8 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { buildAuthHeaders } from "@/lib/auth-client"
 import { useUserProfile } from "@/hooks/useUserProfile"
-import { CNBV_SYLLABUS, EXERCISE_TYPES } from "@/lib/constants"
+import { EXERCISE_TYPES } from "@/lib/constants" // Mantenemos solo EXERCISE_TYPES local
+import { useSyllabus } from "@/hooks/useSyllabus" // IMPORTAMOS EL NUEVO HOOK DINÁMICO
 
 interface Question {
   id: number
@@ -24,8 +25,11 @@ interface Question {
 }
 
 export function QuizSimulator() {
-  const { profile, loading } = useUserProfile()
-  const [topic, setTopic] = React.useState(CNBV_SYLLABUS[0].topics[0])
+  const { profile, loading: profileLoading } = useUserProfile()
+  const { syllabus, loading: syllabusLoading } = useSyllabus() // Consumir temario desde BD
+  
+  // Inicializamos el tema vacío, se llenará cuando cargue el syllabus
+  const [topic, setTopic] = React.useState<string>("")
   const [difficulty, setDifficulty] = React.useState("Intermedio")
   const [exerciseType, setExerciseType] = React.useState(EXERCISE_TYPES[0])
   const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
@@ -42,6 +46,13 @@ export function QuizSimulator() {
   // Use the profile as fallback when internal state hasn't tracked local XP changes yet.
   const displayTotalXp = totalXp !== null ? totalXp : (profile?.totalXp ?? null)
   const displayStreak = streak !== null ? streak : (profile?.currentStreak ?? null)
+
+  // Efecto para asignar el primer tema por defecto en cuanto cargue el temario dinámico
+  React.useEffect(() => {
+    if (syllabus.length > 0 && !topic) {
+      setTopic(syllabus[0].topics[0])
+    }
+  }, [syllabus, topic])
 
   const fetchQuiz = async () => {
     setGameState("loading")
@@ -114,6 +125,16 @@ export function QuizSimulator() {
     }
   }
 
+  // ——— ESTADO DE CARGA DEL TEMARIO ———
+  if (syllabusLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
+        <Loader2 className="h-10 w-10 text-primary animate-spin" />
+        <p className="text-lg font-bold text-muted-foreground animate-pulse">Cargando temario oficial...</p>
+      </div>
+    )
+  }
+
   // ——— IDLE STATE ———
   if (gameState === "idle") {
     return (
@@ -129,13 +150,13 @@ export function QuizSimulator() {
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
-            
-            {/* SELECCIÓN DE TEMARIO DESGLOSADO */}
+           
+            {/* SELECCIÓN DE TEMARIO DESGLOSADO DINÁMICO */}
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-muted-foreground">Temario Oficial Desglosado</label>
               <div className="h-[280px] overflow-y-auto border-2 border-gray-200 rounded-xl p-3 bg-gray-50 custom-scrollbar space-y-6">
-                {CNBV_SYLLABUS.map((mod) => (
-                  <div key={mod.id} className="space-y-2">
+                {syllabus.map((mod) => (
+                  <div key={mod.module} className="space-y-2">
                     <div className="sticky top-0 bg-gray-50/95 backdrop-blur-sm py-1 font-black text-primary text-sm uppercase border-b border-primary/20">
                       {mod.module}
                     </div>
@@ -219,7 +240,7 @@ export function QuizSimulator() {
             <CardContent className="py-6 flex flex-col items-center gap-2">
               <Zap className="h-8 w-8 text-secondary" />
               <span className="text-3xl font-black">
-                {loading ? "—" : (displayTotalXp !== null ? displayTotalXp.toLocaleString() : "0")}
+                {profileLoading ? "—" : (displayTotalXp !== null ? displayTotalXp.toLocaleString() : "0")}
               </span>
               <span className="text-xs uppercase font-bold text-muted-foreground">XP Acumulado</span>
             </CardContent>
@@ -228,7 +249,7 @@ export function QuizSimulator() {
             <CardContent className="py-6 flex flex-col items-center gap-2">
               <Flame className="h-8 w-8 text-orange-500" />
               <span className="text-3xl font-black">
-                {loading ? "—" : (displayStreak !== null ? displayStreak : "0")}
+                {profileLoading ? "—" : (displayStreak !== null ? displayStreak : "0")}
               </span>
               <span className="text-xs uppercase font-bold text-muted-foreground">Días de Racha</span>
             </CardContent>
