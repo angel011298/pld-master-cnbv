@@ -10,32 +10,27 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useUserProfile } from "@/hooks/useUserProfile"
 
+// Catálogo completo alineado con entities/page.tsx
 const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: string[] }> = {
-  banca: {
-    name: "Banca Múltiple",
-    topics: ["Art. 115 LIC y PLD en Banca", "Reportes R01, R12 y R14", "EBR en Banca", "Oficial de Cumplimiento", "KYC Banca", "Comité de Comunicación y Control"],
-    modules: ["Marco Jurídico de Banca", "Obligaciones de Reportería", "Órganos Internos Bancarios", "Gestión de Riesgos EBR", "Simulacro Examen Banca"],
-  },
-  sofom: {
-    name: "SOFOM ENR",
-    topics: ["LGOAC y PLD SOFOM", "Reportes Trimestrales", "Matriz de Riesgo Simplificada", "Manual PLD SOFOM", "Umbrales relevantes SOFOM"],
-    modules: ["Fundamentos SOFOM ENR", "Obligaciones de Reportería", "Gestión de Expedientes", "Simulacro SOFOM"],
-  },
-  fintech: {
-    name: "Fintech (IFC / IFPE)",
-    topics: ["LRITF y PLD Fintech", "Activos Virtuales CNBV", "Onboarding Digital", "Geolocalización en PLD", "Reportes Fintech"],
-    modules: ["Marco Jurídico Fintech", "Activos Virtuales y PLD", "Identidad Digital y KYC", "Simulacro Fintech"],
-  },
-  socap: {
-    name: "SOCAP / SOFIPO",
-    topics: ["LRASCAP y LACP", "Niveles de Operación I-IV", "Identificación Proporcional", "Reportes Mensuales", "Consejo de Administración y PLD"],
-    modules: ["Marco Jurídico SOCAP", "Niveles de Operación PLD", "Órganos Internos SOCAP", "Simulacro SOCAP/SOFIPO"],
-  },
-  "casa-bolsa": {
-    name: "Casa de Bolsa",
-    topics: ["LMV y PLD Bursátil", "KYC Bursátil (Versado/No Versado)", "Operaciones en Bloque", "Reportes de Mercado", "Auditoría PLD Bursátil"],
-    modules: ["Marco Jurídico Bursátil", "Perfil del Cliente Bursátil", "Reportería Bursátil", "Simulacro Casa de Bolsa"],
-  },
+  "banca-multiple": { name: "Banca Múltiple", topics: ["Art. 115 LIC", "Reportes R01, R12 y R14", "EBR Banca"], modules: ["Marco Jurídico", "Reportería Bancaria"] },
+  "banca-desarrollo": { name: "Banca de Desarrollo", topics: ["Art. 115 LIC", "Fomento Económico", "EBR Banca"], modules: ["Marco Jurídico", "Desarrollo Nacional"] },
+  "sofom-enr": { name: "SOFOM ENR", topics: ["LGOAC", "Reportes Trimestrales", "Matriz de Riesgo"], modules: ["Fundamentos SOFOM"] },
+  "sofom-er": { name: "SOFOM ER", topics: ["LGOAC Regulada", "Reportes Mensuales", "EBR"], modules: ["Cumplimiento SOFOM ER"] },
+  "ifpe": { name: "Fondos de Pago Electrónico (IFPE)", topics: ["LRITF", "Activos Virtuales", "Onboarding Digital"], modules: ["Fintech PLD"] },
+  "ifc": { name: "Financiamiento Colectivo (IFC)", topics: ["LRITF", "Prevención Fraude", "Geolocalización"], modules: ["Crowdfunding PLD"] },
+  "socap": { name: "SOCAP", topics: ["LRASCAP", "Niveles I-IV", "Identificación Proporcional"], modules: ["Sector Cooperativo"] },
+  "sofipo": { name: "SOFIPO", topics: ["LACP", "Niveles I-IV", "Reportes Mensuales"], modules: ["Sector Popular"] },
+  "casa-bolsa": { name: "Casas de Bolsa", topics: ["LMV", "KYC Bursátil", "Operaciones en Bloque"], modules: ["Mercado de Valores"] },
+  "casa-cambio": { name: "Casas de Cambio", topics: ["Mercado Cambiario", "Reportes Relevantes"], modules: ["Operaciones de Divisas"] },
+  "transmisores-dinero": { name: "Transmisores de Dinero", topics: ["Transferencias", "Umbrales Internacionales"], modules: ["Sistemas de Pago"] },
+  "sofinco": { name: "SOFINCO", topics: ["LACP Comunitario", "Sector Rural"], modules: ["Finanzas Comunitarias"] },
+  "fideicomisos": { name: "Fideicomisos", topics: ["Rol Fiduciario", "Identificación Fideicomitente"], modules: ["Vehículos Estructurados"] },
+  "centros-cambiarios": { name: "Centros Cambiarios", topics: ["Compra/Venta de Divisas", "Reportes Operativos"], modules: ["Mercado Cambiario Local"] },
+  "almacenes-generales": { name: "Almacenes Generales de Depósito", topics: ["LGOAC", "Certificados de Depósito"], modules: ["Actividades Auxiliares"] },
+  "fondos-inversion": { name: "Fondos de Inversión", topics: ["LFI", "Prospectos de Información"], modules: ["Carteras de Inversión"] },
+  "uniones-credito": { name: "Uniones de Crédito", topics: ["LUC", "Asociados y Operaciones"], modules: ["Organizaciones Auxiliares"] },
+  "asesores-inversiones": { name: "Asesores en Inversiones", topics: ["LMV", "Cartera No Institucional"], modules: ["Asesoría Independiente"] },
+  "fnd": { name: "FINANCIERA NACIONAL DE DESARROLLO", topics: ["Sector Agropecuario", "EBR Sectorial"], modules: ["Desarrollo Rural"] }
 }
 
 function EstudioContent() {
@@ -141,7 +136,7 @@ function EstudioContent() {
     )
   }
 
-  // VISTA 2: DASHBOARD ESPECÍFICO DE SECTOR (Mantiene tu funcionalidad actual)
+  // VISTA 2: DASHBOARD ESPECÍFICO DE SECTOR
   return (
     <div className="container mx-auto py-8 space-y-8">
       {/* Header */}

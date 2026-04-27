@@ -12,15 +12,11 @@ interface Module {
   icon: React.ReactNode
 }
 
-// Temario alineado a la Guía PLD/FT_CNBV (Omitiendo Módulo 0)
+// Temario estrictamente alineado a la Guía PLD/FT_CNBV (Omitiendo Módulo 0)
 const modules: Module[] = [
-  { id: "1", title: "Módulo 1: Generalidades y Marco Internacional en PLD/FT", isPremium: false, icon: <Star className="h-6 w-6" /> },
-  { id: "2", title: "Módulo 2: Marco Jurídico y Regulatorio Nacional", isPremium: false, icon: <Star className="h-6 w-6" /> },
-  { id: "3", title: "Módulo 3: Políticas de Identificación y Conocimiento del Cliente / Usuario", isPremium: true, icon: <Lock className="h-6 w-6" /> },
-  { id: "4", title: "Módulo 4: Reportes de Operaciones y Estructuras Internas", isPremium: true, icon: <Lock className="h-6 w-6" /> },
-  { id: "5", title: "Módulo 5: Tipologías, Tendencias y Casos Prácticos", isPremium: true, icon: <Lock className="h-6 w-6" /> },
-  { id: "6", title: "Módulo 6: Enfoque Basado en Riesgos (EBR)", isPremium: true, icon: <Lock className="h-6 w-6" /> },
-  { id: "7", title: "Módulo 7: Auditoría, Supervisión y Sanciones", isPremium: true, icon: <Lock className="h-6 w-6" /> },
+  { id: "1", title: "Módulo 1: Conocimientos básicos en materia de PLD/FT", isPremium: false, icon: <Star className="h-6 w-6" /> },
+  { id: "2", title: "Módulo 2: Conocimientos técnicos en materia de PLD/FT", isPremium: true, icon: <Lock className="h-6 w-6" /> },
+  { id: "3", title: "Módulo 3: Conocimientos de auditoría, supervisión y enfoque basado en riesgos en materia de PLD/FT", isPremium: true, icon: <Lock className="h-6 w-6" /> },
 ]
 
 export function LearningPath() {
@@ -52,7 +48,7 @@ export function LearningPath() {
           </button>
 
           <div className={cn(
-            "mt-6 px-8 py-4 rounded-3xl text-center shadow-sm font-black text-xl border-2 transition-all",
+            "mt-6 px-8 py-4 rounded-3xl text-center shadow-sm font-black text-xl border-2 transition-all max-w-md",
             isLocked ? "bg-gray-50 text-gray-300 border-gray-200" : "bg-white text-foreground border-border card-premium"
           )}>
             {module.title}

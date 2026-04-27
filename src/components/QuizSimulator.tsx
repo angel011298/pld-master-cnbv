@@ -22,15 +22,11 @@ interface Question {
   justification: string
 }
 
-// Temario alineado a la Guía PLD/FT_CNBV
+// Temario estrictamente alineado a la Guía PLD/FT_CNBV
 const TOPICS = [
-  "Módulo 1: Generalidades y Marco Internacional en PLD/FT",
-  "Módulo 2: Marco Jurídico y Regulatorio Nacional",
-  "Módulo 3: Políticas de Identificación y Conocimiento del Cliente",
-  "Módulo 4: Reportes de Operaciones y Estructuras Internas",
-  "Módulo 5: Tipologías, Tendencias y Casos Prácticos",
-  "Módulo 6: Enfoque Basado en Riesgos (EBR)",
-  "Módulo 7: Auditoría, Supervisión y Sanciones",
+  "Módulo 1: Conocimientos básicos en materia de PLD/FT",
+  "Módulo 2: Conocimientos técnicos en materia de PLD/FT",
+  "Módulo 3: Conocimientos de auditoría, supervisión y enfoque basado en riesgos en materia de PLD/FT",
 ]
 
 const EXERCISE_TYPES = [
@@ -38,7 +34,9 @@ const EXERCISE_TYPES = [
   "Verdadero o Falso",
   "Flashcards",
   "Casos Prácticos",
-  "Completar Texto"
+  "Completar Texto",
+  "Crucigramas",
+  "Sopas de Letras"
 ]
 
 export function QuizSimulator() {
