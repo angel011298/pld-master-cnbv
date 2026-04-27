@@ -1,3 +1,4 @@
+// src/components/QuizSimulator.tsx
 "use client"
 
 import * as React from "react"
@@ -11,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { buildAuthHeaders } from "@/lib/auth-client"
+import { useUserProfile } from "@/hooks/useUserProfile"
 
 interface Question {
   id: number
@@ -29,6 +31,7 @@ const TOPICS = [
 ]
 
 export function QuizSimulator() {
+  const { profile, loading } = useUserProfile()
   const [topic, setTopic] = React.useState(TOPICS[0])
   const [difficulty, setDifficulty] = React.useState("Intermedio")
   const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
@@ -41,6 +44,10 @@ export function QuizSimulator() {
   const [totalXp, setTotalXp] = React.useState<number | null>(null)
   const [streak, setStreak] = React.useState<number | null>(null)
   const [startTime, setStartTime] = React.useState<number>(0)
+
+  // Use the profile as fallback when internal state hasn't tracked local XP changes yet.
+  const displayTotalXp = totalXp !== null ? totalXp : (profile?.totalXp ?? null)
+  const displayStreak = streak !== null ? streak : (profile?.currentStreak ?? null)
 
   const fetchQuiz = async () => {
     setGameState("loading")
@@ -185,14 +192,18 @@ export function QuizSimulator() {
           <Card className="border-2 border-secondary/30">
             <CardContent className="py-6 flex flex-col items-center gap-2">
               <Zap className="h-8 w-8 text-secondary" />
-              <span className="text-3xl font-black">{totalXp !== null ? totalXp.toLocaleString() : "—"}</span>
+              <span className="text-3xl font-black">
+                {loading ? "—" : (displayTotalXp !== null ? displayTotalXp.toLocaleString() : "0")}
+              </span>
               <span className="text-xs uppercase font-bold text-muted-foreground">XP Acumulado</span>
             </CardContent>
           </Card>
           <Card className="border-2 border-orange-200">
             <CardContent className="py-6 flex flex-col items-center gap-2">
               <Flame className="h-8 w-8 text-orange-500" />
-              <span className="text-3xl font-black">{streak !== null ? streak : "—"}</span>
+              <span className="text-3xl font-black">
+                {loading ? "—" : (displayStreak !== null ? displayStreak : "0")}
+              </span>
               <span className="text-xs uppercase font-bold text-muted-foreground">Días de Racha</span>
             </CardContent>
           </Card>
@@ -353,11 +364,11 @@ export function QuizSimulator() {
               <span className="text-xs uppercase font-bold text-muted-foreground">XP Esta Sesión</span>
             </CardContent>
           </Card>
-          {streak !== null && (
+          {displayStreak !== null && (
             <Card className="border-2 border-orange-200">
               <CardContent className="py-5 flex flex-col items-center gap-1">
                 <Flame className="h-7 w-7 text-orange-500" />
-                <span className="text-3xl font-black">{streak}</span>
+                <span className="text-3xl font-black">{displayStreak}</span>
                 <span className="text-xs uppercase font-bold text-muted-foreground">Días de Racha</span>
               </CardContent>
             </Card>
@@ -410,11 +421,11 @@ export function QuizSimulator() {
             </Card>
           </div>
 
-          {totalXp !== null && (
+          {displayTotalXp !== null && (
             <Card className="border-2">
               <CardContent className="py-4 flex items-center justify-between">
                 <span className="text-sm font-semibold text-muted-foreground">XP Total Acumulado</span>
-                <span className="text-2xl font-black text-primary">{totalXp.toLocaleString()} XP</span>
+                <span className="text-2xl font-black text-primary">{displayTotalXp.toLocaleString()} XP</span>
               </CardContent>
             </Card>
           )}

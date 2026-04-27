@@ -1,3 +1,4 @@
+// src/app/api/webhook/route.ts
 import { NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 
@@ -16,15 +17,16 @@ export async function POST(req: Request) {
 
   let event: any; 
 
-try {
-  const stripe = await import("stripe").then((m) => new m.default(STRIPE_SECRET_KEY!, {
-    apiVersion: "2026-03-25.dahlia", // o la versión que estés usando
-  }));
+  try {
+    const stripe = await import("stripe").then((m) => new m.default(STRIPE_SECRET_KEY!, {
+      // Ignoramos el chequeo estricto de tipos en la versión para evitar errores de TS
+      apiVersion: "2026-03-25.dahlia" as any,
+    }));
 
-  // Cambia la línea donde se asigna el event eliminando el "as typeof event":
-  event = stripe.webhooks.constructEvent(body, sig!, STRIPE_WEBHOOK_SECRET!);
-  
-} catch (err) {
+    // Se asigna el event de forma directa sin el "as typeof event" problemático
+    event = stripe.webhooks.constructEvent(body, sig!, STRIPE_WEBHOOK_SECRET!);
+    
+  } catch (err) {
     const msg = err instanceof Error ? err.message : "Webhook signature verification failed"
     return NextResponse.json({ error: msg }, { status: 400 })
   }
@@ -41,25 +43,33 @@ try {
     const invites: string[] = JSON.parse(session.metadata?.invites ?? "[]")
 
     if (email) {
-      // Upgrade the purchasing user to premium
-      // 1. Buscamos al usuario en la lista global
-const { data: authData } = await supabase.auth.admin.listUsers();
-const targetUser = authData?.users.find((u: any) => u.email === email);
+      // 1. Buscamos al usuario en la lista global de Auth
+      const { data: authData, error: authError } = await supabase.auth.admin.listUsers();
+      
+      if (authError) {
+        console.error("Error al obtener la lista de usuarios:", authError);
+      } else {
+        const targetUser = authData?.users.find((u: any) => u.email === email);
 
-// 2. Si existe, actualizamos su perfil
-if (targetUser) {
-  const { error: updateError } = await supabase
-    .from("user_profiles")
-    .update({ 
-      is_premium: true,
-      plan_type: 'individual' 
-    })
-    .eq("id", targetUser.id);
+        // 2. Si existe, actualizamos su perfil
+        if (targetUser) {
+          const { error: updateError } = await supabase
+            .from("user_profiles")
+            .update({ 
+              is_premium: true,
+              plan_type: plan // Asignación dinámica basada en el metadata en lugar de hardcodear 'individual'
+            })
+            .eq("id", targetUser.id);
 
-  if (updateError) {
-    console.error("Error al actualizar perfil a premium:", updateError);
-  }
-}
+          if (updateError) {
+            console.error("Error al actualizar perfil a premium:", updateError);
+          } else {
+            console.log(`Perfil de ${email} actualizado a premium exitosamente.`);
+          }
+        } else {
+          console.warn(`Usuario con email ${email} no encontrado en la base de datos de Auth.`);
+        }
+      }
     }
 
     // For B2B: send invite emails (placeholder — integrate with email provider)
