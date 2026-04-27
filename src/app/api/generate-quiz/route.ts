@@ -5,6 +5,9 @@ import { generateEmbedding, proModel } from "@/lib/gemini";
 import { applyRateLimit } from "@/lib/rate-limit";
 import { getAuthenticatedUserId, getClientIp, validateQuizPayload } from "@/lib/security";
 
+// ID correspondiente al Superadmin/Sistema para forzar la consulta de la Guía PLD/FT_CNBV global
+const GLOBAL_ADMIN_USER_ID = "00000000-0000-0000-0000-000000000000";
+
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIp(req);
@@ -31,7 +34,7 @@ export async function POST(req: NextRequest) {
     if (!parsed.ok) {
       return NextResponse.json({ error: parsed.error }, { status: 400 });
     }
-    
+   
     const { topic, difficulty, count } = parsed.data;
     // Capturamos el tipo de formato solicitado, si no viene, asumimos simulador ceneval por defecto
     const formatType = payload.formatType || 'ceneval';
@@ -39,11 +42,11 @@ export async function POST(req: NextRequest) {
     // 1. Generate embedding for the topic to search context
     const topicEmbedding = await generateEmbedding(topic);
 
-    // 2. Perform vector search (match_document_embeddings)
+    // 2. Perform vector search (match_document_embeddings) - FORZADO AL CONTEXTO GLOBAL
     const { data: contextChunks, error: searchError } = await sb.rpc(
       "match_document_embeddings",
       {
-        p_user_id: userId,
+        p_user_id: GLOBAL_ADMIN_USER_ID, // Modificado: Base de conocimiento maestra unificada
         query_embedding: topicEmbedding,
         match_threshold: 0.5,
         match_count: 10,
@@ -58,21 +61,21 @@ export async function POST(req: NextRequest) {
 
     const finalContext =
       contextText ||
-      "No hay contexto suficiente en documentos internos. Usa fuentes públicas oficiales recientes de México (DOF, CNBV, SHCP, UIF) e incluye referencias.";
+      "No hay contexto suficiente en documentos internos globales. Usa fuentes públicas oficiales recientes de México (DOF, CNBV, SHCP, UIF) e incluye referencias.";
 
     // 3. Prompt Gemini Pro to generate the educational material (Multi-formato y Jerarquía estricta)
     const prompt = `
       Eres un experto pedagogo y examinador especializado en la Certificación de Prevención de Lavado de Dinero y Financiamiento al Terrorismo (PLD/FT) de la CNBV en México.
-      
+     
       INSTRUCCIONES DE FUENTE DE VERDAD (JERARQUÍA ESTRICTA):
-      1. FUENTE PRINCIPAL Y DEFINITIVA: Debes basar tus respuestas PRIMORDIALMENTE en la "Guía PLD/FT_CNBV".
+      1. FUENTE PRINCIPAL Y DEFINITIVA: Debes basar tus respuestas PRIMORDIALMENTE en la "Guía PLD/FT_CNBV". Todo el material generado debe alinearse con esta guía obligatoriamente.
       2. FUENTES SECUNDARIAS: Leyes, reglamentos, Disposiciones de Carácter General (DCG), circulares de Banxico y marco jurídico publicado en el DOF y la Cámara de Diputados, así como los documentos aportados a continuación.
-      
-      CONTEXTO RECUPERADO (Base de Datos Vectorial de la Carpeta Drive):
+     
+      CONTEXTO RECUPERADO (Base de Datos Vectorial de la Carpeta Drive Oficial):
       ${finalContext}
-      
+     
       INSTRUCCIONES DE GENERACIÓN:
-      Se te ha solicitado generar material educativo sobre el tema: "${topic}".
+      Se te ha solicitado generar material educativo técnico y preciso sobre el tema: "${topic}".
       Nivel de dificultad: ${difficulty}.
       El formato solicitado es: "${formatType}".
       Cantidad de elementos solicitada: ${count}.
@@ -85,22 +88,22 @@ export async function POST(req: NextRequest) {
       - 'word_search_terms': Genera un arreglo de palabras clave. Ejemplo de objeto: {"word": "...", "explanation": "..."}
 
       IMPORTANTE:
-      Devuelve el resultado ESTRICTAMENTE en formato JSON válido puro. 
+      Devuelve el resultado ESTRICTAMENTE en formato JSON válido puro.
       NO uses formato markdown ni bloques de código (como \`\`\`json). No agregues ningún texto introductorio, el primer y último carácter deben ser las llaves o corchetes del JSON ([ o {).
     `;
 
     const result = await proModel().generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
+   
     // Extract JSON from response (handling potential markdown fences just in case Gemini gets stubborn)
     const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
     const quiz = JSON.parse(jsonStr);
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       quiz,
-      source_context_used: contextChunks?.length || 0 // Útil para mostrar en frontend si la IA usó los PDF reales
+      source_context_used: contextChunks?.length || 0
     });
 
   } catch (error: unknown) {

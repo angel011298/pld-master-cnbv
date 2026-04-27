@@ -19,15 +19,34 @@ import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 
+const basePlaceholder = {
+  law: {
+    title: "Marco Jurídico (Sincronizado con Guía CNBV)",
+    summary: "Los detalles específicos de leyes, manuales y disposiciones de esta entidad se consultan dinámicamente desde la 'Guía PLD/FT_CNBV' oficial alojada en Drive.",
+    norms: ["LFPIORPI (Ley General)", "Disposiciones de Carácter General aplicables", "Guía PLD/FT_CNBV"],
+    articles: ["Ver base de conocimiento de la plataforma"],
+  },
+  organs: [
+    { role: "Oficial de Cumplimiento", desc: "Sujeto a las especificaciones de la Guía PLD/FT de la CNBV." },
+    { role: "Comité / Auditoría", desc: "Según corresponda por volumen y sector." }
+  ],
+  reports: [
+    { name: "Reportes regulatorios", deadline: "Según normativa", threshold: "Consultar Guía CNBV" }
+  ],
+  obligations: [
+    { text: "Cumplimiento normativo PLD/FT", law: "Disposiciones Generales aplicables" }
+  ]
+};
+
 const ENTITY_TYPES = [
   {
-    id: "banca",
-    name: "Banca Múltiple",
+    id: "banca-multiple",
+    name: "Banca Múltiple (Instituciones de Crédito)",
     description: "Instituciones de crédito con mayores exigencias de reporteo.",
     law: {
       title: "Marco Jurídico — Banca Múltiple",
       summary: "La Banca Múltiple se rige por la Ley de Instituciones de Crédito (LIC), específicamente el Art. 115, complementado por las Disposiciones de Carácter General en materia de PLD/FT emitidas por la CNBV. La jerarquía normativa va desde la LFPIORPI (marco general) hasta las circulares sectoriales.",
-      norms: ["LFPIORPI (Ley General)", "LIC — Art. 115", "Disposiciones CNBV Banca Múltiple", "Recomendaciones GAFI", "Criterios SHCP"],
+      norms: ["LFPIORPI (Ley General)", "LIC — Art. 115", "Disposiciones CNBV Banca Múltiple", "Recomendaciones GAFI", "Criterios SHCP", "Guía PLD/FT_CNBV"],
       articles: ["Art. 115 LIC: Obligaciones PLD", "Art. 65 LFPIORPI: Reportes", "Disp. CNBV Cap. III: EBR"],
     },
     organs: [
@@ -51,13 +70,19 @@ const ENTITY_TYPES = [
     ],
   },
   {
-    id: "sofom",
-    name: "SOFOM ENR",
+    id: "banca-desarrollo",
+    name: "Banca de desarrollo (Instituciones de Crédito)",
+    description: "Instituciones de Crédito enfocadas al desarrollo económico y social.",
+    ...basePlaceholder
+  },
+  {
+    id: "sofom-enr",
+    name: "Sofom ENR (Instituciones de Crédito)",
     description: "Sociedades Financieras de Objeto Múltiple No Reguladas.",
     law: {
       title: "Marco Jurídico — SOFOM ENR",
       summary: "Las SOFOM ENR se rigen por la Ley General de Organizaciones y Actividades Auxiliares del Crédito (LGOAC) y las Disposiciones Técnicas emitidas por la CNBV. Al ser 'no reguladas', tienen requisitos simplificados frente a la Banca Múltiple.",
-      norms: ["LFPIORPI (Ley General)", "LGOAC", "Disposiciones Técnicas CNBV SOFOM", "NOM-151-SCFI-2016"],
+      norms: ["LFPIORPI (Ley General)", "LGOAC", "Disposiciones Técnicas CNBV SOFOM", "NOM-151-SCFI-2016", "Guía PLD/FT_CNBV"],
       articles: ["Art. 87-D LGOAC: PLD", "LFPIORPI Art. 17: Obligados", "Disp. Técnicas: Matriz de Riesgo"],
     },
     organs: [
@@ -79,43 +104,32 @@ const ENTITY_TYPES = [
     ],
   },
   {
-    id: "fintech",
-    // CORRECCIÓN APLICADA: IFC/IFPE
-    name: "Fintech (IFC/IFPE)",
-    description: "Instituciones de Financiamiento Colectivo e Instituciones de Fondos de Pago Electrónico.",
-    law: {
-      title: "Marco Jurídico — IFC / IFPE",
-      summary: "Las entidades Fintech en México se rigen por la Ley para Regular las Instituciones de Tecnología Financiera (LRITF, 2018) y las Disposiciones de Carácter General emitidas por la CNBV. Incluyen obligaciones especiales para activos virtuales y onboarding digital.",
-      norms: ["LFPIORPI (Ley General)", "LRITF (Ley Fintech 2018)", "Disposiciones CNBV IFC/IFPE", "Circulares Banxico sobre activos virtuales"],
-      articles: ["Art. 58 LRITF: PLD/FT Fintech", "LFPIORPI Art. 17: Obligados", "Disp. CNBV Cap. VI: Activos Virtuales"],
-    },
-    organs: [
-      { role: "Oficial de Cumplimiento Digital", desc: "Gestiona PLD para operaciones digitales, activos virtuales y onboarding remoto." },
-      { role: "Comité de Riesgos Tecnológicos", desc: "Supervisa riesgos de geolocalización, identidad digital y fraude electrónico." },
-      { role: "Auditor de Ciberseguridad PLD", desc: "Revisa los controles digitales de prevención de LA/FT." },
-    ],
-    reports: [
-      { name: "Reporte de Activos Virtuales", deadline: "Mensual", threshold: "Toda operación con criptoactivos" },
-      { name: "Reporte de 24 Horas (urgente)", deadline: "24 horas", threshold: "Por alerta inmediata" },
-      { name: "Reporte de Operaciones Inusuales", deadline: "Detección inmediata", threshold: "Por señales de alerta digital" },
-    ],
-    obligations: [
-      { text: "Verificar identidad digital con estándares CNBV", law: "LRITF Art. 58" },
-      { text: "Geolocalizar operaciones de riesgo", law: "Disp. CNBV IFC/IFPE" },
-      { text: "Controlar activos virtuales (criptomonedas)", law: "Circular Banxico 4/2019" },
-      { text: "Obtener autorización CNBV para operar", law: "LRITF Art. 10" },
-      { text: "Reportar operaciones con activos virtuales", law: "Disp. CNBV Cap. VI" },
-    ],
+    id: "sofom-er",
+    name: "Sofom ER (Instituciones de Crédito)",
+    description: "Sociedades Financieras de Objeto Múltiple Reguladas.",
+    ...basePlaceholder
+  },
+  {
+    id: "ifpe",
+    name: "Institución de Fondos de Pago Electrónico (ITF)",
+    description: "Entidades Fintech enfocadas en medios de pago electrónicos.",
+    ...basePlaceholder
+  },
+  {
+    id: "ifc",
+    name: "Institución de Financiamiento Colectivo (ITF)",
+    description: "Entidades Fintech de fondeo colectivo (Crowdfunding).",
+    ...basePlaceholder
   },
   {
     id: "socap",
-    name: "SOCAP / SOFIPO",
-    description: "Sociedades Cooperativas de Ahorro y Préstamo y Financieras Populares.",
+    name: "SOCAP",
+    description: "Sociedades Cooperativas de Ahorro y Préstamo.",
     law: {
-      title: "Marco Jurídico — SOCAP / SOFIPO",
-      summary: "Las SOCAP se rigen por la Ley para Regular las Actividades de las Sociedades Cooperativas de Ahorro y Préstamo (LRASCAP) y las SOFIPO por la Ley de Ahorro y Crédito Popular (LACP). Sus obligaciones PLD son proporcionales a su nivel de operación (I-IV).",
-      norms: ["LFPIORPI (Ley General)", "LRASCAP (SOCAP)", "LACP (SOFIPO)", "Disposiciones CNBV SOCAP/SOFIPO"],
-      articles: ["LRASCAP Art. 46: PLD", "LACP Art. 72: Obligaciones", "Disp. CNBV: Niveles I-IV"],
+      title: "Marco Jurídico — SOCAP",
+      summary: "Las SOCAP se rigen por la Ley para Regular las Actividades de las Sociedades Cooperativas de Ahorro y Préstamo (LRASCAP). Sus obligaciones PLD son proporcionales a su nivel de operación (I-IV).",
+      norms: ["LFPIORPI", "LRASCAP (SOCAP)", "Disposiciones CNBV SOCAP", "Guía PLD/FT_CNBV"],
+      articles: ["LRASCAP Art. 46: PLD", "Disp. CNBV: Niveles I-IV"],
     },
     organs: [
       { role: "Oficial de Cumplimiento", desc: "Designado según nivel de operación. En Nivel I puede ser el gerente general." },
@@ -135,14 +149,20 @@ const ENTITY_TYPES = [
     ],
   },
   {
+    id: "sofipo",
+    name: "SOFIPO",
+    description: "Sociedades Financieras Populares.",
+    ...basePlaceholder
+  },
+  {
     id: "casa-bolsa",
-    name: "Casa de Bolsa",
+    name: "Casas de Bolsa",
     description: "Intermediarios del mercado de valores sujetos a PLD/FT.",
     law: {
       title: "Marco Jurídico — Casa de Bolsa",
-      summary: "Las Casas de Bolsa se rigen por la Ley del Mercado de Valores (LMV) y las Disposiciones de Carácter General en materia de PLD emitidas por la CNBV para el mercado de valores. Tienen requisitos especiales para clientes 'versados' y operaciones en bloque.",
-      norms: ["LFPIORPI (Ley General)", "Ley del Mercado de Valores (LMV)", "Disposiciones CNBV Casas de Bolsa", "Circulares CNBV Mercado de Valores"],
-      articles: ["LMV Art. 212: PLD", "LFPIORPI Art. 17: Reportes", "Disp. CNBV Cap. V: KYC Bursátil"],
+      summary: "Las Casas de Bolsa se rigen por la Ley del Mercado de Valores (LMV) y las Disposiciones de Carácter General en materia de PLD emitidas por la CNBV. Tienen requisitos especiales para clientes 'versados' y operaciones en bloque.",
+      norms: ["LFPIORPI", "Ley del Mercado de Valores (LMV)", "Disposiciones CNBV Casas de Bolsa", "Guía PLD/FT_CNBV"],
+      articles: ["LMV Art. 212: PLD", "LFPIORPI Art. 17", "Disp. CNBV Cap. V: KYC Bursátil"],
     },
     organs: [
       { role: "Oficial de Cumplimiento Bursátil", desc: "Especializado en mercado de valores y PLD. Debe tener certificación CNBV." },
@@ -162,6 +182,66 @@ const ENTITY_TYPES = [
       { text: "Reportar operaciones en bloque mensualmente", law: "Disp. CNBV Cap. VII" },
     ],
   },
+  {
+    id: "casa-cambio",
+    name: "Casas de Cambio",
+    description: "Entidades autorizadas para operaciones de divisas.",
+    ...basePlaceholder
+  },
+  {
+    id: "transmisores-dinero",
+    name: "Transmisores de dinero",
+    description: "Sociedades que prestan servicios de transferencia de fondos.",
+    ...basePlaceholder
+  },
+  {
+    id: "sofinco",
+    name: "SOFINCO",
+    description: "Sociedades Financieras Comunitarias.",
+    ...basePlaceholder
+  },
+  {
+    id: "fideicomisos",
+    name: "Fideicomisos",
+    description: "Entidades y vehículos fiduciarios.",
+    ...basePlaceholder
+  },
+  {
+    id: "centros-cambiarios",
+    name: "Centros Cambiarios",
+    description: "Compra y venta de divisas de manera habitual y profesional.",
+    ...basePlaceholder
+  },
+  {
+    id: "almacenes-generales",
+    name: "Almacenes Generales de Deposito",
+    description: "Almacenamiento, guarda y conservación de bienes.",
+    ...basePlaceholder
+  },
+  {
+    id: "fondos-inversion",
+    name: "Fondos de Inversión",
+    description: "Captación y administración de carteras de inversión.",
+    ...basePlaceholder
+  },
+  {
+    id: "uniones-credito",
+    name: "Uniones de Crédito",
+    description: "Organizaciones auxiliares del crédito.",
+    ...basePlaceholder
+  },
+  {
+    id: "asesores-inversiones",
+    name: "Asesores en Inversiones",
+    description: "Prestación de servicios de administración de cartera.",
+    ...basePlaceholder
+  },
+  {
+    id: "fnd",
+    name: "FINANCIERA NACIONAL DE DESARROLLO AGRO., RURAL Y PESQUERO",
+    description: "Entidad orientada al sector primario.",
+    ...basePlaceholder
+  }
 ]
 
 type TabId = "juridico" | "organos" | "reporteria" | "obligaciones"
@@ -187,7 +267,6 @@ export default function EntitiesPage() {
 
   const activeEntity = ENTITY_TYPES.find((e) => e.id === selected)
 
-  // CORRECCIÓN APLICADA: Ahora esto empuja a la ruta correcta con el parámetro sectorId
   function handleStudy() {
     if (selected) router.push(`/estudio?sector=${selected}`)
   }
@@ -203,7 +282,7 @@ export default function EntitiesPage() {
         <div className="relative w-full md:w-80">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
           <Input
-            placeholder="Buscar entidad (ej. SOFOM)..."
+            placeholder="Buscar entidad..."
             className="pl-10 rounded-2xl border-2 border-gray-200 focus:border-blue-500 h-12 text-gray-800 placeholder:text-gray-400"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -213,8 +292,8 @@ export default function EntitiesPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Entity List */}
-        <div className="lg:col-span-1 space-y-4">
-          <h2 className="text-sm font-black text-gray-500 uppercase tracking-widest px-2">Sectores Disponibles</h2>
+        <div className="lg:col-span-1 space-y-4 max-h-[800px] overflow-y-auto pr-2 custom-scrollbar">
+          <h2 className="text-sm font-black text-gray-500 uppercase tracking-widest px-2 sticky top-0 bg-gray-50/90 backdrop-blur-sm py-2">Sectores Disponibles ({filtered.length})</h2>
           <div className="space-y-3">
             {filtered.map((entity) => (
               <button
@@ -228,8 +307,8 @@ export default function EntitiesPage() {
                 )}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-black uppercase tracking-tight text-sm">{entity.name}</span>
-                  <Building2 className={cn("h-4 w-4", selected === entity.id ? "text-white" : "text-blue-600")} />
+                  <span className="font-black uppercase tracking-tight text-sm line-clamp-1">{entity.name}</span>
+                  <Building2 className={cn("h-4 w-4 shrink-0", selected === entity.id ? "text-white" : "text-blue-600")} />
                 </div>
                 <p className={cn("text-xs leading-relaxed line-clamp-2 font-medium", selected === entity.id ? "text-blue-100" : "text-gray-500")}>
                   {entity.description}
@@ -279,7 +358,7 @@ export default function EntitiesPage() {
               </div>
 
               {/* Tab content */}
-              <div className="p-8">
+              <div className="p-8 min-h-[300px]">
 
                 {/* Marco Jurídico */}
                 {tab === "juridico" && (
@@ -349,7 +428,7 @@ export default function EntitiesPage() {
                           <tr key={r.name} className="hover:bg-gray-50 transition-colors">
                             <td className="py-3 pr-4 font-semibold text-gray-800">{r.name}</td>
                             <td className="py-3 pr-4">
-                              <span className="px-2 py-1 rounded-lg bg-blue-100 text-blue-700 font-bold text-xs">
+                              <span className="px-2 py-1 rounded-lg bg-blue-100 text-blue-700 font-bold text-xs whitespace-nowrap">
                                 {r.deadline}
                               </span>
                             </td>
@@ -380,7 +459,7 @@ export default function EntitiesPage() {
               </div>
 
               {/* Study button */}
-              <div className="px-8 pb-8">
+              <div className="px-8 pb-8 mt-auto">
                 <Button
                   className="w-full py-6 text-lg font-black rounded-2xl bg-blue-700 hover:bg-blue-800 text-white border-b-4 border-blue-900 active:border-b-0 active:translate-y-1 transition-all"
                   onClick={handleStudy}
