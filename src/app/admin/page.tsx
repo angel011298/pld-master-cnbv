@@ -74,34 +74,8 @@ type Campaign = {
   status: boolean
 }
 
-const CASHFLOW_DATA = [
-  { month: "Nov", ingresos: 84500, egresos: 39200 },
-  { month: "Dic", ingresos: 96500, egresos: 43800 },
-  { month: "Ene", ingresos: 112400, egresos: 52100 },
-  { month: "Feb", ingresos: 128900, egresos: 58400 },
-  { month: "Mar", ingresos: 146200, egresos: 61750 },
-  { month: "Abr", ingresos: 169800, egresos: 69430 },
-]
-
-const EXPENSE_DISTRIBUTION = [
-  { name: "APIs de IA", value: 24850, color: "#e11d48" },
-  { name: "Servidores/Dominios", value: 18640, color: "#64748b" },
-  { name: "Propiedad Intelectual/Legal", value: 14300, color: "#7c3aed" },
-  { name: "Marketing", value: 11640, color: "#0891b2" },
-]
-
-const INITIAL_FINANCE_TRANSACTIONS: FinanceTransaction[] = [
-  { id: "trx-001", date: "2026-04-24", concept: "Suscripción Enterprise Certifik PLD - Grupo Finanza Norte", category: "SaaS B2B", type: "Ingreso", amount: 74950 },
-  { id: "trx-002", date: "2026-04-23", concept: "Stripe Checkout - Plan Individual Premium", category: "SaaS B2C", type: "Ingreso", amount: 2999 },
-  { id: "trx-003", date: "2026-04-22", concept: "Anthropic Claude Code API", category: "APIs de IA", type: "Egreso", amount: 18450 },
-  { id: "trx-004", date: "2026-04-21", concept: "Vercel Pro - Hosting Next.js", category: "Servidores/Dominios", type: "Egreso", amount: 3890 },
-  { id: "trx-005", date: "2026-04-19", concept: "Supabase Pro - Base de datos y Auth", category: "Servidores/Dominios", type: "Egreso", amount: 2450 },
-  { id: "trx-006", date: "2026-04-18", concept: "Registro dominio certifikpld.mx", category: "Servidores/Dominios", type: "Egreso", amount: 890 },
-  { id: "trx-007", date: "2026-04-16", concept: "Dictamen legal propiedad intelectual", category: "Propiedad Intelectual/Legal", type: "Egreso", amount: 14300 },
-  { id: "trx-008", date: "2026-04-15", concept: "Campaña LinkedIn Ads - Oficiales de Cumplimiento", category: "Marketing", type: "Egreso", amount: 11640 },
-  { id: "trx-009", date: "2026-04-12", concept: "Google Gemini API - Generación de reactivos", category: "APIs de IA", type: "Egreso", amount: 6400 },
-  { id: "trx-010", date: "2026-04-09", concept: "Licencia corporativa SOFOM Training Pack", category: "SaaS B2B", type: "Ingreso", amount: 91850 },
-]
+// Colores dinámicos para las gráficas de pastel
+const COLORS = ["#e11d48", "#64748b", "#7c3aed", "#0891b2", "#f59e0b", "#10b981", "#3b82f6"];
 
 const formatCurrency = (value: number) =>
   new Intl.NumberFormat("es-MX", {
@@ -111,8 +85,6 @@ const formatCurrency = (value: number) =>
   }).format(value)
 
 const formatTooltipCurrency = (value: unknown) => formatCurrency(Number(value ?? 0))
-
-const monthOrder = ["Ene", "Feb", "Mar", "Abr"]
 
 export default function AdminPage() {
   const [email, setEmail] = React.useState<string | null>(null)
@@ -134,7 +106,7 @@ export default function AdminPage() {
   const [newUser, setNewUser] = React.useState({ email: '', fullName: '', password: 'Certifik2026!' })
   const [financeSearch, setFinanceSearch] = React.useState("")
   const [financeActionId, setFinanceActionId] = React.useState<string | null>(null)
-  const [financeTransactions, setFinanceTransactions] = React.useState<FinanceTransaction[]>(INITIAL_FINANCE_TRANSACTIONS)
+  const [financeTransactions, setFinanceTransactions] = React.useState<FinanceTransaction[]>([])
   
   // ================= ESTADOS MARKETING Y AI =================
   const [activeAI, setActiveAI] = React.useState("Claude 3.5 Sonnet");
@@ -150,9 +122,9 @@ export default function AdminPage() {
     { id: "camp-3", name: "Guía EBR Abogados", channel: "Google Ads", channelIcon: Search, ai: "Gemini 1.5 Pro", budget: 1500, leads: 95, status: true },
   ]);
 
-  // CÁLCULOS DINÁMICOS DE MARKETING (Sin Mockups)
+  // CÁLCULOS DINÁMICOS DE MARKETING
   const marketingTransactions = financeTransactions.filter(t => t.type === "Egreso" && (t.category === "Marketing" || t.category === "APIs de IA"));
-  const marketingTotalSpend = marketingTransactions.reduce((sum, t) => sum + t.amount, 0);
+  const marketingTotalSpend = marketingTransactions.reduce((sum, t) => sum + Number(t.amount), 0);
   
   // Leads = Usuarios activos (Fallback visual de 342 solo si la DB está vacía para que no se vea roto)
   const leadsAdquiridos = users.length > 0 ? users.length : 342; 
@@ -163,53 +135,64 @@ export default function AdminPage() {
   const financeSummary = React.useMemo(() => {
     const currentIncome = financeTransactions
       .filter((transaction) => transaction.type === "Ingreso")
-      .reduce((sum, transaction) => sum + transaction.amount, 0)
+      .reduce((sum, transaction) => sum + Number(transaction.amount), 0)
     const currentExpenses = financeTransactions
       .filter((transaction) => transaction.type === "Egreso")
-      .reduce((sum, transaction) => sum + transaction.amount, 0)
+      .reduce((sum, transaction) => sum + Number(transaction.amount), 0)
     const netBalance = currentIncome - currentExpenses
     const burnRate = currentExpenses
     const expenseRatio = currentIncome > 0 ? Math.round((currentExpenses / currentIncome) * 100) : 0
     const b2bIncome = financeTransactions
       .filter((transaction) => transaction.type === "Ingreso" && transaction.category === "SaaS B2B")
-      .reduce((sum, transaction) => sum + transaction.amount, 0)
+      .reduce((sum, transaction) => sum + Number(transaction.amount), 0)
     const b2cIncome = financeTransactions
       .filter((transaction) => transaction.type === "Ingreso" && transaction.category === "SaaS B2C")
-      .reduce((sum, transaction) => sum + transaction.amount, 0)
+      .reduce((sum, transaction) => sum + Number(transaction.amount), 0)
 
     return { currentIncome, currentExpenses, netBalance, burnRate, expenseRatio, b2bIncome, b2cIncome }
   }, [financeTransactions])
 
-  const syncedCashflowData = React.useMemo(
-    () =>
-      CASHFLOW_DATA.map((month) =>
-        month.month === "Abr"
-          ? { ...month, ingresos: financeSummary.currentIncome, egresos: financeSummary.currentExpenses }
-          : month
-      ),
-    [financeSummary.currentExpenses, financeSummary.currentIncome]
-  )
+  const syncedCashflowData = React.useMemo(() => {
+    const monthlyData: Record<string, { month: string, ingresos: number, egresos: number, dateObj: Date }> = {};
+    
+    financeTransactions.forEach(t => {
+      const d = new Date(`${t.date}T00:00:00`);
+      const monthKey = d.toLocaleDateString("es-MX", { month: "short", year: "numeric" });
+      
+      if (!monthlyData[monthKey]) {
+        monthlyData[monthKey] = { month: monthKey, ingresos: 0, egresos: 0, dateObj: d };
+      }
+      
+      const amount = Number(t.amount);
+      if (t.type === "Ingreso") monthlyData[monthKey].ingresos += amount;
+      else if (t.type === "Egreso") monthlyData[monthKey].egresos += amount;
+    });
+
+    return Object.values(monthlyData)
+      .sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime())
+      .map(({ month, ingresos, egresos }) => ({ month, ingresos, egresos }));
+  }, [financeTransactions])
+
   const expenseDistribution = React.useMemo(() => {
     const categoryTotals = financeTransactions
       .filter((transaction) => transaction.type === "Egreso")
       .reduce<Record<string, number>>((acc, transaction) => {
-        acc[transaction.category] = (acc[transaction.category] ?? 0) + transaction.amount
+        acc[transaction.category] = (acc[transaction.category] ?? 0) + Number(transaction.amount)
         return acc
       }, {})
 
-    return EXPENSE_DISTRIBUTION.map((item) => ({
-      ...item,
-      value: categoryTotals[item.name] ?? 0,
-    })).filter((item) => item.value > 0)
+    return Object.entries(categoryTotals)
+      .map(([name, value], i) => ({ name, value, color: COLORS[i % COLORS.length] }))
+      .sort((a, b) => b.value - a.value);
   }, [financeTransactions])
   
-  const fiscalYearRevenue = React.useMemo(
-    () =>
-      syncedCashflowData
-        .filter((month) => monthOrder.includes(month.month))
-        .reduce((sum, month) => sum + month.ingresos, 0),
-    [syncedCashflowData]
-  )
+  const fiscalYearRevenue = React.useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    return financeTransactions
+      .filter((t) => t.type === "Ingreso" && new Date(`${t.date}T00:00:00`).getFullYear() === currentYear)
+      .reduce((sum, t) => sum + Number(t.amount), 0);
+  }, [financeTransactions])
+
   const resicoPercentage = (fiscalYearRevenue / RESICO_LIMIT) * 100
   const projectedAnnualRevenue = Math.round((fiscalYearRevenue / 4) * 12)
   const projectedResicoPercentage = (projectedAnnualRevenue / RESICO_LIMIT) * 100
@@ -238,21 +221,38 @@ export default function AdminPage() {
     const url = URL.createObjectURL(blob)
     const anchor = document.createElement("a")
     anchor.href = url
-    anchor.download = "finanzas-flujo-caja-abril-2026.csv"
+    const dateStr = new Date().toISOString().split('T')[0]
+    anchor.download = `finanzas-flujo-caja-${dateStr}.csv`
     anchor.click()
     URL.revokeObjectURL(url)
   }
 
-  const handleAddFinanceTransaction = () => {
-    const nextTransaction: FinanceTransaction = {
-      id: `trx-${Date.now()}`,
-      date: "2026-04-25",
-      concept: "Nueva transacción administrativa",
+  const handleAddFinanceTransaction = async () => {
+    const monto = prompt("Monto del ingreso/egreso (usa negativo para egreso):");
+    if (!monto || isNaN(Number(monto))) return;
+    
+    const sb = typeof supabase === 'function' ? supabase() : supabase;
+    const { error } = await sb.from('finance_transactions').insert([{
+      date: new Date().toISOString().split('T')[0],
+      concept: "Transacción manual desde Admin",
       category: "Operación Manual",
-      type: "Ingreso",
-      amount: 2999,
+      type: Number(monto) >= 0 ? "Ingreso" : "Egreso",
+      amount: Math.abs(Number(monto))
+    }]);
+
+    if (error) {
+      alert("Error insertando la transacción manual: " + error.message);
     }
-    setFinanceTransactions((current) => [nextTransaction, ...current])
+  }
+
+  const handleDeleteFinanceTransaction = async (id: string) => {
+    const sb = typeof supabase === 'function' ? supabase() : supabase;
+    const { error } = await sb.from('finance_transactions').delete().eq('id', id);
+    if (!error) {
+      setFinanceActionId(null);
+    } else {
+      alert("Error eliminando transacción.");
+    }
   }
 
   const financeIncomeTransactions = financeTransactions.filter((transaction) => transaction.type === "Ingreso")
@@ -291,6 +291,15 @@ export default function AdminPage() {
         setDocuments(docs);
         setStats(prev => ({ ...prev, reactivos: docsCount || 0 }));
       }
+
+      const { data: finances } = await sb
+        .from('finance_transactions')
+        .select('*')
+        .order('date', { ascending: false });
+        
+      if (finances) {
+        setFinanceTransactions(finances);
+      }
     } catch (error) {
       console.error("Error fetching admin data:", error);
     } finally {
@@ -309,6 +318,9 @@ export default function AdminPage() {
         fetchRealtimeData();
       })
       .on('postgres_changes', { event: '*', schema: 'public', table: 'documents' }, payload => {
+        fetchRealtimeData();
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'finance_transactions' }, payload => {
         fetchRealtimeData();
       })
       .subscribe();
@@ -384,7 +396,6 @@ export default function AdminPage() {
     setAiResultText(null);
     
     try {
-      // Simulación de respuesta IA (Idealmente esto llama a tu endpoint /api/marketing)
       await new Promise(res => setTimeout(res, 1800));
       
       if (type === 'copy') {
@@ -973,9 +984,8 @@ export default function AdminPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <CardTitle className="text-base font-black text-slate-950">Ingresos vs Egresos</CardTitle>
-                    <CardDescription className="text-sm text-slate-500">Comparativa mensual de los últimos 6 meses.</CardDescription>
+                    <CardDescription className="text-sm text-slate-500">Comparativa mensual acumulada por transacciones.</CardDescription>
                   </div>
-                  <Badge variant="outline" className="rounded-lg border-slate-200 bg-slate-50 text-slate-600">6M</Badge>
                 </div>
               </CardHeader>
               <CardContent className="p-5">
@@ -1011,7 +1021,7 @@ export default function AdminPage() {
             <Card className="rounded-xl border border-slate-200 bg-white shadow-sm xl:col-span-2">
               <CardHeader className="border-b border-slate-100 pb-4">
                 <CardTitle className="text-base font-black text-slate-950">Distribución de Egresos</CardTitle>
-                <CardDescription className="text-sm text-slate-500">Categorías operativas del mes actual.</CardDescription>
+                <CardDescription className="text-sm text-slate-500">Categorías operativas de los gastos reales en base.</CardDescription>
               </CardHeader>
               <CardContent className="p-5">
                 <div className="h-[260px] w-full">
@@ -1035,7 +1045,7 @@ export default function AdminPage() {
                     </PieChart>
                   </ResponsiveContainer>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 mt-4 max-h-[140px] overflow-y-auto pr-2">
                   {expenseDistribution.map((item) => (
                     <div key={item.name} className="flex items-center justify-between rounded-lg border border-slate-100 px-3 py-2 text-sm">
                       <div className="flex min-w-0 items-center gap-2">
@@ -1045,6 +1055,7 @@ export default function AdminPage() {
                       <span className="font-bold text-slate-900">{formatCurrency(item.value)}</span>
                     </div>
                   ))}
+                  {expenseDistribution.length === 0 && <p className="text-xs text-center text-slate-400">Sin egresos registrados.</p>}
                 </div>
               </CardContent>
             </Card>
@@ -1056,9 +1067,9 @@ export default function AdminPage() {
                 <div>
                   <CardTitle className="flex items-center gap-2 text-base font-black text-slate-950">
                     <ReceiptText className="h-5 w-5 text-slate-600" />
-                    Transacciones
+                    Transacciones Reales
                   </CardTitle>
-                  <CardDescription className="text-sm text-slate-500">Detalle operativo de ingresos y egresos registrados.</CardDescription>
+                  <CardDescription className="text-sm text-slate-500">Detalle operativo de ingresos y egresos registrados en Supabase.</CardDescription>
                 </div>
                 <div className="relative w-full md:w-80">
                   <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -1118,10 +1129,7 @@ export default function AdminPage() {
                               <Edit3 className="h-3.5 w-3.5" /> Editar
                             </button>
                             <button
-                              onClick={() => {
-                                setFinanceTransactions((current) => current.filter((item) => item.id !== transaction.id))
-                                setFinanceActionId(null)
-                              }}
+                              onClick={() => handleDeleteFinanceTransaction(transaction.id)}
                               className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-rose-700 hover:bg-rose-50"
                             >
                               <Trash2 className="h-3.5 w-3.5" /> Eliminar
@@ -1134,7 +1142,7 @@ export default function AdminPage() {
                   {filteredFinanceTransactions.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={6} className="py-10 text-center text-sm font-medium text-slate-500">
-                        No se encontraron transacciones con ese concepto.
+                        No se encontraron transacciones registradas.
                       </TableCell>
                     </TableRow>
                   )}
@@ -1182,7 +1190,7 @@ export default function AdminPage() {
                     <tbody className="divide-y divide-gray-100">
                       {financeIncomeTransactions.map((tx) => (
                         <tr key={tx.id} className="hover:bg-gray-50">
-                          <td className="py-3 pr-4 font-mono text-xs text-gray-500">{tx.id}</td>
+                          <td className="py-3 pr-4 font-mono text-xs text-gray-500 truncate max-w-[100px]">{tx.id}</td>
                           <td className="py-3 pr-4 font-black text-gray-900">{formatCurrency(tx.amount)}</td>
                           <td className="py-3 pr-4">
                             <span className="px-2 py-1 rounded-md text-xs font-black bg-emerald-100 text-emerald-700">conciliado</span>
