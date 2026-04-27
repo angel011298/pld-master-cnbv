@@ -13,8 +13,6 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { buildAuthHeaders } from "@/lib/auth-client"
 import { useUserProfile } from "@/hooks/useUserProfile"
-import { EXERCISE_TYPES } from "@/lib/constants" // Mantenemos solo EXERCISE_TYPES local
-import { useSyllabus } from "@/hooks/useSyllabus" // IMPORTAMOS EL NUEVO HOOK DINÁMICO
 
 interface Question {
   id: number
@@ -24,12 +22,65 @@ interface Question {
   justification: string
 }
 
+// TEMARIO EXTRAÍDO ESTRICTAMENTE DEL DOCUMENTO FUENTE (Google Drive)
+const CNBV_SYLLABUS = [
+  {
+    module: "Área 1. Conocimientos básicos en PLD/FT",
+    topics: [
+      "1.1. Conceptos básicos PLD/FT",
+      "1.1.1. LD",
+      "1.1.2. FT",
+      "1.1.3. Corrupción",
+      "1.1.4. Penas del delito de LD conforme al Código Penal Federal",
+      "1.1.5. Penas del delito de FT conforme al Código Penal Federal",
+      "1.2. Organismos internacionales",
+      "1.2.1. Conocimientos básicos sobre los organismos y foros internacionales e intergubernamentales...",
+      "1.2.2. Grupo de Acción Financiera Internacional",
+      "1.2.3. Recomendaciones del GAFI",
+      "1.3. Autoridades nacionales",
+      "1.3.1. Régimen de prevención",
+      "1.3.2. Autoridades nacionales en materia de PLD y FT"
+    ]
+  },
+  {
+    module: "Área 2. Conocimientos técnicos en PLD/FT",
+    topics: [
+      "2.1. Leyes relativas al sistema financiero mexicano y disposiciones de carácter general aplicables a los sujetos obligados",
+      "2.1.1. Objetivo",
+      "2.1.2. Política de identificación y conocimiento del cliente o usuario",
+      "2.1.3. Reportes",
+      "2.1.4. Restricciones de dólares en efectivo",
+      "2.1.5. Sistemas automatizados",
+      "2.1.6. Otras obligaciones",
+      "2.1.7. Intercambio de información",
+      "2.1.8. Lista de personas bloqueadas",
+      "2.1.9. Comité de Comunicación y Control",
+      "2.1.10. Oficial de cumplimiento",
+      "2.1.11. Obligaciones de los modelos novedosos",
+      "2.1.12. Centros cambiarios",
+      "2.1.13. Transmisores de dinero",
+      "2.1.14. Instituciones de tecnología financiera",
+      "2.1.15. Sanciones",
+      "2.1.16. Propietario real",
+      "2.1.17. Plazos de cumplimiento"
+    ]
+  }
+];
+
+const EXERCISE_TYPES = [
+  "Opción Múltiple",
+  "Verdadero o Falso",
+  "Flashcards",
+  "Casos Prácticos",
+  "Completar Texto",
+  "Crucigramas",
+  "Sopas de Letras"
+];
+
 export function QuizSimulator() {
-  const { profile, loading: profileLoading } = useUserProfile()
-  const { syllabus, loading: syllabusLoading } = useSyllabus() // Consumir temario desde BD
+  const { profile, loading } = useUserProfile()
   
-  // Inicializamos el tema vacío, se llenará cuando cargue el syllabus
-  const [topic, setTopic] = React.useState<string>("")
+  const [topic, setTopic] = React.useState(CNBV_SYLLABUS[0].topics[0])
   const [difficulty, setDifficulty] = React.useState("Intermedio")
   const [exerciseType, setExerciseType] = React.useState(EXERCISE_TYPES[0])
   const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
@@ -43,16 +94,8 @@ export function QuizSimulator() {
   const [streak, setStreak] = React.useState<number | null>(null)
   const [startTime, setStartTime] = React.useState<number>(0)
 
-  // Use the profile as fallback when internal state hasn't tracked local XP changes yet.
   const displayTotalXp = totalXp !== null ? totalXp : (profile?.totalXp ?? null)
   const displayStreak = streak !== null ? streak : (profile?.currentStreak ?? null)
-
-  // Efecto para asignar el primer tema por defecto en cuanto cargue el temario dinámico
-  React.useEffect(() => {
-    if (syllabus.length > 0 && !topic) {
-      setTopic(syllabus[0].topics[0])
-    }
-  }, [syllabus, topic])
 
   const fetchQuiz = async () => {
     setGameState("loading")
@@ -95,7 +138,6 @@ export function QuizSimulator() {
     if (correct) setScore((s) => s + 1)
     setSessionXp((x) => x + xpGained)
 
-    // Persist XP asynchronously (non-blocking)
     try {
       const headers = await buildAuthHeaders({ "Content-Type": "application/json" })
       const res = await fetch("/api/update-xp", {
@@ -109,7 +151,7 @@ export function QuizSimulator() {
         setStreak(data.streak)
       }
     } catch {
-      // XP update failure is non-critical
+      // Ignorar
     }
 
     setStartTime(Date.now())
@@ -123,16 +165,6 @@ export function QuizSimulator() {
     } else {
       setGameState("finished")
     }
-  }
-
-  // ——— ESTADO DE CARGA DEL TEMARIO ———
-  if (syllabusLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] gap-4">
-        <Loader2 className="h-10 w-10 text-primary animate-spin" />
-        <p className="text-lg font-bold text-muted-foreground animate-pulse">Cargando temario oficial...</p>
-      </div>
-    )
   }
 
   // ——— IDLE STATE ———
@@ -151,11 +183,11 @@ export function QuizSimulator() {
           </CardHeader>
           <CardContent className="space-y-6">
            
-            {/* SELECCIÓN DE TEMARIO DESGLOSADO DINÁMICO */}
+            {/* SELECCIÓN DE TEMARIO DESGLOSADO OFICIAL */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Temario Oficial Desglosado</label>
+              <label className="text-xs font-bold uppercase text-muted-foreground">Temario Oficial Desglosado CNBV</label>
               <div className="h-[280px] overflow-y-auto border-2 border-gray-200 rounded-xl p-3 bg-gray-50 custom-scrollbar space-y-6">
-                {syllabus.map((mod) => (
+                {CNBV_SYLLABUS.map((mod) => (
                   <div key={mod.module} className="space-y-2">
                     <div className="sticky top-0 bg-gray-50/95 backdrop-blur-sm py-1 font-black text-primary text-sm uppercase border-b border-primary/20">
                       {mod.module}
@@ -240,7 +272,7 @@ export function QuizSimulator() {
             <CardContent className="py-6 flex flex-col items-center gap-2">
               <Zap className="h-8 w-8 text-secondary" />
               <span className="text-3xl font-black">
-                {profileLoading ? "—" : (displayTotalXp !== null ? displayTotalXp.toLocaleString() : "0")}
+                {loading ? "—" : (displayTotalXp !== null ? displayTotalXp.toLocaleString() : "0")}
               </span>
               <span className="text-xs uppercase font-bold text-muted-foreground">XP Acumulado</span>
             </CardContent>
@@ -249,7 +281,7 @@ export function QuizSimulator() {
             <CardContent className="py-6 flex flex-col items-center gap-2">
               <Flame className="h-8 w-8 text-orange-500" />
               <span className="text-3xl font-black">
-                {profileLoading ? "—" : (displayStreak !== null ? displayStreak : "0")}
+                {loading ? "—" : (displayStreak !== null ? displayStreak : "0")}
               </span>
               <span className="text-xs uppercase font-bold text-muted-foreground">Días de Racha</span>
             </CardContent>
