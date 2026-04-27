@@ -30,14 +30,15 @@ export async function POST(req: NextRequest) {
 
     const sb = supabaseAdmin();
     const payload = await req.json();
+    
+    // Asumiendo que validateQuizPayload ya no rechaza llaves extra o fue adaptado.
     const parsed = validateQuizPayload(payload);
     if (!parsed.ok) {
       return NextResponse.json({ error: parsed.error }, { status: 400 });
     }
    
     const { topic, difficulty, count } = parsed.data;
-    // Capturamos el tipo de formato solicitado, si no viene, asumimos simulador ceneval por defecto
-    const formatType = payload.formatType || 'ceneval';
+    const exerciseType = payload.exerciseType || "Opción Múltiple";
 
     // 1. Generate embedding for the topic to search context
     const topicEmbedding = await generateEmbedding(topic);
@@ -46,7 +47,7 @@ export async function POST(req: NextRequest) {
     const { data: contextChunks, error: searchError } = await sb.rpc(
       "match_document_embeddings",
       {
-        p_user_id: GLOBAL_ADMIN_USER_ID, // Modificado: Base de conocimiento maestra unificada
+        p_user_id: GLOBAL_ADMIN_USER_ID, // Base de conocimiento maestra unificada
         query_embedding: topicEmbedding,
         match_threshold: 0.5,
         match_count: 10,
@@ -77,19 +78,29 @@ export async function POST(req: NextRequest) {
       INSTRUCCIONES DE GENERACIÓN:
       Se te ha solicitado generar material educativo técnico y preciso sobre el tema: "${topic}".
       Nivel de dificultad: ${difficulty}.
-      El formato solicitado es: "${formatType}".
+      Tipo de ejercicio solicitado: "${exerciseType}".
       Cantidad de elementos solicitada: ${count}.
 
-      REGLAS POR FORMATO (Usa estrictamente las siguientes estructuras):
-      - 'ceneval': Genera un arreglo de preguntas de opción múltiple (4 opciones: A, B, C, D) con alto rigor técnico. Ejemplo de objeto: {"id": 1, "question": "...", "options": ["A", "B", "C", "D"], "answer": "...", "justification": "...", "source": "..."}
-      - 'true_false': Genera un arreglo de afirmaciones. Ejemplo de objeto: {"id": 1, "statement": "...", "isTrue": true/false, "justification": "...", "source": "..."}
-      - 'crossword_clues': Genera un arreglo de conceptos de una sola palabra sin espacios ni guiones. Ejemplo de objeto: {"id": 1, "word": "...", "clue": "..."}
-      - 'concept_matching': Genera un objeto con dos arreglos aleatorizados. Ejemplo: {"concepts": [{"id": 1, "text": "..."}], "definitions": [{"id": 1, "conceptId": 1, "text": "..."}]}
-      - 'word_search_terms': Genera un arreglo de palabras clave. Ejemplo de objeto: {"word": "...", "explanation": "..."}
+      REGLAS DE FORMATO Y EJERCICIOS (Obligatorio seguir estas reglas según el tipo de ejercicio):
+      - Si el tipo es "Opción Múltiple" o "Casos Prácticos": DEBES generar EXACTAMENTE 4 opciones de respuesta para CADA pregunta, etiquetadas como "A)", "B)", "C)" y "D)". Una sola es correcta.
+      - Si el tipo es "Verdadero o Falso": Las únicas opciones deben ser "A) Verdadero" y "B) Falso".
+      - Si el tipo es "Completar Texto": Usa "______" en la pregunta para el espacio en blanco y genera 4 opciones (A, B, C, D) para llenarlo.
+      - Si el tipo es "Flashcards": La 'pregunta' será el concepto. Omite las 4 opciones enviando un arreglo con una sola opción igual a la respuesta, y explica el concepto detalladamente en 'justification'.
 
       IMPORTANTE:
-      Devuelve el resultado ESTRICTAMENTE en formato JSON válido puro.
-      NO uses formato markdown ni bloques de código (como \`\`\`json). No agregues ningún texto introductorio, el primer y último carácter deben ser las llaves o corchetes del JSON ([ o {).
+      Devuelve el resultado ESTRICTAMENTE en formato JSON válido puro, con esta estructura base:
+      {
+        "quiz": [
+          {
+            "id": 1,
+            "question": "Pregunta o planteamiento del caso...",
+            "options": ["A) Opción 1", "B) Opción 2", "C) Opción 3", "D) Opción 4"],
+            "answer": "A) Opción 1",
+            "justification": "Base legal y explicación extraída de la Guía..."
+          }
+        ]
+      }
+      NO uses formato markdown ni bloques de código (como \`\`\`json). No agregues ningún texto introductorio, el primer y último carácter deben ser las llaves del JSON { }.
     `;
 
     const result = await proModel().generateContent(prompt);

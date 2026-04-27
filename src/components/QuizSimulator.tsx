@@ -22,18 +22,30 @@ interface Question {
   justification: string
 }
 
+// Temario alineado a la Guía PLD/FT_CNBV
 const TOPICS = [
-  "Disposiciones de Carácter General",
-  "Reportes de Operaciones Inusuales",
-  "Multas en UMAs",
-  "Evaluación Basada en Riesgos (EBR)",
-  "Tipologías de Lavado de Dinero",
+  "Módulo 1: Generalidades y Marco Internacional en PLD/FT",
+  "Módulo 2: Marco Jurídico y Regulatorio Nacional",
+  "Módulo 3: Políticas de Identificación y Conocimiento del Cliente",
+  "Módulo 4: Reportes de Operaciones y Estructuras Internas",
+  "Módulo 5: Tipologías, Tendencias y Casos Prácticos",
+  "Módulo 6: Enfoque Basado en Riesgos (EBR)",
+  "Módulo 7: Auditoría, Supervisión y Sanciones",
+]
+
+const EXERCISE_TYPES = [
+  "Opción Múltiple",
+  "Verdadero o Falso",
+  "Flashcards",
+  "Casos Prácticos",
+  "Completar Texto"
 ]
 
 export function QuizSimulator() {
   const { profile, loading } = useUserProfile()
   const [topic, setTopic] = React.useState(TOPICS[0])
   const [difficulty, setDifficulty] = React.useState("Intermedio")
+  const [exerciseType, setExerciseType] = React.useState(EXERCISE_TYPES[0])
   const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
   const [questions, setQuestions] = React.useState<Question[]>([])
   const [currentIdx, setCurrentIdx] = React.useState(0)
@@ -56,7 +68,7 @@ export function QuizSimulator() {
       const res = await fetch("/api/generate-quiz", {
         method: "POST",
         headers,
-        body: JSON.stringify({ topic, difficulty, count: 5 }),
+        body: JSON.stringify({ topic, difficulty, count: 5, exerciseType }),
       })
       const data = await res.json()
       if (res.ok) {
@@ -131,7 +143,7 @@ export function QuizSimulator() {
               <BrainCircuit className="h-8 w-8 text-primary" />
               <div>
                 <CardTitle className="text-2xl font-black tracking-tight uppercase">Simulador CNBV</CardTitle>
-                <CardDescription>Preguntas generadas con IA basadas en tus documentos</CardDescription>
+                <CardDescription>Preguntas generadas con IA basadas en la Guía Oficial</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -157,6 +169,28 @@ export function QuizSimulator() {
                 ))}
               </div>
             </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase text-muted-foreground">Tipo de Ejercicio</label>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                {EXERCISE_TYPES.map((type) => (
+                  <motion.button
+                    key={type}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setExerciseType(type)}
+                    className={cn(
+                      "py-2 px-3 rounded-xl border-2 font-bold text-sm transition-all",
+                      exerciseType === type
+                        ? "bg-secondary text-white border-secondary"
+                        : "border-gray-200 text-muted-foreground hover:border-secondary"
+                    )}
+                  >
+                    {type}
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-muted-foreground">Nivel</label>
               <div className="flex gap-2">
@@ -229,7 +263,7 @@ export function QuizSimulator() {
         >
           <Loader2 className="h-12 w-12 text-primary" />
         </motion.div>
-        <p className="text-xl font-bold animate-pulse">Gemini está redactando tu examen...</p>
+        <p className="text-xl font-bold animate-pulse">Gemini está redactando tu material de estudio...</p>
       </div>
     )
   }

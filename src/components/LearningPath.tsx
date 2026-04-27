@@ -12,12 +12,15 @@ interface Module {
   icon: React.ReactNode
 }
 
+// Temario alineado a la Guía PLD/FT_CNBV (Omitiendo Módulo 0)
 const modules: Module[] = [
-  { id: "1", title: "Fundamentos e Instituciones Internacionales", isPremium: false, icon: <Star className="h-6 w-6" /> },
-  { id: "2", title: "Marco Jurídico Mexicano (Leyes y Disposiciones)", isPremium: false, icon: <Star className="h-6 w-6" /> },
-  { id: "3", title: "Prevención y Gestión de Riesgos (EBR)", isPremium: true, icon: <Lock className="h-6 w-6" /> },
-  { id: "4", title: "Auditoría y Supervisión", isPremium: true, icon: <Lock className="h-6 w-6" /> },
-  { id: "5", title: "Tipologías e Inteligencia Financiera", isPremium: true, icon: <Lock className="h-6 w-6" /> },
+  { id: "1", title: "Módulo 1: Generalidades y Marco Internacional en PLD/FT", isPremium: false, icon: <Star className="h-6 w-6" /> },
+  { id: "2", title: "Módulo 2: Marco Jurídico y Regulatorio Nacional", isPremium: false, icon: <Star className="h-6 w-6" /> },
+  { id: "3", title: "Módulo 3: Políticas de Identificación y Conocimiento del Cliente / Usuario", isPremium: true, icon: <Lock className="h-6 w-6" /> },
+  { id: "4", title: "Módulo 4: Reportes de Operaciones y Estructuras Internas", isPremium: true, icon: <Lock className="h-6 w-6" /> },
+  { id: "5", title: "Módulo 5: Tipologías, Tendencias y Casos Prácticos", isPremium: true, icon: <Lock className="h-6 w-6" /> },
+  { id: "6", title: "Módulo 6: Enfoque Basado en Riesgos (EBR)", isPremium: true, icon: <Lock className="h-6 w-6" /> },
+  { id: "7", title: "Módulo 7: Auditoría, Supervisión y Sanciones", isPremium: true, icon: <Lock className="h-6 w-6" /> },
 ]
 
 export function LearningPath() {
@@ -28,7 +31,7 @@ export function LearningPath() {
     <div className="flex flex-col items-center gap-16 py-12 max-w-2xl mx-auto">
       <div className="text-center mb-6">
         <h1 className="text-4xl font-black text-foreground mb-4 uppercase tracking-tighter">Ruta CNBV 2026</h1>
-        <p className="text-muted-foreground text-lg font-medium opacity-80">Domina los pilares de la certificación paso a paso</p>
+        <p className="text-muted-foreground text-lg font-medium opacity-80">Domina los pilares de la guía de certificación paso a paso</p>
       </div>
 
       {modules.map((module, index) => {
