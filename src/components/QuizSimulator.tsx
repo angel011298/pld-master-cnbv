@@ -13,6 +13,7 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { buildAuthHeaders } from "@/lib/auth-client"
 import { useUserProfile } from "@/hooks/useUserProfile"
+import { CNBV_SYLLABUS, EXERCISE_TYPES } from "@/lib/constants"
 
 interface Question {
   id: number
@@ -22,26 +23,9 @@ interface Question {
   justification: string
 }
 
-// Temario estrictamente alineado a la Guía PLD/FT_CNBV
-const TOPICS = [
-  "Módulo 1: Conocimientos básicos en materia de PLD/FT",
-  "Módulo 2: Conocimientos técnicos en materia de PLD/FT",
-  "Módulo 3: Conocimientos de auditoría, supervisión y enfoque basado en riesgos en materia de PLD/FT",
-]
-
-const EXERCISE_TYPES = [
-  "Opción Múltiple",
-  "Verdadero o Falso",
-  "Flashcards",
-  "Casos Prácticos",
-  "Completar Texto",
-  "Crucigramas",
-  "Sopas de Letras"
-]
-
 export function QuizSimulator() {
   const { profile, loading } = useUserProfile()
-  const [topic, setTopic] = React.useState(TOPICS[0])
+  const [topic, setTopic] = React.useState(CNBV_SYLLABUS[0].topics[0])
   const [difficulty, setDifficulty] = React.useState("Intermedio")
   const [exerciseType, setExerciseType] = React.useState(EXERCISE_TYPES[0])
   const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
@@ -133,51 +117,60 @@ export function QuizSimulator() {
   // ——— IDLE STATE ———
   if (gameState === "idle") {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto py-6">
-        {/* Config card — 2 cols */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto py-6">
         <Card className="md:col-span-2 border-2">
           <CardHeader>
             <div className="flex items-center gap-3">
               <BrainCircuit className="h-8 w-8 text-primary" />
               <div>
                 <CardTitle className="text-2xl font-black tracking-tight uppercase">Simulador CNBV</CardTitle>
-                <CardDescription>Preguntas generadas con IA basadas en la Guía Oficial</CardDescription>
+                <CardDescription>Selecciona un subtema específico de la Guía Oficial para practicar.</CardDescription>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-5">
+          <CardContent className="space-y-6">
+            
+            {/* SELECCIÓN DE TEMARIO DESGLOSADO */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Tema de Estudio</label>
-              <div className="grid grid-cols-1 gap-2">
-                {TOPICS.map((t) => (
-                  <motion.button
-                    key={t}
-                    whileHover={{ x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setTopic(t)}
-                    className={cn(
-                      "p-3 rounded-xl border-2 text-left text-sm font-semibold transition-all",
-                      topic === t
-                        ? "border-primary bg-primary/5 text-primary"
-                        : "border-gray-200 hover:border-primary/40"
-                    )}
-                  >
-                    {t}
-                  </motion.button>
+              <label className="text-xs font-bold uppercase text-muted-foreground">Temario Oficial Desglosado</label>
+              <div className="h-[280px] overflow-y-auto border-2 border-gray-200 rounded-xl p-3 bg-gray-50 custom-scrollbar space-y-6">
+                {CNBV_SYLLABUS.map((mod) => (
+                  <div key={mod.id} className="space-y-2">
+                    <div className="sticky top-0 bg-gray-50/95 backdrop-blur-sm py-1 font-black text-primary text-sm uppercase border-b border-primary/20">
+                      {mod.module}
+                    </div>
+                    <div className="grid gap-1 pl-2">
+                      {mod.topics.map((t) => (
+                        <button
+                          key={t}
+                          onClick={() => setTopic(t)}
+                          className={cn(
+                            "text-left px-3 py-2.5 rounded-lg text-sm font-semibold transition-all border border-transparent",
+                            topic === t
+                              ? "bg-primary text-white shadow-md border-primary"
+                              : "bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-100"
+                          )}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
 
+            {/* SELECCIÓN DE TIPO DE EJERCICIO */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Tipo de Ejercicio</label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              <label className="text-xs font-bold uppercase text-muted-foreground">Formato de Estudio</label>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 {EXERCISE_TYPES.map((type) => (
                   <motion.button
                     key={type}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setExerciseType(type)}
                     className={cn(
-                      "py-2 px-3 rounded-xl border-2 font-bold text-sm transition-all",
+                      "py-2 px-2 rounded-xl border-2 font-bold text-xs transition-all",
                       exerciseType === type
                         ? "bg-secondary text-white border-secondary"
                         : "border-gray-200 text-muted-foreground hover:border-secondary"
@@ -189,6 +182,7 @@ export function QuizSimulator() {
               </div>
             </div>
 
+            {/* NIVEL DE DIFICULTAD */}
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-muted-foreground">Nivel</label>
               <div className="flex gap-2">
@@ -213,7 +207,7 @@ export function QuizSimulator() {
           <CardFooter>
             <motion.div className="w-full" whileTap={{ scale: 0.98 }}>
               <Button size="lg" className="w-full font-black text-lg h-14 border-b-4 border-primary/70" onClick={fetchQuiz}>
-                ¡EMPEZAR EXAMEN!
+                ¡GENERAR MATERIAL!
               </Button>
             </motion.div>
           </CardFooter>

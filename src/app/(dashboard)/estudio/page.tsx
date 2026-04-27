@@ -9,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useUserProfile } from "@/hooks/useUserProfile"
+import { cn } from "@/lib/utils"
+import { CNBV_SYLLABUS } from "@/lib/constants"
 
 // Catálogo completo alineado con entities/page.tsx
 const SECTOR_INFO: Record<string, { name: string; topics: string[]; modules: string[] }> = {
@@ -49,66 +51,57 @@ function EstudioContent() {
         <div>
           <h1 className="text-3xl font-black tracking-tight text-slate-900 flex items-center gap-3">
             <BookOpen className="h-8 w-8 text-blue-600" />
-            Modo Estudio
+            Modo Estudio Oficial
           </h1>
           <p className="text-slate-500 mt-2 text-lg">
-            Domina los conceptos clave para tu certificación CNBV. Selecciona un área general o elige tu sector específico.
+            Temario general y especializado para la Certificación CNBV.
           </p>
         </div>
 
-        {/* Módulos Transversales / Generales */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-4">
-          <Card className="hover:shadow-md transition-all border-slate-200">
-            <CardHeader className="pb-3">
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <Scale className="h-6 w-6 text-blue-700" />
-                </div>
-                <Badge variant="secondary" className="bg-blue-50 text-blue-700">Disponible</Badge>
-              </div>
-              <CardTitle className="mt-4 text-xl">Marco Legal General</CardTitle>
-              <CardDescription>Leyes, normativas y disposiciones aplicables a todas las entidades.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <button className="w-full py-2.5 bg-slate-900 text-white rounded-lg text-sm font-semibold hover:bg-slate-800 transition-colors">
-                Iniciar Lección
-              </button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-md transition-all border-slate-200">
-            <CardHeader className="pb-3">
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-amber-100 rounded-lg">
-                  <AlertTriangle className="h-6 w-6 text-amber-700" />
-                </div>
-              </div>
-              <CardTitle className="mt-4 text-xl">Enfoque Basado en Riesgo</CardTitle>
-              <CardDescription>Metodologías de evaluación y mitigación (EBR) universales.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <button className="w-full py-2.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors">
-                {isPremium ? "Iniciar Lección" : "Disponible con Premium"}
-              </button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-md transition-all border-slate-200">
-            <CardHeader className="pb-3">
-              <div className="flex justify-between items-start">
-                <div className="p-2 bg-emerald-100 rounded-lg">
-                  <FileText className="h-6 w-6 text-emerald-700" />
-                </div>
-              </div>
-              <CardTitle className="mt-4 text-xl">Tipologías</CardTitle>
-              <CardDescription>Casos prácticos documentados sobre Lavado de Dinero y FT.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <button className="w-full py-2.5 bg-slate-100 text-slate-700 rounded-lg text-sm font-semibold hover:bg-slate-200 transition-colors">
-                {isPremium ? "Iniciar Lección" : "Disponible con Premium"}
-              </button>
-            </CardContent>
-          </Card>
+        {/* Módulos Transversales / Generales usando CNBV_SYLLABUS */}
+        <div className="mt-4">
+          <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 mb-4">
+            <Scale className="h-6 w-6 text-emerald-600" />
+            Temario Desglosado (Guía CNBV)
+          </h2>
+          <div className="grid gap-6 lg:grid-cols-3">
+            {CNBV_SYLLABUS.map((mod, index) => {
+              const isLocked = index > 0 && !isPremium;
+              return (
+                <Card key={mod.id} className="hover:shadow-lg transition-all flex flex-col border-slate-200">
+                  <CardHeader className="bg-slate-50 rounded-t-xl border-b pb-4">
+                    <CardTitle className="text-lg leading-tight text-slate-800">{mod.module}</CardTitle>
+                    <CardDescription className="font-semibold text-blue-600 mt-1">
+                      {mod.topics.length} temas clave
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-4 flex-1 flex flex-col">
+                    <ul className="text-sm space-y-2 mb-6 text-slate-600 font-medium">
+                      {/* Muestra los primeros 4 temas como resumen */}
+                      {mod.topics.slice(0, 4).map(t => (
+                        <li key={t} className="flex items-start gap-2">
+                          <span className="text-emerald-500 shrink-0">•</span> <span className="line-clamp-2">{t}</span>
+                        </li>
+                      ))}
+                      {mod.topics.length > 4 && (
+                        <li className="text-xs text-slate-400 font-bold italic mt-2">
+                          + {mod.topics.length - 4} subtemas adicionales...
+                        </li>
+                      )}
+                    </ul>
+                    <div className="mt-auto">
+                      <Button 
+                        disabled={isLocked}
+                        className={cn("w-full", isLocked ? "bg-slate-200 text-slate-500" : "bg-slate-900 text-white hover:bg-slate-800")}
+                      >
+                        {isLocked ? "Premium Requerido" : "Iniciar Módulo"}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )
+            })}
+          </div>
         </div>
 
         {/* Catálogo de Sectores para navegar a la vista específica */}
