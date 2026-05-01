@@ -46,3 +46,6 @@ next-env.d.ts
 # local prompts / scratch
 prompt.txt
 .env*.local
+
+# local PDF staging folder (batch-ingest input)
+/docs/
