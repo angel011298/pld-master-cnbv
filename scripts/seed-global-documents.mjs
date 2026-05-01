@@ -163,7 +163,8 @@ async function ingestFile(file, force = false) {
 
   for (let i = 0; i < chunks.length; i++) {
     const c = chunks[i];
-    let embeddingValues;
+    let embeddingValues = null;
+
     try {
       const result = await embeddingModel.embedContent(c);
       embeddingValues = result.embedding.values;
@@ -171,21 +172,26 @@ async function ingestFile(file, force = false) {
       if (embeddingValues.length !== 768) {
         console.log(`\n   ⚠️  chunk ${i}: dimensiones incorrectas (${embeddingValues.length}), saltando`);
         failed++;
-        continue;
+        embeddingValues = null;
       }
     } catch (err) {
       console.log(`\n   ⚠️  chunk ${i} embedding error: ${err.message}, saltando`);
       failed++;
-      continue;
     }
 
-    batch.push({
-      document_id: docId,
-      user_id: null,
-      content: c,
-      embedding: embeddingValues,
-      metadata: { source: file.name, source_file_id: file.id, is_global: true },
-    });
+    // Only add to batch if embedding was successful
+    if (embeddingValues) {
+      batch.push({
+        document_id: docId,
+        user_id: null,
+        content: c,
+        embedding: embeddingValues,
+        metadata: { source: file.name, source_file_id: file.id, is_global: true },
+      });
+    }
+
+    // Rate limiting: 700ms per chunk = ~86 req/min (respects 100 req/min Free Tier)
+    await new Promise(resolve => setTimeout(resolve, 700));
 
     // Insert in batches of 20
     if (batch.length >= BATCH_SIZE) {
@@ -197,9 +203,6 @@ async function ingestFile(file, force = false) {
       }
       batch.length = 0;
     }
-
-    // Small delay to avoid rate limits
-    if (i % 5 === 4) await new Promise((r) => setTimeout(r, 200));
   }
 
   // Insert remaining
