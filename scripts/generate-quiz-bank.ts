@@ -264,7 +264,7 @@ async function main() {
     auth: { persistSession: false },
   });
   const genAI = new GoogleGenerativeAI(geminiKey);
-  const embModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
+  const embModel = genAI.getGenerativeModel({ model: "embedding-001" });
   const proModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
   console.log("\n🚀 Generando banco de reactivos CNBV (200+ preguntas)\n");
