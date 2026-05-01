@@ -88,7 +88,7 @@ async function parsePdf(buf) {
 
 const sb = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: false } });
 const genAI = new GoogleGenerativeAI(GEMINI_KEY);
-const embeddingModel = genAI.getGenerativeModel({ model: "embedding-001" });
+const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
 
 async function ingestFile(file) {
   process.stdout.write(`📄 ${file.name} ... `);

@@ -270,7 +270,7 @@ async function main() {
 
   const sb = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
   const genAI = new GoogleGenerativeAI(geminiKey);
-  const embModel = genAI.getGenerativeModel({ model: "embedding-001" });
+  const embModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
 
   console.log(`\n📂  Encontrados ${pdfFiles.length} PDF(s) en ${folderPath}\n`);
 
