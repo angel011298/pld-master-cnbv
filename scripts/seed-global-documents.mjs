@@ -135,23 +135,66 @@ async function ingestFile(file) {
   if (docErr) { console.log(`❌ DB error: ${docErr.message}`); return; }
 
   const chunks = chunkText(pdfData.text);
-  const entries = await Promise.all(
-    chunks.map(async (c) => {
+  console.log(`${chunks.length} chunks...`);
+
+  // Process chunks one by one — if one fails, skip it and continue
+  let inserted = 0;
+  let failed = 0;
+  const BATCH_SIZE = 20;
+  const batch = [];
+
+  for (let i = 0; i < chunks.length; i++) {
+    const c = chunks[i];
+    let embeddingValues;
+    try {
       const result = await embeddingModel.embedContent(c);
-      return {
-        document_id: doc.id,
-        user_id: null,
-        content: c,
-        embedding: result.embedding.values,
-        metadata: { source: file.name, source_file_id: file.id, is_global: true },
-      };
-    })
-  );
+      embeddingValues = result.embedding.values;
+      // Validate dimensions match schema (768)
+      if (embeddingValues.length !== 768) {
+        console.log(`\n   ⚠️  chunk ${i}: dimensiones incorrectas (${embeddingValues.length}), saltando`);
+        failed++;
+        continue;
+      }
+    } catch (err) {
+      console.log(`\n   ⚠️  chunk ${i} embedding error: ${err.message}, saltando`);
+      failed++;
+      continue;
+    }
 
-  const { error: embErr } = await sb.from("document_embeddings").insert(entries);
-  if (embErr) { console.log(`❌ Embed error: ${embErr.message}`); return; }
+    batch.push({
+      document_id: doc.id,
+      user_id: null,
+      content: c,
+      embedding: embeddingValues,
+      metadata: { source: file.name, source_file_id: file.id, is_global: true },
+    });
 
-  console.log(`✅ ${chunks.length} fragmentos`);
+    // Insert in batches of 20
+    if (batch.length >= BATCH_SIZE) {
+      const { error: embErr } = await sb.from("document_embeddings").insert(batch);
+      if (embErr) {
+        console.log(`\n   ❌ Batch insert error: ${embErr.message}`);
+      } else {
+        inserted += batch.length;
+      }
+      batch.length = 0;
+    }
+
+    // Small delay to avoid rate limits
+    if (i % 5 === 4) await new Promise((r) => setTimeout(r, 200));
+  }
+
+  // Insert remaining
+  if (batch.length > 0) {
+    const { error: embErr } = await sb.from("document_embeddings").insert(batch);
+    if (embErr) {
+      console.log(`\n   ❌ Batch insert error (final): ${embErr.message}`);
+    } else {
+      inserted += batch.length;
+    }
+  }
+
+  console.log(`✅ ${inserted}/${chunks.length} fragmentos insertados${failed > 0 ? ` (${failed} saltados)` : ""}`);
 }
 
 console.log(`\n🚀 Ingiriendo ${DRIVE_FILES.length} PDFs oficiales CNBV como documentos globales...\n`);
