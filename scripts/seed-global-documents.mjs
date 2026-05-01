@@ -8,7 +8,7 @@
 import { readFileSync, existsSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { createRequire } from "module";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
 // Load .env.local manually
 function loadEnv() {
@@ -71,10 +71,24 @@ function chunkText(text) {
   return chunks;
 }
 
+async function parsePdf(buf) {
+  const task = pdfjsLib.getDocument({ data: new Uint8Array(buf), useSystemFonts: true });
+  const pdf = await task.promise;
+  let text = "";
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    const pageText = (content.items || [])
+      .map((item) => item.str || "")
+      .join(" ");
+    text += pageText + "\n";
+  }
+  return { text, numpages: pdf.numPages };
+}
+
 const sb = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: false } });
 const genAI = new GoogleGenerativeAI(GEMINI_KEY);
 const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
-const req = createRequire(import.meta.url);
 
 async function ingestFile(file) {
   process.stdout.write(`📄 ${file.name} ... `);
@@ -101,8 +115,7 @@ async function ingestFile(file) {
     return;
   }
 
-  const pdfParse = req("pdf-parse");
-  const pdfData = await pdfParse(Buffer.from(bytes));
+  const pdfData = await parsePdf(Buffer.from(bytes));
   if (pdfData.numpages > 150) { console.log("⚠️  >150 páginas"); return; }
 
   const { data: doc, error: docErr } = await sb
