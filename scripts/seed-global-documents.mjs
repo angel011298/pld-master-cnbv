@@ -90,21 +90,35 @@ const sb = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: fal
 const genAI = new GoogleGenerativeAI(GEMINI_KEY);
 const embeddingModel = genAI.getGenerativeModel({ model: "gemini-embedding-001" });
 
-async function ingestFile(file) {
+async function ingestFile(file, force = false) {
   process.stdout.write(`📄 ${file.name} ... `);
 
+  // Check if document already exists in documents table
   const { data: existing } = await sb
     .from("documents")
     .select("id")
     .eq("name", file.name)
     .eq("is_global", true)
-    .limit(1);
+    .maybeSingle();
 
-  if (existing?.length > 0) {
-    console.log("⏭  ya existe");
-    return;
+  let docId = existing?.id ?? null;
+
+  if (existing && !force) {
+    // Document exists — check if it already has embeddings
+    const { count: embCount } = await sb
+      .from("document_embeddings")
+      .select("*", { count: "exact", head: true })
+      .eq("document_id", existing.id);
+
+    if (embCount > 0) {
+      console.log(`⏭  ya existe (${embCount} embeddings)`);
+      return;
+    }
+    // Document exists but 0 embeddings — need to re-generate embeddings
+    console.log(`⚠️  doc sin embeddings, regenerando...`);
   }
 
+  // Download and parse PDF (needed whether or not doc exists, to get chunks)
   const downloadUrl = `https://drive.google.com/uc?export=download&id=${file.id}`;
   const res = await fetch(downloadUrl, { redirect: "follow" });
   if (!res.ok) { console.log(`❌ HTTP ${res.status}`); return; }
@@ -118,21 +132,25 @@ async function ingestFile(file) {
   const pdfData = await parsePdf(Buffer.from(bytes));
   if (pdfData.numpages > 150) { console.log("⚠️  >150 páginas"); return; }
 
-  const { data: doc, error: docErr } = await sb
-    .from("documents")
-    .insert({
-      user_id: null,
-      name: file.name,
-      content: pdfData.text,
-      file_type: "pdf",
-      page_count: pdfData.numpages,
-      file_size_bytes: bytes.byteLength,
-      is_global: true,
-    })
-    .select()
-    .single();
+  // Only insert into documents if it doesn't already exist
+  if (!docId) {
+    const { data: doc, error: docErr } = await sb
+      .from("documents")
+      .insert({
+        user_id: null,
+        name: file.name,
+        content: pdfData.text,
+        file_type: "pdf",
+        page_count: pdfData.numpages,
+        file_size_bytes: bytes.byteLength,
+        is_global: true,
+      })
+      .select("id")
+      .single();
 
-  if (docErr) { console.log(`❌ DB error: ${docErr.message}`); return; }
+    if (docErr) { console.log(`❌ DB error: ${docErr.message}`); return; }
+    docId = doc.id;
+  }
 
   const chunks = chunkText(pdfData.text);
   console.log(`${chunks.length} chunks...`);
@@ -162,7 +180,7 @@ async function ingestFile(file) {
     }
 
     batch.push({
-      document_id: doc.id,
+      document_id: docId,
       user_id: null,
       content: c,
       embedding: embeddingValues,
@@ -197,8 +215,11 @@ async function ingestFile(file) {
   console.log(`✅ ${inserted}/${chunks.length} fragmentos insertados${failed > 0 ? ` (${failed} saltados)` : ""}`);
 }
 
+const FORCE = process.argv.includes("--force");
+if (FORCE) console.log("⚡ Modo --force activado: ignorando duplicados\n");
+
 console.log(`\n🚀 Ingiriendo ${DRIVE_FILES.length} PDFs oficiales CNBV como documentos globales...\n`);
 for (const file of DRIVE_FILES) {
-  await ingestFile(file);
+  await ingestFile(file, FORCE);
 }
 console.log("\n✨ ¡Ingesta completada!");
