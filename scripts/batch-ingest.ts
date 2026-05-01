@@ -17,6 +17,13 @@ import { createClient } from "@supabase/supabase-js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { createRequire } from "module";
 
+// pdf-parse is a CJS module — import at module level to catch errors early.
+// pdf-parse@1.x exports the parse function directly (not as .default).
+const _require = createRequire(import.meta.url);
+const pdfParse = _require("pdf-parse") as (
+  buf: Buffer
+) => Promise<{ text: string; numpages: number }>;
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type PldTopic =
@@ -254,10 +261,6 @@ async function main() {
   const sb = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false } });
   const genAI = new GoogleGenerativeAI(geminiKey);
   const embModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
-
-  // ── pdf-parse (CJS module) ──
-  const require = createRequire(import.meta.url);
-  const pdfParse = require("pdf-parse") as (buf: Buffer) => Promise<{ text: string; numpages: number }>;
 
   console.log(`\n📂  Encontrados ${pdfFiles.length} PDF(s) en ${folderPath}\n`);
 
