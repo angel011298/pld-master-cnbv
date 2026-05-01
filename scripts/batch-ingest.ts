@@ -15,14 +15,24 @@ import { join, extname, basename } from "path";
 import { createHash } from "crypto";
 import { createClient } from "@supabase/supabase-js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { createRequire } from "module";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
-// pdf-parse is a CJS module — import at module level to catch errors early.
-// pdf-parse@1.x exports the parse function directly (not as .default).
-const _require = createRequire(import.meta.url);
-const pdfParse = _require("pdf-parse") as (
-  buf: Buffer
-) => Promise<{ text: string; numpages: number }>;
+// ─── PDF parsing helper ───────────────────────────────────────────────────────
+
+async function parsePdf(buf: Buffer): Promise<{ text: string; numpages: number }> {
+  const task = pdfjsLib.getDocument({ data: new Uint8Array(buf), useSystemFonts: true });
+  const pdf = await task.promise;
+  let text = "";
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    const pageText = (content.items as Array<{ str?: string }>)
+      .map((item) => item.str ?? "")
+      .join(" ");
+    text += pageText + "\n";
+  }
+  return { text, numpages: pdf.numPages };
+}
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -282,13 +292,14 @@ async function main() {
 
     // ── Parse PDF ──
     let pdfData: { text: string; numpages: number };
+    let buffer: Buffer;
     try {
-      const buffer = readFileSync(filePath);
+      buffer = readFileSync(filePath);
       if (buffer.length > 10 * 1024 * 1024) {
         console.log("⚠️   Archivo > 10 MB, saltando.");
         continue;
       }
-      pdfData = await pdfParse(buffer);
+      pdfData = await parsePdf(buffer);
     } catch (err) {
       console.log(`❌  Error al parsear PDF: ${(err as Error).message}`);
       continue;
@@ -337,7 +348,7 @@ async function main() {
           content: pdfData.text,
           file_type: "pdf",
           page_count: pdfData.numpages,
-          file_size_bytes: readFileSync(filePath).length,
+          file_size_bytes: buffer!.length,
           is_global: true,
         })
         .select("id")
