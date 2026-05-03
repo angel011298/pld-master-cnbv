@@ -13,6 +13,8 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { buildAuthHeaders } from "@/lib/auth-client"
 import { useUserProfile } from "@/hooks/useUserProfile"
+import { AchievementToast } from "@/components/AchievementToast"
+import type { Achievement } from "@/components/AchievementToast"
 
 interface Question {
   id: number
@@ -93,6 +95,8 @@ export function QuizSimulator() {
   const [totalXp, setTotalXp] = React.useState<number | null>(null)
   const [streak, setStreak] = React.useState<number | null>(null)
   const [startTime, setStartTime] = React.useState<number>(0)
+  const [unlockedAchievements, setUnlockedAchievements] = React.useState<Achievement[]>([])
+  const [currentAchievementIndex, setCurrentAchievementIndex] = React.useState(0)
 
   const displayTotalXp = totalXp !== null ? totalXp : (profile?.totalXp ?? null)
   const displayStreak = streak !== null ? streak : (profile?.currentStreak ?? null)
@@ -157,13 +161,28 @@ export function QuizSimulator() {
     setStartTime(Date.now())
   }
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentIdx < questions.length - 1) {
       setCurrentIdx((i) => i + 1)
       setSelectedOption(null)
       setIsRevealed(false)
     } else {
       setGameState("finished")
+      // Check achievements after quiz finishes
+      try {
+        const headers = await buildAuthHeaders({ "Content-Type": "application/json" })
+        const res = await fetch("/api/achievements/check", {
+          method: "POST",
+          headers,
+        })
+        const data = await res.json()
+        if (res.ok && data.unlocked && data.unlocked.length > 0) {
+          setUnlockedAchievements(data.unlocked)
+          setCurrentAchievementIndex(0)
+        }
+      } catch (err) {
+        console.error("Error checking achievements:", err)
+      }
     }
   }
 
@@ -523,5 +542,19 @@ export function QuizSimulator() {
     )
   }
 
-  return null
+  const currentAchievement = unlockedAchievements[currentAchievementIndex] || null
+
+  return (
+    <AchievementToast
+      achievement={currentAchievement}
+      onClose={() => {
+        if (currentAchievementIndex < unlockedAchievements.length - 1) {
+          setCurrentAchievementIndex(currentAchievementIndex + 1)
+        } else {
+          setUnlockedAchievements([])
+          setCurrentAchievementIndex(0)
+        }
+      }}
+    />
+  )
 }

@@ -13,6 +13,8 @@ import type { QuizQuestion } from "@/types/quiz";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { AchievementToast } from "@/components/AchievementToast";
+import type { Achievement } from "@/components/AchievementToast";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -136,6 +138,8 @@ export default function LeccionPage() {
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [results, setResults] = useState<LessonResults | null>(null);
+  const [unlockedAchievements, setUnlockedAchievements] = useState<Achievement[]>([]);
+  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
 
   // Refs avoid stale-closure issues in async callbacks
   const correctRef = useRef(0);
@@ -283,6 +287,22 @@ export default function LeccionPage() {
       }
       setResults({ correct: correctRef.current, total: questions.length, xp: xpRef.current });
       setLessonState("resultados");
+
+      // Check achievements
+      try {
+        const headers = await buildAuthHeaders({ "Content-Type": "application/json" });
+        const res = await fetch("/api/achievements/check", {
+          method: "POST",
+          headers,
+        });
+        const data = await res.json();
+        if (res.ok && data.unlocked && data.unlocked.length > 0) {
+          setUnlockedAchievements(data.unlocked);
+          setCurrentAchievementIndex(0);
+        }
+      } catch (err) {
+        console.error("Error checking achievements:", err);
+      }
     } else {
       setCurrentIndex(next);
       questionStartRef.current = Date.now();
@@ -490,5 +510,21 @@ export default function LeccionPage() {
     );
   }
 
-  return null;
+  const currentAchievement = unlockedAchievements[currentAchievementIndex] || null;
+
+  return (
+    <>
+      <AchievementToast
+        achievement={currentAchievement}
+        onClose={() => {
+          if (currentAchievementIndex < unlockedAchievements.length - 1) {
+            setCurrentAchievementIndex(currentAchievementIndex + 1);
+          } else {
+            setUnlockedAchievements([]);
+            setCurrentAchievementIndex(0);
+          }
+        }}
+      />
+    </>
+  );
 }
