@@ -3,6 +3,10 @@ export const dynamic = "force-dynamic";
 import { supabaseAdmin } from "@/lib/supabase";
 import { getAuthenticatedUserId } from "@/lib/security";
 import { TOPIC_DISTRIBUTION } from "@/lib/simulacro-config";
+import {
+  TRIAL_SIMULACRO_QUESTIONS,
+  TRIAL_SIMULACRO_LIMIT,
+} from "@/lib/plan-limits";
 
 type BankRow = {
   id: number;
@@ -28,6 +32,33 @@ export async function POST(req: NextRequest) {
     }
 
     const sb = supabaseAdmin();
+
+    // Fetch user plan
+    const { data: profile } = await sb
+      .from("user_profiles")
+      .select("plan")
+      .eq("user_id", userId)
+      .single();
+
+    const plan = profile?.plan ?? "trial";
+    const isPremium = plan === "premium_individual" || plan === "corporativo";
+
+    // Trial: enforce simulacro limit
+    if (!isPremium) {
+      const { count } = await sb
+        .from("exam_sessions")
+        .select("*", { count: "exact", head: true })
+        .eq("user_id", userId)
+        .eq("exam_type", "simulacro");
+
+      if ((count ?? 0) >= TRIAL_SIMULACRO_LIMIT) {
+        return NextResponse.json(
+          { error: "Límite de simulacros gratuitos alcanzado.", upgrade: true },
+          { status: 403 }
+        );
+      }
+    }
+
     const questions: Array<{
       id: number;
       question: string;
@@ -37,8 +68,9 @@ export async function POST(req: NextRequest) {
       topic_label: string;
     }> = [];
 
-    // Fetch questions per distribution — options in fixed A/B/C/D order (no shuffle)
-    // Verification on submit uses quiz_bank.respuesta_correcta index directly.
+    // For trial: proportionally reduce to TRIAL_SIMULACRO_QUESTIONS
+    const totalTarget = isPremium ? 60 : TRIAL_SIMULACRO_QUESTIONS;
+
     for (const { key, tema, count, label } of TOPIC_DISTRIBUTION) {
       const { data, error } = await sb
         .from("quiz_bank")
@@ -47,7 +79,12 @@ export async function POST(req: NextRequest) {
 
       if (error) throw error;
 
-      const rows = shuffleArray((data ?? []) as BankRow[]).slice(0, count);
+      // Scale count proportionally for trial
+      const topicCount = isPremium
+        ? count
+        : Math.max(1, Math.round((count / 60) * totalTarget));
+
+      const rows = shuffleArray((data ?? []) as BankRow[]).slice(0, topicCount);
 
       for (const row of rows) {
         const labels = ["A)", "B)", "C)", "D)"];
@@ -63,7 +100,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    if (questions.length === 0) {
+    // Trim to exact target for trial (rounding may overshoot)
+    const finalQuestions = isPremium ? questions : questions.slice(0, totalTarget);
+
+    if (finalQuestions.length === 0) {
       return NextResponse.json({ error: "No hay preguntas disponibles." }, { status: 500 });
     }
 
@@ -73,7 +113,7 @@ export async function POST(req: NextRequest) {
       .insert({
         user_id: userId,
         exam_type: "simulacro",
-        total_questions: questions.length,
+        total_questions: finalQuestions.length,
       })
       .select("id")
       .single();
@@ -84,7 +124,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       session_id: (session as { id: string }).id,
-      questions,
+      questions: finalQuestions,
+      isTrial: !isPremium,
     });
   } catch (error: unknown) {
     console.error("simulacro/start error:", error);
