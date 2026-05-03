@@ -7,7 +7,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface QuizCardProps {
   question: QuizQuestion;
-  onAnswer: (isCorrect: boolean, questionId?: number) => void;
+  onAnswer: (isCorrect: boolean, questionId?: number, selectedOption?: string) => void;
   onNext: () => void;
 }
 
@@ -23,7 +23,7 @@ export function QuizCard({ question, onAnswer, onNext }: QuizCardProps) {
       setSelectedAnswer(answer);
       setIsAnswered(true);
       const correct = answer === question.answer;
-      onAnswer(correct, question.question_id);
+      onAnswer(correct, question.question_id, answer);
     }
   };
 
