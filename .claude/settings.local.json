@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "mcp__c95abceb-7d37-4235-b12d-a1e90832541b__apply_migration",
+      "Bash(node scripts/insert-quiz-bank.mjs)",
+      "mcp__c95abceb-7d37-4235-b12d-a1e90832541b__execute_sql",
+      "Bash(npx tsc *)",
+      "Bash(git stash *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git commit *)",
+      "Bash(git pull *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)",
+      "mcp__c95abceb-7d37-4235-b12d-a1e90832541b__list_projects",
+      "mcp__c95abceb-7d37-4235-b12d-a1e90832541b__list_tables",
+      "Bash(cd /d \"C:\\\\Users\\\\LENOVO\\\\Desktop\\\\pld-master\\\\.claude\\\\worktrees\\\\thirsty-bose-211f18\")",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(pkill -f \"node.*next\")",
+      "PowerShell(Get-Command stripe -ErrorAction SilentlyContinue)",
+      "Bash(curl -s -H \"Authorization: Bearer test_token_invalid\" http://localhost:3000/api/progress/overview)"
+    ]
+  }
+}
