@@ -21,7 +21,11 @@
       "Bash(curl -s http://localhost:3000)",
       "Bash(pkill -f \"node.*next\")",
       "PowerShell(Get-Command stripe -ErrorAction SilentlyContinue)",
-      "Bash(curl -s -H \"Authorization: Bearer test_token_invalid\" http://localhost:3000/api/progress/overview)"
+      "Bash(curl -s -H \"Authorization: Bearer test_token_invalid\" http://localhost:3000/api/progress/overview)",
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(vercel env *)",
+      "Bash(vercel deploy *)"
     ]
   }
 }
