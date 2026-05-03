@@ -24,49 +24,75 @@ interface Question {
   justification: string
 }
 
-// TEMARIO EXTRAÍDO ESTRICTAMENTE DEL DOCUMENTO FUENTE (Google Drive)
 const CNBV_SYLLABUS = [
   {
-    module: "Área 1. Conocimientos básicos en PLD/FT",
+    module: "BLOQUE 1: El Lavado de Dinero y el Financiamiento al Terrorismo",
     topics: [
-      "1.1. Conceptos básicos PLD/FT",
-      "1.1.1. LD",
-      "1.1.2. FT",
-      "1.1.3. Corrupción",
-      "1.1.4. Penas del delito de LD conforme al Código Penal Federal",
-      "1.1.5. Penas del delito de FT conforme al Código Penal Federal",
-      "1.2. Organismos internacionales",
-      "1.2.1. Conocimientos básicos sobre los organismos y foros internacionales e intergubernamentales...",
-      "1.2.2. Grupo de Acción Financiera Internacional",
-      "1.2.3. Recomendaciones del GAFI",
-      "1.3. Autoridades nacionales",
-      "1.3.1. Régimen de prevención",
-      "1.3.2. Autoridades nacionales en materia de PLD y FT"
+      "1.1 Concepto y etapas del Lavado de Dinero (LD)",
+      "1.2 Concepto de Financiamiento al Terrorismo (FT)",
+      "1.3 Bien, producto o instrumento del delito",
+      "1.4 Penas del delito de LD conforme al Código Penal Federal",
+      "1.5 Penas del delito de FT conforme al Código Penal Federal",
     ]
   },
   {
-    module: "Área 2. Conocimientos técnicos en PLD/FT",
+    module: "BLOQUE 2: Organismos y Foros Internacionales que Participan en PLD y FT",
     topics: [
-      "2.1. Leyes relativas al sistema financiero mexicano y disposiciones de carácter general aplicables a los sujetos obligados",
-      "2.1.1. Objetivo",
-      "2.1.2. Política de identificación y conocimiento del cliente o usuario",
-      "2.1.3. Reportes",
-      "2.1.4. Restricciones de dólares en efectivo",
-      "2.1.5. Sistemas automatizados",
-      "2.1.6. Otras obligaciones",
-      "2.1.7. Intercambio de información",
-      "2.1.8. Lista de personas bloqueadas",
-      "2.1.9. Comité de Comunicación y Control",
-      "2.1.10. Oficial de cumplimiento",
-      "2.1.11. Obligaciones de los modelos novedosos",
-      "2.1.12. Centros cambiarios",
-      "2.1.13. Transmisores de dinero",
-      "2.1.14. Instituciones de tecnología financiera",
-      "2.1.15. Sanciones",
-      "2.1.16. Propietario real",
-      "2.1.17. Plazos de cumplimiento"
+      "2.1 Grupo de Acción Financiera Internacional (GAFI)",
+      "2.2 Las 40 Recomendaciones del GAFI",
+      "2.3 Grupo Egmont de Unidades de Inteligencia Financiera",
+      "2.4 Otros organismos (ONU, OEA, BM, FMI)",
     ]
-  }
+  },
+  {
+    module: "BLOQUE 3: Detección y Gestión de Riesgos en Materia de PLD/FT",
+    topics: [
+      "3.1 Enfoque Basado en Riesgos (EBR)",
+      "3.2 Evaluación Nacional de Riesgos",
+      "3.3 Señales de alerta y tipologías de LD/FT",
+      "3.4 Personas Políticamente Expuestas (PEP)",
+      "3.5 Listas de personas bloqueadas y sanciones internacionales",
+    ]
+  },
+  {
+    module: "BLOQUE 4: Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    topics: [
+      "4.1 Política de Identificación del Cliente (KYC)",
+      "4.2 Perfil Transaccional del Cliente",
+      "4.3 Oficial de Cumplimiento y Comité de Comunicación y Control",
+      "4.4 Sistemas automatizados de monitoreo",
+      "4.5 Restricciones de dólares en efectivo",
+    ]
+  },
+  {
+    module: "BLOQUE 5: Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    topics: [
+      "5.1 Reportes de Operaciones Relevantes (ROR)",
+      "5.2 Reportes de Operaciones Inusuales (ROI)",
+      "5.3 Reportes de Operaciones Internas Preocupantes (ROIP)",
+      "5.4 Intercambio de información entre entidades",
+      "5.5 Reserva y confidencialidad de la información",
+      "5.6 Sanciones administrativas de la CNBV",
+    ]
+  },
+  {
+    module: "BLOQUE 6: Nociones de la Ley FPIORPI",
+    topics: [
+      "6.1 Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita",
+      "6.2 Actividades vulnerables y sujetos obligados no financieros",
+      "6.3 Obligaciones de identificación y reporte ante el SAT",
+      "6.4 Umbral de identificación y reporte en efectivo",
+    ]
+  },
+  {
+    module: "BLOQUE 7: Auditoría en Materia de PLD/FT",
+    topics: [
+      "7.1 Auditoría interna del programa de PLD/FT",
+      "7.2 Auditoría externa e independiente",
+      "7.3 Supervisión de la CNBV: facultades, visitas e infracciones",
+      "7.4 Evaluación mutua del GAFI a México",
+    ]
+  },
 ];
 
 const EXERCISE_TYPES = [

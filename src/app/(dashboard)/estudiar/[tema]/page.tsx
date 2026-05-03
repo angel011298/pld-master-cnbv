@@ -47,47 +47,47 @@ interface LessonResults {
 // ── Topic catalogue ───────────────────────────────────────────────────────────
 
 const TOPIC_MAP: Record<string, TopicMeta> = {
-  definiciones: {
-    name: "Definiciones PLD/FT",
-    description: "Conceptos fundamentales sobre Prevención de Lavado de Dinero y Financiamiento al Terrorismo.",
-    tema: "Definiciones PLD/FT",
+  tipologias: {
+    name: "BLOQUE 1: El Lavado de Dinero y el Financiamiento al Terrorismo",
+    description: "Conceptos, etapas y penas del Lavado de Dinero y Financiamiento al Terrorismo según el Código Penal Federal.",
+    tema: "Casos Prácticos Aplicados",
     icon: BookOpen,
   },
-  procedimientos: {
-    name: "Procedimientos de Cumplimiento",
-    description: "Políticas, controles y procedimientos para implementar el programa de PLD.",
-    tema: "Procedimientos de Cumplimiento",
-    icon: ClipboardList,
+  gafi: {
+    name: "BLOQUE 2: Organismos y Foros Internacionales que Participan en PLD y FT",
+    description: "GAFI, sus 40 Recomendaciones, Grupo Egmont y otros organismos internacionales clave en ALD/CFT.",
+    tema: "Definiciones PLD/FT",
+    icon: Layers,
   },
-  identificacion: {
-    name: "Identificación de Operaciones Sospechosas",
-    description: "Señales de alerta y tipologías para detectar operaciones irregulares.",
+  sanciones: {
+    name: "BLOQUE 3: Detección y Gestión de Riesgos en Materia de PLD/FT",
+    description: "Enfoque Basado en Riesgos, tipologías de LD/FT, señales de alerta y listas de personas bloqueadas.",
     tema: "Identificación de Operaciones Sospechosas",
     icon: AlertTriangle,
   },
-  reportes: {
-    name: "Reportes y Documentación",
-    description: "Elaboración y presentación de reportes ante la CNBV y autoridades.",
+  kyc_cdd: {
+    name: "BLOQUE 4: Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    description: "Políticas KYC/CDD, Oficial de Cumplimiento, Comité de Comunicación y Control y sistemas automatizados.",
+    tema: "Procedimientos de Cumplimiento",
+    icon: ClipboardList,
+  },
+  reportes_cnbv: {
+    name: "BLOQUE 5: Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    description: "Reportes de Operaciones Relevantes, Inusuales e Internas Preocupantes; sanciones y confidencialidad.",
     tema: "Reportes y Documentación",
     icon: FileText,
   },
-  "marco-regulatorio": {
-    name: "Marco Regulatorio y Autoridades",
-    description: "Leyes, reglamentos, autoridades competentes y organismos internacionales.",
+  marco_legal: {
+    name: "BLOQUE 6: Nociones de la Ley FPIORPI",
+    description: "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y actividades vulnerables.",
     tema: "Marco Regulatorio y Autoridades",
     icon: Scale,
   },
-  actitud: {
-    name: "Actitud y Ética Profesional",
-    description: "Principios éticos y conducta esperada del profesional certificado en PLD.",
+  une: {
+    name: "BLOQUE 7: Auditoría en Materia de PLD/FT",
+    description: "Auditoría interna y externa del programa de PLD/FT, supervisión de la CNBV y evaluación mutua del GAFI.",
     tema: "Actitud y Ética Profesional",
     icon: Star,
-  },
-  "casos-practicos": {
-    name: "Casos Prácticos Aplicados",
-    description: "Aplicación práctica de conocimientos a situaciones reales del sector financiero.",
-    tema: "Casos Prácticos Aplicados",
-    icon: Layers,
   },
 };
 

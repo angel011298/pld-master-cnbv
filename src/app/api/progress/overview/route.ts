@@ -20,13 +20,13 @@ export interface ProgressOverviewResponse {
 }
 
 const TOPIC_LABELS: Record<string, string> = {
-  marco_legal: "Marco Legal",
-  gafi: "GAFI",
-  kyc_cdd: "KYC/CDD",
-  reportes_cnbv: "Reportes CNBV",
-  une: "Unidad de Cumplimiento",
-  sanciones: "Sanciones OFAC",
-  tipologias: "Tipologías LD/FT"
+  tipologias:    "Bloque 1: Lavado de Dinero y FT",
+  gafi:          "Bloque 2: Organismos Internacionales",
+  sanciones:     "Bloque 3: Detección y Gestión de Riesgos",
+  kyc_cdd:       "Bloque 4: Prevención y Combate LD/FT",
+  reportes_cnbv: "Bloque 5: Régimen de Prevención LD/FT",
+  marco_legal:   "Bloque 6: Ley FPIORPI",
+  une:           "Bloque 7: Auditoría PLD/FT",
 };
 
 export async function GET(req: NextRequest) {
@@ -102,13 +102,13 @@ export async function GET(req: NextRequest) {
 
     // 5. Build topic array with all 7 topics
     const allTopics = [
-      "marco_legal",
+      "tipologias",
       "gafi",
+      "sanciones",
       "kyc_cdd",
       "reportes_cnbv",
+      "marco_legal",
       "une",
-      "sanciones",
-      "tipologias"
     ];
 
     const topics: TopicProgress[] = allTopics.map(tema => {
