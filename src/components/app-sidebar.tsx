@@ -124,7 +124,12 @@ export function AppSidebar() {
                 {group.items.map((item) => {
                   // Lógica de "Active Link Tracking"
                   const isActive = pathname === item.url || pathname.startsWith(`${item.url}/`)
-                  
+
+                  // Ocultar "Base de Conocimiento" si no es super admin
+                  if (item.title === "Base de Conocimiento" && !isSuperAdmin) {
+                    return null
+                  }
+
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton 
