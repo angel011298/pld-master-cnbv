@@ -137,6 +137,9 @@ export default function SimulacroPage() {
       timeLeftRef.current = EXAM_DURATION_SEC;
       submittingRef.current = false;
 
+      // Update streak
+      fetch("/api/streak", { method: "POST", headers }).catch(console.error);
+
       setQuestions(q);
       setAnswers({});
       setCurrentIndex(0);

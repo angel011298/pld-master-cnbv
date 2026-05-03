@@ -212,6 +212,14 @@ export default function LeccionPage() {
       .select("id")
       .single();
 
+    // Update streak
+    try {
+      const headers = await buildAuthHeaders({ "Content-Type": "application/json" });
+      fetch("/api/streak", { method: "POST", headers }).catch(console.error);
+    } catch {
+      // streak update failed, continue anyway
+    }
+
     // Reset counters
     correctRef.current = 0;
     xpRef.current = 0;
@@ -269,8 +277,9 @@ export default function LeccionPage() {
             completed_at: new Date().toISOString(),
           })
           .eq("id", sid)
-          .then(() => {})
-          .catch(console.error);
+          .then(({ error }) => {
+            if (error) console.error("Failed to close session:", error);
+          });
       }
       setResults({ correct: correctRef.current, total: questions.length, xp: xpRef.current });
       setLessonState("resultados");

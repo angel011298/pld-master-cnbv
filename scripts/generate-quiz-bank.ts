@@ -306,7 +306,7 @@ async function main() {
       continue;
     }
 
-    const contextChunks = matchedChunks.map((c) => c.content);
+    const contextChunks = matchedChunks.map((c: { content: string }) => c.content);
     process.stdout.write(`${contextChunks.length} chunks | `);
 
     // ── Generate questions ──
