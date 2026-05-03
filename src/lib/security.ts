@@ -52,20 +52,48 @@ export function validateMessagesPayload(payload: unknown) {
   return { ok: true as const, data: cleaned };
 }
 
+// Maps difficulty to quiz_bank text format
+const DIFF_NUM_TO_STR: Record<number, string> = { 1: "Básico", 2: "Intermedio", 3: "Avanzado" };
+const DIFF_TO_BANK: Record<string, string> = {
+  Básico: "fácil",
+  Intermedio: "medio",
+  Avanzado: "difícil",
+};
+const ALLOWED_DIFFICULTIES = new Set(["Básico", "Intermedio", "Avanzado"]);
+
 export function validateQuizPayload(payload: unknown) {
   if (!payload || typeof payload !== "object") return { ok: false as const, error: "Payload inválido." };
-  const raw = payload as { topic?: unknown; difficulty?: unknown; count?: unknown };
+  const raw = payload as {
+    topic?: unknown; tema?: unknown;
+    difficulty?: unknown; dificultad?: unknown;
+    count?: unknown; cantidad?: unknown;
+  };
 
-  const topic = typeof raw.topic === "string" ? sanitizeText(raw.topic, 120) : "";
-  if (!topic) return { ok: false as const, error: "El tema es obligatorio." };
+  // Accept tema (new) or topic (legacy) — both optional
+  const topicRaw = raw.tema ?? raw.topic;
+  const topic = typeof topicRaw === "string" ? sanitizeText(topicRaw, 120) : "";
 
-  const allowedDifficulties = new Set(["Básico", "Intermedio", "Avanzado"]);
-  const difficultyRaw = typeof raw.difficulty === "string" ? sanitizeText(raw.difficulty, 20) : "Intermedio";
-  const difficulty = allowedDifficulties.has(difficultyRaw) ? difficultyRaw : "Intermedio";
+  // Accept dificultad: 1|2|3 (new) or difficulty: string (legacy)
+  // bankDificultad is null when no difficulty filter is requested
+  let difficulty = "Intermedio";
+  let bankDificultad: string | null = null;
 
-  const countRaw = typeof raw.count === "number" ? raw.count : 5;
-  const count = Number.isFinite(countRaw) ? Math.min(Math.max(Math.floor(countRaw), 1), 10) : 5;
+  if (typeof raw.dificultad === "number" && DIFF_NUM_TO_STR[raw.dificultad as 1 | 2 | 3]) {
+    difficulty = DIFF_NUM_TO_STR[raw.dificultad as 1 | 2 | 3];
+    bankDificultad = DIFF_TO_BANK[difficulty];
+  } else if (typeof raw.difficulty === "string") {
+    const d = sanitizeText(raw.difficulty, 20);
+    difficulty = ALLOWED_DIFFICULTIES.has(d) ? d : "Intermedio";
+    bankDificultad = DIFF_TO_BANK[difficulty] ?? null;
+  }
 
-  return { ok: true as const, data: { topic, difficulty, count } };
+  // Accept cantidad (new) or count (legacy)
+  const countRaw = raw.cantidad ?? raw.count;
+  const count =
+    typeof countRaw === "number" && Number.isFinite(countRaw)
+      ? Math.min(Math.max(Math.floor(countRaw), 1), 10)
+      : 5;
+
+  return { ok: true as const, data: { topic, difficulty, count, bankDificultad } };
 }
 
