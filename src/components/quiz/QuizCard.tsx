@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { QuizQuestion } from '@/types/quiz';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, MessageSquare } from 'lucide-react';
 
 interface QuizCardProps {
   question: QuizQuestion;
@@ -12,6 +13,7 @@ interface QuizCardProps {
 }
 
 export function QuizCard({ question, onAnswer, onNext }: QuizCardProps) {
+  const router = useRouter();
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
@@ -111,14 +113,29 @@ export function QuizCard({ question, onAnswer, onNext }: QuizCardProps) {
         </div>
       )}
 
-      {/* Next Button */}
+      {/* Action Buttons */}
       {isAnswered && (
-        <Button
-          onClick={handleNext}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2"
-        >
-          Siguiente Pregunta
-        </Button>
+        <div className="flex gap-2">
+          <Button
+            onClick={() => {
+              const q = encodeURIComponent(
+                `¿Por qué la respuesta correcta a esta pregunta es "${question.answer}"? Pregunta: ${question.question}`
+              );
+              router.push(`/chatbot?q=${q}`);
+            }}
+            variant="outline"
+            className="flex-1 border-blue-300 text-blue-700 hover:bg-blue-50 font-semibold gap-2"
+          >
+            <MessageSquare className="h-4 w-4" />
+            Explicar
+          </Button>
+          <Button
+            onClick={handleNext}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold"
+          >
+            Siguiente
+          </Button>
+        </div>
       )}
     </div>
   );
