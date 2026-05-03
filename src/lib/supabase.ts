@@ -5,7 +5,12 @@ const browserAuthOptions = {
     autoRefreshToken: true,
     detectSessionInUrl: true,
     persistSession: true,
-    storage: typeof window !== "undefined" ? window.localStorage : undefined,
+    storage: typeof window !== "undefined" ? {
+      getItem: (key: string) => localStorage.getItem(key),
+      setItem: (key: string, value: string) => localStorage.setItem(key, value),
+      removeItem: (key: string) => localStorage.removeItem(key),
+    } : undefined,
+    flowType: "pkce" as const,
   },
 };
 
