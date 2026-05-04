@@ -10,12 +10,51 @@ import { Button } from "@/components/ui/button"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { cn } from "@/lib/utils"
 
+// 7 BLOQUES oficiales según índice de "Guía PLD_FT_CNBV.pdf"
+// Cada entrada apunta a /estudiar/[tema] usando el enum pld_topic real en BD.
 const BASE_MODULES = [
-  { id: "1", title: "Fundamentos e Instituciones Internacionales", isPremium: false },
-  { id: "2", title: "Marco Jurídico Mexicano", isPremium: false },
-  { id: "3", title: "Prevención y Gestión de Riesgos (EBR)", isPremium: true },
-  { id: "4", title: "Auditoría y Supervisión", isPremium: true },
-  { id: "5", title: "Tipologías e Inteligencia Financiera", isPremium: true },
+  {
+    id: "1",
+    tema: "tipologias",
+    title: "BLOQUE 1: El Lavado de Dinero y el Financiamiento al Terrorismo",
+    isPremium: false,
+  },
+  {
+    id: "2",
+    tema: "gafi",
+    title: "BLOQUE 2: Organismos y Foros Internacionales que Participan en PLD y FT",
+    isPremium: false,
+  },
+  {
+    id: "3",
+    tema: "sanciones",
+    title: "BLOQUE 3: Detección y Gestión de Riesgos en Materia de PLD/FT",
+    isPremium: true,
+  },
+  {
+    id: "4",
+    tema: "kyc_cdd",
+    title: "BLOQUE 4: Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    isPremium: true,
+  },
+  {
+    id: "5",
+    tema: "reportes_cnbv",
+    title: "BLOQUE 5: Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    isPremium: true,
+  },
+  {
+    id: "6",
+    tema: "marco_legal",
+    title: "BLOQUE 6: Nociones de la Ley FPIORPI",
+    isPremium: true,
+  },
+  {
+    id: "7",
+    tema: "une",
+    title: "BLOQUE 7: Auditoría en Materia de PLD/FT",
+    isPremium: true,
+  },
 ]
 
 const LEVEL_XP = 1000
@@ -144,40 +183,48 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                {modules.map((mod, i) => (
-                  <motion.div
-                    key={mod.id}
-                    whileHover={mod.status !== "locked" ? { x: 4 } : {}}
-                    className={cn(
-                      "flex items-center gap-3 p-3 rounded-xl border-2 transition-all",
-                      mod.status === "available"
-                        ? "border-primary/30 bg-primary/5"
-                        : "border-gray-100 bg-gray-50/50"
-                    )}
-                  >
-                    <div className={cn(
-                      "h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-white font-black text-sm",
-                      mod.status === "available" ? "bg-primary" : "bg-gray-300"
-                    )}>
-                      {mod.status === "available" ? <Check className="h-4 w-4" /> : <Lock className="h-3 w-3" />}
-                    </div>
-                    <div className="min-w-0 flex-1 flex items-center justify-between">
-                      <div>
-                        <p className={cn("text-sm font-bold truncate", mod.status === "locked" && "text-gray-500")}>
-                          {i + 1}. {mod.title}
-                        </p>
-                        <p className="text-xs font-semibold text-muted-foreground capitalize">
-                          {mod.status === "available" ? "Disponible" : "Bloqueado por plan"}
-                        </p>
-                      </div>
-                      {mod.status === "locked" && mod.isPremium && isFreeTier && (
-                        <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-black uppercase rounded-md tracking-wider">
-                          Premium
-                        </span>
+                {modules.map((mod) => {
+                  const card = (
+                    <motion.div
+                      whileHover={mod.status !== "locked" ? { x: 4 } : {}}
+                      className={cn(
+                        "flex items-center gap-3 p-3 rounded-xl border-2 transition-all",
+                        mod.status === "available"
+                          ? "border-primary/30 bg-primary/5 cursor-pointer hover:border-primary/60"
+                          : "border-gray-100 bg-gray-50/50"
                       )}
-                    </div>
-                  </motion.div>
-                ))}
+                    >
+                      <div className={cn(
+                        "h-8 w-8 rounded-full flex items-center justify-center shrink-0 text-white font-black text-sm",
+                        mod.status === "available" ? "bg-primary" : "bg-gray-300"
+                      )}>
+                        {mod.status === "available" ? <Check className="h-4 w-4" /> : <Lock className="h-3 w-3" />}
+                      </div>
+                      <div className="min-w-0 flex-1 flex items-center justify-between gap-2">
+                        <div className="min-w-0">
+                          <p className={cn("text-sm font-bold leading-tight", mod.status === "locked" && "text-gray-500")}>
+                            {mod.title}
+                          </p>
+                          <p className="text-xs font-semibold text-muted-foreground capitalize mt-0.5">
+                            {mod.status === "available" ? "Disponible" : "Bloqueado por plan"}
+                          </p>
+                        </div>
+                        {mod.status === "locked" && mod.isPremium && isFreeTier && (
+                          <span className="shrink-0 px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-black uppercase rounded-md tracking-wider">
+                            Premium
+                          </span>
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                  return mod.status === "available" ? (
+                    <Link key={mod.id} href={`/estudiar/${mod.tema}`}>
+                      {card}
+                    </Link>
+                  ) : (
+                    <div key={mod.id}>{card}</div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>

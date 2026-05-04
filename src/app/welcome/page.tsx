@@ -35,21 +35,23 @@ const SLIDES = [
     id: 2,
     emoji: "🗺️",
     title: "Tu Ruta de Aprendizaje",
-    subtitle: "El módulo principal organiza tu estudio en 5 etapas progresivas.",
+    subtitle: "El módulo principal organiza tu estudio en los 7 bloques oficiales del temario CNBV.",
     content: (
       <div className="mt-4 space-y-3">
         {[
-          { num: "1", title: "Fundamentos e Instituciones Internacionales", status: "Disponible", color: "bg-blue-600" },
-          { num: "2", title: "Marco Jurídico Mexicano", status: "Disponible", color: "bg-emerald-600" },
-          { num: "3", title: "Prevención y Gestión de Riesgos (EBR)", status: "Premium ✓", color: "bg-indigo-600" },
-          { num: "4", title: "Auditoría y Supervisión", status: "Premium ✓", color: "bg-purple-600" },
-          { num: "5", title: "Tipologías e Inteligencia Financiera", status: "Premium ✓", color: "bg-rose-600" },
+          { num: "1", title: "BLOQUE 1: Lavado de Dinero y Financiamiento al Terrorismo", status: "Disponible", color: "bg-blue-600" },
+          { num: "2", title: "BLOQUE 2: Organismos y Foros Internacionales (PLD/FT)", status: "Disponible", color: "bg-emerald-600" },
+          { num: "3", title: "BLOQUE 3: Detección y Gestión de Riesgos PLD/FT", status: "Premium ✓", color: "bg-indigo-600" },
+          { num: "4", title: "BLOQUE 4: Prevención y Combate del LD/FT", status: "Premium ✓", color: "bg-purple-600" },
+          { num: "5", title: "BLOQUE 5: Régimen de Prevención del LD/FT", status: "Premium ✓", color: "bg-rose-600" },
+          { num: "6", title: "BLOQUE 6: Nociones de la Ley FPIORPI", status: "Premium ✓", color: "bg-amber-600" },
+          { num: "7", title: "BLOQUE 7: Auditoría en Materia de PLD/FT", status: "Premium ✓", color: "bg-teal-600" },
         ].map((m) => (
           <div key={m.num} className="flex items-center gap-3 p-3 rounded-xl bg-white border-2 border-gray-100">
             <div className={`h-8 w-8 rounded-lg ${m.color} flex items-center justify-center shrink-0`}>
               <span className="text-white text-sm font-black">{m.num}</span>
             </div>
-            <span className="text-sm font-bold text-gray-800 flex-1 truncate">{m.title}</span>
+            <span className="text-xs font-bold text-gray-800 flex-1 truncate">{m.title}</span>
             <span className="text-xs font-bold text-emerald-600 shrink-0">{m.status}</span>
           </div>
         ))}
