@@ -4,11 +4,12 @@ import * as React from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Shield, ArrowRight, CheckCircle2, Loader2, Bot,
+  ArrowRight, CheckCircle2, Loader2, Bot,
   BarChart2, Target, Building2, ChevronRight, Zap,
-  BookOpen, GraduationCap, Users, Star,
+  BookOpen, GraduationCap, Users,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { Logo } from "@/components/Logo";
 import type { DemoQuestion } from "@/app/api/demo-questions/route";
 
 // ─── Demo Quiz ────────────────────────────────────────────────────────────────
@@ -258,22 +259,21 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white flex flex-col">
 
       {/* ── NAV ── */}
-      <nav className="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200">
+      <nav className="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-neutral-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-col lg:flex-row items-center gap-3 justify-between">
-          <div className="flex items-center gap-2 shrink-0">
-            <Shield className="h-6 w-6 text-blue-700" />
-            <span className="font-black text-xl text-slate-900">Certifik PLD</span>
-          </div>
+          <Link href="/" className="shrink-0 hover:no-underline">
+            <Logo variant="full" size={32} />
+          </Link>
 
           <form onSubmit={handleLogin} className="flex flex-wrap items-center gap-2 w-full lg:w-auto">
-            <span className="text-xs font-bold text-slate-500 hidden xl:block">Ya tengo cuenta:</span>
+            <span className="text-[11px] font-semibold text-neutral-500 uppercase tracking-eyebrow hidden xl:block">Ya tengo cuenta</span>
             <input
               type="email"
               placeholder="Correo"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="h-9 px-3 rounded-lg border border-slate-300 text-sm w-44 focus:outline-none focus:border-blue-500"
+              className="h-10 px-4 rounded-xl border border-neutral-200 text-sm w-44 focus:outline-none focus:border-brand-500 focus:shadow-focus transition-all"
             />
             <input
               type="password"
@@ -281,20 +281,22 @@ export default function LandingPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="h-9 px-3 rounded-lg border border-slate-300 text-sm w-36 focus:outline-none focus:border-blue-500"
+              className="h-10 px-4 rounded-xl border border-neutral-200 text-sm w-36 focus:outline-none focus:border-brand-500 focus:shadow-focus transition-all"
             />
-            <button
+            <motion.button
+              whileTap={{ scale: 0.96 }}
               type="submit"
               disabled={loading}
-              className="h-9 px-5 bg-slate-900 text-white text-sm font-bold rounded-lg hover:bg-slate-700 transition-colors flex items-center gap-1"
+              className="h-10 px-5 bg-black text-white text-sm font-semibold rounded-full hover:bg-neutral-800 transition-colors flex items-center gap-1 tracking-tight"
             >
               {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Entrar"}
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.96 }}
               type="button"
               disabled={googleLoading}
               onClick={handleGoogleLogin}
-              className="h-9 px-4 bg-white border border-slate-300 text-slate-700 text-sm font-bold rounded-lg hover:bg-slate-50 flex items-center gap-2 transition-colors"
+              className="h-10 px-4 bg-white border border-neutral-200 text-neutral-700 text-sm font-semibold rounded-full hover:bg-neutral-50 flex items-center gap-2 transition-colors tracking-tight"
             >
               {googleLoading ? (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -303,60 +305,56 @@ export default function LandingPage() {
                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-4 w-4" />
               )}
               Google
-            </button>
+            </motion.button>
           </form>
         </div>
       </nav>
 
-      {/* ── HERO ── */}
-      <section className="bg-gradient-to-b from-slate-900 via-blue-950 to-blue-900 text-white py-24 px-4">
+      {/* ── HERO ── flat black block, Revolut-style */}
+      <section className="bg-black text-white py-24 sm:py-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="inline-flex items-center gap-2 bg-blue-800/50 border border-blue-700/50 rounded-full px-4 py-1.5 text-sm font-medium text-blue-200 mb-6">
-              <GraduationCap className="h-4 w-4" />
-              Certificación CNBV PLD/FT · 2026
+            <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1 text-[11px] font-semibold text-neutral-300 mb-8 uppercase tracking-eyebrow">
+              <GraduationCap className="h-3.5 w-3.5" strokeWidth={2} />
+              CNBV PLD/FT · 2026
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-6 tracking-tight">
-              ¿Vas a presentar el<br />
-              <span className="text-yellow-400">examen CNBV de PLD/FT</span>?
+            <h1 className="t-display-2xl text-white mb-6">
+              Aprueba el<br />
+              <span className="text-brand-400">examen CNBV</span>
             </h1>
 
-            <p className="text-xl text-blue-200 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Prepárate como si ya lo hubieras pasado.
-              <br />
+            <p className="t-body-lg text-neutral-400 mb-10 max-w-2xl mx-auto">
               Banco de 200+ reactivos, simulacros cronometrados y tutor IA con citas a documentos oficiales.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/trial">
                 <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-black px-8 py-4 rounded-xl text-lg shadow-lg transition-colors"
+                  whileTap={{ scale: 0.96 }}
+                  className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-black font-semibold px-7 py-4 rounded-full text-base transition-colors tracking-tight"
                 >
-                  Comenzar prueba gratis <ArrowRight className="h-5 w-5" />
+                  Comenzar gratis <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
                 </motion.button>
               </Link>
               <a href="#demo">
                 <motion.button
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors"
+                  whileTap={{ scale: 0.96 }}
+                  className="inline-flex items-center gap-2 bg-transparent hover:bg-white/5 border border-white/20 text-white font-semibold px-7 py-4 rounded-full text-base transition-colors tracking-tight"
                 >
-                  Ver preguntas de muestra
+                  Ver demo
                 </motion.button>
               </a>
             </div>
 
-            <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-blue-300">
-              {["Sin tarjeta de crédito", "Acceso inmediato", "15 preguntas gratis"].map((item) => (
+            <div className="mt-12 flex flex-wrap justify-center gap-6 text-[11px] text-neutral-500 uppercase tracking-eyebrow font-semibold">
+              {["Sin tarjeta", "Acceso inmediato", "15 preguntas gratis"].map((item) => (
                 <span key={item} className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                  <CheckCircle2 className="h-3.5 w-3.5 text-success" strokeWidth={2} />
                   {item}
                 </span>
               ))}
@@ -440,47 +438,51 @@ export default function LandingPage() {
             ))}
           </div>
 
-          {/* Included list + CTA */}
-          <div className="bg-slate-900 rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+          {/* Included list + CTA — flat black block */}
+          <div className="bg-black rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
             <div className="flex-1">
-              <h3 className="text-xl font-black text-white mb-5">
-                Incluido en la prueba gratuita y el plan premium:
+              <span className="t-label text-neutral-400">Incluido</span>
+              <h3 className="t-h2 text-white mt-2 mb-6">
+                Todo en la prueba gratuita y el plan premium
               </h3>
-              <ul className="grid sm:grid-cols-2 gap-2">
+              <ul className="grid sm:grid-cols-2 gap-2.5">
                 {INCLUDED_LIST.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <li key={item} className="flex items-start gap-2 text-sm text-neutral-300">
+                    <CheckCircle2 className="h-4 w-4 text-success shrink-0 mt-0.5" strokeWidth={2} />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="shrink-0 flex flex-col items-center gap-3 text-center">
-              <div className="text-slate-400 text-sm">Plan individual</div>
-              <div className="text-white font-black text-4xl">$2,999</div>
-              <div className="text-slate-400 text-xs">MXN · pago único · 12 meses</div>
-              <Link href="/trial">
-                <button className="mt-2 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-black px-8 py-3 rounded-xl transition-colors flex items-center gap-2">
-                  Empieza gratis <ArrowRight className="h-4 w-4" />
-                </button>
+            <div className="shrink-0 flex flex-col items-center gap-2 text-center bg-white/5 border border-white/10 rounded-2xl p-7 min-w-[220px]">
+              <div className="t-label text-neutral-400">Plan individual</div>
+              <div className="text-white font-bold text-5xl tracking-tightest tabular-nums">$2,999</div>
+              <div className="t-mono text-neutral-500 text-xs">MXN · 12 meses</div>
+              <Link href="/trial" className="hover:no-underline w-full">
+                <motion.button
+                  whileTap={{ scale: 0.96 }}
+                  className="mt-4 w-full bg-white hover:bg-neutral-100 text-black font-semibold px-6 py-3 rounded-full transition-colors flex items-center justify-center gap-2 tracking-tight"
+                >
+                  Empezar gratis <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+                </motion.button>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIAL SOCIAL PROOF ── */}
-      <section className="py-12 px-4 bg-blue-50 border-y border-blue-100">
-        <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-8 text-center">
+      {/* ── SOCIAL PROOF ── flat band, no gradient */}
+      <section className="py-16 px-4 bg-neutral-25 border-y border-neutral-100">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
-            { value: "200+", label: "Reactivos del banco CNBV" },
-            { value: "7", label: "Temas del temario oficial" },
-            { value: "98%", label: "Cobertura del examen real" },
-            { value: "1", label: "Plataforma especializada en PLD/FT" },
+            { value: "200+", label: "Reactivos CNBV" },
+            { value: "7", label: "Bloques del temario" },
+            { value: "98%", label: "Cobertura del examen" },
+            { value: "AI", label: "Tutor con citas" },
           ].map((s) => (
             <div key={s.label} className="flex flex-col items-center">
-              <span className="text-3xl font-black text-blue-700">{s.value}</span>
-              <span className="text-sm text-slate-600 mt-1 max-w-[120px]">{s.label}</span>
+              <span className="t-display-lg text-black tabular-nums">{s.value}</span>
+              <span className="t-caption mt-2 max-w-[140px]">{s.label}</span>
             </div>
           ))}
         </div>
@@ -489,20 +491,19 @@ export default function LandingPage() {
       {/* ── PARA EMPRESAS ── */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
-          <div className="bg-gradient-to-br from-blue-900 to-indigo-900 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-start gap-8">
+          <div className="bg-brand-500 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-start gap-10">
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1 text-xs font-bold text-blue-200 mb-6">
-                <Building2 className="h-3.5 w-3.5" />
-                Para bancos, SOFOMES y Fintechs
+              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-3 py-1 text-[11px] font-semibold text-brand-50 mb-6 uppercase tracking-eyebrow">
+                <Building2 className="h-3.5 w-3.5" strokeWidth={2} />
+                Bancos · SOFOMES · Fintechs
               </div>
-              <h2 className="text-3xl font-black mb-4">
-                Certifica a todo tu equipo de cumplimiento
+              <h2 className="t-h1 text-white mb-4">
+                Certifica a tu equipo de cumplimiento
               </h2>
-              <p className="text-blue-200 mb-6 leading-relaxed">
-                La licencia corporativa incluye 5 accesos premium completos con un dashboard de administrador
-                para monitorear el progreso de cada integrante de tu Unidad de Cumplimiento.
+              <p className="t-body-lg text-brand-100 mb-6">
+                Licencia corporativa con 5 accesos premium y dashboard admin para monitorear el progreso de la Unidad de Cumplimiento.
               </p>
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-2">
                 {[
                   "5 usuarios premium simultáneos",
                   "Dashboard admin con semáforo de preparación",
@@ -510,73 +511,70 @@ export default function LandingPage() {
                   "Invitaciones por email con token seguro",
                   "Soporte prioritario directo",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm text-blue-100">
-                    <CheckCircle2 className="h-4 w-4 text-yellow-400 shrink-0" />
+                  <li key={item} className="flex items-center gap-3 text-sm text-brand-50">
+                    <CheckCircle2 className="h-4 w-4 text-white shrink-0" strokeWidth={2} />
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="shrink-0 bg-white/10 rounded-2xl p-8 text-center min-w-[220px]">
-              <Users className="h-10 w-10 text-yellow-400 mx-auto mb-3" />
-              <div className="text-4xl font-black text-yellow-400 mb-1">$9,999</div>
-              <div className="text-blue-300 text-xs mb-6">MXN · anual · 5 usuarios</div>
-              <Link href="/register/corporativo">
-                <button className="w-full bg-yellow-400 hover:bg-yellow-300 text-blue-900 font-black py-3 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
-                  Contratar licencia <ArrowRight className="h-4 w-4" />
-                </button>
+            <div className="shrink-0 bg-white text-black rounded-2xl p-7 text-center min-w-[240px]">
+              <Users className="h-8 w-8 text-brand-500 mx-auto mb-3" strokeWidth={2} />
+              <div className="t-label text-neutral-500">Licencia corporativa</div>
+              <div className="text-5xl font-bold text-black mt-2 mb-1 tracking-tightest tabular-nums">$9,999</div>
+              <div className="t-mono text-neutral-500 text-xs mb-6">MXN · anual · 5 usuarios</div>
+              <Link href="/register/corporativo" className="hover:no-underline">
+                <motion.button
+                  whileTap={{ scale: 0.96 }}
+                  className="w-full bg-black hover:bg-neutral-800 text-white font-semibold py-3 px-6 rounded-full transition-colors flex items-center justify-center gap-2 tracking-tight"
+                >
+                  Contratar licencia <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
+                </motion.button>
               </Link>
-              <p className="text-blue-300 text-xs mt-3">Facturación CFDI 4.0</p>
+              <p className="t-caption mt-3">Facturación CFDI 4.0</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── FINAL CTA ── */}
-      <section className="py-20 px-4 bg-slate-50">
+      <section className="py-24 px-4 bg-neutral-25">
         <div className="max-w-2xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="flex justify-center mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-            <h2 className="text-3xl font-black text-slate-900 mb-4">
-              El examen CNBV no espera. <br />Tú tampoco deberías.
+            <span className="t-label text-brand-500">Examen CNBV 2026</span>
+            <h2 className="t-display-lg text-black mb-5 mt-3">
+              No esperes al último día.
             </h2>
-            <p className="text-slate-600 mb-8">
-              Empieza hoy con 15 preguntas gratuitas. Sin tarjeta de crédito, sin registro complicado.
+            <p className="t-body-lg mb-10">
+              Empieza hoy con 15 preguntas gratuitas. Sin tarjeta de crédito.
             </p>
-            <Link href="/trial">
+            <Link href="/trial" className="hover:no-underline">
               <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-black px-10 py-4 rounded-xl text-lg shadow-lg transition-colors"
+                whileTap={{ scale: 0.96 }}
+                className="inline-flex items-center gap-2 bg-black hover:bg-neutral-800 text-white font-semibold px-8 py-4 rounded-full text-base transition-colors tracking-tight"
               >
-                Comenzar prueba gratis <ArrowRight className="h-5 w-5" />
+                Comenzar gratis <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
               </motion.button>
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="bg-slate-900 text-slate-400 py-8 px-4 text-sm">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="flex items-center gap-2 text-white font-bold">
-            <Shield className="h-4 w-4" />
-            Certifik PLD
+      {/* ── FOOTER ── black surface */}
+      <footer className="bg-black text-neutral-400 py-10 px-4 text-sm">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-6">
+          <Logo variant="mono-white" size={28} />
+          <div className="flex gap-6 items-center">
+            <Link href="/terminos" className="hover:text-white transition-colors hover:no-underline">Términos</Link>
+            <Link href="/privacidad" className="hover:text-white transition-colors hover:no-underline">Privacidad</Link>
+            <Link href="/trial" className="text-white hover:text-neutral-200 font-semibold transition-colors hover:no-underline">Comenzar gratis</Link>
           </div>
-          <div className="flex gap-6">
-            <Link href="/terminos" className="hover:text-white transition-colors">Términos</Link>
-            <Link href="/privacidad" className="hover:text-white transition-colors">Privacidad</Link>
-            <Link href="/trial" className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">Comenzar gratis</Link>
-          </div>
-          <p>© 2026 Certifik PLD. Todos los derechos reservados.</p>
+          <p className="t-caption text-neutral-500">© 2026 Certifik PLD · Cifrado bancario · CNBV PLD/FT</p>
         </div>
       </footer>
     </div>

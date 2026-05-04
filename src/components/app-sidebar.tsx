@@ -4,7 +4,7 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 import { usePathname } from "next/navigation"
 import {
-  Map, GraduationCap, MessageSquare, Library, Trophy, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle, LogOut
+  Map, GraduationCap, MessageSquare, Library, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle, LogOut
 } from "lucide-react"
 
 import {
@@ -24,6 +24,7 @@ import { Badge } from "@/components/ui/badge"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { supabase } from "@/lib/supabase"
 import { cn } from "@/lib/utils"
+import { Logo } from "@/components/Logo"
 
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 
@@ -96,18 +97,19 @@ export function AppSidebar() {
       // MODO DIOS: Borde y sombra dorada sutil si es Super Admin
       className={cn(isSuperAdmin && "border-r border-r-amber-400 shadow-[2px_0_15px_rgba(251,191,36,0.1)] transition-all")}
     >
-      <SidebarHeader className="border-b px-4 py-4">
-        <div className="flex items-center justify-between overflow-hidden">
-          <div className="flex items-center gap-2 font-black text-xl text-primary">
-            <Trophy className={cn("h-6 w-6 shrink-0", isSuperAdmin ? "text-amber-500" : "text-blue-600")} />
-            <span className="truncate group-data-[collapsible=icon]:hidden text-slate-800">
-              Certifik PLD
-            </span>
+      <SidebarHeader className="border-b border-neutral-100 px-4 py-4">
+        <div className="flex items-center justify-between gap-2 overflow-hidden">
+          {/* Expanded: full logo */}
+          <div className="flex items-center group-data-[collapsible=icon]:hidden">
+            <Logo variant="full" size={32} />
           </div>
-          {/* BADGE DE DIOS OCULTO AL COLAPSAR */}
+          {/* Collapsed: isotype only */}
+          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center w-full">
+            <Logo variant="isotype" size={32} />
+          </div>
           {isSuperAdmin && (
-            <Badge variant="outline" className="bg-amber-50 border-amber-200 text-amber-700 text-[9px] font-black uppercase px-1.5 hidden lg:flex group-data-[collapsible=icon]:hidden">
-              God Mode
+            <Badge variant="outline" className="bg-amber-50 border-amber-200 text-amber-700 text-[9px] font-bold uppercase tracking-eyebrow px-1.5 hidden lg:flex group-data-[collapsible=icon]:hidden shrink-0">
+              Admin
             </Badge>
           )}
         </div>
@@ -116,7 +118,7 @@ export function AppSidebar() {
       <SidebarContent className="gap-0 custom-scrollbar">
         {NAV_GROUPS.map((group, index) => (
           <SidebarGroup key={index} className="pt-4">
-            <SidebarGroupLabel className="text-xs font-bold text-slate-400 uppercase tracking-wider group-data-[collapsible=icon]:hidden mb-1">
+            <SidebarGroupLabel className="text-[11px] font-semibold text-neutral-400 uppercase tracking-eyebrow group-data-[collapsible=icon]:hidden mb-1">
               {group.label}
             </SidebarGroupLabel>
             <SidebarGroupContent>
@@ -132,25 +134,25 @@ export function AppSidebar() {
 
                   return (
                     <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton 
+                      <SidebarMenuButton
                         tooltip={item.title}
                         isActive={isActive}
                         className={cn(
-                          "transition-all duration-200 group/menu-button h-10",
-                          // Micro-interacción: Resalte azul con borde izquierdo
-                          isActive ? "bg-blue-50/80 text-blue-700 font-bold border-l-4 border-l-blue-600 rounded-l-none" : "text-slate-600 hover:bg-slate-100/50"
+                          "transition-all duration-200 group/menu-button h-10 rounded-xl",
+                          isActive
+                            ? "bg-brand-50 text-brand-700 font-semibold"
+                            : "text-neutral-600 hover:bg-neutral-50 font-medium"
                         )}
                         render={(props) => (
                           <a href={item.url} {...props} className={cn(props.className, "flex justify-between items-center w-full")}>
                             <div className="flex items-center gap-3 overflow-hidden">
-                              <item.icon className={cn("h-5 w-5 shrink-0 transition-colors", isActive ? "text-blue-600" : "text-slate-400 group-hover/menu-button:text-slate-600")} />
-                              <span className="truncate group-data-[collapsible=icon]:hidden">{item.title}</span>
+                              <item.icon className={cn("h-[18px] w-[18px] shrink-0 transition-colors", isActive ? "text-brand-500" : "text-neutral-400 group-hover/menu-button:text-neutral-600")} strokeWidth={2} />
+                              <span className="truncate text-sm group-data-[collapsible=icon]:hidden tracking-tight">{item.title}</span>
                             </div>
-                            {/* Badges de Notificación */}
                             {item.badge && (
-                              <Badge className="ml-auto text-[10px] h-5 px-1.5 bg-blue-100 text-blue-700 hover:bg-blue-200 shadow-none group-data-[collapsible=icon]:hidden">
+                              <span className="ml-auto rounded-full bg-brand-50 px-2 py-0.5 text-[10px] font-semibold text-brand-700 group-data-[collapsible=icon]:hidden">
                                 {item.badge}
-                              </Badge>
+                              </span>
                             )}
                           </a>
                         )}
@@ -163,26 +165,28 @@ export function AppSidebar() {
           </SidebarGroup>
         ))}
         
-        {/* GRUPO EXCLUSIVO DE ADMINISTRACIÓN (Mantiene los clics peligrosos separados) */}
+        {/* Admin group — only for super admin */}
         {isSuperAdmin && (
-          <SidebarGroup className="mt-auto pt-4 border-t border-slate-100">
-            <SidebarGroupLabel className="text-xs font-bold text-amber-600/70 uppercase tracking-wider group-data-[collapsible=icon]:hidden mb-1">
+          <SidebarGroup className="mt-auto pt-4 border-t border-neutral-100">
+            <SidebarGroupLabel className="text-[11px] font-semibold text-neutral-400 uppercase tracking-eyebrow group-data-[collapsible=icon]:hidden mb-1">
               Administración
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton 
+                  <SidebarMenuButton
                     tooltip="Dashboard Maestro"
                     isActive={pathname.startsWith("/admin")}
                     className={cn(
-                      "transition-all h-10",
-                      pathname.startsWith("/admin") ? "bg-amber-50 text-amber-700 font-bold border-l-4 border-l-amber-500 rounded-l-none" : "text-slate-600 hover:bg-amber-50 hover:text-amber-700"
+                      "transition-all h-10 rounded-xl",
+                      pathname.startsWith("/admin")
+                        ? "bg-neutral-900 text-white font-semibold"
+                        : "text-neutral-600 hover:bg-neutral-50 font-medium"
                     )}
                     render={(props) => (
                       <a href="/admin" {...props} className={cn(props.className, "w-full")}>
-                        <Shield className={cn("h-5 w-5 shrink-0 transition-colors", pathname.startsWith("/admin") ? "text-amber-600" : "text-amber-600/50")} />
-                        <span className="truncate group-data-[collapsible=icon]:hidden font-bold">Dashboard Maestro</span>
+                        <Shield className={cn("h-[18px] w-[18px] shrink-0 transition-colors", pathname.startsWith("/admin") ? "text-white" : "text-neutral-400")} strokeWidth={2} />
+                        <span className="truncate text-sm group-data-[collapsible=icon]:hidden tracking-tight">Dashboard Maestro</span>
                       </a>
                     )}
                   />
@@ -193,22 +197,22 @@ export function AppSidebar() {
         )}
       </SidebarContent>
 
-      {/* FOOTER: XP, Racha y Mi Perfil */}
-      <SidebarFooter className="border-t border-slate-200 p-3 space-y-3 bg-slate-50/50">
+      {/* Footer: nivel, racha y perfil */}
+      <SidebarFooter className="border-t border-neutral-100 p-3 space-y-3 bg-white">
         {!loading && (
           <div className="overflow-hidden px-1 group-data-[collapsible=icon]:hidden">
             <div className="flex items-center justify-between text-sm mb-2">
-              <div className="flex items-center gap-1.5 text-slate-500 font-bold">
-                <Zap className="h-4 w-4 text-yellow-500 shrink-0" />
-                <span className="truncate">Nivel {level}</span>
+              <div className="flex items-center gap-1.5 text-neutral-500 font-medium">
+                <Zap className="h-4 w-4 text-brand-500 shrink-0" strokeWidth={2} />
+                <span className="truncate text-[13px]">Nivel {level}</span>
               </div>
-              <span className="font-black text-blue-900 truncate">{totalXp.toLocaleString()} XP</span>
+              <span className="font-semibold text-neutral-900 truncate text-[13px] tracking-tight tabular-nums">{totalXp.toLocaleString()} XP</span>
             </div>
-            <Progress value={(levelProgress / LEVEL_XP) * 100} className="h-2 bg-slate-200" />
+            <Progress value={(levelProgress / LEVEL_XP) * 100} className="h-1.5 bg-neutral-100" />
             {streak > 0 && (
-              <div className="flex items-center gap-1.5 text-xs text-orange-600 font-bold mt-3 bg-orange-50 w-fit px-2 py-1 rounded-md border border-orange-100">
-                <Flame className="h-3.5 w-3.5 shrink-0 fill-orange-500" />
-                <span className="truncate">{streak} día{streak !== 1 ? "s" : ""} de racha</span>
+              <div className="flex items-center gap-1.5 text-[12px] text-neutral-700 font-semibold mt-3 bg-neutral-50 w-fit px-2.5 py-1 rounded-full border border-neutral-100">
+                <Flame className="h-3.5 w-3.5 shrink-0 text-orange-500 fill-orange-500" />
+                <span className="truncate tabular-nums">🔥 {streak} día{streak !== 1 ? "s" : ""}</span>
               </div>
             )}
           </div>
@@ -216,16 +220,16 @@ export function AppSidebar() {
 
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton 
-              tooltip="Mi Perfil" 
-              size="lg" 
-              className="bg-white hover:bg-blue-50 border border-slate-200 transition-all shadow-sm rounded-xl h-14"
+            <SidebarMenuButton
+              tooltip="Mi Perfil"
+              size="lg"
+              className="bg-white hover:bg-neutral-50 border border-neutral-200 transition-all rounded-2xl h-14"
               render={(props) => (
                 <a href="/perfil" {...props}>
-                  <UserCircle className="h-7 w-7 text-blue-600 shrink-0" />
+                  <UserCircle className="h-6 w-6 text-neutral-700 shrink-0" strokeWidth={2} />
                   <div className="flex flex-col text-left overflow-hidden group-data-[collapsible=icon]:hidden ml-1">
-                    <span className="font-black text-slate-800 text-sm leading-tight">Mi Perfil</span>
-                    <span className="text-[11px] text-slate-500 font-medium truncate">Ajustes y progreso</span>
+                    <span className="font-semibold text-neutral-900 text-[13px] leading-tight tracking-tight">Mi perfil</span>
+                    <span className="text-[11px] text-neutral-500 font-medium truncate">Ajustes y progreso</span>
                   </div>
                 </a>
               )}
@@ -233,13 +237,13 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
-              tooltip="Cerrar Sesión"
-              className="text-red-600 hover:bg-red-50 hover:text-red-700"
+              tooltip="Cerrar sesión"
+              className="text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl h-10"
               disabled={signingOut}
               onClick={handleSignOut}
             >
-              <LogOut className="h-5 w-5 shrink-0" />
-              <span className="truncate group-data-[collapsible=icon]:hidden">Cerrar Sesión</span>
+              <LogOut className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
+              <span className="truncate text-sm group-data-[collapsible=icon]:hidden tracking-tight">Cerrar sesión</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
