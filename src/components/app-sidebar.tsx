@@ -98,20 +98,20 @@ export function AppSidebar() {
       className={cn(isSuperAdmin && "border-r border-r-amber-400 shadow-[2px_0_15px_rgba(251,191,36,0.1)] transition-all")}
     >
       <SidebarHeader className="border-b border-neutral-100 px-4 py-4">
-        <div className="flex items-center justify-between gap-2 overflow-hidden">
-          {/* Expanded: full logo */}
-          <div className="flex items-center group-data-[collapsible=icon]:hidden">
+        <div className="flex items-center overflow-hidden transition-all duration-200 group-data-[collapsible=icon]:justify-center group-data-[collapsible!=icon]:justify-between gap-2 w-full">
+          {/* Expanded: full logo + badge */}
+          <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
             <Logo variant="full" size={32} />
+            {isSuperAdmin && (
+              <Badge variant="outline" className="bg-amber-50 border-amber-200 text-amber-700 text-[9px] font-bold uppercase tracking-eyebrow px-1.5 hidden lg:flex shrink-0">
+                Admin
+              </Badge>
+            )}
           </div>
           {/* Collapsed: isotype only */}
-          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center w-full">
+          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center">
             <Logo variant="isotype" size={32} />
           </div>
-          {isSuperAdmin && (
-            <Badge variant="outline" className="bg-amber-50 border-amber-200 text-amber-700 text-[9px] font-bold uppercase tracking-eyebrow px-1.5 hidden lg:flex group-data-[collapsible=icon]:hidden shrink-0">
-              Admin
-            </Badge>
-          )}
         </div>
       </SidebarHeader>
       
