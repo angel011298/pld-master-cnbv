@@ -574,7 +574,7 @@ export default function LandingPage() {
             <Link href="/privacidad" className="hover:text-white transition-colors hover:no-underline">Privacidad</Link>
             <Link href="/trial" className="text-white hover:text-neutral-200 font-semibold transition-colors hover:no-underline">Comenzar gratis</Link>
           </div>
-          <p className="t-caption text-neutral-500">© 2026 Certifik PLD · Cifrado bancario · CNBV PLD/FT</p>
+          <p className="t-caption text-neutral-500">© 2026 Certifik PLD · CNBV PLD/FT</p>
         </div>
       </footer>
     </div>
