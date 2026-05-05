@@ -1,0 +1,144 @@
+#!/usr/bin/env node
+/**
+ * Ingiere "40 Recomendaciones GAFI" desde Google Drive como documento global.
+ * Google Drive File ID: 1xcBBonqQf6OUsqiQhbCP8yg6ZHDi-n-4
+ * Run: node scripts/ingest-gafi-40.mjs
+ */
+
+import { existsSync, readFileSync } from "fs";
+import { createClient } from "@supabase/supabase-js";
+import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
+
+function loadEnv() {
+  const envFile = ".env.local";
+  if (!existsSync(envFile)) {
+    console.error("❌ .env.local not found");
+    process.exit(1);
+  }
+  const lines = readFileSync(envFile, "utf-8").split("\n");
+  for (const line of lines) {
+    const [key, ...rest] = line.split("=");
+    if (key && rest.length) process.env[key.trim()] = rest.join("=").trim();
+  }
+}
+
+loadEnv();
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!SUPABASE_URL || !SERVICE_KEY) {
+  console.error("❌ Missing Supabase env vars");
+  process.exit(1);
+}
+
+const sb = createClient(SUPABASE_URL, SERVICE_KEY, { auth: { persistSession: false } });
+
+async function parsePdf(buf) {
+  const task = pdfjsLib.getDocument({ data: new Uint8Array(buf), useSystemFonts: true });
+  const pdf = await task.promise;
+  let text = "";
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const content = await page.getTextContent();
+    const pageText = (content.items || [])
+      .map((item) => item.str || "")
+      .join(" ");
+    text += pageText + "\n";
+  }
+  return { text, numpages: pdf.numPages };
+}
+
+async function ingestGafi40() {
+  console.log("🚀 Ingiriendo 40 Recomendaciones GAFI (documento global)...\n");
+
+  const gafiFile = {
+    id: "1xcBBonqQf6OUsqiQhbCP8yg6ZHDi-n-4",
+    name: "40 Recomendaciones GAFI",
+  };
+
+  process.stdout.write(`📄 Descargando "${gafiFile.name}"...`);
+
+  const downloadUrl = `https://drive.google.com/uc?export=download&id=${gafiFile.id}`;
+  const res = await fetch(downloadUrl, { redirect: "follow" });
+
+  if (!res.ok) {
+    console.log(`\n❌ Error descarga: HTTP ${res.status}`);
+    process.exit(1);
+  }
+
+  const bytes = await res.arrayBuffer();
+  console.log(` ✓ ${(bytes.byteLength / 1024 / 1024).toFixed(2)} MB`);
+
+  process.stdout.write("📖 Parsando PDF...");
+  const pdfData = await parsePdf(Buffer.from(bytes));
+  console.log(` ✓ ${pdfData.numpages} páginas, ${pdfData.text.length.toLocaleString()} caracteres`);
+
+  // Check if already exists
+  const { data: existing } = await sb
+    .from("documents")
+    .select("id")
+    .eq("name", gafiFile.name)
+    .eq("is_global", true)
+    .maybeSingle();
+
+  let docId;
+  if (existing) {
+    docId = existing.id;
+    console.log(`\n⚠️  Ya existe en la BD (ID: ${docId}). Actualizando contenido...`);
+
+    const { error: updateErr } = await sb
+      .from("documents")
+      .update({
+        content: pdfData.text,
+        page_count: pdfData.numpages,
+        file_size_bytes: bytes.byteLength,
+      })
+      .eq("id", docId);
+
+    if (updateErr) {
+      console.error(`❌ Error actualizando: ${updateErr.message}`);
+      process.exit(1);
+    }
+    console.log(`✓ Contenido actualizado.`);
+  } else {
+    process.stdout.write("💾 Insertando en base de datos...");
+
+    const { data: doc, error: docErr } = await sb
+      .from("documents")
+      .insert({
+        user_id: null,
+        name: gafiFile.name,
+        content: pdfData.text,
+        file_type: "pdf",
+        page_count: pdfData.numpages,
+        file_size_bytes: bytes.byteLength,
+        is_global: true,
+      })
+      .select("id")
+      .single();
+
+    if (docErr) {
+      console.log(`\n❌ Error DB: ${docErr.message}`);
+      process.exit(1);
+    }
+
+    docId = doc.id;
+    console.log(` ✓ Insertado (ID: ${docId})`);
+  }
+
+  console.log(`
+✨ ¡40 Recomendaciones GAFI disponible en Certifik PLD!
+   ID del documento : ${docId}
+   Páginas          : ${pdfData.numpages}
+   Tamaño           : ${(bytes.byteLength / 1024 / 1024).toFixed(2)} MB
+   is_global        : true  (disponible para todos los usuarios)
+
+📝 Próximo paso: Ejecutar ingesta de embeddings para mejorar el RAG del chatbot.
+`);
+}
+
+ingestGafi40().catch((err) => {
+  console.error("❌ Error fatal:", err.message);
+  process.exit(1);
+});

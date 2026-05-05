@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "seed": "node scripts/seed-global-documents.mjs",
+    "ingest-gafi": "node scripts/ingest-gafi-40.mjs",
     "batch-ingest": "tsx scripts/batch-ingest.ts",
     "generate-quiz": "tsx scripts/generate-quiz-bank.ts"
   },
