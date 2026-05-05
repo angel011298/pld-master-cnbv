@@ -17,6 +17,8 @@ import {
   AlertTriangle,
   Save,
   X,
+  Send,
+  CheckCircle2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -50,6 +52,9 @@ export default function PerfilPage() {
   const [saving, setSaving] = React.useState(false)
   const [shareStatus, setShareStatus] = React.useState<string | null>(null)
   const [form, setForm] = React.useState({ fullName: "", examDate: "" })
+  const [suggestion, setSuggestion] = React.useState("")
+  const [submittingSuggestion, setSubmittingSuggestion] = React.useState(false)
+  const [suggestionSuccess, setSuggestionSuccess] = React.useState(false)
 
   React.useEffect(() => {
     setForm({
@@ -156,6 +161,34 @@ export default function PerfilPage() {
     })
     const data = await res.json()
     if (data.url) window.location.href = data.url
+  }
+
+  const handleSubmitSuggestion = async () => {
+    if (!suggestion.trim()) return
+
+    setSubmittingSuggestion(true)
+    try {
+      const res = await fetch("/api/suggestions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: suggestion }),
+      })
+
+      const data = await res.json()
+
+      if (res.ok) {
+        setSuggestionSuccess(true)
+        setSuggestion("")
+        window.setTimeout(() => setSuggestionSuccess(false), 4000)
+      } else {
+        alert(data.error || "Error al enviar la sugerencia")
+      }
+    } catch (error) {
+      console.error("Error submitting suggestion:", error)
+      alert("Error al enviar la sugerencia")
+    } finally {
+      setSubmittingSuggestion(false)
+    }
   }
 
   if (loading) {
@@ -375,6 +408,44 @@ export default function PerfilPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Sugerencias Section */}
+      <div className="mx-auto max-w-6xl border-t border-slate-200 mt-12 pt-12 px-4 md:px-8">
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-lg font-medium tracking-tight text-slate-900">Sugerencias</h2>
+            <p className="mt-1 text-sm text-neutral-500">
+              ¿Tienes ideas para mejorar Certifik PLD? Nos encantaría escucharte.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <textarea
+              value={suggestion}
+              onChange={(e) => setSuggestion(e.target.value)}
+              placeholder="Comparte tu sugerencia aquí..."
+              className="w-full min-h-[100px] rounded-lg border border-slate-200 px-3 py-3 text-sm placeholder:text-slate-400 focus:border-blue-500 focus:outline-none focus:ring-0 resize-vertical"
+              disabled={submittingSuggestion}
+            />
+
+            {suggestionSuccess && (
+              <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+                <CheckCircle2 className="h-4 w-4" />
+                ¡Gracias por tu sugerencia!
+              </div>
+            )}
+
+            <Button
+              onClick={handleSubmitSuggestion}
+              disabled={submittingSuggestion || !suggestion.trim() || suggestionSuccess}
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg flex items-center gap-2"
+            >
+              <Send className="h-4 w-4" />
+              {submittingSuggestion ? "Enviando..." : "Enviar sugerencia"}
+            </Button>
           </div>
         </div>
       </div>
