@@ -3,7 +3,7 @@
 import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Scale, AlertTriangle, FileText } from "lucide-react"
+import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Scale, AlertTriangle, FileText, Globe, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -102,6 +102,51 @@ function EstudioContent() {
               )
             })}
           </div>
+        </div>
+
+        {/* Bloque especial: 40 Recomendaciones GAFI */}
+        <div className="mt-8">
+          <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 mb-4">
+            <Globe className="h-6 w-6 text-teal-600" />
+            Material Internacional
+          </h2>
+          <Link href="/gafi">
+            <Card className="hover:shadow-lg transition-all border-teal-200 bg-gradient-to-r from-teal-50 to-cyan-50 cursor-pointer group">
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-xl bg-teal-600 flex items-center justify-center shrink-0">
+                      <Globe className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg text-teal-800 group-hover:text-teal-600 transition-colors">
+                        40 Recomendaciones GAFI
+                      </CardTitle>
+                      <CardDescription className="text-teal-600 font-semibold mt-0.5">
+                        Estándar global para prevención de LD/FT · 4 pilares · 40 recomendaciones
+                      </CardDescription>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-5 w-5 text-teal-400 group-hover:text-teal-600 group-hover:translate-x-1 transition-all shrink-0" />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {[
+                    { label: "Políticas y Coordinación", n: "R1–R2" },
+                    { label: "LD, FT y Proliferación", n: "R3–R8" },
+                    { label: "Medidas Preventivas", n: "R9–R23" },
+                    { label: "Supervisión y Cooperación", n: "R24–R40" },
+                  ].map((pillar) => (
+                    <div key={pillar.n} className="bg-white/70 rounded-lg px-3 py-2 border border-teal-100">
+                      <p className="text-[10px] font-black text-teal-600 uppercase tracking-wide">{pillar.n}</p>
+                      <p className="text-xs font-semibold text-slate-700 mt-0.5 leading-tight">{pillar.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
 
         {/* Catálogo de Sectores para navegar a la vista específica */}

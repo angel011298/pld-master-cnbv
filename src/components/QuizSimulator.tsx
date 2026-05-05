@@ -5,7 +5,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   ChevronRight, CheckCircle2, XCircle, Trophy, Loader2,
-  BrainCircuit, Lightbulb, Zap, Flame, Target
+  BrainCircuit, Lightbulb, Zap, Flame, Target, Globe
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
@@ -91,6 +91,30 @@ const CNBV_SYLLABUS = [
       "7.2 Auditoría externa e independiente",
       "7.3 Supervisión de la CNBV: facultades, visitas e infracciones",
       "7.4 Evaluación mutua del GAFI a México",
+    ]
+  },
+  {
+    module: "40 RECOMENDACIONES GAFI · Material Internacional",
+    topics: [
+      "GAFI R.1 — Evaluación de riesgos y EBR (Enfoque Basado en Riesgos)",
+      "GAFI R.2 — Cooperación y coordinación nacional en PLD/FT",
+      "GAFI R.3 — Delito de lavado de activos y conductas asociadas",
+      "GAFI R.4 — Decomiso y medidas provisionales de bienes",
+      "GAFI R.5 — Delito de financiamiento del terrorismo",
+      "GAFI R.6 — Sanciones financieras dirigidas (terrorismo y FT)",
+      "GAFI R.7 — Sanciones financieras dirigidas (proliferación de armas)",
+      "GAFI R.8 — Organizaciones sin fines de lucro y riesgos de FT",
+      "GAFI R.10 — Debida diligencia del cliente (DDC) y KYC",
+      "GAFI R.11 — Conservación de registros y documentos",
+      "GAFI R.12 — Personas Políticamente Expuestas (PEP) extranjeras",
+      "GAFI R.13 — Banca corresponsal y relaciones interbancarias",
+      "GAFI R.15 — Nuevas tecnologías y activos virtuales",
+      "GAFI R.16 — Transferencias electrónicas de fondos",
+      "GAFI R.20 — Reporte de operaciones sospechosas (ROS)",
+      "GAFI R.24 — Transparencia y beneficiario final de personas jurídicas",
+      "GAFI R.25 — Transparencia y beneficiario final de estructuras jurídicas",
+      "GAFI R.37 — Asistencia jurídica mutua entre países",
+      "GAFI R.40 — Otras formas de cooperación internacional",
     ]
   },
 ];
@@ -232,29 +256,42 @@ export function QuizSimulator() {
             <div className="space-y-2">
               <label className="text-xs font-bold uppercase text-muted-foreground">Temario Oficial Desglosado CNBV</label>
               <div className="h-[280px] overflow-y-auto border-2 border-gray-200 rounded-xl p-3 bg-gray-50 custom-scrollbar space-y-6">
-                {CNBV_SYLLABUS.map((mod) => (
-                  <div key={mod.module} className="space-y-2">
-                    <div className="sticky top-0 bg-gray-50/95 backdrop-blur-sm py-1 font-black text-primary text-sm uppercase border-b border-primary/20">
-                      {mod.module}
+                {CNBV_SYLLABUS.map((mod) => {
+                  const isGafi = mod.module.includes("GAFI")
+                  return (
+                    <div key={mod.module} className="space-y-2">
+                      <div className={cn(
+                        "sticky top-0 backdrop-blur-sm py-1 font-black text-sm uppercase border-b flex items-center gap-2",
+                        isGafi
+                          ? "bg-teal-50/95 text-teal-700 border-teal-300"
+                          : "bg-gray-50/95 text-primary border-primary/20"
+                      )}>
+                        {isGafi && <Globe className="h-3.5 w-3.5 shrink-0" />}
+                        {mod.module}
+                      </div>
+                      <div className="grid gap-1 pl-2">
+                        {mod.topics.map((t) => (
+                          <button
+                            key={t}
+                            onClick={() => setTopic(t)}
+                            className={cn(
+                              "text-left px-3 py-2.5 rounded-lg text-sm font-semibold transition-all border border-transparent",
+                              topic === t
+                                ? isGafi
+                                  ? "bg-teal-600 text-white shadow-md border-teal-600"
+                                  : "bg-primary text-white shadow-md border-primary"
+                                : isGafi
+                                ? "bg-white text-teal-700 hover:border-teal-200 hover:bg-teal-50"
+                                : "bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-100"
+                            )}
+                          >
+                            {t}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                    <div className="grid gap-1 pl-2">
-                      {mod.topics.map((t) => (
-                        <button
-                          key={t}
-                          onClick={() => setTopic(t)}
-                          className={cn(
-                            "text-left px-3 py-2.5 rounded-lg text-sm font-semibold transition-all border border-transparent",
-                            topic === t
-                              ? "bg-primary text-white shadow-md border-primary"
-                              : "bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-100"
-                          )}
-                        >
-                          {t}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
 

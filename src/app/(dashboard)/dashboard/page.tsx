@@ -2,7 +2,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Check, Lock, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown, ArrowRight } from "lucide-react"
+import { Check, Lock, Zap, Flame, Trophy, GraduationCap, MessageSquare, ClipboardList, Crown, ArrowRight, Globe } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -225,6 +225,36 @@ export default function Home() {
                     <div key={mod.id}>{card}</div>
                   );
                 })}
+
+                {/* BLOQUE EXTRA: 40 Recomendaciones GAFI */}
+                <div className="pt-2 mt-2 border-t border-dashed border-gray-200">
+                  <p className="text-[10px] font-bold uppercase text-muted-foreground tracking-wider mb-2 px-1">
+                    Material Complementario
+                  </p>
+                  <Link href="/gafi">
+                    <motion.div
+                      whileHover={{ x: 4 }}
+                      className="flex items-center gap-3 p-3 rounded-xl border-2 border-teal-200 bg-teal-50/60 cursor-pointer hover:border-teal-400 transition-all"
+                    >
+                      <div className="h-8 w-8 rounded-full flex items-center justify-center shrink-0 bg-teal-600">
+                        <Globe className="h-4 w-4 text-white" />
+                      </div>
+                      <div className="min-w-0 flex-1 flex items-center justify-between gap-2">
+                        <div className="min-w-0">
+                          <p className="text-sm font-bold leading-tight text-teal-800">
+                            40 Recomendaciones GAFI
+                          </p>
+                          <p className="text-xs font-semibold text-teal-600 mt-0.5">
+                            Estándar internacional · Libre acceso
+                          </p>
+                        </div>
+                        <span className="shrink-0 px-2 py-1 bg-teal-100 text-teal-700 text-[10px] font-black uppercase rounded-md tracking-wider">
+                          GAFI
+                        </span>
+                      </div>
+                    </motion.div>
+                  </Link>
+                </div>
               </div>
             </CardContent>
           </Card>

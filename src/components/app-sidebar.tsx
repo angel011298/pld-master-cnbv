@@ -4,7 +4,7 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 import { usePathname } from "next/navigation"
 import {
-  Map, GraduationCap, MessageSquare, Library, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle, LogOut
+  Map, GraduationCap, MessageSquare, Library, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle, LogOut, Globe
 } from "lucide-react"
 
 import {
@@ -43,8 +43,9 @@ const NAV_GROUPS = [
     items: [
       { title: "Entidades Financieras", url: "/entities", icon: Building2 },
       { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
-      { title: "Base de Conocimiento", url: "/knowledge", icon: Library },
+      { title: "40 Rec. GAFI", url: "/gafi", icon: Globe },
       { title: "Guía de Trámites", url: "/tramites", icon: ClipboardList },
+      { title: "Base de Conocimiento", url: "/knowledge", icon: Library },
     ]
   },
   {
