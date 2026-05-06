@@ -20,74 +20,33 @@ function getAnonKey() {
   return key;
 }
 
-// Storage key derived from project ref (parte del hostname de Supabase)
-function getStorageKey() {
-  try {
-    const url = new URL(getSupabaseUrl());
-    const ref = url.hostname.split(".")[0];
-    return `sb-${ref}-auth-token`;
-  } catch {
-    return "sb-auth-token";
-  }
-}
-
-// Storage adapter: localStorage primario + cookie de respaldo (para middleware SSR).
-// La cookie se setea con max-age muy alto (1 año) para que sobreviva al cierre del navegador.
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 año
-
-function makeBrowserStorage() {
-  if (typeof window === "undefined") return undefined;
-
-  const setCookie = (name: string, value: string) => {
+// Implementación simple y robusta de storage persistente
+const browserStorage = {
+  getItem: (key: string): string | null => {
+    if (typeof window === "undefined") return null;
     try {
-      // Encode para evitar problemas con caracteres especiales en cookies
-      const encoded = encodeURIComponent(value);
-      // Cookies tienen un límite de tamaño (~4 KB). Si la cookie es muy grande,
-      // no la setamos — localStorage seguirá funcionando para el cliente.
-      if (encoded.length > 3500) return;
-      document.cookie = `${name}=${encoded}; path=/; max-age=${COOKIE_MAX_AGE}; SameSite=Lax${
-        window.location.protocol === "https:" ? "; Secure" : ""
-      }`;
+      return window.localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  },
+  setItem: (key: string, value: string): void => {
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(key, value);
     } catch {
       // ignore
     }
-  };
-
-  const removeCookie = (name: string) => {
+  },
+  removeItem: (key: string): void => {
+    if (typeof window === "undefined") return;
     try {
-      document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
+      window.localStorage.removeItem(key);
     } catch {
       // ignore
     }
-  };
-
-  return {
-    getItem: (key: string): string | null => {
-      try {
-        return window.localStorage.getItem(key);
-      } catch {
-        return null;
-      }
-    },
-    setItem: (key: string, value: string): void => {
-      try {
-        window.localStorage.setItem(key, value);
-      } catch {
-        // ignore
-      }
-      // También en cookie para que el middleware SSR pueda leerla
-      setCookie(key, value);
-    },
-    removeItem: (key: string): void => {
-      try {
-        window.localStorage.removeItem(key);
-      } catch {
-        // ignore
-      }
-      removeCookie(key);
-    },
-  };
-}
+  },
+};
 
 // Variable global para almacenar la instancia única en el cliente (Navegador)
 let supabaseClientInstance: SupabaseClient | null = null;
@@ -110,14 +69,17 @@ export function supabase() {
   if (!supabaseClientInstance) {
     supabaseClientInstance = createClient(getSupabaseUrl(), getAnonKey(), {
       auth: {
-        // Persistencia indefinida hasta logout manual
+        // PERSISTENCIA PERMANENTE: localStorage indefinido hasta logout manual
         persistSession: true,
+        // Auto-refresh de tokens antes de que expiren
         autoRefreshToken: true,
-        detectSessionInUrl: true,
-        // localStorage + cookie de respaldo para SSR
-        storage: makeBrowserStorage(),
-        storageKey: getStorageKey(),
-        // Flujo implícito (default) — más simple, no requiere /auth/callback
+        // No detectar sesión en URL (usado en OAuth callbacks)
+        detectSessionInUrl: false,
+        // Storage directo en localStorage para máxima persistencia
+        storage: browserStorage,
+        // Clave de almacenamiento estándar
+        storageKey: "certifik-pld-session",
+        // Flujo implícito para mayor compatibilidad
         flowType: "implicit",
       },
     });
