@@ -1,0 +1,74 @@
+{
+  "bloque": 1,
+  "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+  "contenido": [
+    {
+      "subtema": "¿Qué es el Lavado de Dinero?",
+      "tipo": "explicacion",
+      "orden": 1,
+      "contenido": {
+        "titulo": "Definición de Lavado de Dinero",
+        "descripcion": "El lavado de dinero es el proceso mediante el cual se intenta disfrazar el origen ilícito de fondos, haciéndolos parecer legales.",
+        "puntos_clave": [
+          "Proceso de ocultamiento de origen ilícito",
+          "Tres etapas: colocación, estratificación e integración",
+          "Genera dinero de apariencia lícita",
+          "Facilita el financiamiento del terrorismo"
+        ],
+        "ejemplos": [
+          "Depositar efectivo en negocios de fachada",
+          "Transferencias internacionales complejas",
+          "Compra de bienes raíces con dinero ilícito"
+        ]
+      },
+      "fuente_detallada": "LFPIORPI, Art. 400 Bis CPF"
+    },
+    {
+      "subtema": "Etapas del Lavado de Dinero",
+      "tipo": "mapa_conceptual",
+      "orden": 2,
+      "contenido": {
+        "titulo": "Tres Etapas del Proceso",
+        "etapas": [
+          {
+            "nombre": "Colocación",
+            "descripcion": "Introducción del dinero ilícito al sistema financiero",
+            "caracteristicas": ["Depósitos en efectivo", "Compra de bienes", "Transacciones pequeñas"]
+          },
+          {
+            "nombre": "Estratificación",
+            "descripcion": "Movimiento complejo para distanciar fondos de su origen",
+            "caracteristicas": ["Transferencias múltiples", "Conversiones de divisas", "Inversiones"]
+          },
+          {
+            "nombre": "Integración",
+            "descripcion": "Reinversión de fondos ya blanqueados",
+            "caracteristicas": ["Negocios legales", "Bienes raíces", "Inversiones aparentemente legales"]
+          }
+        ]
+      },
+      "fuente_detallada": "GAFI — 40 Recomendaciones, Rec. 1-2"
+    },
+    {
+      "subtema": "Financiamiento al Terrorismo (FT)",
+      "tipo": "diagrama",
+      "orden": 3,
+      "contenido": {
+        "titulo": "Operaciones de Financiamiento del Terrorismo",
+        "descripcion": "Proveer fondos, sabiendo o teniendo razón de creer que serán utilizados para actividades terroristas",
+        "fuentes_de_fondos": [
+          "Dinero de origen lícito",
+          "Dinero de origen ilícito",
+          "Combinación de ambos"
+        ],
+        "indicadores_de_riesgo": [
+          "Transferencias a jurisdicciones de alto riesgo",
+          "Patrones atípicos de comportamiento",
+          "Empresas de fachada",
+          "Transacciones en efectivo sin justificación"
+        ]
+      },
+      "fuente_detallada": "LFPIORPI, Art. 400 Quáter CPF; GAFI Rec. 1"
+    }
+  ]
+}

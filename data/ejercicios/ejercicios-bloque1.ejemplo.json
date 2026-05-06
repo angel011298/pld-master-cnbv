@@ -1,0 +1,178 @@
+{
+  "bloque": 1,
+  "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+  "ejercicios": [
+    {
+      "titulo": "Caso Práctico: Identificación de Lavado de Dinero",
+      "tipo": "caso_practico",
+      "dificultad": "medio",
+      "tiempo_estimado": 15,
+      "instrucciones": "Lee el siguiente caso y selecciona la respuesta que mejor describe qué etapa del lavado de dinero se está realizando.",
+      "contenido": {
+        "caso": "Una persona deposita USD 9,500 en efectivo en su cuenta bancaria el lunes, y al día siguiente deposita otros USD 9,500 en otra sucursal del mismo banco. Una semana después, transfiere USD 18,500 a una cuenta en el extranjero a nombre de una empresa que acaba de constituir.",
+        "pregunta": "¿Cuál es la etapa del lavado de dinero que se refleja en este caso?",
+        "opciones": [
+          {
+            "letra": "A",
+            "texto": "Colocación y Estratificación",
+            "es_correcta": true
+          },
+          {
+            "letra": "B",
+            "texto": "Solo Colocación",
+            "es_correcta": false
+          },
+          {
+            "letra": "C",
+            "texto": "Integración",
+            "es_correcta": false
+          },
+          {
+            "letra": "D",
+            "texto": "No hay lavado de dinero, es una operación normal",
+            "es_correcta": false
+          }
+        ]
+      },
+      "solucion": {
+        "respuesta_correcta": "A",
+        "explicacion": "En este caso se observan dos etapas: (1) Colocación: depósitos en efectivo fragmentados (estructuración); (2) Estratificación: transferencia internacional a través de empresa nueva. Esta técnica de depósitos pequeños para evadir reportes se conoce como 'structuring' o estructuración.",
+        "norma_aplicable": "LFPIORPI Art. 17, Frac. VI (Reportes de operaciones en efectivo); Circular CNBV 2-B"
+      }
+    },
+    {
+      "titulo": "Completar: Indicadores de Riesgo PLD",
+      "tipo": "completar",
+      "dificultad": "basico",
+      "tiempo_estimado": 10,
+      "instrucciones": "Completa las siguientes oraciones con los términos correctos.",
+      "contenido": {
+        "frases": [
+          {
+            "numero": 1,
+            "texto": "Las ________ son operaciones que no tienen justificación económica evidente.",
+            "opciones": [
+              "Operaciones Normales",
+              "Operaciones Sospechosas",
+              "Operaciones Rutinarias",
+              "Operaciones Legales"
+            ],
+            "respuesta_correcta": 1
+          },
+          {
+            "numero": 2,
+            "texto": "El ________ es la acción de dividir operaciones grandes en varias pequeñas para evadir reportes.",
+            "opciones": [
+              "Blanqueo",
+              "Estructuración",
+              "Inversión",
+              "Depósito"
+            ],
+            "respuesta_correcta": 1
+          },
+          {
+            "numero": 3,
+            "texto": "Las transferencias a jurisdicciones de ________ riesgo son indicador de posible PLD.",
+            "opciones": [
+              "Bajo",
+              "Moderado",
+              "Alto",
+              "Nulo"
+            ],
+            "respuesta_correcta": 2
+          }
+        ]
+      },
+      "solucion": {
+        "respuestas": [
+          { "numero": 1, "respuesta": "Operaciones Sospechosas" },
+          { "numero": 2, "respuesta": "Estructuración" },
+          { "numero": 3, "respuesta": "Alto" }
+        ],
+        "norma_aplicable": "LFPIORPI Art. 17 (Reportes de operaciones sospechosas); GAFI Rec. 10 (Debida Diligencia)"
+      }
+    },
+    {
+      "titulo": "Relacionar: Conceptos y Definiciones",
+      "tipo": "relacionar",
+      "dificultad": "basico",
+      "tiempo_estimado": 8,
+      "instrucciones": "Relaciona cada concepto con su definición correcta.",
+      "contenido": {
+        "columna_a": [
+          { "id": 1, "concepto": "Colocación" },
+          { "id": 2, "concepto": "Estratificación" },
+          { "id": 3, "concepto": "Integración" },
+          { "id": 4, "concepto": "GAFI" }
+        ],
+        "columna_b": [
+          {
+            "id": "a",
+            "definicion": "Movimiento complejo para distanciar fondos de su origen"
+          },
+          {
+            "id": "b",
+            "definicion": "Introducción del dinero ilícito al sistema financiero"
+          },
+          {
+            "id": "c",
+            "definicion": "Grupo de Acción Financiera — Organismo internacional contra PLD/FT"
+          },
+          {
+            "id": "d",
+            "definicion": "Reinversión de fondos ya blanqueados en la economía"
+          }
+        ]
+      },
+      "solucion": {
+        "relaciones": [
+          { "concepto_id": 1, "definicion_id": "b" },
+          { "concepto_id": 2, "definicion_id": "a" },
+          { "concepto_id": 3, "definicion_id": "d" },
+          { "concepto_id": 4, "definicion_id": "c" }
+        ],
+        "norma_aplicable": "GAFI — 40 Recomendaciones; Definiciones LFPIORPI"
+      }
+    },
+    {
+      "titulo": "Verdadero o Falso: Conceptos Básicos PLD/FT",
+      "tipo": "verdadero_falso",
+      "dificultad": "basico",
+      "tiempo_estimado": 5,
+      "instrucciones": "Indica si cada afirmación es verdadera (V) o falsa (F).",
+      "contenido": {
+        "afirmaciones": [
+          {
+            "numero": 1,
+            "texto": "El financiamiento al terrorismo solo involucra dinero de origen ilícito.",
+            "respuesta_correcta": false
+          },
+          {
+            "numero": 2,
+            "texto": "La etapa de integración es donde se reinvierte el dinero blanqueado en la economía legal.",
+            "respuesta_correcta": true
+          },
+          {
+            "numero": 3,
+            "texto": "Estructuración es dividir operaciones grandes en pequeñas para evadir reportes.",
+            "respuesta_correcta": true
+          },
+          {
+            "numero": 4,
+            "texto": "Las instituciones financieras no tienen obligación de reportar operaciones sospechosas.",
+            "respuesta_correcta": false
+          }
+        ]
+      },
+      "solucion": {
+        "respuestas": [
+          { "numero": 1, "respuesta": "F" },
+          { "numero": 2, "respuesta": "V" },
+          { "numero": 3, "respuesta": "V" },
+          { "numero": 4, "respuesta": "F" }
+        ],
+        "norma_aplicable": "LFPIORPI Art. 17-18; GAFI Rec. 1, 10, 12"
+      }
+    }
+  ]
+}
