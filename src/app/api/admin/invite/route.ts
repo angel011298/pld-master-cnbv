@@ -3,7 +3,7 @@ export const dynamic = "force-dynamic";
 import { supabaseAdmin } from "@/lib/supabase";
 import { getAuthenticatedUserId } from "@/lib/security";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.vercel.app";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.app";
 
 export async function POST(req: NextRequest) {
   try {

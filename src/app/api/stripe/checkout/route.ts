@@ -5,7 +5,7 @@ import { getAuthenticatedUserId } from "@/lib/security";
 import { supabaseAdmin } from "@/lib/supabase";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.vercel.app";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.app";
 
 const PRICE_MAP: Record<string, { priceId: string; plan: string }> = {
   individual: {

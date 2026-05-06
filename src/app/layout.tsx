@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://certifik-pld.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://certifik-pld.app";
 const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 export const metadata: Metadata = {

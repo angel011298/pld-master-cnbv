@@ -4,7 +4,7 @@ function getSupabaseUrl() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   if (!url) {
     throw new Error(
-      "Falta NEXT_PUBLIC_SUPABASE_URL. Configúralo en .env.local (local) o en Vercel (producción)."
+      "Falta NEXT_PUBLIC_SUPABASE_URL. Configúralo en .env.local (local) o en tu plataforma de deployment (producción)."
     );
   }
   return url;
@@ -14,7 +14,7 @@ function getAnonKey() {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!key) {
     throw new Error(
-      "Falta NEXT_PUBLIC_SUPABASE_ANON_KEY. Configúralo en .env.local (local) o en Vercel (producción)."
+      "Falta NEXT_PUBLIC_SUPABASE_ANON_KEY. Configúralo en .env.local (local) o en tu plataforma de deployment (producción)."
     );
   }
   return key;

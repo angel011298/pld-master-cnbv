@@ -1529,7 +1529,7 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
-                { service: "Vercel (Next.js Edge)", status: "Operational", latency: "Conectado" },
+                { service: "API Gateway (Next.js)", status: "Operational", latency: "Conectado" },
                 { service: "Supabase (PostgreSQL)", status: "Operational", latency: "Conectado" },
                 { service: "Google Gemini (RAG Engine)", status: "Operational", latency: "Conectado" },
                 { service: "Stripe API", status: "Operational", latency: "Conectado" },

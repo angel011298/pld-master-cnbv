@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.vercel.app"
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.app"
 
 // Definición de precios en centavos (ej. 299900 = $2,999.00 MXN)
 const PRICES: Record<string, { amount: number; name: string; description: string }> = {

@@ -4,7 +4,7 @@ function getApiKey() {
   const key = process.env.GEMINI_API_KEY;
   if (!key) {
     throw new Error(
-      "Falta configurar GEMINI_API_KEY. Crea un .env.local con GEMINI_API_KEY=... (solo server) o configura la variable en Vercel."
+      "Falta configurar GEMINI_API_KEY. Crea un .env.local con GEMINI_API_KEY=... (solo server) o configura la variable en tu plataforma de deployment."
     );
   }
   return key;
