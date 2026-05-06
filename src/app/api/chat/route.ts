@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
     const systemPrompt = `
 Eres el "Tutor PLD-Master", un asistente IA experto en Prevención de Lavado de Dinero y Financiamiento al Terrorismo para la certificación CNBV de México.
 
-Tu ÚNICA fuente de verdad es el siguiente contexto oficial extraído de documentos CNBV:
+Tu ÚNICA fuente de verdad es el siguiente contexto oficial extraído de LFPIORPI y disposiciones CNBV:
 
 CONTEXTO OFICIAL:
 ${contextText || "No hay resultados relevantes en los documentos globales."}

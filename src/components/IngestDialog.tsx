@@ -152,7 +152,7 @@ export function IngestDialog({ onImportDone }: { onImportDone?: () => void }) {
           <Upload className="h-5 w-5" />
           Importar Documentos
         </CardTitle>
-        <CardDescription>PDFs de leyes y guías CNBV para entrenar al Tutor IA</CardDescription>
+        <CardDescription>PDFs de LFPIORPI, Circulares CNBV y Disposiciones Regulatorias para entrenar al Tutor IA</CardDescription>
 
         {/* Tabs */}
         <div className="flex gap-1 mt-2 p-1 bg-muted rounded-xl w-fit">

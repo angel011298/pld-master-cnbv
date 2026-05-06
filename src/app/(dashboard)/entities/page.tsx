@@ -18,8 +18,8 @@ import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DATOS NORMATIVOS REALES — Fuente: Guía PLD_FT_CNBV, Bloques 4-5 (pp. 189-319)
-// y Disposiciones de Carácter General de la CNBV para cada sector.
+// DATOS NORMATIVOS REALES — Fuente: LFPIORPI Art. 14-16, Circular CNBV 2-B (Disposiciones de Carácter General)
+// Clasificación de Instituciones Financieras según sector regulado.
 // ─────────────────────────────────────────────────────────────────────────────
 const ENTITY_TYPES = [
   // ── 1. BANCA MÚLTIPLE ──────────────────────────────────────────────────────
@@ -443,8 +443,8 @@ const ENTITY_TYPES = [
       norms: [
         "LFPIORPI (marco general)",
         "LRASCAP — Art. 46: Obligaciones PLD",
-        "Disposiciones CNBV para SOCAP",
-        "Guía PLD/FT_CNBV — Bloque 5",
+        "Circular CNBV 2-B — Disposiciones para SOCAP",
+        "Anexo 1-A CNBV: Instituciones de Crédito Cooperativas",
       ],
       articles: [
         "LRASCAP Art. 46: Obligaciones PLD/FT para SOCAP",

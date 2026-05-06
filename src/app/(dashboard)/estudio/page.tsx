@@ -62,7 +62,7 @@ function EstudioContent() {
         <div className="mt-4">
           <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 mb-4">
             <Scale className="h-6 w-6 text-emerald-600" />
-            Temario Desglosado (Guía CNBV)
+            Temario Desglosado (LFPIORPI — Disposiciones CNBV)
           </h2>
           <div className="grid gap-6 lg:grid-cols-3">
             {CNBV_SYLLABUS.map((mod, index) => {

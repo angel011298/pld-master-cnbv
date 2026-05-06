@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { cn } from "@/lib/utils"
 
-// 7 BLOQUES oficiales según índice de "Guía PLD_FT_CNBV.pdf"
+// 7 BLOQUES oficiales según Estructura del Programa de Certificación CNBV — LFPIORPI y disposiciones generales
 // Cada entrada apunta a /estudiar/[tema] usando el enum pld_topic real en BD.
 const BASE_MODULES = [
   {
