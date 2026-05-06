@@ -25,7 +25,8 @@
       "Bash(cat)",
       "Read(//tmp/**)",
       "Bash(vercel env *)",
-      "Bash(vercel deploy *)"
+      "Bash(vercel deploy *)",
+      "Bash(mcp_supabase_list_projects)"
     ]
   }
 }
