@@ -14,7 +14,7 @@ export function useSyllabus() {
   useEffect(() => {
     async function fetchSyllabus() {
       try {
-        const { data, error } = await supabase
+        const { data, error } = await supabase()
           .from('app_settings')
           .select('payload')
           .eq('key_name', 'cnbv_syllabus')
