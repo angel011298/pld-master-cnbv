@@ -1,0 +1,358 @@
+[
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Organismos internacionales y sus funciones",
+    "instrucciones": "Relaciona cada organismo de la columna izquierda con la descripción que mejor lo caracteriza en la columna derecha. Cada organismo tiene una sola respuesta correcta.",
+    "contenido": {
+      "columna_organismos": [
+        {"id": "A", "organismo": "GAFI (FATF)"},
+        {"id": "B", "organismo": "Grupo Egmont"},
+        {"id": "C", "organismo": "Comité de Basilea"},
+        {"id": "D", "organismo": "Grupo Wolfsberg"},
+        {"id": "E", "organismo": "Fondo Monetario Internacional (FMI)"},
+        {"id": "F", "organismo": "Organización de las Naciones Unidas (ONU)"},
+        {"id": "G", "organismo": "Banco Mundial (BM)"},
+        {"id": "H", "organismo": "GAFILAT"}
+      ],
+      "columna_descripciones": [
+        {"id": "1", "descripcion": "Red de 168 Unidades de Inteligencia Financiera que facilita el intercambio de inteligencia entre UIFs. La UIF de México (SHCP) es miembro."},
+        {"id": "2", "descripcion": "Organismo intergubernamental que establece el estándar PLD/FT global mediante sus 40 Recomendaciones. Fundado en 1989 por el G-7. Sede en París."},
+        {"id": "3", "descripcion": "Provee el marco jurídico universal del PLD/FT a través de Convenciones (Viena 1988, Palermo 2000, Convenio FT 1999) y Resoluciones vinculantes del Consejo de Seguridad."},
+        {"id": "4", "descripcion": "Asociación de 13 bancos privados globales (Citigroup, HSBC, JP Morgan, etc.) que emite principios de mejores prácticas para banca privada y corresponsal. No es gubernamental."},
+        {"id": "5", "descripcion": "Organismo regional tipo GAFI para América Latina. Realiza evaluaciones mutuas regionales. México es miembro además de serlo del organismo global."},
+        {"id": "6", "descripcion": "Presta asistencia técnica y financiamiento a países en desarrollo para implementar regímenes PLD/FT. También realiza evaluaciones de la estabilidad financiera (FSAP) integrando el PLD/FT."},
+        {"id": "7", "descripcion": "Integra el PLD/FT en sus análisis de estabilidad macroeconómica. Estima que el lavado de dinero representa el 2-5% del PIB mundial. Observador del GAFI."},
+        {"id": "8", "descripcion": "Foro de gobernadores de bancos centrales del G-10. Establece estándares de supervisión bancaria y gestión del riesgo LD/FT (Documento CDD 2001, Gestión de Riesgos 2014). Sede en Basilea, Suiza."}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "2",
+        "B": "1",
+        "C": "8",
+        "D": "4",
+        "E": "7",
+        "F": "3",
+        "G": "6",
+        "H": "5"
+      },
+      "calificacion_maxima": 8,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 10
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Instrumentos internacionales y su contribución al PLD/FT",
+    "instrucciones": "Relaciona cada instrumento internacional con su contribución específica al combate del LD/FT.",
+    "contenido": {
+      "columna_instrumentos": [
+        {"id": "A", "instrumento": "Convención de Viena (ONU, 1988)"},
+        {"id": "B", "instrumento": "Convención de Palermo (ONU, 2000)"},
+        {"id": "C", "instrumento": "Convenio Internacional para la Represión del FT (ONU, 1999)"},
+        {"id": "D", "instrumento": "Resolución 1267 (CS ONU, 1999)"},
+        {"id": "E", "instrumento": "Resolución 1373 (CS ONU, 2001)"},
+        {"id": "F", "instrumento": "40 Recomendaciones GAFI (2012)"},
+        {"id": "G", "instrumento": "Convención de Mérida / UNCAC (ONU, 2003)"},
+        {"id": "H", "instrumento": "Documento CDD del Comité de Basilea (2001)"}
+      ],
+      "columna_contribuciones": [
+        {"id": "1", "contribucion": "Crea lista de terroristas y organizaciones cuyos activos deben ser congelados por todas las entidades financieras. Aprobada antes del 11/09."},
+        {"id": "2", "contribucion": "El estándar técnico global de KYC y debida diligencia para bancos. Define los 4 elementos del CDD: identificar, verificar propietario beneficiario, entender propósito y monitorear."},
+        {"id": "3", "contribucion": "Primer tratado que tipificó el LD como delito autónomo, vinculado al narcotráfico. Origen directo del Art. 400 Bis del CPF mexicano. México la ratificó en 1990."},
+        {"id": "4", "contribucion": "Obliga a TODOS los estados miembros a tipificar el FT, congelar activos de terroristas y cooperar internacionalmente. Aprobada 28 días después del 11/09/2001."},
+        {"id": "5", "contribucion": "El estándar internacional completo: 40 medidas que todos los países deben implementar para combatir LD, FT y financiamiento de la proliferación. Fusiona las anteriores 40 + 9 Especiales."},
+        {"id": "6", "contribucion": "Aborda la corrupción como delito fuente del LD. Establece mecanismos de recuperación de activos provenientes de corrupción. Especialmente relevante para PEPs."},
+        {"id": "7", "contribucion": "Amplía el delito fuente del LD más allá del narcotráfico. Cualquier delito grave puede ser delito fuente. Define el crimen organizado transnacional."},
+        {"id": "8", "contribucion": "Primer tratado específico sobre FT. Establece que los fondos del FT pueden ser de origen lícito o ilícito. Base del Art. 139 Quáter del CPF mexicano."}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "3",
+        "B": "7",
+        "C": "8",
+        "D": "1",
+        "E": "4",
+        "F": "5",
+        "G": "6",
+        "H": "2"
+      },
+      "calificacion_maxima": 8,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "tipo": "completar",
+    "titulo": "Completa los espacios: Organismos y datos clave del Bloque 2",
+    "instrucciones": "Completa los enunciados con el término, año, sigla o concepto correcto.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "El GAFI fue fundado en el año _____ por el grupo de países conocido como _____. Su sede se encuentra en _____, Francia.",
+          "espacios": ["1989", "G-7", "París"]
+        },
+        {
+          "id": 2,
+          "texto": "México se convirtió en miembro pleno del GAFI en el año _____. El organismo regional tipo GAFI para América Latina se denomina _____.",
+          "espacios": ["2000", "GAFILAT"]
+        },
+        {
+          "id": 3,
+          "texto": "La Convención de _____ de 1988 fue el primer instrumento internacional en tipificar el lavado de dinero como delito autónomo. México la ratificó en _____.",
+          "espacios": ["Viena", "1990"]
+        },
+        {
+          "id": 4,
+          "texto": "La Resolución _____ del Consejo de Seguridad de la ONU crea la lista de terroristas cuyos activos deben ser congelados. La Resolución _____, aprobada tras el 11 de septiembre de 2001, obliga a todos los países a tipificar el FT.",
+          "espacios": ["1267", "1373"]
+        },
+        {
+          "id": 5,
+          "texto": "El Grupo _____ es una red de _____ Unidades de Inteligencia Financiera (UIFs) de todo el mundo que facilita el intercambio de inteligencia financiera entre los países miembros.",
+          "espacios": ["Egmont", "168"]
+        },
+        {
+          "id": 6,
+          "texto": "El Grupo _____ es una asociación del _____ privado compuesta por _____ de los bancos privados más importantes del mundo. Sus documentos NO son regulación obligatoria.",
+          "espacios": ["Wolfsberg", "sector", "13"]
+        },
+        {
+          "id": 7,
+          "texto": "El GAFI evalúa a los países en dos dimensiones: _____ _____ (mide si existen las leyes) y _____ (mide si el régimen funciona en la práctica).",
+          "espacios": ["Cumplimiento Técnico", "Efectividad"]
+        },
+        {
+          "id": 8,
+          "texto": "En la evaluación GAFI, la dimensión más importante es la _____, ya que un país puede tener excelentes leyes que no se apliquen en la práctica.",
+          "espacios": ["Efectividad"]
+        },
+        {
+          "id": 9,
+          "texto": "Las listas del GAFI de jurisdicciones con deficiencias se denominan popularmente 'Lista _____' (deficiencias graves y no cooperantes) y 'Lista _____' (en proceso de mejora bajo monitoreo).",
+          "espacios": ["Negra", "Gris"]
+        },
+        {
+          "id": 10,
+          "texto": "La _____ de _____ del Comité de Basilea (2001) estableció los 4 elementos del proceso de debida diligencia con el cliente: (1) _____ y verificar al cliente, (2) identificar al _____ beneficiario, (3) entender el _____ de la relación, y (4) monitoreo _____.",
+          "espacios": ["Guía CDD", "Basilea", "identificar", "propietario", "propósito", "continuo"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["1989", "G-7", "París"],
+        "2": ["2000", "GAFILAT"],
+        "3": ["Viena", "1990"],
+        "4": ["1267", "1373"],
+        "5": ["Egmont", "168"],
+        "6": ["Wolfsberg", "sector", "13"],
+        "7": ["Cumplimiento Técnico", "Efectividad"],
+        "8": ["Efectividad"],
+        "9": ["Negra", "Gris"],
+        "10": ["identificar", "propietario", "propósito", "continuo"]
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 10
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: Organismos internacionales PLD/FT",
+    "instrucciones": "Completa el crucigrama con los organismos, siglas y conceptos del Bloque 2.",
+    "contenido": {
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "pista": "Siglas del organismo intergubernamental que establece el estándar PLD/FT global mediante sus 40 Recomendaciones. Fundado en 1989.",
+          "respuesta": "GAFI"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "pista": "Ciudad donde tiene su sede el GAFI, en las instalaciones de la OCDE.",
+          "respuesta": "PARIS"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "pista": "Red de Unidades de Inteligencia Financiera que facilita el intercambio de información. Fundada en 1995 en el Palacio Egmont en Bruselas.",
+          "respuesta": "EGMONT"
+        },
+        {
+          "numero": 4,
+          "direccion": "vertical",
+          "pista": "Ciudad suiza donde se encuentra el Comité de Supervisión Bancaria, que le da nombre a los famosos acuerdos de capital.",
+          "respuesta": "BASILEA"
+        },
+        {
+          "numero": 5,
+          "direccion": "horizontal",
+          "pista": "Nombre de la Convención de la ONU de 1988 que tipificó por primera vez el lavado de dinero como delito internacional, vinculado al narcotráfico.",
+          "respuesta": "VIENA"
+        },
+        {
+          "numero": 6,
+          "direccion": "horizontal",
+          "pista": "Siglas del organismo regional tipo GAFI para los países de América Latina, del cual México también es miembro.",
+          "respuesta": "GAFILAT"
+        },
+        {
+          "numero": 7,
+          "direccion": "vertical",
+          "pista": "La dimensión de la evaluación GAFI que mide si las leyes PLD/FT funcionan en la práctica (no solo si existen). Es considerada la más importante.",
+          "respuesta": "EFECTIVIDAD"
+        },
+        {
+          "numero": 8,
+          "direccion": "horizontal",
+          "pista": "Apellido del grupo de 13 bancos privados globales que emite principios de mejores prácticas para la banca corresponsal y privada.",
+          "respuesta": "WOLFSBERG"
+        },
+        {
+          "numero": 9,
+          "direccion": "vertical",
+          "pista": "Nombre de la Convención de la ONU de 2000 que amplió el delito fuente del lavado de dinero más allá del narcotráfico a todos los delitos graves.",
+          "respuesta": "PALERMO"
+        },
+        {
+          "numero": 10,
+          "direccion": "horizontal",
+          "pista": "Número de Resolución del Consejo de Seguridad de la ONU aprobada 28 días después del 11 de septiembre de 2001, que obliga a todos los países a tipificar el FT.",
+          "respuesta": "MILTRESCIENTOS"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "GAFI",
+        "2V": "PARIS",
+        "3H": "EGMONT",
+        "4V": "BASILEA",
+        "5H": "VIENA",
+        "6H": "GAFILAT",
+        "7V": "EFECTIVIDAD",
+        "8H": "WOLFSBERG",
+        "9V": "PALERMO",
+        "10H": "1373"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico: El banco corresponsal y el riesgo internacional",
+    "instrucciones": "Analiza el caso aplicando los conceptos de banca corresponsal, Grupo Wolfsberg, evaluaciones GAFI y obligaciones internacionales.",
+    "contenido": {
+      "descripcion_caso": "Banco Futuro México (BFM) tiene una relación de banca corresponsal con Caribbean Bank Ltd. (CBL) con sede en una isla del Caribe que recientemente fue incluida en la Lista Gris del GAFI por deficiencias en su régimen PLD/FT. A través de CBL, BFM procesa mensualmente transferencias internacionales por un promedio de $5 millones USD. El Oficial de Cumplimiento de BFM detectó que: (1) CBL nunca ha respondido el cuestionario de debida diligencia (CBDDQ / Wolfsberg Questionnaire) enviado hace 6 meses, (2) La isla donde opera CBL apareció recientemente en la lista gris del GAFI, (3) Algunas transferencias recientes de CBL corresponden a clientes finales que no han sido identificados (información del ordenante incompleta). El Consejo de Administración de BFM presiona para mantener la relación porque CBL les genera importantes comisiones.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Qué es la banca corresponsal y por qué representa un riesgo especial de PLD/FT?",
+          "respuesta_guia": "La banca corresponsal es la relación en la que un banco (BFM en este caso, como corresponsal) provee servicios a otro banco (CBL, como respondiente) para que este pueda operar en monedas o mercados donde no tiene presencia directa. El riesgo especial de PLD/FT se debe a que: (1) BFM no tiene contacto directo con los clientes finales de CBL, (2) BFM procesa transacciones de personas que no conoce (no hizo KYC), (3) BFM debe confiar en que CBL realizó el KYC correcto de sus clientes, (4) Si CBL tiene un programa PLD/FT deficiente, BFM puede procesar inadvertidamente fondos ilícitos. Este riesgo se agrava cuando el banco respondiente opera en una jurisdicción de bajo cumplimiento PLD/FT."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Qué es el cuestionario CBDDQ del Grupo Wolfsberg y qué implica que CBL no lo haya respondido?",
+          "respuesta_guia": "El CBDDQ (Correspondent Banking Due Diligence Questionnaire) es el cuestionario estándar del Grupo Wolfsberg que los bancos corresponsales utilizan para evaluar el programa PLD/FT de sus bancos respondientes. Que CBL no lo haya respondido en 6 meses implica: (1) BFM no puede evaluar la calidad del programa PLD/FT de CBL, (2) BFM está operando 'a ciegas' sin conocer el nivel de riesgo de su respondiente, (3) Esto es un incumplimiento de las obligaciones de debida diligencia en banca corresponsal establecidas en la Recomendación 13 del GAFI, (4) Continuar la relación sin información del cuestionario puede constituir un incumplimiento regulatorio para BFM."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué consecuencias tiene para BFM que la isla de CBL esté en la lista gris del GAFI?",
+          "respuesta_guia": "Estar en la lista gris del GAFI implica que el país tiene deficiencias estratégicas en su régimen PLD/FT que están siendo corregidas bajo monitoreo. Para BFM: (1) Debe aplicar mayor escrutinio en TODAS las transacciones provenientes de CBL/esa jurisdicción, (2) Debe hacer una revisión de la relación con CBL a la luz de esta nueva información, (3) Debe actualizar el perfil de riesgo de CBL como respondiente de alto riesgo, (4) Debe considerar si es necesario aplicar Debida Diligencia Reforzada (DDR) formal a esta relación, (5) Si el país ascendiera a lista negra, BFM tendría que aplicar DDR obligatoria. El GAFI Rec. 19 establece las medidas a aplicar según el nivel de riesgo de la jurisdicción."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Qué debe hacer el Oficial de Cumplimiento de BFM ante la presión del Consejo de Administración para mantener la relación?",
+          "respuesta_guia": "El Oficial de Cumplimiento debe: (1) Preparar un informe formal con los riesgos identificados (lista gris, falta de cuestionario, información incompleta del ordenante), (2) Presentarlo al CCC y al Consejo con las implicaciones legales y regulatorias de mantener la relación sin los controles adecuados, (3) Proponer opciones: (a) suspender temporalmente hasta que CBL responda el cuestionario, (b) aplicar DDR reforzada con límites de operación, (c) terminar la relación si el riesgo es inaceptable, (4) Documentar todo el proceso. La presión del Consejo no puede anular las obligaciones legales de cumplimiento. Si BFM procesa fondos de CBL que resultan ser ilícitos, el Consejo y el Oficial de Cumplimiento pueden enfrentar sanciones de la CNBV. Las comisiones generadas por CBL no justifican el riesgo regulatorio y reputacional."
+        },
+        {
+          "numero": 5,
+          "pregunta": "Las transferencias con información incompleta del ordenante: ¿qué obligación específica del GAFI se está incumpliendo?",
+          "respuesta_guia": "Se está incumpliendo la Recomendación 16 del GAFI, conocida como la 'Regla de Viaje' (Travel Rule). Esta Recomendación establece que la información del ordenante (nombre, número de cuenta, país) y del beneficiario debe acompañar a cada transferencia electrónica durante todo el proceso de transmisión. Cuando un banco corresponsal recibe transferencias con información incompleta del ordenante, debe: (1) aplicar procedimientos para obtener la información faltante del banco remitente, (2) si no puede obtenerla, considerar restringir o rechazar la transferencia, (3) si la falta de información es recurrente, reportarlo como señal de alerta. BFM tiene obligación de no procesar transferencias con información incompleta sin tomar medidas al respecto."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 10,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Define banca corresponsal y explica correctamente los riesgos PLD"},
+        {"pregunta": 2, "puntos": 2, "criterio": "Identifica el CBDDQ del Grupo Wolfsberg y las implicaciones del silencio de CBL"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Describe las consecuencias de la lista gris y medidas a aplicar"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Describe el proceso correcto del Oficial de Cumplimiento ante presión"},
+        {"pregunta": 5, "puntos": 2, "criterio": "Identifica la Recomendación 16 (Regla de Viaje) y obligaciones de BFM"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 25
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras: Organismos y términos del sistema internacional PLD/FT",
+    "instrucciones": "Encuentra las 12 palabras ocultas relacionadas con los organismos y conceptos del Bloque 2.",
+    "contenido": {
+      "cuadricula": [
+        "G A F I P A R I S E G M O N T",
+        "A B A S I L E A V I E N A B C",
+        "F D W O L F S B E R G E F G H",
+        "I J P A L E R M O K L M N O P",
+        "L Q R S T U V W X Y Z A B C D",
+        "A E F E C T I V I D A D E F G",
+        "T H O N U I J K L M N O P Q R",
+        "S T U V W X Y Z A B C D E F G",
+        "H I J K L M N O P Q R S T U V",
+        "W X Y Z A B C D E F G H I J K"
+      ],
+      "palabras_ocultas": [
+        "GAFI",
+        "PARIS",
+        "EGMONT",
+        "BASILEA",
+        "VIENA",
+        "WOLFSBERG",
+        "PALERMO",
+        "GAFILAT",
+        "EFECTIVIDAD",
+        "ONU",
+        "UIF",
+        "TC"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "GAFI": {"fila": 1, "columna": 1, "direccion": "horizontal"},
+        "PARIS": {"fila": 1, "columna": 5, "direccion": "horizontal"},
+        "EGMONT": {"fila": 1, "columna": 10, "direccion": "horizontal"},
+        "BASILEA": {"fila": 2, "columna": 2, "direccion": "horizontal"},
+        "VIENA": {"fila": 2, "columna": 10, "direccion": "horizontal"},
+        "WOLFSBERG": {"fila": 3, "columna": 4, "direccion": "horizontal"},
+        "PALERMO": {"fila": 4, "columna": 5, "direccion": "horizontal"},
+        "GAFILAT": {"fila": 6, "columna": 1, "direccion": "vertical"},
+        "EFECTIVIDAD": {"fila": 6, "columna": 2, "direccion": "horizontal"},
+        "ONU": {"fila": 7, "columna": 5, "direccion": "horizontal"},
+        "UIF": {"fila": 7, "columna": 6, "direccion": "vertical"},
+        "TC": {"fila": 1, "columna": 15, "direccion": "vertical"}
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 8
+  }
+]

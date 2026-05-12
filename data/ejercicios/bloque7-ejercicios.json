@@ -1,0 +1,360 @@
+[
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 1: El auditor externo y sus hallazgos",
+    "instrucciones": "Lee el caso y aplica los conceptos de auditoría externa PLD/FT, estructura de hallazgos, calificación del programa y plan de acción.",
+    "contenido": {
+      "descripcion_caso": "El despacho de auditoría García & Asociados fue contratado para realizar la auditoría externa anual del programa PLD/FT de Casa de Bolsa Visión SA. Al concluir su trabajo, identificó los siguientes hallazgos: (1) El Manual PLD/FT tiene fecha de última actualización de hace 18 meses. En ese período la CNBV emitió una circular que modifica los requisitos de identificación de clientes. (2) De una muestra de 40 expedientes de clientes de alto riesgo, 12 fueron clasificados como 'alto riesgo' pero no tienen evidencia de actualización de expediente ni de aplicación de Debida Diligencia Reforzada en los últimos 12 meses. (3) El sistema de monitoreo generó 45 alertas en el semestre. De esas, 30 fueron desestimadas por el Oficial de Cumplimiento sin dejar constancia escrita del razonamiento. Las otras 15 fueron escaladas al CCC, que resolvió no reportar, también sin dejar constancia del análisis. (4) En el programa de capacitación, el 100% del personal fue capacitado — pero la capacitación de 3 sucursales se realizó vía e-mail con un PDF adjunto, sin evaluación ni registro de comprensión.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "Para el hallazgo #1 (manual desactualizado), escribe un hallazgo formal con la estructura Criterio-Condición-Causa-Efecto-Recomendación.",
+          "respuesta_guia": "CRITERIO: Las Disposiciones CNBV en materia PLD/FT para casas de bolsa establecen que el Manual PLD/FT debe estar permanentemente actualizado conforme a las disposiciones regulatorias vigentes. CONDICIÓN: El Manual PLD/FT de Casa de Bolsa Visión SA tiene como fecha de última actualización hace 18 meses. Durante ese período se emitió la Circular CNBV que modifica los requisitos de identificación de clientes, la cual no ha sido incorporada al Manual. CAUSA: La entidad no cuenta con un proceso formal de revisión periódica del Manual que garantice su actualización ante cambios regulatorios. El Oficial de Cumplimiento no tenía asignada la responsabilidad de monitorear publicaciones en el DOF o actualizaciones regulatorias de la CNBV. EFECTO: El personal de la entidad puede estar operando bajo criterios desactualizados para la identificación de clientes, lo que representa un riesgo de incumplimiento de las obligaciones de KYC y una posible sanción de la CNBV si detecta la desactualización en una visita de inspección. RECOMENDACIÓN: (1) Actualizar el Manual PLD/FT inmediatamente para incorporar los requisitos de la Circular CNBV emitida. (2) Establecer un proceso formal de monitoreo de cambios regulatorios con responsable designado. (3) Incluir en el calendario del CCC una revisión anual del Manual, adicionalmente a las actualizaciones que se generen por cambios regulatorios."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Cuál es el hallazgo más grave de los cuatro identificados? ¿Por qué?",
+          "respuesta_guia": "El hallazgo #3 es el más grave. Las razones: (1) Involucra directamente la función central del Oficial de Cumplimiento y el CCC — el análisis y decisión sobre operaciones inusuales — que es la obligación más importante del programa PLD/FT. (2) La falta de documentación del razonamiento (30 alertas desestimadas sin constancia escrita + 15 escaladas al CCC sin documentar el análisis) significa que no hay evidencia de que el proceso se realizó correctamente. Desde el punto de vista supervisor, si no hay documentación, es como si no se hubiera hecho el análisis. (3) Si alguna de esas 45 alertas correspondía a una operación inusual que debía reportarse y no se reportó, la entidad puede estar incumpliendo su obligación de presentar OI ante la UIF. (4) Este tipo de hallazgo puede resultar en el inicio de un procedimiento sancionatorio por la CNBV, potencialmente con multa elevada por omisión de reporte."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿La capacitación del hallazgo #4 (vía PDF sin evaluación) cumple con la obligación regulatoria? ¿Por qué?",
+          "respuesta_guia": "Técnicamente el personal 'fue capacitado' (se les envió material), pero la calidad y efectividad de esa capacitación son cuestionables desde la perspectiva regulatoria. Las disposiciones CNBV requieren que la capacitación sea efectiva para que el personal conozca las obligaciones y sepa identificar operaciones inusuales. Los problemas con la modalidad usada: (1) Un PDF por e-mail no garantiza que el empleado lo leyó ni que comprendió el contenido. (2) Sin evaluación, no hay forma de verificar que el aprendizaje ocurrió. (3) Sin registro de comprensión, la evidencia de capacitación es débil ante la CNBV. En una visita de inspección, la CNBV puede considerar esta capacitación como insuficiente y emitir una observación. La recomendación sería: capacitación presencial o virtual con acceso verificado, evaluación de comprensión y registros completos de asistencia y resultados."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Qué calificación global le darías al programa PLD/FT de Casa de Bolsa Visión SA? ¿Satisfactorio, necesita mejoras menores, necesita mejoras significativas, o insatisfactorio?",
+          "respuesta_guia": "El programa necesita MEJORAS SIGNIFICATIVAS. Las razones: tiene 4 hallazgos identificados, de los cuales el hallazgo #3 (alertas sin documentación) es de alta gravedad porque afecta la función central del programa. Los otros hallazgos (#1 manual desactualizado, #2 DDR no aplicada, #4 capacitación deficiente) son también significativos. Colectivamente, estos hallazgos indican que el programa tiene debilidades sistémicas que van más allá de fallas puntuales y menores. Sin embargo, dado que no hay evidencia de fraude ni de lavado activo, y que la entidad sí tiene las estructuras básicas (Oficial, CCC, sistema de monitoreo), la calificación 'Insatisfactorio' sería excesiva. 'Necesita mejoras significativas' es la calificación apropiada — requiere atención urgente pero el programa tiene bases sobre las cuales trabajar."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 10,
+      "criterios": [
+        {"pregunta": 1, "puntos": 3, "criterio": "Escribe correctamente los 5 elementos del hallazgo con contenido relevante y específico"},
+        {"pregunta": 2, "puntos": 3, "criterio": "Identifica correctamente el hallazgo #3 como el más grave y justifica con al menos 3 razones"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Concluye que no es suficiente y explica por qué (verificación, evaluación, evidencia)"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Elige la calificación correcta con justificación coherente"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 25
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 2: La visita de inspección sorpresiva",
+    "instrucciones": "Analiza la situación de la entidad ante una visita de inspección especial de la CNBV y determina las acciones correctas.",
+    "contenido": {
+      "descripcion_caso": "El lunes por la mañana, tres inspectores de la CNBV se presentan en la sucursal matriz de Transmisora de Dinero Nacional SA (TDN) sin previo aviso. Presentan un oficio firmado por el Vicepresidente de Supervisión de la CNBV que indica el inicio de una visita especial de inspección en materia PLD/FT. El gerente de la sucursal, desconcertado, llama al Oficial de Cumplimiento. Este a su vez llama al Director General, quien propone 'pedir a los inspectores que regresen mañana, ya que hoy el Oficial de Cumplimiento tiene agenda completa'. Un inspector advierte que si se les impide el acceso, levantarán un acta de obstrucción.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Puede la entidad pedir a los inspectores que regresen otro día? ¿Cuáles serían las consecuencias de impedir el acceso?",
+          "respuesta_guia": "NO, la entidad no puede pedir que regresen. La visita de inspección especial es un acto de autoridad legalmente fundamentado en la Ley de la CNBV y la LIC. Una vez que los inspectores se presentan con el oficio firmado por la autoridad competente, la entidad tiene la OBLIGACIÓN de facilitar el acceso. Consecuencias de impedir el acceso u obstruir la visita: (1) La CNBV puede levantar un acta de obstrucción que es en sí misma una infracción grave sancionable con multas significativas. (2) La obstrucción puede interpretarse como intento de ocultar incumplimientos, lo que agrava considerablemente la posición de la entidad. (3) La CNBV puede iniciar un procedimiento sancionatorio por la obstrucción, independientemente de lo que se encuentre en el fondo del programa PLD/FT. (4) En casos extremos, la CNBV puede solicitar el apoyo de la fuerza pública para entrar a las instalaciones."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Cuál es la primera acción que debe tomar el Oficial de Cumplimiento al recibir la notificación de la visita?",
+          "respuesta_guia": "Las primeras acciones del Oficial de Cumplimiento: (1) VERIFICAR las credenciales e identidad de los inspectores: pedir su identificación oficial como servidores públicos de la CNBV y verificar el oficio de inicio de visita (firmado, sellado, fundamento legal). (2) NOTIFICAR al Director General y al Consejo de Administración del inicio de la visita (ya ocurrió parcialmente en el caso). (3) FACILITAR el acceso: preparar un espacio de trabajo adecuado para los inspectores, asignar un contacto interno de apoyo. (4) CONTACTAR al área jurídica para que esté disponible durante la visita. (5) NO instruir al personal para que oculte o destruya información. (6) Comenzar a recopilar la documentación que típicamente solicitan los inspectores en los primeros momentos de la visita."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué derechos tiene la entidad durante esta visita especial?",
+          "respuesta_guia": "La entidad tiene los siguientes derechos: (1) VERIFICAR la identidad de los inspectores y el fundamento legal de la visita — pueden pedir tiempo razonable para hacer esta verificación. (2) CONOCER el alcance de la visita — los aspectos específicos que serán revisados. (3) ACOMPAÑAR a los inspectores — el Oficial de Cumplimiento u otro funcionario puede estar presente durante la revisión. (4) PRESENTAR INFORMACIÓN ADICIONAL que aclare los hallazgos antes de la versión final del informe. (5) GARANTÍA DE AUDIENCIA antes de que se impongan sanciones — si la visita resulta en un procedimiento sancionatorio, la entidad puede presentar pruebas y argumentos en su defensa. (6) IMPUGNAR las sanciones mediante recurso de revisión ante la CNBV o juicio de nulidad ante el TFJFA."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Por qué podría haberse iniciado una visita ESPECIAL (sorpresiva) a TDN en lugar de una visita ordinaria?",
+          "respuesta_guia": "Las visitas especiales se activan cuando hay motivos específicos. Para TDN (transmisora de dinero), posibles razones: (1) ALERTAS EN SUPERVISIÓN EXTRAMUROS: La CNBV detectó anomalías en los reportes de TDN — por ejemplo, muy pocos reportes OI para el volumen de operaciones, o reportes de mala calidad. (2) INTELIGENCIA DE LA UIF: La UIF puede haber detectado patrones sospechosos en las operaciones procesadas por TDN y comunicó su preocupación a la CNBV. (3) DENUNCIA: Un empleado, cliente o competidor presentó una denuncia sobre presuntos incumplimientos. (4) HALLAZGOS PREVIOS: En una visita ordinaria anterior se encontraron observaciones que TDN comprometió corregir pero que en supervisión extramuros parecen no haberse implementado. (5) SECTOR DE ALTO RIESGO: Los transmisores de dinero son identificados en la ENR como sector de alta vulnerabilidad PLD/FT, lo que justifica supervisión más frecuente e intensa."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 8,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Afirma que NO puede negarse y describe correctamente las consecuencias de la obstrucción"},
+        {"pregunta": 2, "puntos": 2, "criterio": "Lista las primeras acciones correctas en orden lógico, incluyendo verificar credenciales y facilitar acceso"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Menciona al menos 4 derechos correctos, incluyendo la garantía de audiencia"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Identifica al menos 3 razones plausibles por las que se inicia una visita especial"}
+      ]
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 20
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Etapas del procedimiento de visita de inspección",
+    "instrucciones": "Ordena las etapas del procedimiento de visita de inspección PLD/FT de la CNBV y relaciónalas con su descripción correcta.",
+    "contenido": {
+      "instruccion_adicional": "Primero ordena las etapas del 1 al 10, luego relaciónalas con la descripción que corresponde.",
+      "etapas_desordenadas": [
+        {"id": "A", "etapa": "Comunicación de hallazgos preliminares"},
+        {"id": "B", "etapa": "Reunión de apertura (kick-off)"},
+        {"id": "C", "etapa": "Elaboración del Informe de Visita"},
+        {"id": "D", "etapa": "Designación del equipo inspector"},
+        {"id": "E", "etapa": "Pruebas de efectividad y transacciones"},
+        {"id": "F", "etapa": "Seguimiento post-visita"},
+        {"id": "G", "etapa": "Notificación de inicio de visita"},
+        {"id": "H", "etapa": "Entrevistas al personal"},
+        {"id": "I", "etapa": "Notificación del Informe y procedimiento sancionatorio (si aplica)"},
+        {"id": "J", "etapa": "Revisión documental"}
+      ],
+      "descripciones": [
+        {"id": "1", "descripcion": "Los inspectores se presentan con el Oficial de Cumplimiento, se acreditan y acuerdan logística de la visita: espacio de trabajo, acceso a sistemas, contacto de la entidad."},
+        {"id": "2", "descripcion": "La CNBV designa los inspectores que realizarán la visita, incluyendo al responsable del equipo y especialistas según el alcance previsto."},
+        {"id": "3", "descripcion": "El equipo revisa: Manual PLD/FT, actas del CCC, expedientes de clientes (muestra), registros de capacitación, reportes ante la UIF, informe de auditoría externa."},
+        {"id": "4", "descripcion": "La CNBV comunica formalmente a la entidad el inicio de la visita con el oficio firmado, la identificación de los inspectores y la solicitud de documentación anticipada."},
+        {"id": "5", "descripcion": "Los inspectores verifican si el sistema de monitoreo detecta las operaciones que debería, siguiendo el recorrido de una alerta desde su generación hasta la decisión de reportar."},
+        {"id": "6", "descripcion": "Se verifica que la entidad implementó las correcciones comprometidas. Los mismos hallazgos no corregidos agravan la posición de la entidad en la siguiente visita."},
+        {"id": "7", "descripcion": "El equipo inspector conversa con el Oficial de Cumplimiento, miembros del CCC, personal de sucursales y alta dirección para evaluar el conocimiento y la cultura de cumplimiento."},
+        {"id": "8", "descripcion": "Al finalizar la revisión, los inspectores informan informalmente a la dirección de la entidad los aspectos encontrados, dando oportunidad de presentar información adicional."},
+        {"id": "9", "descripcion": "La CNBV emite el informe formal con hallazgos por componente. Si hay infracciones, inicia el proceso con formulación de cargos → audiencia → resolución → recursos."},
+        {"id": "10", "descripcion": "El equipo inspector redacta el documento formal con los hallazgos de la revisión, las calificaciones por componente y las observaciones a corregir con plazos."}
+      ]
+    },
+    "solucion": {
+      "orden_correcto": ["D", "G", "B", "J", "E", "H", "A", "C", "I", "F"],
+      "relacion_etapa_descripcion": {
+        "A": "8",
+        "B": "1",
+        "C": "10",
+        "D": "2",
+        "E": "5",
+        "F": "6",
+        "G": "4",
+        "H": "7",
+        "I": "9",
+        "J": "3"
+      },
+      "calificacion_maxima": 10,
+      "puntos": "0.5 por orden correcto + 0.5 por relación correcta = 1 punto por etapa"
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "tipo": "completar",
+    "titulo": "Completa los espacios: Auditoría y supervisión PLD/FT",
+    "instrucciones": "Completa cada enunciado con el término, número, concepto o referencia legal correcta.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "La auditoría PLD/FT es la _____ Línea de Defensa en el modelo de gobernanza del riesgo del Comité de Basilea 2014. La primera línea es el _____ (negocio) y la segunda es la función de _____.",
+          "espacios": ["Tercera", "personal", "cumplimiento"]
+        },
+        {
+          "id": 2,
+          "texto": "La auditoría _____ independiente es OBLIGATORIA y debe realizarse al menos _____ vez al año. La auditoría _____ es realizada por personal de la propia entidad.",
+          "espacios": ["externa", "una", "interna"]
+        },
+        {
+          "id": 3,
+          "texto": "Un hallazgo de auditoría se estructura con cinco elementos: _____ (qué dice la norma), _____ (qué encontró el auditor), _____ (por qué existe la diferencia), _____ (cuál es el impacto) y _____ (qué debe hacer la entidad).",
+          "espacios": ["Criterio", "Condición", "Causa", "Efecto", "Recomendación"]
+        },
+        {
+          "id": 4,
+          "texto": "La CNBV ejerce supervisión _____ (análisis de reportes desde sus instalaciones, sin visita presencial) y supervisión _____ (visitas de inspección físicas en las instalaciones de la entidad).",
+          "espacios": ["extramuros (off-site)", "in situ"]
+        },
+        {
+          "id": 5,
+          "texto": "La visita de inspección _____ es programada y notificada previamente; tiene alcance _____. La visita de inspección _____ puede ser sorpresiva o focalizada en aspectos específicos; se activa por motivos específicos como alertas o denuncias.",
+          "espacios": ["ordinaria", "integral", "especial"]
+        },
+        {
+          "id": 6,
+          "texto": "La CNBV aplica el _____ en su función supervisora: las entidades con mayor _____ inherente o con historial de incumplimientos reciben mayor _____ de supervisión.",
+          "espacios": ["EBR (Enfoque Basado en Riesgos)", "riesgo", "intensidad"]
+        },
+        {
+          "id": 7,
+          "texto": "Durante el procedimiento sancionatorio, la entidad tiene derecho a la garantía de _____, establecida en el artículo _____ de la Constitución Política de los Estados Unidos Mexicanos. Esto significa que antes de que se imponga una sanción, la entidad puede presentar su _____.",
+          "espacios": ["audiencia", "14", "defensa"]
+        },
+        {
+          "id": 8,
+          "texto": "El informe de visita puede calificar el programa PLD/FT en cuatro niveles: _____ (el programa es efectivo y cumple todos los requisitos), _____ (hay áreas de mejora pero el programa es funcional), _____ (hay deficiencias que comprometen la efectividad) e _____ (fallas graves con riesgo regulatorio significativo).",
+          "espacios": ["Satisfactorio", "Necesita mejoras menores", "Necesita mejoras significativas", "Insatisfactorio"]
+        },
+        {
+          "id": 9,
+          "texto": "El alcance mínimo de la auditoría PLD/FT incluye revisar al menos estos componentes: Manual PLD/FT, _____ de Cumplimiento, CCC, identificación de _____ (expedientes), sistema de _____ transaccional, reportes ante la _____ y programa de capacitación.",
+          "espacios": ["Oficial", "clientes", "monitoreo", "UIF"]
+        },
+        {
+          "id": 10,
+          "texto": "La CNBV evalúa el cumplimiento PLD/FT en dos dimensiones: cumplimiento _____ (¿existen las políticas y documentos?) y cumplimiento _____ (¿el programa funciona en la práctica?). Esta dualidad refleja las dimensiones _____ y _____ de las evaluaciones mutuas del GAFI.",
+          "espacios": ["formal", "efectivo", "TC (Cumplimiento Técnico)", "EF (Efectividad)"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["Tercera", "personal", "cumplimiento"],
+        "2": ["externa", "una", "interna"],
+        "3": ["Criterio", "Condición", "Causa", "Efecto", "Recomendación"],
+        "4": ["extramuros", "in situ"],
+        "5": ["ordinaria", "integral", "especial"],
+        "6": ["EBR", "riesgo", "intensidad"],
+        "7": ["audiencia", "14", "defensa"],
+        "8": ["Satisfactorio", "Necesita mejoras menores", "Necesita mejoras significativas", "Insatisfactorio"],
+        "9": ["Oficial", "clientes", "monitoreo", "UIF"],
+        "10": ["formal", "efectivo", "TC", "EF"]
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: Auditoría y supervisión PLD/FT",
+    "instrucciones": "Completa el crucigrama con conceptos del Bloque 7.",
+    "contenido": {
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "pista": "Tipo de auditoría PLD/FT obligatoria que debe realizarse al menos una vez al año, realizada por un despacho o profesionista ajeno a la entidad.",
+          "respuesta": "EXTERNA"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "pista": "Número de línea de defensa que corresponde a la auditoría en el modelo de gobernanza del riesgo PLD/FT del Comité de Basilea 2014.",
+          "respuesta": "TERCERA"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "pista": "Primer elemento de la estructura de un hallazgo de auditoría: es la norma, disposición o estándar que debería cumplirse.",
+          "respuesta": "CRITERIO"
+        },
+        {
+          "numero": 4,
+          "direccion": "vertical",
+          "pista": "Tipo de supervisión de la CNBV que se realiza desde las instalaciones del regulador, sin visitar físicamente a la entidad. También llamada off-site.",
+          "respuesta": "EXTRAMUROS"
+        },
+        {
+          "numero": 5,
+          "direccion": "horizontal",
+          "pista": "Tipo de visita de inspección de la CNBV que es programada y notificada previamente, con alcance integral sobre todo el programa PLD/FT.",
+          "respuesta": "ORDINARIA"
+        },
+        {
+          "numero": 6,
+          "direccion": "vertical",
+          "pista": "Garantía constitucional establecida en el artículo 14 de la CPEUM que protege a la entidad antes de que se le imponga una sanción: tiene derecho a presentar pruebas y argumentos.",
+          "respuesta": "AUDIENCIA"
+        },
+        {
+          "numero": 7,
+          "direccion": "horizontal",
+          "pista": "Tercer elemento de la estructura de un hallazgo: explica POR QUÉ existe la diferencia entre el criterio (lo que debe ser) y la condición (lo que encontró el auditor).",
+          "respuesta": "CAUSA"
+        },
+        {
+          "numero": 8,
+          "direccion": "vertical",
+          "pista": "Calificación más alta que puede recibir un programa PLD/FT en el informe de auditoría: indica que el programa cumple todos los requisitos regulatorios y es efectivo.",
+          "respuesta": "SATISFACTORIO"
+        },
+        {
+          "numero": 9,
+          "direccion": "horizontal",
+          "pista": "Tipo de visita de inspección que puede ser sorpresiva, focalizada en aspectos específicos y se activa por motivos concretos como alertas en supervisión extramuros o denuncias.",
+          "respuesta": "ESPECIAL"
+        },
+        {
+          "numero": 10,
+          "direccion": "horizontal",
+          "pista": "Técnica de auditoría que consiste en seleccionar una parte representativa de los expedientes o transacciones para verificar la calidad del proceso sin revisar el universo completo.",
+          "respuesta": "MUESTREO"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "EXTERNA",
+        "2V": "TERCERA",
+        "3H": "CRITERIO",
+        "4V": "EXTRAMUROS",
+        "5H": "ORDINARIA",
+        "6V": "AUDIENCIA",
+        "7H": "CAUSA",
+        "8V": "SATISFACTORIO",
+        "9H": "ESPECIAL",
+        "10H": "MUESTREO"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Auditoría interna vs. externa vs. supervisión CNBV",
+    "instrucciones": "Clasifica cada afirmación en la columna correcta: aplica solo a la auditoría interna, solo a la auditoría externa, solo a la supervisión de la CNBV, o a más de una.",
+    "contenido": {
+      "afirmaciones": [
+        {"id": "1", "afirmacion": "Es realizada por personal empleado de la propia entidad financiera"},
+        {"id": "2", "afirmacion": "Es obligatoria y debe realizarse al menos una vez al año según las disposiciones CNBV"},
+        {"id": "3", "afirmacion": "Sus hallazgos pueden resultar en sanciones administrativas, multas e inhabilitación"},
+        {"id": "4", "afirmacion": "Es la Tercera Línea de Defensa en el modelo de Basilea 2014"},
+        {"id": "5", "afirmacion": "Los inspectores son servidores públicos con facultades legales para acceder a instalaciones"},
+        {"id": "6", "afirmacion": "Evalúa todos los componentes del programa PLD/FT mediante revisión documental, pruebas y entrevistas"},
+        {"id": "7", "afirmacion": "Los resultados se comunican en un informe al CCC y al Consejo de Administración"},
+        {"id": "8", "afirmacion": "Puede realizarse de forma sorpresiva (sin notificación previa) en casos específicos"},
+        {"id": "9", "afirmacion": "El auditor debe ser independiente y no tener vínculos de interés con la entidad evaluada"},
+        {"id": "10", "afirmacion": "La entidad tiene garantía de audiencia antes de que se impongan consecuencias formales"}
+      ],
+      "columnas": [
+        "Solo auditoría interna",
+        "Solo auditoría externa independiente",
+        "Solo supervisión CNBV",
+        "Auditoría interna Y externa (ambas)",
+        "Todas las anteriores"
+      ]
+    },
+    "solucion": {
+      "clasificacion_correcta": {
+        "Solo auditoría interna": ["1"],
+        "Solo auditoría externa independiente": ["2"],
+        "Solo supervisión CNBV": ["3", "5", "8"],
+        "Auditoría interna Y externa (ambas)": ["4", "7"],
+        "Todas las anteriores": ["6"],
+        "Externa y supervisión CNBV": ["9"],
+        "Solo supervisión CNBV (procedimiento sancionatorio)": ["10"]
+      },
+      "respuestas_exactas": {
+        "1": "Solo auditoría interna",
+        "2": "Solo auditoría externa independiente",
+        "3": "Solo supervisión CNBV",
+        "4": "Auditoría interna Y externa (ambas)",
+        "5": "Solo supervisión CNBV",
+        "6": "Todas (auditoría interna, externa y supervisión CNBV)",
+        "7": "Auditoría interna Y externa",
+        "8": "Solo supervisión CNBV",
+        "9": "Auditoría externa Y supervisión CNBV",
+        "10": "Solo supervisión CNBV (en el procedimiento sancionatorio)"
+      },
+      "calificacion_maxima": 10,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 10
+  }
+]

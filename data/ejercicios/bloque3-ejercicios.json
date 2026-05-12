@@ -1,0 +1,350 @@
+[
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 1: La evaluación de riesgo del Banco Comercial del Norte",
+    "instrucciones": "Lee el caso y aplica los conceptos de riesgo inherente, riesgo residual, EBR y las tres líneas de defensa.",
+    "contenido": {
+      "descripcion_caso": "El Banco Comercial del Norte (BCN) es una institución de banca múltiple mediana con operaciones en 6 estados del norte de México, incluyendo 3 estados fronterizos con Estados Unidos. Su cartera de clientes incluye: 40% personas físicas asalariadas, 25% pequeñas empresas comerciales, 20% empresas del sector agropecuario y 15% clientes de alta banca (personas físicas de alto patrimonio). Sus productos principales son: cuentas de cheques, cuentas de ahorro, crédito hipotecario, crédito empresarial y cambio de divisas en sucursales fronterizas. Recientemente contrató a una auditora externa que identificó: (1) Los sistemas de monitoreo tienen parámetros configurados hace 5 años sin actualización. (2) El 60% del personal de sucursales fronterizas nunca ha recibido capacitación específica en señales de alerta para operaciones en divisas. (3) La clasificación de riesgo de los 15% de clientes de alta banca nunca ha sido actualizada desde la apertura de las cuentas.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Cuáles son los factores que contribuyen al riesgo INHERENTE del BCN? Clasifícalos por categoría: cliente, producto, canal y geografía.",
+          "respuesta_guia": "Factores de riesgo inherente por categoría: CLIENTE: 15% de clientes de alta banca (mayor riesgo por montos y complejidad), 25% empresas comerciales (riesgo moderado), presencia de sector agropecuario (riesgo de economía informal en algunas zonas). PRODUCTO: servicio de cambio de divisas (muy alto riesgo — producto de alta vulnerabilidad PLD), crédito hipotecario (riesgo medio — sector inmobiliario es vulnerable), cuentas de personas físicas (bajo riesgo si son asalariadas verificables). CANAL: sucursales físicas (riesgo moderado por contacto personal), sucursales fronterizas (mayor riesgo por operaciones con dólares en efectivo). GEOGRAFÍA: presencia en 3 estados fronterizos (riesgo alto — zonas con actividad de crimen organizado documentada, alto volumen de efectivo en dólares, economía mixta formal/informal)."
+        },
+        {
+          "numero": 2,
+          "pregunta": "Las tres debilidades identificadas por la auditora — ¿cómo afectan el riesgo RESIDUAL del BCN?",
+          "respuesta_guia": "Las tres debilidades afectan los controles de la entidad, incrementando el riesgo residual: (1) Sistema de monitoreo desactualizado: es el principal control de detección de operaciones inusuales. Con parámetros de hace 5 años no detecta tipologías modernas ni patrones actualizados. Esto eleva significativamente el riesgo residual porque el control más importante está debilitado. (2) Falta de capacitación en sucursales fronterizas: el personal de primera línea es el primer detector de señales de alerta. Si el 60% no está capacitado, las señales de alerta en el punto más vulnerable (sucursales con cambio de divisas) no se están detectando. Eleva el riesgo residual en el segmento de mayor riesgo inherente. (3) Clasificación de clientes de alta banca sin actualizar: sin clasificaciones actualizadas no puede aplicarse la Debida Diligencia Reforzada apropiada ni el monitoreo intensificado. El riesgo residual en ese segmento es mayor al esperado."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué línea de defensa detectó los problemas y cuál es la función de cada línea en el BCN?",
+          "respuesta_guia": "Los problemas fueron detectados por la TERCERA LÍNEA DE DEFENSA (auditora externa independiente). Su función es precisamente evaluar de forma objetiva e independiente si las dos primeras líneas funcionan correctamente — y encontró que no lo estaban haciendo en esas áreas. Función de cada línea en el BCN: PRIMERA LÍNEA (cajeros, ejecutivos, gerentes de sucursal): deben detectar señales de alerta en el día a día, especialmente en sucursales fronterizas con operaciones en divisas. La debilidad #2 (falta de capacitación) debilita esta línea. SEGUNDA LÍNEA (Oficial de Cumplimiento, CCC): debe actualizar el sistema de monitoreo (debilidad #1) y actualizar clasificaciones de riesgo de clientes de alta banca (debilidad #3). TERCERA LÍNEA (auditora externa): detectó correctamente las tres debilidades y debe reportarlas al Consejo de Administración y al CCC para su corrección."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Qué acciones inmediatas debe implementar el Oficial de Cumplimiento del BCN para reducir el riesgo residual?",
+          "respuesta_guia": "Acciones prioritarias: (1) Actualización urgente del sistema de monitoreo: revisar y actualizar las reglas de detección con tipologías actualizadas de la UIF, GAFILAT y CNBV. Plazo: máximo 3 meses. (2) Programa de capacitación de emergencia para sucursales fronterizas: capacitar al 60% no capacitado en señales de alerta para operaciones en divisas. Plazo: inmediato, dentro de 30 días. (3) Revisión y actualización de la clasificación de riesgo de clientes de alta banca: iniciar proceso de actualización de expedientes y reclasificación. Plazo: 6 meses para completar toda la cartera. (4) Presentar un informe al CCC y al Consejo de Administración con el diagnóstico y el plan de acción. (5) Documentar todo el proceso para evidenciar ante la CNBV que se está tomando acción correctiva."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 10,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Clasifica correctamente los factores de riesgo por las 4 categorías (cliente, producto, canal, geografía)"},
+        {"pregunta": 2, "puntos": 3, "criterio": "Explica el impacto de cada debilidad en el riesgo residual con razonamiento correcto"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Identifica la 3ª línea como detectora y describe la función de las 3 líneas correctamente"},
+        {"pregunta": 4, "puntos": 3, "criterio": "Propone acciones concretas, priorizadas y con plazos razonables"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 25
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 2: Identificación de señales de alerta en sucursal",
+    "instrucciones": "Para cada situación, identifica si es una señal de alerta, qué tipo de señal es y qué debe hacer el personal de la entidad.",
+    "contenido": {
+      "descripcion_caso": "Eres supervisor de sucursal de Banco Regional. Durante la semana detectas las siguientes situaciones:",
+      "situaciones": [
+        {
+          "id": "A",
+          "situacion": "Un cliente deposita $9,800 pesos en efectivo el lunes. El martes deposita $9,500. El miércoles $9,900. El jueves $9,700. El viernes $9,600. Los cajeros lo conocen y dicen que 'siempre viene y es muy amable'. Su cuenta es de nómina con salario declarado de $15,000 pesos mensuales.",
+          "preguntas": ["¿Es señal de alerta?", "¿Qué tipo?", "¿Qué debes hacer?"]
+        },
+        {
+          "id": "B",
+          "situacion": "Una señora de edad avanzada acude a retirar $200,000 pesos en efectivo. Cuando el cajero le pregunta el motivo, dice que va a 'dárselo a su hijo' y no sabe más. La cuenta tiene historial normal de pensión IMSS de $8,000 pesos mensuales. El saldo actual es $210,000 pesos, producto de un depósito único de hace 3 días.",
+          "preguntas": ["¿Es señal de alerta?", "¿Qué tipo?", "¿Qué debes hacer?"]
+        },
+        {
+          "id": "C",
+          "situacion": "Una empresa de importación/exportación con historial de 2 años en el banco recibe una transferencia internacional de $1,500,000 USD desde una cuenta en las Islas Caimán. El representante dice que es 'pago por una mercancía'. No se tienen registros de exportaciones previas de ese monto a esa jurisdicción.",
+          "preguntas": ["¿Es señal de alerta?", "¿Qué tipo?", "¿Qué debes hacer?"]
+        }
+      ],
+      "respuestas_guia": [
+        {
+          "id": "A",
+          "respuesta": "SÍ es señal de alerta — ESTRUCTURACIÓN (pitufeo). Depósitos diarios en efectivo casi idénticos, consistentemente por debajo de $10,000 pesos, sin relación con el salario declarado ($15,000/mes vs. ~$48,500 adicionales en una semana). El 'ser amable' no justifica el comportamiento inusual. QUÉ HACER: El cajero o supervisor reporta internamente al Oficial de Cumplimiento mediante el mecanismo establecido en el Manual PLD/FT. No confrontar al cliente. El Oficial evalúa si hay justificación razonable; si no la hay, genera Reporte de Operación Inusual (OI) ante la UIF dentro de 60 días."
+        },
+        {
+          "id": "B",
+          "respuesta": "SÍ es señal de alerta — POSIBLE VULNERABILIDAD (adulto mayor que podría ser víctima de fraude o instrumento de lavado) + desvío del perfil (cuenta de pensión con saldo desproporcionado y retiro inusual). QUÉ HACER: El cajero no debe realizar el retiro de inmediato. Debe escalar al Supervisor. El Supervisor debe intentar hablar con la señora para entender mejor la situación (¿quién es el hijo? ¿por qué en efectivo?) sin revelar la sospecha. Si no hay justificación razonable o si hay señales de que es víctima de fraude o instrumento involuntario, reportar internamente. El Oficial de Cumplimiento decide si generar OI ante la UIF. Si hay riesgo de fraude a adulto mayor, también pueden notificarse instancias de protección al consumidor."
+        },
+        {
+          "id": "C",
+          "respuesta": "SÍ es señal de alerta — TRANSFERENCIA INTERNACIONAL DE ALTO RIESGO. Las Islas Caimán son una jurisdicción de alto riesgo. El monto ($1.5M USD) es significativo. Sin historial de operaciones similares. QUÉ HACER: Generar Reporte de Transferencia Internacional (requisito regulatorio por el monto). Además, escalar al Oficial de Cumplimiento como posible OI dado el origen (Islas Caimán, sin precedente de operaciones similares). El Oficial solicitará documentación que respalde la operación comercial (contrato, factura, descripción de la mercancía). Si la documentación no es convincente o el representante no puede justificarlo razonablemente, genera OI ante la UIF."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 9,
+      "criterios": [
+        {"situacion": "A", "puntos": 3, "criterio": "Identifica señal de alerta (estructuración), la clasifica correctamente y describe el proceso de reporte interno"},
+        {"situacion": "B", "puntos": 3, "criterio": "Identifica señal de alerta, la clasifica y describe acción correcta (escalar, no rechazar directamente, OI posible)"},
+        {"situacion": "C", "puntos": 3, "criterio": "Identifica señal de alerta, menciona reporte de transferencia + OI posible y el proceso de documentación justificativa"}
+      ]
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 20
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Conceptos del EBR y sus definiciones",
+    "instrucciones": "Relaciona cada concepto de la columna izquierda con su descripción correcta.",
+    "contenido": {
+      "columna_conceptos": [
+        {"id": "A", "concepto": "Riesgo Inherente"},
+        {"id": "B", "concepto": "Riesgo Residual"},
+        {"id": "C", "concepto": "Amenaza"},
+        {"id": "D", "concepto": "Vulnerabilidad"},
+        {"id": "E", "concepto": "Debida Diligencia Simplificada (DDS)"},
+        {"id": "F", "concepto": "Debida Diligencia Reforzada (DDR)"},
+        {"id": "G", "concepto": "Apetito de Riesgo"},
+        {"id": "H", "concepto": "Evaluación Nacional de Riesgos (ENR)"},
+        {"id": "I", "concepto": "Primera Línea de Defensa"},
+        {"id": "J", "concepto": "Tercera Línea de Defensa"}
+      ],
+      "columna_definiciones": [
+        {"id": "1", "definicion": "Proceso mediante el cual un país evalúa sus riesgos de LD/FT a nivel nacional. Obligatorio según GAFI Recomendación 1."},
+        {"id": "2", "definicion": "Medidas adicionales e intensificadas de debida diligencia aplicables a clientes de alto riesgo (PEPs, jurisdicciones de alto riesgo, estructuras complejas)."},
+        {"id": "3", "definicion": "Nivel de riesgo que la Alta Dirección y el Consejo de Administración de la entidad están dispuestos a aceptar en el desarrollo del negocio."},
+        {"id": "4", "definicion": "El nivel de riesgo de LD/FT que QUEDA después de aplicar los controles y medidas de mitigación implementados por la entidad."},
+        {"id": "5", "definicion": "Características internas de la entidad (productos, clientes, canales, geografía) que la hacen susceptible de ser utilizada para LD/FT."},
+        {"id": "6", "definicion": "El personal de negocio en contacto directo con el cliente (cajeros, ejecutivos de cuenta). Son los primeros en detectar señales de alerta."},
+        {"id": "7", "definicion": "Cualquier persona, grupo u actividad con el potencial de causar daño a través del LD/FT. Son factores externos a la entidad."},
+        {"id": "8", "definicion": "El nivel de riesgo de LD/FT que existe ANTES de considerar los controles implementados. Es el riesgo 'bruto' o 'natural' de la actividad."},
+        {"id": "9", "definicion": "Medidas de debida diligencia menos intensivas que las estándar, aplicables documentadamente a clientes y productos de riesgo bajo. No significa ausencia de controles."},
+        {"id": "10", "definicion": "Auditoría interna y externa independiente. Evalúan de forma objetiva si las dos primeras líneas de defensa funcionan correctamente."}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "8",
+        "B": "4",
+        "C": "7",
+        "D": "5",
+        "E": "9",
+        "F": "2",
+        "G": "3",
+        "H": "1",
+        "I": "6",
+        "J": "10"
+      },
+      "calificacion_maxima": 10,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 10
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "tipo": "completar",
+    "titulo": "Completa los espacios: EBR, riesgo y documentos del Bloque 3",
+    "instrucciones": "Completa cada enunciado con el término o concepto correcto.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "El riesgo PLD/FT se define como la función de tres variables: _____ (factores externos a la entidad), _____ (características internas que la hacen susceptible) e _____ (el daño potencial si el riesgo se materializa).",
+          "espacios": ["amenaza", "vulnerabilidad", "impacto"]
+        },
+        {
+          "id": 2,
+          "texto": "El riesgo _____ es el nivel de riesgo antes de considerar los controles. El riesgo _____ es el que queda después de aplicar los controles. El objetivo del programa PLD/FT es reducir el segundo al nivel del _____ de riesgo establecido por la Alta Dirección.",
+          "espacios": ["inherente", "residual", "apetito"]
+        },
+        {
+          "id": 3,
+          "texto": "El Enfoque _____ en Riesgos (EBR) establece que los controles deben ser _____ al riesgo: se simplifican para clientes de _____ riesgo y se intensifican para clientes de _____ riesgo.",
+          "espacios": ["Basado", "proporcionales", "bajo", "alto"]
+        },
+        {
+          "id": 4,
+          "texto": "La Guía del GAFI sobre el EBR para el Sector Bancario fue publicada en _____. Identifica cuatro categorías de factores de riesgo: tipo de _____, tipo de _____, canal de _____ y riesgo _____.",
+          "espacios": ["2014", "cliente", "producto", "distribución", "geográfico"]
+        },
+        {
+          "id": 5,
+          "texto": "El documento del Comité de _____ de 2014 establece que el riesgo LD/FT debe gestionarse como parte del riesgo _____ bancario. Formaliza el modelo de las _____ Líneas de Defensa.",
+          "espacios": ["Basilea", "operativo", "Tres"]
+        },
+        {
+          "id": 6,
+          "texto": "En el modelo de las Tres Líneas de Defensa: la _____ línea es el personal de negocio que detecta señales de alerta, la _____ línea es la función de cumplimiento que diseña controles, y la _____ línea es la auditoría que evalúa independientemente.",
+          "espacios": ["primera", "segunda", "tercera"]
+        },
+        {
+          "id": 7,
+          "texto": "Según el Comité de Basilea 2014, el responsable _____ del programa PLD/FT es el _____ de Administración, no solo el Oficial de Cumplimiento.",
+          "espacios": ["último", "Consejo"]
+        },
+        {
+          "id": 8,
+          "texto": "La Debida Diligencia _____ (DDS) puede aplicarse cuando el riesgo del cliente es objetivamente _____. Sin embargo, se suspende automáticamente cuando existe cualquier _____ de alerta, independientemente del perfil general del cliente.",
+          "espacios": ["Simplificada", "bajo", "señal"]
+        },
+        {
+          "id": 9,
+          "texto": "La _____ Nacional de _____ (ENR) es el proceso mediante el cual el _____ evalúa sus riesgos de LD/FT a nivel nacional. Las entidades financieras deben conocerla y usarla como insumo para su propia evaluación.",
+          "espacios": ["Evaluación", "Riesgos", "país (gobierno)"]
+        },
+        {
+          "id": 10,
+          "texto": "En grupos financieros, cuando hay diferencias entre el estándar PLD/FT del grupo y el del país local, siempre aplica el _____ más _____. Si el país local tiene requisitos más altos que el grupo, aplica el del _____. Si el grupo tiene requisitos más altos que el país, aplica el del _____.",
+          "espacios": ["estándar", "estricto", "país local", "grupo"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["amenaza", "vulnerabilidad", "impacto"],
+        "2": ["inherente", "residual", "apetito"],
+        "3": ["Basado", "proporcionales", "bajo", "alto"],
+        "4": ["2014", "cliente", "producto", "distribución", "geográfico"],
+        "5": ["Basilea", "operativo", "Tres"],
+        "6": ["primera", "segunda", "tercera"],
+        "7": ["último", "Consejo"],
+        "8": ["Simplificada", "bajo", "señal"],
+        "9": ["Evaluación", "Riesgos", "país"],
+        "10": ["estándar", "estricto", "país local", "grupo"]
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: Gestión de riesgos y EBR",
+    "instrucciones": "Completa el crucigrama con conceptos del Bloque 3.",
+    "contenido": {
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "pista": "Tipo de riesgo que existe ANTES de considerar los controles implementados por la entidad. Es el riesgo 'bruto' o natural.",
+          "respuesta": "INHERENTE"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "pista": "Siglas del Enfoque Basado en Riesgos, metodología central del estándar GAFI desde 2012.",
+          "respuesta": "EBR"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "pista": "Una de las tres variables del riesgo PLD/FT: característica interna de la entidad que la hace susceptible de ser utilizada para LD/FT.",
+          "respuesta": "VULNERABILIDAD"
+        },
+        {
+          "numero": 4,
+          "direccion": "vertical",
+          "pista": "Tipo de diligencia que se aplica a clientes de bajo riesgo documentado. NO significa ausencia de controles.",
+          "respuesta": "SIMPLIFICADA"
+        },
+        {
+          "numero": 5,
+          "direccion": "horizontal",
+          "pista": "Nivel de riesgo que la Alta Dirección está dispuesta a aceptar. Determina qué clientes o productos la entidad acepta o rechaza.",
+          "respuesta": "APETITO"
+        },
+        {
+          "numero": 6,
+          "direccion": "vertical",
+          "pista": "La línea de defensa que corresponde a la auditoría interna y externa. Evalúa objetivamente si las otras dos líneas funcionan.",
+          "respuesta": "TERCERA"
+        },
+        {
+          "numero": 7,
+          "direccion": "horizontal",
+          "pista": "Nombre del documento del GAFI publicado en 2014 sobre la implementación del EBR en el sector bancario. Describe cuatro categorías de factores de riesgo.",
+          "respuesta": "GUIA"
+        },
+        {
+          "numero": 8,
+          "direccion": "vertical",
+          "pista": "Proceso realizado por el gobierno para evaluar los riesgos de LD/FT a nivel nacional. Siglas en español.",
+          "respuesta": "ENR"
+        },
+        {
+          "numero": 9,
+          "direccion": "horizontal",
+          "pista": "Tipo de riesgo que QUEDA después de aplicar los controles. El objetivo del programa PLD/FT es mantenerlo dentro del apetito de riesgo.",
+          "respuesta": "RESIDUAL"
+        },
+        {
+          "numero": 10,
+          "direccion": "horizontal",
+          "pista": "Indicios o patrones que sugieren la posible existencia de actividades de LD/FT. Son el insumo para la decisión de reportar como OI.",
+          "respuesta": "ALERTAS"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "INHERENTE",
+        "2V": "EBR",
+        "3H": "VULNERABILIDAD",
+        "4V": "SIMPLIFICADA",
+        "5H": "APETITO",
+        "6V": "TERCERA",
+        "7H": "GUIA",
+        "8V": "ENR",
+        "9H": "RESIDUAL",
+        "10H": "ALERTAS"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Señales de alerta y tipología correspondiente",
+    "instrucciones": "Relaciona cada señal de alerta con la tipología de LD/FT que más probablemente describe.",
+    "contenido": {
+      "columna_senales": [
+        {"id": "A", "senal": "Cliente que deposita diariamente cantidades en efectivo de $9,200-9,800 pesos durante varias semanas consecutivas, sin relación con sus ingresos declarados"},
+        {"id": "B", "senal": "Empresa de importación que factura bienes a un precio 40% inferior al precio de mercado internacional documentado"},
+        {"id": "C", "senal": "Cuenta que recibe transferencias de 15 distintas fuentes en 3 días y luego transfiere todo el saldo a una cuenta en el extranjero"},
+        {"id": "D", "senal": "Persona física sin ingresos aparentes adquiere un inmueble de $5 millones de pesos pagando al contado sin financiamiento bancario"},
+        {"id": "E", "senal": "Negocio de estacionamiento en una colonia residencial declara ingresos mensuales de $2.5 millones de pesos, equivalentes a cobrar 24 horas al día con el estacionamiento lleno"},
+        {"id": "F", "senal": "ONG recibe donaciones de múltiples personas en México y transfiere mensualmente $300,000 pesos a una organización en un país del Medio Oriente listado por la ONU"}
+      ],
+      "columna_tipologias": [
+        {"id": "1", "tipologia": "Empresa fachada (negocio de alto efectivo con ingresos desproporcionados — mezcla de fondos ilícitos con ingresos declarados)"},
+        {"id": "2", "tipologia": "Facturación falsa en comercio exterior (sub-facturación de importaciones para introducir valor ilícito al país)"},
+        {"id": "3", "tipologia": "Estructuración o pitufeo — depósitos fraccionados para evadir umbrales de reporte"},
+        {"id": "4", "tipologia": "Cuenta de tránsito o pass-through — recibe y transfiere fondos sin retención, para ocultar el origen"},
+        {"id": "5", "tipologia": "Financiamiento al Terrorismo a través de ONG — fondos de origen lícito destinados a organización terrorista"},
+        {"id": "6", "tipologia": "Integración mediante bienes raíces — compra de inmuebles con recursos ilícitos sin justificar el origen del capital"}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "3",
+        "B": "2",
+        "C": "4",
+        "D": "6",
+        "E": "1",
+        "F": "5"
+      },
+      "calificacion_maxima": 6,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 8
+  }
+]

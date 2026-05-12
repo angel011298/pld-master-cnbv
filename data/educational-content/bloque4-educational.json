@@ -1,0 +1,925 @@
+[
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Autoridades Nacionales — Panorama general",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El sistema de autoridades mexicanas en materia de PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "México cuenta con un sistema de autoridades especializadas que cumplen funciones distintas pero complementarias en la lucha contra el lavado de dinero y el financiamiento al terrorismo. Para el examen CNBV es fundamental distinguir entre las autoridades que REGULAN (emiten normas), las que SUPERVISAN (verifican el cumplimiento) y las que DETECTAN Y COMBATEN (investigan y persiguen penalmente)."
+        },
+        {
+          "tipo": "clasificacion_autoridades",
+          "titulo": "Clasificación de las autoridades por función",
+          "categorias": [
+            {
+              "categoria": "Autoridades REGULADORAS",
+              "funcion": "Emiten las normas, disposiciones y circulares que establecen las obligaciones PLD/FT para las entidades financieras y actividades vulnerables",
+              "ejemplos": ["SHCP — Secretaría de Hacienda y Crédito Público", "CNBV — Comisión Nacional Bancaria y de Valores", "CNSF — Comisión Nacional de Seguros y Fianzas", "Consar — Comisión Nacional del Sistema de Ahorro para el Retiro", "Banco de México"]
+            },
+            {
+              "categoria": "Autoridades SUPERVISORAS",
+              "funcion": "Verifican que las entidades reguladas cumplan con sus obligaciones PLD/FT mediante visitas de inspección, revisión documental y reportes periódicos",
+              "ejemplos": ["CNBV", "CNSF", "Consar", "SAT — en actividades vulnerables no financieras"]
+            },
+            {
+              "categoria": "Autoridades de DETECCIÓN y COMBATE",
+              "funcion": "Recopilan, analizan y comparten inteligencia financiera, investigan y persiguen penalmente los delitos de LD/FT",
+              "ejemplos": ["UIF — Unidad de Inteligencia Financiera (SHCP)", "FGR — Fiscalía General de la República", "PJF — Poder Judicial Federal", "FMP — Fuerzas de seguridad y militares"]
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Una misma autoridad puede ejercer más de una función. Por ejemplo, la CNBV tanto REGULA (emite disposiciones) como SUPERVISA (realiza visitas de inspección). La UIF tanto REGULA (emite la lista de personas bloqueadas, política nacional) como DETECTA (recibe y analiza reportes, comparte inteligencia con la FGR)."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 6-16 (autoridades y sus funciones); LIC Art. 115; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 1
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Autoridades encargadas de regular",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Autoridades Reguladoras del régimen PLD/FT en México",
+      "cuerpo": [
+        {
+          "tipo": "autoridades_reguladoras",
+          "items": [
+            {
+              "autoridad": "Secretaría de Hacienda y Crédito Público (SHCP)",
+              "naturaleza": "Secretaría de Estado — máxima autoridad en materia financiera y fiscal",
+              "funciones_pld": [
+                "Emite la política pública en materia de PLD/FT a nivel nacional",
+                "A través de la UIF, emite la Lista de Personas Bloqueadas",
+                "Coordina el Comité Coordinador para la Prevención y Combate del LD/FT",
+                "Emite el Reglamento de la LFPIORPI",
+                "Coordina la elaboración de la Evaluación Nacional de Riesgos (ENR)",
+                "Recibe los reportes de operaciones de las entidades financieras (a través de la UIF)",
+                "Regula las actividades vulnerables no financieras junto con el SAT"
+              ],
+              "instrumentos_emite": ["LFPIORPI (iniciativa y regulación secundaria)", "Reglamento LFPIORPI", "Reglas de carácter general LFPIORPI", "Lista de Personas Bloqueadas"],
+              "fundamento": "LFPIORPI Arts. 6-8"
+            },
+            {
+              "autoridad": "Comisión Nacional Bancaria y de Valores (CNBV)",
+              "naturaleza": "Órgano desconcentrado de la SHCP con autonomía técnica",
+              "funciones_pld": [
+                "Emite las Disposiciones de carácter general en materia de PLD/FT para cada tipo de entidad del sistema financiero bajo su supervisión",
+                "Autoriza y revoca licencias de operación de entidades financieras",
+                "Realiza visitas de inspección para verificar el cumplimiento PLD/FT",
+                "Impone sanciones administrativas por incumplimiento",
+                "Certifica a los oficiales de cumplimiento a través del examen CNBV",
+                "Emite lineamientos sobre sistemas automatizados de monitoreo"
+              ],
+              "entidades_que_regula": ["Instituciones de crédito", "Casas de bolsa", "SOCAP/SOFIPO/SOFINCO", "Casas de cambio", "Transmisores de dinero", "SOFOMES", "ITF (IFPE/IFC)"],
+              "instrumentos_emite": ["Disposiciones de carácter general para cada sector", "Circulares CNBV", "Lineamientos técnicos"],
+              "fundamento": "LIC Art. 115; Ley de la CNBV Art. 4"
+            },
+            {
+              "autoridad": "Comisión Nacional de Seguros y Fianzas (CNSF)",
+              "naturaleza": "Órgano desconcentrado de la SHCP",
+              "funciones_pld": [
+                "Emite disposiciones PLD/FT para el sector asegurador y afianzador",
+                "Supervisa el cumplimiento PLD/FT de aseguradoras y afianzadoras",
+                "Impone sanciones administrativas"
+              ],
+              "entidades_que_regula": ["Instituciones de seguros", "Instituciones de fianzas"],
+              "fundamento": "Ley de Instituciones de Seguros y de Fianzas (LISF)"
+            },
+            {
+              "autoridad": "Comisión Nacional del Sistema de Ahorro para el Retiro (Consar)",
+              "naturaleza": "Órgano desconcentrado de la SHCP",
+              "funciones_pld": [
+                "Emite disposiciones PLD/FT para el Sistema de Ahorro para el Retiro (SAR)",
+                "Supervisa el cumplimiento de AFORES y SIEFORES"
+              ],
+              "entidades_que_regula": ["AFORES", "SIEFORES"],
+              "fundamento": "Ley del SAR"
+            },
+            {
+              "autoridad": "Banco de México (BANXICO)",
+              "naturaleza": "Banco central autónomo",
+              "funciones_pld": [
+                "Regula las operaciones con dólares en efectivo (Circular 4/2012)",
+                "Autoriza a las ITF para operar con activos virtuales (Ley FinTech Art. 30)",
+                "Emite regulación sobre transferencias de fondos y el sistema de pagos",
+                "Contribuye a la política PLD/FT como parte del Comité Coordinador"
+              ],
+              "fundamento": "Ley del Banco de México; Ley FinTech Art. 30; Circular Banxico 4/2012"
+            },
+            {
+              "autoridad": "Servicio de Administración Tributaria (SAT)",
+              "naturaleza": "Órgano desconcentrado de la SHCP",
+              "funciones_pld": [
+                "Regula y supervisa el cumplimiento de las obligaciones de las Actividades Vulnerables establecidas en la LFPIORPI",
+                "Recibe los avisos de actividades vulnerables (no reportes de OR/OI — esos van a la UIF)",
+                "Realiza verificaciones a quienes realizan actividades vulnerables no financieras",
+                "Impone sanciones a actividades vulnerables que incumplen con la LFPIORPI"
+              ],
+              "nota": "El SAT regula las actividades vulnerables NO financieras (notarios, inmobiliarias, abogados, joyeros, casinos, etc.). Las entidades financieras son reguladas y supervisadas por la CNBV/CNSF/Consar.",
+              "fundamento": "LFPIORPI Art. 6, fracción III; Reglamento LFPIORPI"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Distinción crítica para el examen: La CNBV regula y supervisa a las ENTIDADES FINANCIERAS en materia PLD/FT. El SAT regula y supervisa a quienes realizan ACTIVIDADES VULNERABLES no financieras (LFPIORPI). Son universos distintos con autoridades distintas."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 6-16; LIC Art. 115; Ley de la CNBV; Ley del Banco de México; Ley FinTech Art. 30; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 2
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Órganos encargados de supervisar el régimen de prevención en el sistema financiero mexicano",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La supervisión del régimen PLD/FT: cómo la CNBV verifica el cumplimiento",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "La supervisión es el proceso mediante el cual las autoridades competentes verifican que las entidades financieras cumplen efectivamente con sus obligaciones PLD/FT. La CNBV es el principal órgano supervisor del sistema financiero mexicano en esta materia. La supervisión no solo verifica el cumplimiento formal (¿existen las políticas?) sino también la efectividad (¿funcionan en la práctica?)."
+        },
+        {
+          "tipo": "tipos_supervision",
+          "titulo": "Tipos de supervisión de la CNBV",
+          "modalidades": [
+            {
+              "modalidad": "Supervisión Extramuros (Off-site)",
+              "descripcion": "Revisión de información que la entidad proporciona a la CNBV sin visita presencial. Incluye: análisis de reportes estadísticos, revisión de los reportes de operaciones (OR, OI, OIP) presentados ante la UIF, análisis de los informes de auditoría PLD/FT.",
+              "ventajas": "Permite supervisión continua y de múltiples entidades simultáneamente",
+              "limitaciones": "Limitada a la información que la entidad reporta — puede no detectar problemas que no se reflejan en reportes"
+            },
+            {
+              "modalidad": "Visita de Inspección Ordinaria",
+              "descripcion": "Visita programada y anunciada a la entidad para revisar su programa PLD/FT de forma integral. Cubre todos los aspectos: políticas, expedientes, sistema de monitoreo, capacitación, reportes, estructura interna.",
+              "periodicidad": "Generalmente anual o cada 2 años dependiendo del riesgo de la entidad",
+              "resultado": "Informe de visita con hallazgos, observaciones y requerimientos de corrección"
+            },
+            {
+              "modalidad": "Visita de Inspección Especial",
+              "descripcion": "Visita no programada (sorpresiva) o visita enfocada en aspectos específicos detectados como problemáticos. Puede derivar de: alertas en reportes extramuros, denuncias, hallazgos en visitas anteriores no corregidos.",
+              "caracteristica": "Más focalizada — puede limitarse a un solo aspecto del programa PLD/FT",
+              "resultado": "Informe especial + posible inicio de procedimiento sancionatorio"
+            }
+          ]
+        },
+        {
+          "tipo": "proceso_visita",
+          "titulo": "El proceso de una visita de inspección PLD/FT",
+          "etapas": [
+            {
+              "etapa": "1. Notificación",
+              "descripcion": "La CNBV notifica formalmente a la entidad el inicio de la visita de inspección, la fecha de inicio y los aspectos que serán revisados (para visitas ordinarias)."
+            },
+            {
+              "etapa": "2. Apertura",
+              "descripcion": "El equipo inspector se presenta en la entidad, se acredita y solicita la información necesaria para iniciar la revisión (manuales, expedientes, reportes, acceso a sistemas)."
+            },
+            {
+              "etapa": "3. Revisión documental",
+              "descripcion": "El equipo revisa: Manual PLD/FT actualizado, expedientes de clientes (muestra), registros de capacitación, reportes presentados ante la UIF, actas del CCC, informes de auditoría."
+            },
+            {
+              "etapa": "4. Pruebas de efectividad",
+              "descripcion": "Se selecciona una muestra de transacciones para verificar si el sistema de monitoreo funciona, si las alertas se procesan adecuadamente, si los reportes se presentan en tiempo y forma."
+            },
+            {
+              "etapa": "5. Entrevistas",
+              "descripcion": "El equipo entrevista al Oficial de Cumplimiento, a miembros del CCC, y puede también entrevistar al personal operativo para evaluar el nivel de conocimiento sobre PLD/FT."
+            },
+            {
+              "etapa": "6. Cierre y comunicación de hallazgos preliminares",
+              "descripcion": "Al finalizar la visita, el equipo inspector comunica informalmente los hallazgos preliminares. La entidad tiene oportunidad de presentar información adicional que aclare los hallazgos."
+            },
+            {
+              "etapa": "7. Informe de visita",
+              "descripcion": "La CNBV emite el informe oficial con: hallazgos, calificación del programa PLD/FT, observaciones que deben corregirse y plazos. Si hay infracciones graves, puede iniciar procedimiento sancionatorio."
+            }
+          ]
+        },
+        {
+          "tipo": "aspectos_revision",
+          "titulo": "Aspectos típicos que revisa la CNBV en una visita PLD/FT",
+          "items": [
+            "Existencia y actualización del Manual PLD/FT",
+            "Designación formal del Oficial de Cumplimiento y notificación a CNBV",
+            "Integración y funciones del CCC (actas, periodicidad de sesiones)",
+            "Calidad de los expedientes de identificación de clientes (muestra)",
+            "Clasificación de riesgo de clientes (¿está actualizada? ¿es consistente con el perfil?)",
+            "Funcionamiento del sistema automatizado de monitoreo (reglas, alertas generadas y procesadas)",
+            "Reportes presentados ante la UIF (número, oportunidad, calidad)",
+            "Registros de capacitación del personal (¿todos los empleados? ¿frecuencia anual?)",
+            "Consulta de listas de control (bloqueados, PEPs, OFAC) y evidencia de ello",
+            "Informes de auditoría PLD/FT y seguimiento a recomendaciones"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La CNBV puede imponer sanciones económicas significativas y medidas correctivas sin necesidad de demostrar que ocurrió un evento de lavado de dinero. Basta con acreditar que la entidad INCUMPLIÓ sus obligaciones preventivas (por ejemplo, no actualizó expedientes, no reportó en tiempo, no capacitó al personal). El incumplimiento normativo es suficiente para sancionar."
+        }
+      ]
+    },
+    "fuente_detallada": "Ley de la CNBV Arts. 4 y 5; LIC Arts. 108-115; Disposiciones de carácter general CNBV — capítulo de supervisión; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 3
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Autoridades encargadas de detección y combate al LD/FT",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las autoridades de detección y combate: UIF, FGR y el sistema penal",
+      "cuerpo": [
+        {
+          "tipo": "uif_detalle",
+          "titulo": "Unidad de Inteligencia Financiera (UIF)",
+          "datos_generales": [
+            {"campo": "Dependencia", "valor": "Secretaría de Hacienda y Crédito Público (SHCP)"},
+            {"campo": "Naturaleza", "valor": "Unidad administrativa — modelo de UIF administrativo"},
+            {"campo": "Creación", "valor": "2004, mediante decreto presidencial"},
+            {"campo": "Titular", "valor": "Titular de la UIF designado por el Secretario de Hacienda"},
+            {"campo": "Membresía internacional", "valor": "Grupo Egmont — red mundial de UIFs"}
+          ],
+          "funciones": [
+            {
+              "funcion": "Receptora central de reportes",
+              "descripcion": "Recibe TODOS los reportes de las entidades financieras: OR (operaciones relevantes), OI (inusuales), OIP (internas preocupantes), reportes de transferencias internacionales, de operaciones con divisas, de activos virtuales, etc. También recibe los avisos de actividades vulnerables del SAT."
+            },
+            {
+              "funcion": "Análisis de inteligencia financiera",
+              "descripcion": "Procesa y analiza la información recibida para identificar patrones, redes criminales y tendencias. Cruza la información de múltiples reportes para construir un cuadro de inteligencia financiera."
+            },
+            {
+              "funcion": "Diseminación a autoridades",
+              "descripcion": "Cuando el análisis sugiere la comisión de un delito, la UIF transmite la inteligencia generada a la FGR (Fiscalía General de la República) para que inicie investigaciones penales."
+            },
+            {
+              "funcion": "Emisión de la Lista de Personas Bloqueadas",
+              "descripcion": "La UIF (a través de la SHCP) emite la Lista de Personas Bloqueadas con individuos y entidades cuyos activos deben congelarse por vinculación con terrorismo o FT."
+            },
+            {
+              "funcion": "Cooperación internacional",
+              "descripcion": "Intercambia inteligencia financiera con UIFs de otros países a través del Grupo Egmont, sin necesidad de comisiones rogatorias judiciales."
+            },
+            {
+              "funcion": "Coordinación del sistema PLD/FT",
+              "descripcion": "Participa en el Comité Coordinador para la Prevención y Combate del LD/FT junto con otras autoridades."
+            }
+          ],
+          "flujo_reportes": "Entidades financieras → UIF (SHCP) → Análisis → FGR (si hay indicios de delito) → Investigación penal → PJF (juicio)"
+        },
+        {
+          "tipo": "fgr_detalle",
+          "titulo": "Fiscalía General de la República (FGR)",
+          "descripcion": "La FGR es la autoridad encargada de investigar y perseguir penalmente los delitos federales, incluyendo el lavado de dinero (ORPI — Art. 400 Bis CPF) y el financiamiento al terrorismo (Art. 139 Quáter CPF).",
+          "funciones_pld": [
+            "Recibe la inteligencia financiera de la UIF y la convierte en investigaciones penales",
+            "Tiene la Fiscalía Especializada en Materia de Delincuencia Organizada (FEMDO) para casos complejos",
+            "Solicita medidas cautelares al Poder Judicial: congelamiento de cuentas, aseguramiento de bienes",
+            "Ejerce la acción penal ante los tribunales federales",
+            "Coordina con autoridades policiales (SEDENA, Marina, Policía Federal) en operativos"
+          ],
+          "herramienta_decomiso": "La FGR puede solicitar la extinción de dominio — procedimiento especial para confiscar bienes de origen ilícito sin necesidad de condena penal previa al titular.",
+          "fundamento": "CPF Art. 400 Bis y 139 Quáter; Ley Nacional de Extinción de Dominio"
+        },
+        {
+          "tipo": "poder_judicial",
+          "titulo": "Poder Judicial Federal (PJF)",
+          "descripcion": "Los tribunales federales (Juzgados de Distrito y Tribunales Unitarios de Circuito) son quienes conocen y resuelven los casos penales de LD/FT. El Poder Judicial es la autoridad final para imponer penas privativas de libertad y ordenar el decomiso de bienes.",
+          "rol_pld": [
+            "Autoriza medidas cautelares durante la investigación (congelamiento, aseguramiento)",
+            "Conoce y resuelve los procesos penales por LD/FT",
+            "Impone penas de prisión y multas a los responsables",
+            "Ordena el decomiso de bienes de origen ilícito",
+            "Resuelve los juicios de extinción de dominio"
+          ]
+        },
+        {
+          "tipo": "otras_autoridades",
+          "titulo": "Otras autoridades con rol en detección y combate",
+          "items": [
+            {
+              "autoridad": "Secretaría de la Defensa Nacional (SEDENA) y Marina (SEMAR)",
+              "rol": "Apoyo en operativos de combate al crimen organizado. Los hallazgos de efectivo o activos ilícitos en operativos se coordinan con la FGR y la UIF."
+            },
+            {
+              "autoridad": "Secretaría de Seguridad y Protección Ciudadana (SSPC)",
+              "rol": "Coordinación de política de seguridad pública. La Policía Federal (ahora CNSP) apoya en investigaciones de LD/FT."
+            },
+            {
+              "autoridad": "Instituto Nacional de Migración (INM)",
+              "rol": "Control de flujos migratorios. Detecta posible contrabando de efectivo en puertos de entrada (cross-border currency smuggling)."
+            },
+            {
+              "autoridad": "Servicio de Administración y Enajenación de Bienes (SAE)",
+              "rol": "Administra los bienes asegurados o decomisados en procedimientos penales o de extinción de dominio hasta su destino final."
+            }
+          ]
+        },
+        {
+          "tipo": "comite_coordinador",
+          "titulo": "El Comité Coordinador para la Prevención y Combate del LD/FT",
+          "descripcion": "México cuenta con un mecanismo de coordinación interinstitucional presidido por la SHCP. El Comité reúne a todas las autoridades relevantes para coordinar la política nacional PLD/FT, compartir información y coordinar esfuerzos contra el crimen organizado financiero.",
+          "integrantes_principales": ["SHCP/UIF (Presidencia)", "CNBV", "CNSF", "Consar", "Banxico", "FGR", "SSPC", "SAT"],
+          "fundamento": "LFPIORPI Art. 16"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El flujo de información PLD/FT en México sigue esta cadena: Entidad financiera (detecta) → UIF (recibe y analiza) → FGR (investiga penalmente) → Poder Judicial (juzga y condena). Este flujo no es lineal en todos los casos — la UIF puede trabajar proactivamente sin esperar reportes de entidades, y la FGR puede iniciar investigaciones por sus propios medios."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 6, 12-16; CPF Arts. 400 Bis y 139 Quáter; Ley Nacional de Extinción de Dominio; Ley Orgánica de la FGR; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 4
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Autoridades Nacionales — Panorama general",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Diagrama: El sistema de autoridades PLD/FT en México",
+      "tipo_diagrama": "flujo_institucional",
+      "descripcion": "Mapa institucional con las tres categorías de autoridades y el flujo de información",
+      "capas": [
+        {
+          "capa": "REGULACIÓN",
+          "color": "azul",
+          "actores": ["SHCP — Política nacional PLD/FT", "CNBV — Entidades financieras", "CNSF — Seguros y fianzas", "Consar — SAR/AFORES", "Banxico — Sistema de pagos y activos virtuales", "SAT — Actividades vulnerables"],
+          "producto": "Normas, disposiciones, circulares"
+        },
+        {
+          "capa": "SUPERVISIÓN",
+          "color": "naranja",
+          "actores": ["CNBV — Visitas de inspección a entidades financieras", "CNSF — Visitas a aseguradoras", "SAT — Verificaciones a actividades vulnerables"],
+          "producto": "Informes de visita, sanciones, requerimientos"
+        },
+        {
+          "capa": "DETECCIÓN E INTELIGENCIA",
+          "color": "verde",
+          "actores": ["UIF (SHCP) — Recibe reportes, analiza inteligencia, emite lista bloqueados"],
+          "flujo_entrada": "OR, OI, OIP, avisos LFPIORPI de entidades",
+          "flujo_salida": "Inteligencia financiera a FGR, cooperación internacional vía Egmont"
+        },
+        {
+          "capa": "PERSECUCIÓN PENAL",
+          "color": "rojo",
+          "actores": ["FGR — Investiga, ejerce acción penal", "PJF — Juzga, condena, ordena decomiso", "SEDENA/Marina/SSPC — Apoyo operativo"],
+          "producto": "Sentencias penales, decomiso, extinción de dominio"
+        }
+      ],
+      "flujo_principal": "Entidad → OR/OI/OIP → UIF → Análisis → FGR → Investigación → PJF → Condena"
+    },
+    "fuente_detallada": "LFPIORPI Arts. 6-16; LIC Art. 115; Ley Orgánica FGR; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 5
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Tipologías publicadas por la Unidad de Inteligencia Financiera Mexicana",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las tipologías de la UIF: qué son y cómo se usan",
+      "cuerpo": [
+        {
+          "tipo": "definicion",
+          "titulo": "¿Qué son las tipologías?",
+          "texto": "Las tipologías son esquemas, métodos o patrones de conducta documentados que son utilizados por los lavadores de dinero o financiadores del terrorismo para realizar sus actividades ilícitas. Son distintas a las señales de alerta individuales: mientras una señal de alerta es un indicio en una transacción concreta, una tipología describe el modus operandi COMPLETO de un esquema de LD/FT, incluyendo el método, los actores, los productos financieros utilizados y las jurisdicciones involucradas.",
+          "proposito": "Las tipologías sirven para: (1) capacitar al personal de entidades financieras sobre cómo reconocer esquemas complejos, (2) mejorar los sistemas de monitoreo agregando reglas que detecten los patrones descritos, (3) informar a los reguladores sobre los riesgos emergentes, (4) servir de evidencia en procesos penales."
+        },
+        {
+          "tipo": "fuentes_tipologias",
+          "titulo": "Fuentes de tipologías para las entidades financieras mexicanas",
+          "items": [
+            {
+              "fuente": "UIF (SHCP)",
+              "descripcion": "La Unidad de Inteligencia Financiera mexicana publica tipologías basadas en casos reales analizados en México. Son las más relevantes para el contexto nacional.",
+              "acceso": "Publicadas en el sitio web de la UIF y comunicadas a las entidades financieras"
+            },
+            {
+              "fuente": "GAFI",
+              "descripcion": "El GAFI publica informes de tipologías anuales sobre sectores específicos: bienes raíces, arte, activos virtuales, financiamiento del terrorismo, proliferación de armas, etc. Son el estándar internacional de referencia.",
+              "acceso": "Publicados en www.fatf-gafi.org (en inglés y algunos en español)"
+            },
+            {
+              "fuente": "GAFILAT",
+              "descripcion": "El organismo regional tipo GAFI para América Latina publica tipologías regionales especialmente relevantes para México y sus países vecinos.",
+              "acceso": "Publicados en www.gafilat.org"
+            },
+            {
+              "fuente": "Grupo Egmont",
+              "descripcion": "Publica casos de estudio de tipologías identificadas en investigaciones coordinadas entre UIFs de distintos países.",
+              "acceso": "Publicados en el sitio del Grupo Egmont"
+            }
+          ]
+        },
+        {
+          "tipo": "tipologias_uif_mexico",
+          "titulo": "Tipologías publicadas por la UIF mexicana — Ejemplos relevantes",
+          "tipologias": [
+            {
+              "nombre": "Uso de empresas fachada en el comercio",
+              "descripcion": "Empresas constituidas formalmente en México pero sin actividad económica real. Se usan para facturar servicios o bienes inexistentes entre empresas relacionadas, creando un flujo de dinero que aparentemente proviene de actividades comerciales legítimas. Frecuentemente vinculadas a defraudación fiscal (EFOS/EDOS) y lavado de dinero simultáneamente.",
+              "sector_afectado": "Sistema bancario, sector comercial",
+              "señales": "Empresa de reciente constitución con alto volumen de operaciones, facturas sin soporte de actividad real"
+            },
+            {
+              "nombre": "Estructuración mediante múltiples depositantes",
+              "descripcion": "Un grupo de personas (que pueden ser familiares, empleados o cómplices) realiza depósitos en efectivo de pequeño monto en la misma cuenta bancaria, en la misma sucursal o en distintas, el mismo día o en días consecutivos. Se busca que ningún depósito individual supere el umbral de reporte pero el total acumulado sea significativo.",
+              "sector_afectado": "Banca múltiple, SOFOMES",
+              "señales": "Múltiples personas realizan depósitos a la misma cuenta, montos similares, en corto tiempo"
+            },
+            {
+              "nombre": "Uso de remesas para estratificación",
+              "descripcion": "Envío de múltiples remesas de pequeño monto desde distintos puntos del país (o desde el extranjero) hacia un mismo beneficiario o hacia varias cuentas relacionadas. El destinatario acumula los fondos y luego los transfiere a otras cuentas o los retira en efectivo.",
+              "sector_afectado": "Transmisores de dinero, banca corresponsal internacional",
+              "señales": "Remesas frecuentes de distintos emisores al mismo beneficiario, montos similares"
+            },
+            {
+              "nombre": "Triangulación con paraísos fiscales",
+              "descripcion": "Flujo de recursos hacia una empresa en un paraíso fiscal o jurisdicción de baja transparencia, y posteriormente de regreso a México como 'inversión extranjera' o 'préstamo'. La empresa en el paraíso fiscal sirve como capa de separación entre el origen ilícito y el destino final.",
+              "sector_afectado": "Banca, casas de bolsa",
+              "señales": "Transferencias hacia jurisdicciones de la lista gris/negra, regreso de fondos como inversión sin respaldo comercial claro"
+            },
+            {
+              "nombre": "Uso de bienes raíces con sub o sobrevaloración",
+              "descripcion": "Compraventa de inmuebles por precios artificialmente bajos (sub) o altos (sobre) respecto al valor real de mercado. En la sub-facturación: el vendedor recibe dinero ilícito para complementar la diferencia en efectivo. En la sobrevaloración: se extrae valor del país hacia el exterior.",
+              "sector_afectado": "Sector inmobiliario, notarías, casas de bolsa (operaciones de deuda hipotecaria)",
+              "señales": "Precio de compraventa significativamente distinto al valor catastral o de mercado"
+            },
+            {
+              "nombre": "Uso de personas jurídicas con accionistas nominales (testaferros)",
+              "descripcion": "Constitución de empresas donde las personas que aparecen como socios o accionistas no son los verdaderos propietarios. Los verdaderos controladores (beneficiarios finales) permanecen ocultos tras los testaferros, dificultando la identificación del propietario real.",
+              "sector_afectado": "Todo el sistema financiero",
+              "señales": "Empresa con socios que no tienen perfil económico consistente con el tamaño de la empresa; múltiples cambios de razón social o de socios en corto tiempo"
+            },
+            {
+              "nombre": "Financiamiento al terrorismo a través de organizaciones sin fines de lucro",
+              "descripcion": "Uso de ONGs, iglesias, asociaciones civiles u organizaciones de asistencia social como canales para recaudar y transferir fondos hacia organizaciones terroristas, especialmente en el exterior. Los donantes pueden ser involuntarios (no saber el destino real) o partícipes conscientes.",
+              "sector_afectado": "Sistema bancario, transmisores de dinero",
+              "señales": "ONG con transferencias frecuentes al exterior a jurisdicciones de alto riesgo, sin actividades verificables en el país de destino"
+            }
+          ]
+        },
+        {
+          "tipo": "como_usan_entidades",
+          "titulo": "¿Cómo deben usar las entidades financieras las tipologías?",
+          "items": [
+            "Incorporar los patrones descritos en las tipologías como REGLAS en el sistema automatizado de monitoreo transaccional",
+            "Incluir casos basados en tipologías reales en los programas de CAPACITACIÓN del personal",
+            "Actualizar las políticas de señales de alerta del Manual PLD/FT cuando surgen nuevas tipologías",
+            "Compartir con el CCC las tipologías relevantes para el sector y ajustar el apetito de riesgo institucional",
+            "Utilizarlas como referencia para la EVALUACIÓN DEL RIESGO INHERENTE de nuevos productos o segmentos de clientes"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Las tipologías de la UIF son publicadas con base en casos reales mexicanos analizados por la propia UIF. Esto las hace especialmente relevantes porque reflejan el modus operandi específico del crimen organizado en el contexto mexicano, que puede diferir de las tipologías internacionales del GAFI o GAFILAT."
+        }
+      ]
+    },
+    "fuente_detallada": "UIF (SHCP) — Tipologías publicadas en el portal oficial de la UIF; GAFI — Informes de tipologías sectoriales; GAFILAT — Tipologías regionales; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 6
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Guía para la Prevención y Detección de Operaciones derivadas de actos de Corrupción",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La corrupción como delito fuente del lavado de dinero: La Guía de la UIF",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "La corrupción es uno de los delitos fuente más significativos del lavado de dinero en México. Los recursos obtenidos mediante actos de corrupción (sobornos, desvío de recursos públicos, peculado, enriquecimiento ilícito) requieren ser lavados para que los funcionarios corruptos puedan utilizarlos sin levantar sospechas. La UIF publicó una guía específica sobre cómo las entidades financieras pueden detectar operaciones vinculadas a la corrupción."
+        },
+        {
+          "tipo": "vinculo_corrupcion_ld",
+          "titulo": "La cadena corrupción → lavado de dinero",
+          "descripcion": "El ciclo típico funciona así:",
+          "etapas": [
+            {
+              "etapa": "1. Acto de corrupción",
+              "descripcion": "Un funcionario público recibe sobornos, defrauda al erario, realiza contrataciones irregulares con precio inflado, o desvía presupuesto público hacia cuentas privadas."
+            },
+            {
+              "etapa": "2. Acumulación de recursos ilícitos",
+              "descripcion": "El funcionario acumula activos: efectivo, bienes inmuebles, vehículos, inversiones — cuyo valor es desproporcionado respecto a su salario declarado."
+            },
+            {
+              "etapa": "3. Lavado de los recursos",
+              "descripcion": "Para utilizar libremente los recursos sin riesgo de detección, el funcionario o sus cómplices los lavan: usando testaferros, empresas fachada, inversiones en el exterior, adquisición de inmuebles a nombre de familiares."
+            },
+            {
+              "etapa": "4. Integración",
+              "descripcion": "Los recursos aparecen como inversiones, propiedades o negocios 'exitosos' y pueden usarse libremente."
+            }
+          ]
+        },
+        {
+          "tipo": "señales_alerta_corrupcion",
+          "titulo": "Señales de alerta específicas de LD derivado de corrupción",
+          "items": [
+            {
+              "señal": "Incremento patrimonial inexplicable de funcionarios públicos",
+              "descripcion": "Un funcionario público de nivel medio comienza a adquirir bienes (inmuebles, vehículos de lujo, viajes al exterior) cuyo costo acumulado excede significativamente su ingreso declarado por nómina.",
+              "tipologia_relacionada": "Enriquecimiento ilícito — Art. 224 CPF"
+            },
+            {
+              "señal": "Uso de familiares o cónyuges de funcionarios para adquirir bienes",
+              "descripcion": "Cónyuge, hijo o familiar directo de un funcionario público adquiere bienes de alto valor sin ingresos propios verificables o con ingresos desproporcionadamente menores al valor de los bienes.",
+              "tipologia_relacionada": "Testaferros vinculados a PEPs"
+            },
+            {
+              "señal": "Empresas contratistas del gobierno con cuentas inusuales",
+              "descripcion": "Empresa que gana contratos gubernamentales de gran volumen y realiza transferencias inmediatas a cuentas de terceros o al exterior sin justificación comercial aparente. Puede indicar sobrefacturación o 'moche' (devolución de parte del contrato al funcionario que lo otorgó).",
+              "tipologia_relacionada": "Desvío de recursos públicos + lavado"
+            },
+            {
+              "señal": "Operaciones con recursos en efectivo de ex funcionarios",
+              "descripcion": "Ex funcionario público que, después de dejar su cargo, realiza depósitos en efectivo significativos o adquiere activos con recursos en efectivo sin origen verificable.",
+              "tipologia_relacionada": "Lavado posterior a acto de corrupción"
+            },
+            {
+              "señal": "Cuentas en jurisdicciones de baja tributación asociadas a funcionarios",
+              "descripcion": "Funcionario o familiar cercano que tiene cuentas en paraísos fiscales o jurisdicciones de baja transparencia, o que recibe transferencias desde esas jurisdicciones.",
+              "tipologia_relacionada": "Triangulación con paraísos fiscales"
+            }
+          ]
+        },
+        {
+          "tipo": "pep_corrupcion",
+          "titulo": "La conexión PEP — Corrupción — LD",
+          "texto": "Las Personas Políticamente Expuestas (PEPs) reciben tratamiento especial de Debida Diligencia Reforzada precisamente por su mayor exposición al riesgo de corrupción. El razonamiento es: (1) los PEPs tienen acceso a recursos públicos o poder de decisión que pueden generar recursos ilícitos a través de la corrupción, (2) los recursos obtenidos por corrupción necesitan ser lavados para poder utilizarse, (3) las entidades financieras son el canal principal para ese lavado. Por eso, identificar a los PEPs y aplicar DDR es una medida preventiva contra el LD derivado de corrupción.",
+          "fundamento": "GAFI — Recomendación 12 (PEPs); Convención de Mérida/UNCAC (ONU, 2003)"
+        },
+        {
+          "tipo": "extincion_dominio",
+          "titulo": "La extinción de dominio como herramienta contra la corrupción + LD",
+          "texto": "La Ley Nacional de Extinción de Dominio (2019) permite al Estado mexicano confiscar bienes vinculados a delitos graves (incluyendo lavado de dinero y corrupción) sin necesidad de condena penal previa del titular del bien. Es especialmente útil para recuperar activos de funcionarios corruptos que han lavado los recursos en nombre de testaferros o estructuras complejas.",
+          "caracteristicas": [
+            "Procedimiento civil (no penal) — no requiere condena penal previa",
+            "La carga de la prueba se invierte: el titular del bien debe demostrar el origen lícito",
+            "Aplica a bienes vinculados a delitos del catálogo establecido en la Ley",
+            "Los bienes extinguidos pasan al dominio del gobierno federal (administrados por el SAE)"
+          ],
+          "fundamento": "Ley Nacional de Extinción de Dominio (DOF 09/08/2019)"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La Convención de Mérida (UNCAC, 2003) ratificada por México en 2004 establece obligaciones de recuperación de activos provenientes de corrupción, incluyendo la cooperación internacional para localizar y repatriar esos activos. México ha utilizado este instrumento para intentar recuperar recursos de funcionarios corruptos en el extranjero."
+        }
+      ]
+    },
+    "fuente_detallada": "UIF (SHCP) — Guía para la Prevención y Detección de Operaciones con Recursos de Procedencia Ilícita derivadas de actos de corrupción; GAFI — Recomendación 12 (PEPs); Convención de Mérida/UNCAC 2003; Ley Nacional de Extinción de Dominio 2019; CPF Art. 224 (Enriquecimiento ilícito); Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 7
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Evaluación Nacional de Riesgos de LD y FT en México",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La Evaluación Nacional de Riesgos (ENR) de México: contenido y hallazgos",
+      "cuerpo": [
+        {
+          "tipo": "antecedentes",
+          "titulo": "Antecedentes de la ENR en México",
+          "texto": "La elaboración de la Evaluación Nacional de Riesgos (ENR) es una obligación que deriva de la Recomendación 1 del GAFI. México fue evaluado en 2018 por el GAFI, y una de las áreas de mejora identificadas fue precisamente la necesidad de fortalecer la comprensión del riesgo nacional y utilizar ese entendimiento para priorizar recursos y esfuerzos. México publicó su primera ENR en 2016 y ha realizado actualizaciones posteriores.",
+          "responsable": "La Secretaría de Hacienda y Crédito Público, a través de la UIF, coordina la elaboración de la ENR con la participación de todas las autoridades relevantes del Comité Coordinador."
+        },
+        {
+          "tipo": "hallazgos_enr_mexico",
+          "titulo": "Principales hallazgos de la ENR de México",
+          "amenazas_principales": [
+            {
+              "amenaza": "Narcotráfico",
+              "descripcion": "El tráfico de drogas (principalmente cannabis, cocaína, heroína y metanfetaminas) genera el mayor volumen de recursos ilícitos en México. Las organizaciones delictivas emplean múltiples esquemas para lavar las ganancias del narco, incluyendo el comercio internacional (triangulación), los bienes raíces y el sistema financiero formal.",
+              "nivel_riesgo": "Muy Alto"
+            },
+            {
+              "amenaza": "Corrupción",
+              "descripcion": "La corrupción de funcionarios públicos genera recursos ilícitos que necesitan ser lavados. México tiene índices de percepción de corrupción que lo ubican como un país con riesgo significativo en este rubro. El lavado de recursos de corrupción frecuentemente involucra paraísos fiscales, testaferros y bienes raíces.",
+              "nivel_riesgo": "Alto"
+            },
+            {
+              "amenaza": "Extorsión y secuestro",
+              "descripcion": "Las extorsiones (cobro de 'derecho de piso') y secuestros generan efectivo que se introduce al sistema financiero principalmente a través de efectivo en pequeños negocios o a través de testaferros.",
+              "nivel_riesgo": "Alto"
+            },
+            {
+              "amenaza": "Robo de hidrocarburos (huachicol)",
+              "descripcion": "El robo de petróleo y combustibles de los ductos de PEMEX genera recursos significativos que se lavan principalmente en el sector comercial y financiero. Es una amenaza emergente específica del contexto mexicano.",
+              "nivel_riesgo": "Alto — emergente"
+            },
+            {
+              "amenaza": "Tráfico de personas",
+              "descripcion": "La trata de personas genera recursos que se lavan principalmente a través del sector comercial (negocios de entretenimiento, restaurantes) y del sistema financiero.",
+              "nivel_riesgo": "Medio-Alto"
+            },
+            {
+              "amenaza": "Financiamiento al terrorismo",
+              "descripcion": "El riesgo de FT en México se concentra principalmente en el financiamiento a organizaciones terroristas internacionales (no en terrorismo doméstico). El riesgo proviene de transferencias hacia el exterior sin sustento comercial.",
+              "nivel_riesgo": "Medio (menor que el LD)"
+            }
+          ],
+          "sectores_mas_vulnerables": [
+            {
+              "sector": "Sistema bancario",
+              "vulnerabilidad": "Muy Alta — Mayor volumen de operaciones, diversidad de productos y clientes, principal canal de flujo de recursos",
+              "medidas_recomendadas": "Fortalecer monitoreo transaccional, actualizar clasificación de riesgo de clientes, mejorar detección de estructuración"
+            },
+            {
+              "sector": "Sector inmobiliario",
+              "vulnerabilidad": "Alta — Transacciones de alto valor, menor transparencia en precios, uso frecuente de testaferros y efectivo",
+              "medidas_recomendadas": "Cumplimiento activo de LFPIORPI para actividades vulnerables inmobiliarias, identificación del beneficiario final en cada operación"
+            },
+            {
+              "sector": "Transmisores de dinero y remesas",
+              "vulnerabilidad": "Alta — Alto volumen de operaciones en efectivo, clientela diversa, conexiones internacionales",
+              "medidas_recomendadas": "Cumplimiento de la Regla de Viaje (GAFI Rec. 16), monitoreo de patrones de estructuración en remesas"
+            },
+            {
+              "sector": "Actividades vulnerables LFPIORPI",
+              "vulnerabilidad": "Alta en algunos segmentos — especialmente joyerías, casinos, compraventa de autos y actividades notariales",
+              "medidas_recomendadas": "Mayor supervisión del SAT, capacitación a los sujetos obligados, mejora en presentación de avisos"
+            },
+            {
+              "sector": "Economía informal",
+              "vulnerabilidad": "Muy Alta — La economía informal (estimada en el 30% del PIB mexicano) es el principal canal de colocación de recursos ilícitos en efectivo",
+              "medidas_recomendadas": "No cae bajo regulación financiera directa — requiere políticas de formalización económica"
+            }
+          ]
+        },
+        {
+          "tipo": "brechas_identificadas",
+          "titulo": "Brechas identificadas por el GAFI en la evaluación de México (2018)",
+          "brechas": [
+            "Número insuficiente de condenas penales por lavado de dinero en relación con el nivel de riesgo del país",
+            "Debilidades en el decomiso de activos ilícitos — el valor de los bienes decomisados no refleja la magnitud del problema",
+            "Deficiencias en la transparencia del beneficiario final de las personas morales",
+            "Falta de comprensión del riesgo en algunos sectores de actividades vulnerables (LFPIORPI)",
+            "Necesidad de fortalecer la cooperación entre autoridades"
+          ]
+        },
+        {
+          "tipo": "uso_enr_por_entidades",
+          "titulo": "¿Cómo deben usar las entidades financieras la ENR?",
+          "items": [
+            "Incluir los hallazgos de la ENR como INPUT en la evaluación institucional de riesgo (Enterprise-Wide Risk Assessment)",
+            "Ajustar la clasificación de riesgo de sus segmentos de clientes conforme a las amenazas identificadas en la ENR",
+            "Calibrar las reglas del sistema de monitoreo para detectar las tipologías más frecuentes según la ENR",
+            "Documentar en las políticas internas cómo la ENR informó las decisiones de gestión de riesgos PLD/FT",
+            "Actualizarse cuando la SHCP/UIF publique una nueva versión de la ENR"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La ENR no es un documento académico — tiene consecuencias regulatorias concretas. Una entidad financiera que no puede demostrar que conoce la ENR y que la ha considerado en su evaluación institucional de riesgo puede recibir observaciones en una visita de inspección de la CNBV."
+        }
+      ]
+    },
+    "fuente_detallada": "SHCP/UIF — Evaluación Nacional de Riesgos de LD y FT en México, 2016; GAFI — Informe de Evaluación Mutua de México, 2018; GAFI — Recomendación 1 (ENR); Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 8
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Enfoque Basado en Riesgos — Metodología de evaluación a nivel institucional",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El EBR en el contexto mexicano: metodología y documentación",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El Bloque 4 del temario CNBV profundiza en la aplicación práctica del Enfoque Basado en Riesgos (EBR) en el sistema financiero mexicano, complementando los conceptos teóricos del Bloque 3. Se enfoca en la metodología específica que deben aplicar las entidades mexicanas conforme a las disposiciones de la CNBV y las guías de la UIF."
+        },
+        {
+          "tipo": "metodologia_ebr_mexico",
+          "titulo": "Metodología de Evaluación de Riesgos conforme a regulación mexicana",
+          "descripcion": "La CNBV no impone una metodología única obligatoria, pero establece que las entidades deben contar con una metodología documentada que cubra como mínimo los siguientes elementos:",
+          "elementos_minimos": [
+            {
+              "elemento": "Identificación de factores de riesgo",
+              "descripcion": "La entidad debe identificar y documentar todos los factores de riesgo LD/FT relevantes para su negocio, organizados por categoría: clientes, productos y servicios, canales de distribución y zonas geográficas.",
+              "evidencia_requerida": "Listado documentado de factores de riesgo por categoría"
+            },
+            {
+              "elemento": "Evaluación de la probabilidad e impacto",
+              "descripcion": "Para cada factor de riesgo, la entidad debe evaluar: (a) la probabilidad de que ese factor se materialice en una operación de LD/FT, y (b) el impacto que tendría si ocurriera.",
+              "herramienta": "Matriz de probabilidad × impacto (calor de riesgo)"
+            },
+            {
+              "elemento": "Calificación del riesgo inherente",
+              "descripcion": "Con base en la evaluación anterior, la entidad califica su riesgo inherente general y por segmento de negocio.",
+              "escalas_tipicas": ["1-3 (bajo, medio, alto)", "1-5 (muy bajo, bajo, medio, alto, muy alto)"]
+            },
+            {
+              "elemento": "Evaluación de controles existentes",
+              "descripcion": "La entidad evalúa la efectividad de sus controles PLD/FT actuales: ¿existe el control? ¿está documentado? ¿se aplica consistentemente? ¿es efectivo para mitigar el riesgo identificado?",
+              "escala_tipica": ["Control inexistente", "Control parcial", "Control implementado pero ineficiente", "Control efectivo", "Control efectivo y mejorado"]
+            },
+            {
+              "elemento": "Determinación del riesgo residual",
+              "descripcion": "Combinando el riesgo inherente con la efectividad de los controles, se determina el riesgo residual. Si el riesgo residual supera el apetito de riesgo, deben diseñarse controles adicionales.",
+              "resultado": "Mapa de calor de riesgo residual por factor y por segmento"
+            },
+            {
+              "elemento": "Plan de mitigación",
+              "descripcion": "Para cada brecha entre el riesgo residual y el apetito de riesgo, se define un plan de acción con responsable, acción concreta, recursos necesarios y fecha de implementación.",
+              "monitoreo": "El CCC da seguimiento periódico al avance del plan"
+            }
+          ]
+        },
+        {
+          "tipo": "metodologia_grupos_financieros",
+          "titulo": "Metodología de Evaluación de Riesgos a nivel de Grupo Financiero",
+          "texto": "Cuando la entidad forma parte de un Grupo Financiero, la metodología de evaluación de riesgos tiene una dimensión adicional: la evaluación consolidada a nivel de grupo.",
+          "niveles": [
+            {
+              "nivel": "Evaluación individual",
+              "descripcion": "Cada entidad del grupo (banco, casa de bolsa, aseguradora, etc.) realiza su propia evaluación de riesgo conforme a su regulación sectorial específica."
+            },
+            {
+              "nivel": "Evaluación consolidada de grupo",
+              "descripcion": "La entidad controladora (holding) consolida las evaluaciones individuales para obtener una visión del riesgo PLD/FT del grupo en su totalidad. Esto permite identificar riesgos que afectan a todo el grupo y asignar recursos de manera estratégica."
+            },
+            {
+              "nivel": "Políticas grupales",
+              "descripcion": "El grupo establece políticas PLD/FT mínimas que todas las entidades del grupo deben cumplir, independientemente de su ubicación geográfica o regulación local. Las políticas locales pueden ser más estrictas que las grupales, pero nunca más laxas.",
+              "fundamento": "GAFI — Recomendación 18"
+            }
+          ],
+          "intercambio_informacion": "Las entidades del mismo grupo pueden compartir información PLD/FT entre sí (incluyendo expedientes de clientes compartidos y alertas de monitoreo) para fortalecer el programa grupal, siempre con los protocolos de confidencialidad adecuados."
+        },
+        {
+          "tipo": "documentacion_metodologia",
+          "titulo": "Documentación de la Metodología de Evaluación de Riesgos",
+          "descripcion": "La CNBV exige que la metodología y sus resultados estén debidamente documentados. La documentación es la evidencia que la entidad presentará en una visita de inspección para demostrar que aplica el EBR.",
+          "documentos_requeridos": [
+            "Manual PLD/FT con sección específica sobre la metodología de evaluación de riesgos",
+            "Informe de la evaluación institucional de riesgos (Enterprise-Wide Risk Assessment) con fecha y firma de aprobación del CCC/Consejo",
+            "Matrices de riesgo inherente y residual por segmento",
+            "Plan de mitigación con seguimiento documentado",
+            "Actas del CCC donde se revisó y aprobó la evaluación",
+            "Evidencia de que la evaluación considera los resultados de la ENR",
+            "Registros de actualización periódica (mínimo anual)"
+          ],
+          "principio": "Si no está documentado, para el supervisor no existe. La documentación es la diferencia entre 'cumplir' y 'poder demostrar que se cumple'."
+        },
+        {
+          "tipo": "riesgo_vs_grado_cliente",
+          "titulo": "Metodología de Evaluación de Riesgos vs. Grado de Riesgo de Clientes",
+          "descripcion": "Es fundamental distinguir entre la evaluación institucional de riesgos (macro) y la asignación del grado de riesgo a cada cliente (micro):",
+          "cuadro_comparativo": {
+            "columnas": ["Dimensión", "Evaluación Institucional (macro)", "Grado de Riesgo por Cliente (micro)"],
+            "filas": [
+              ["¿Qué evalúa?", "El negocio completo de la entidad: segmentos, productos, geografía", "Un cliente individual y su perfil específico"],
+              ["¿Quién lo hace?", "Oficial de Cumplimiento + CCC + Alta Dirección", "Ejecutivo de cuenta + Oficial de Cumplimiento"],
+              ["¿Con qué frecuencia?", "Anual o ante cambios significativos del negocio", "Al inicio de la relación + actualizaciones periódicas según riesgo"],
+              ["¿Cuál es el resultado?", "Mapa de riesgo institucional + plan de mitigación", "Clasificación Bajo/Medio/Alto + nivel de diligencia a aplicar"],
+              ["¿Qué informa?", "Qué segmentos y productos requieren más recursos de control", "Qué controles específicos aplican a este cliente concreto"],
+              ["¿Quién lo aprueba?", "CCC y Consejo de Administración", "Oficial de Cumplimiento (alto riesgo: también CCC o alta dirección)"],
+              ["¿Cómo se documenta?", "Informe formal de evaluación institucional", "En el expediente del cliente y en el sistema de clasificación"]
+            ]
+          },
+          "relacion": "La evaluación institucional establece el MARCO y los criterios para clasificar a los clientes. La clasificación individual de clientes APLICA esos criterios a cada caso concreto. Son complementarias: sin evaluación institucional, la clasificación de clientes carece de fundamento."
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "En el examen CNBV pueden aparecer preguntas que confundan deliberadamente la evaluación institucional de riesgos con la clasificación del grado de riesgo de clientes individuales. Recuerda: la evaluación institucional es del NEGOCIO (macro, anual, CCC/Consejo); la clasificación de clientes es de cada CLIENTE INDIVIDUAL (micro, al inicio + actualizaciones, ejecutivo/Oficial de Cumplimiento)."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Recomendación 1 (Evaluación del riesgo y EBR) y Recomendación 18 (Grupos financieros); Disposiciones CNBV — capítulo de evaluación institucional de riesgos; SHCP/UIF — ENR de México; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 9
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Autoridades Nacionales — Panorama general",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: Sistema nacional PLD/FT en México — Bloque 4 completo",
+      "nodo_central": "Sistema Nacional PLD/FT México",
+      "ramas": [
+        {
+          "concepto": "Autoridades Reguladoras",
+          "subnodos": [
+            "SHCP — Política nacional + LFPIORPI",
+            "CNBV — Entidades financieras",
+            "CNSF — Seguros y fianzas",
+            "Consar — SAR/AFORES",
+            "Banxico — Pagos, activos virtuales",
+            "SAT — Actividades vulnerables LFPIORPI"
+          ]
+        },
+        {
+          "concepto": "Supervisión",
+          "subnodos": [
+            "CNBV: extramuros + visitas ordinarias + especiales",
+            "Proceso: notificación → revisión → hallazgos → informe → sanción",
+            "Aspectos revisados: manual, expedientes, monitoreo, reportes, capacitación"
+          ]
+        },
+        {
+          "concepto": "Detección e Inteligencia",
+          "subnodos": [
+            "UIF (SHCP) — Modelo administrativo",
+            "Recibe OR, OI, OIP y avisos LFPIORPI",
+            "Analiza y disemina a FGR",
+            "Emite lista de bloqueados",
+            "Miembro del Grupo Egmont",
+            "Comité Coordinador interinstitucional"
+          ]
+        },
+        {
+          "concepto": "Combate Penal",
+          "subnodos": [
+            "FGR — Investigación y acción penal",
+            "PJF — Juicio y condena",
+            "SAE — Administra bienes decomisados",
+            "Extinción de dominio — sin condena previa"
+          ]
+        },
+        {
+          "concepto": "Tipologías y Riesgos Nacionales",
+          "subnodos": [
+            "ENR: narcotráfico, corrupción, extorsión, huachicol",
+            "Sectores más vulnerables: banca, inmobiliario, transmisores",
+            "Tipologías UIF: empresas fachada, estructuración, remesas, paraísos fiscales",
+            "Corrupción como delito fuente — Guía UIF + extinción de dominio"
+          ]
+        },
+        {
+          "concepto": "EBR en México",
+          "subnodos": [
+            "Metodología: 6 pasos + documentación obligatoria",
+            "Evaluación grupal — estándar más estricto prevalece",
+            "Macro (institucional) ≠ Micro (cliente individual)",
+            "ENR como INPUT de la evaluación institucional"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Guía PLD/FT CNBV 11ª ed., Bloque 4; LFPIORPI; ENR México; Disposiciones CNBV",
+    "orden": 10
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Enfoque Basado en Riesgos — Metodología de evaluación a nivel institucional",
+    "tipo": "resumen",
+    "contenido": {
+      "titulo": "Puntos clave para el examen CNBV — Bloque 4",
+      "puntos_clave": [
+        "Las autoridades se clasifican en tres categorías: REGULADORAS (emiten normas: SHCP, CNBV, CNSF, Consar, Banxico, SAT), SUPERVISORAS (verifican cumplimiento: CNBV, CNSF, SAT) y DE DETECCIÓN Y COMBATE (UIF, FGR, PJF).",
+        "La CNBV regula y supervisa a las ENTIDADES FINANCIERAS. El SAT regula y supervisa a las ACTIVIDADES VULNERABLES no financieras (LFPIORPI). Son universos distintos con autoridades distintas.",
+        "La UIF (SHCP) es la Unidad de Inteligencia Financiera de México. Es modelo administrativo (no policial). Recibe todos los reportes, analiza y transmite inteligencia a la FGR. Es miembro del Grupo Egmont.",
+        "El flujo de información PLD/FT: Entidad → UIF (reportes) → Análisis → FGR (inteligencia) → Investigación → PJF (juicio y condena).",
+        "La CNBV supervisa mediante: supervisión extramuros (análisis de reportes sin visita) + visitas ordinarias (programadas, integrales) + visitas especiales (sorpresivas o focalizadas).",
+        "Las tipologías son modus operandi completos de LD/FT documentados. La UIF publica tipologías basadas en casos reales mexicanos. Las entidades deben usarlas para actualizar sus sistemas de monitoreo y capacitación.",
+        "La corrupción es una de las principales amenazas de LD en México. Los PEPs reciben DDR precisamente por el riesgo de corrupción. La Ley de Extinción de Dominio permite confiscar bienes sin condena penal previa.",
+        "La ENR de México identifica como principales amenazas: narcotráfico (muy alto), corrupción (alto), extorsión/secuestro (alto) y huachicol (alto-emergente). Los sectores más vulnerables: banca, inmobiliario y transmisores de dinero.",
+        "La metodología de evaluación de riesgos institucional (macro) es distinta del grado de riesgo por cliente (micro). La primera evalúa el negocio completo; la segunda clasifica a cada cliente individual.",
+        "En grupos financieros siempre aplica el estándar más estricto. La evaluación consolidada a nivel de grupo es adicional a las evaluaciones individuales de cada entidad.",
+        "La documentación de la metodología de evaluación de riesgos es obligatoria. 'Si no está documentado, para el supervisor no existe'.",
+        "La Ley Nacional de Extinción de Dominio (2019) es una herramienta clave del sistema de combate al LD. No requiere condena penal previa — la carga de la prueba recae en el titular del bien para demostrar su origen lícito."
+      ],
+      "tabla_autoridades_rapida": [
+        {"autoridad": "SHCP", "funcion_principal": "Política nacional PLD/FT, LFPIORPI, coordina UIF y ENR"},
+        {"autoridad": "CNBV", "funcion_principal": "Regula Y supervisa entidades financieras. Impone sanciones."},
+        {"autoridad": "SAT", "funcion_principal": "Regula Y supervisa actividades vulnerables LFPIORPI"},
+        {"autoridad": "Banxico", "funcion_principal": "Regula pagos, dólares en efectivo y activos virtuales para FinTech"},
+        {"autoridad": "UIF", "funcion_principal": "Recibe reportes, analiza inteligencia, emite lista bloqueados, Egmont"},
+        {"autoridad": "FGR", "funcion_principal": "Investiga y persigue penalmente LD/FT. Extinción de dominio."},
+        {"autoridad": "PJF", "funcion_principal": "Juzga, condena, ordena decomiso. Última instancia penal."},
+        {"autoridad": "SAE", "funcion_principal": "Administra bienes asegurados o decomisados"}
+      ],
+      "preguntas_tipicas_examen": [
+        "¿Cuál es la diferencia entre las autoridades reguladoras, supervisoras y de detección y combate en el sistema PLD/FT mexicano?",
+        "¿Qué autoridad regula las actividades vulnerables no financieras establecidas en la LFPIORPI?",
+        "¿Qué es la UIF y cuál es su modelo (administrativo, policial o judicial)?",
+        "¿Cuál es el flujo de información desde que una entidad detecta una operación inusual hasta que se inicia una investigación penal?",
+        "¿Qué tipos de visitas de inspección realiza la CNBV y en qué se diferencian?",
+        "¿Qué son las tipologías y cómo deben usarlas las entidades financieras?",
+        "¿Por qué la corrupción tiene un vínculo directo con el lavado de dinero?",
+        "¿Cuáles son las principales amenazas de LD/FT identificadas en la ENR de México?",
+        "¿Qué es la Ley de Extinción de Dominio y por qué no requiere condena penal previa?",
+        "¿Cuál es la diferencia entre la evaluación institucional de riesgos y la asignación del grado de riesgo a clientes individuales?"
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 6-16; LIC Art. 115; Ley de la CNBV; Ley Nacional de Extinción de Dominio 2019; SHCP/UIF — ENR México; GAFI — Informe Evaluación Mutua México 2018; Guía PLD/FT CNBV 11ª ed., Bloque 4",
+    "orden": 11
+  }
+]

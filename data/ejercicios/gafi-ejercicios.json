@@ -1,0 +1,370 @@
+[
+  {
+    "bloque": 8,
+    "tema": "40 Recomendaciones del GAFI",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio 1: Las 40 Recomendaciones y sus bloques temáticos",
+    "instrucciones": "Relaciona cada Recomendación del GAFI con el bloque temático al que pertenece.",
+    "contenido": {
+      "columna_recomendaciones": [
+        {"id": "A", "rec": "Recomendación 1 — Evaluación del riesgo y EBR"},
+        {"id": "B", "rec": "Recomendación 3 — Delito de lavado de dinero"},
+        {"id": "C", "rec": "Recomendación 5 — Delito de financiamiento al terrorismo"},
+        {"id": "D", "rec": "Recomendación 10 — Debida diligencia del cliente (CDD)"},
+        {"id": "E", "rec": "Recomendación 16 — Transferencias electrónicas (Regla de Viaje)"},
+        {"id": "F", "rec": "Recomendación 20 — Reporte de operaciones sospechosas"},
+        {"id": "G", "rec": "Recomendación 24 — Transparencia de personas jurídicas"},
+        {"id": "H", "rec": "Recomendación 29 — Unidades de Inteligencia Financiera"},
+        {"id": "I", "rec": "Recomendación 35 — Sanciones"},
+        {"id": "J", "rec": "Recomendación 40 — Otras formas de cooperación internacional"}
+      ],
+      "columna_bloques": [
+        {"id": "1", "bloque": "Bloque A — Políticas y coordinación PLD/FT (Recs. 1-2)"},
+        {"id": "2", "bloque": "Bloque B — Lavado de dinero y decomiso (Recs. 3-4)"},
+        {"id": "3", "bloque": "Bloque C — Financiamiento del terrorismo y proliferación (Recs. 5-8)"},
+        {"id": "4", "bloque": "Bloque D — Medidas preventivas — Instituciones financieras (Recs. 9-23)"},
+        {"id": "5", "bloque": "Bloque E — Transparencia y beneficiario final (Recs. 24-25)"},
+        {"id": "6", "bloque": "Bloque F — Poderes y responsabilidades de autoridades (Recs. 26-35)"},
+        {"id": "7", "bloque": "Bloque G — Cooperación internacional (Recs. 36-40)"}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "1",
+        "B": "2",
+        "C": "3",
+        "D": "4",
+        "E": "4",
+        "F": "4",
+        "G": "5",
+        "H": "6",
+        "I": "6",
+        "J": "7"
+      },
+      "calificacion_maxima": 10,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 8
+  },
+  {
+    "bloque": 8,
+    "tema": "40 Recomendaciones del GAFI",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio 2: Recomendaciones del GAFI y su implementación en México",
+    "instrucciones": "Relaciona cada Recomendación del GAFI con su implementación concreta en el marco regulatorio mexicano.",
+    "contenido": {
+      "columna_recomendaciones": [
+        {"id": "A", "rec": "Recomendación 1 — EBR y evaluación de riesgos"},
+        {"id": "B", "rec": "Recomendación 3 — Delito de lavado de dinero"},
+        {"id": "C", "rec": "Recomendación 4 — Decomiso"},
+        {"id": "D", "rec": "Recomendación 5 — Delito de FT"},
+        {"id": "E", "rec": "Recomendación 6 — Sanciones financieras — terrorismo"},
+        {"id": "F", "rec": "Recomendación 10 — CDD/KYC"},
+        {"id": "G", "rec": "Recomendación 12 — PEPs"},
+        {"id": "H", "rec": "Recomendación 20 — Reporte de operaciones sospechosas"},
+        {"id": "I", "rec": "Recomendación 22 — DNFBPs — CDD"},
+        {"id": "J", "rec": "Recomendación 29 — UIFs"}
+      ],
+      "columna_implementaciones": [
+        {"id": "1", "implementacion": "CPF Art. 139 Quáter — penas de 15 a 40 años de prisión"},
+        {"id": "2", "implementacion": "LFPIORPI Art. 17 — catálogo de 16 actividades vulnerables"},
+        {"id": "3", "implementacion": "Disposiciones CNBV — Política de Identificación del Cliente (PIC) y conocimiento del cliente"},
+        {"id": "4", "implementacion": "Reporte de Operación Inusual (OI) ante la UIF — plazo 60 días hábiles"},
+        {"id": "5", "implementacion": "Ley Nacional de Extinción de Dominio (2019)"},
+        {"id": "6", "implementacion": "UIF (SHCP) — Unidad de Inteligencia Financiera mexicana, miembro del Grupo Egmont"},
+        {"id": "7", "implementacion": "Lista de Personas Bloqueadas emitida por la SHCP — basada en listas ONU (Res. 1267 y 1373)"},
+        {"id": "8", "implementacion": "Evaluación Nacional de Riesgos (ENR) + evaluación institucional de riesgo de cada entidad"},
+        {"id": "9", "implementacion": "Disposiciones CNBV — Debida Diligencia Reforzada (DDR) para clientes PEP — aprobación de alta dirección"},
+        {"id": "10", "implementacion": "CPF Art. 400 Bis — ORPI (Operaciones con Recursos de Procedencia Ilícita)"}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "8",
+        "B": "10",
+        "C": "5",
+        "D": "1",
+        "E": "7",
+        "F": "3",
+        "G": "9",
+        "H": "4",
+        "I": "2",
+        "J": "6"
+      },
+      "calificacion_maxima": 10,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 8,
+    "tema": "40 Recomendaciones del GAFI",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 1: Aplicando las Recomendaciones del GAFI",
+    "instrucciones": "Para cada situación, identifica qué Recomendación del GAFI es más directamente relevante y explica por qué.",
+    "contenido": {
+      "situaciones": [
+        {
+          "id": "A",
+          "situacion": "Un banco mexicano recibe una transferencia internacional de $500,000 USD desde un banco en las Islas Caimán (jurisdicción en lista gris del GAFI). La transferencia llega con información incompleta del ordenante — solo aparece el nombre pero no el número de cuenta ni el domicilio.",
+          "preguntas": ["¿Qué Recomendaciones del GAFI son relevantes?", "¿Qué debe hacer el banco?"]
+        },
+        {
+          "id": "B",
+          "situacion": "La señora Esperanza Gutiérrez es Directora General de la Comisión Federal de Electricidad (CFE). Solicita abrir una cuenta de inversión en una casa de bolsa para invertir $5,000,000 pesos. Presenta toda su documentación correctamente.",
+          "preguntas": ["¿Qué Recomendación del GAFI es más relevante?", "¿Qué proceso especial debe seguir la casa de bolsa?"]
+        },
+        {
+          "id": "C",
+          "situacion": "Un banco detecta que uno de sus clientes (empresa de construcción) realizó operaciones que generaron una alerta de posible lavado de dinero. El gerente de la sucursal le dice al cliente que 'tuvieron que reportar unas operaciones' para explicar por qué le solicitaron documentación adicional.",
+          "preguntas": ["¿Qué Recomendación del GAFI se violó?", "¿Cuáles son las consecuencias de esta acción?"]
+        },
+        {
+          "id": "D",
+          "situacion": "Un banco pequeño en Monterrey está considerando iniciar una relación de banca corresponsal con 'Pacific Island Financial Services Ltd.', una institución con sede en una isla del Pacífico que no tiene oficinas físicas en ningún país y cuyo dueño es desconocido.",
+          "preguntas": ["¿Qué Recomendación del GAFI aplica?", "¿Puede el banco iniciar la relación?"]
+        }
+      ],
+      "respuestas_guia": [
+        {
+          "id": "A",
+          "respuesta": "RECOMENDACIONES RELEVANTES: Rec. 16 (Regla de Viaje) — la transferencia llega con información incompleta del ordenante, lo cual es incumplimiento de la Rec. 16. Rec. 19 (Jurisdicciones de alto riesgo) — las Islas Caimán están en lista gris del GAFI, requiriendo mayor escrutinio. QUÉ DEBE HACER EL BANCO: (1) Solicitar inmediatamente al banco remitente la información faltante del ordenante. (2) Si no puede obtener la información faltante, considera rechazar o devolver la transferencia. (3) Dada la combinación de información incompleta + jurisdicción de lista gris, debe analizar si la operación debe reportarse como OI ante la UIF. (4) Aplicar mayor escrutinio (DDR informal) a las operaciones con ese banco."
+        },
+        {
+          "id": "B",
+          "respuesta": "RECOMENDACIÓN MÁS RELEVANTE: Rec. 12 (PEPs). La señora Gutiérrez es una PEP Nacional — es Directora General de una empresa productiva del Estado federal. PROCESO ESPECIAL: (1) Clasificar automáticamente como clienta de ALTO RIESGO. (2) Aplicar Debida Diligencia Reforzada (DDR): investigar el origen de los $5,000,000 (¿es consistente con su salario como funcionaria pública?), investigar en fuentes abiertas (adverse media). (3) Obtener aprobación de la ALTA DIRECCIÓN (no puede aprobarla solo el ejecutivo de cuenta). (4) Implementar monitoreo intensificado de la cuenta. (5) El estatus PEP incluye también a su cónyuge e hijos."
+        },
+        {
+          "id": "C",
+          "respuesta": "RECOMENDACIÓN VIOLADA: Rec. 21 (Tipping-off y confidencialidad — deber de reserva). El gerente reveló al cliente que se presentó un reporte de operaciones, lo que está TERMINANTEMENTE PROHIBIDO. CONSECUENCIAS: (1) El gerente y la entidad violaron la prohibición de tipping-off. (2) La entidad puede enfrentar sanciones administrativas de la CNBV por la violación del deber de reserva. (3) El gerente puede enfrentar responsabilidad personal. (4) Al informar al cliente, se comprometió la investigación — el cliente pudo haber destruido evidencia o huido. (5) La violación del deber de reserva puede configurar obstaculización a la justicia."
+        },
+        {
+          "id": "D",
+          "respuesta": "RECOMENDACIÓN APLICABLE: Rec. 13 (Banca corresponsal). PUEDE EL BANCO INICIAR LA RELACIÓN: NO. La descripción de 'Pacific Island Financial Services Ltd.' corresponde exactamente a la definición de BANCO PANTALLA (shell bank): sin presencia física en ningún país y sin identificación del propietario real. La Rec. 13 PROHÍBE ABSOLUTAMENTE establecer o continuar relaciones de banca corresponsal con bancos pantalla. Esta prohibición no admite excepciones. El banco de Monterrey debe negarse a establecer la relación."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 8,
+      "criterios": [
+        {"situacion": "A", "puntos": 2, "criterio": "Identifica Recs. 16 y 19, y describe correctamente las acciones del banco"},
+        {"situacion": "B", "puntos": 2, "criterio": "Identifica Rec. 12 (PEPs), describe DDR y aprobación de alta dirección"},
+        {"situacion": "C", "puntos": 2, "criterio": "Identifica Rec. 21 (tipping-off), explica la violación y sus consecuencias"},
+        {"situacion": "D", "puntos": 2, "criterio": "Identifica Rec. 13, identifica banco pantalla y concluye que la relación está PROHIBIDA"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 25
+  },
+  {
+    "bloque": 8,
+    "tema": "40 Recomendaciones del GAFI",
+    "tipo": "completar",
+    "titulo": "Ejercicio 4: Completa los espacios — Las Recomendaciones más importantes",
+    "instrucciones": "Completa cada enunciado con el número de Recomendación, concepto o término correcto.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "La Recomendación _____ establece el Enfoque Basado en Riesgos como base de todo el sistema PLD/FT. Requiere que los países realicen una _____ Nacional de _____ (ENR) y que las entidades realicen su propia evaluación institucional.",
+          "espacios": ["1", "Evaluación", "Riesgos"]
+        },
+        {
+          "id": 2,
+          "texto": "La Recomendación _____ establece los 4 elementos de la Debida Diligencia del Cliente: (1) identificar y _____ al cliente, (2) identificar al _____ real, (3) entender el _____ de la relación, y (4) monitoreo _____.",
+          "espacios": ["10", "verificar", "propietario (o beneficiario controlador)", "propósito", "continuo"]
+        },
+        {
+          "id": 3,
+          "texto": "La Recomendación _____ establece que los países deben tipificar el lavado de dinero con base en la Convención de _____ (1988) y la Convención de _____ (2000). El delito debe aplicarse a _____ los delitos graves como delito fuente.",
+          "espacios": ["3", "Viena", "Palermo", "todos"]
+        },
+        {
+          "id": 4,
+          "texto": "La Recomendación _____ sobre PEPs establece 4 obligaciones especiales: sistema de _____ de PEPs, aprobación de _____ dirección, verificar el _____ de la riqueza, y monitoreo _____.",
+          "espacios": ["12", "detección", "alta", "origen", "intensificado"]
+        },
+        {
+          "id": 5,
+          "texto": "La Recomendación _____ es la 'Regla de _____': los datos del _____ y del _____ deben acompañar a cada transferencia electrónica de principio a fin de la cadena de pago. El umbral es ≥ $_____ USD.",
+          "espacios": ["16", "Viaje", "ordenante", "beneficiario", "1,000"]
+        },
+        {
+          "id": 6,
+          "texto": "La Recomendación _____ establece que las entidades financieras deben reportar sus _____ a la UIF cuando sospechen que fondos provienen de actividades ilícitas. No hay umbral de _____. En México se llama Reporte de Operación _____ (OI).",
+          "espacios": ["20", "sospechas", "monto", "Inusual"]
+        },
+        {
+          "id": 7,
+          "texto": "La Recomendación _____ establece dos protecciones: (1) los empleados están _____ por la ley al reportar de buena fe; y (2) está PROHIBIDO informar al cliente que fue reportado (prohibición de _____ o deber de _____). En México esta segunda protección se llama 'deber de _____'.",
+          "espacios": ["21", "protegidos", "tipping-off", "reserva", "reserva"]
+        },
+        {
+          "id": 8,
+          "texto": "La Recomendación _____ establece que las instituciones financieras deben tener PROHIBIDO establecer relaciones de banca corresponsal con _____ pantalla (_____ banks). Esta prohibición es _____ y no admite excepciones.",
+          "espacios": ["13", "bancos", "shell", "absoluta"]
+        },
+        {
+          "id": 9,
+          "texto": "Las Recomendaciones _____ y _____ aplican a las actividades y profesiones no financieras designadas (DNFBPs). En México, estas actividades se regulan a través de la _____, cuyas obligaciones incluyen presentar _____ al SAT.",
+          "espacios": ["22", "23", "LFPIORPI", "avisos"]
+        },
+        {
+          "id": 10,
+          "texto": "La Recomendación _____ establece que cada país debe tener una _____ (UIF) como centro nacional de recepción y análisis de reportes de operaciones sospechosas. En México la UIF es parte de la _____. El modelo de la UIF mexicana es _____.",
+          "espacios": ["29", "Unidad de Inteligencia Financiera", "SHCP", "administrativo"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["1", "Evaluación", "Riesgos"],
+        "2": ["10", "verificar", "propietario", "propósito", "continuo"],
+        "3": ["3", "Viena", "Palermo", "todos"],
+        "4": ["12", "detección", "alta", "origen", "intensificado"],
+        "5": ["16", "Viaje", "ordenante", "beneficiario", "1,000"],
+        "6": ["20", "sospechas", "monto", "Inusual"],
+        "7": ["21", "protegidos", "tipping-off", "reserva", "reserva"],
+        "8": ["13", "bancos", "shell", "absoluta"],
+        "9": ["22", "23", "LFPIORPI", "avisos"],
+        "10": ["29", "Unidad de Inteligencia Financiera", "SHCP", "administrativo"]
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 15
+  },
+  {
+    "bloque": 8,
+    "tema": "40 Recomendaciones del GAFI",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: Las 40 Recomendaciones del GAFI",
+    "instrucciones": "Completa el crucigrama con términos clave de las 40 Recomendaciones del GAFI.",
+    "contenido": {
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "pista": "Nombre de la técnica que requiere que los datos del ordenante y del beneficiario 'viajen' junto con cada transferencia electrónica. Corresponde a la Recomendación 16.",
+          "respuesta": "VIAJE"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "pista": "Siglas en inglés del proceso de conocimiento del cliente establecido en la Recomendación 10: Know Your Customer.",
+          "respuesta": "KYC"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "pista": "Prohibición de informar al cliente que se ha presentado un reporte de operación sospechosa. Establecida en la Recomendación 21. En inglés: 'tipping-___'.",
+          "respuesta": "OFF"
+        },
+        {
+          "numero": 4,
+          "direccion": "vertical",
+          "pista": "Tipo de banco prohibido por la Recomendación 13: sin presencia física real en ningún país. En inglés: shell ___.",
+          "respuesta": "BANK"
+        },
+        {
+          "numero": 5,
+          "direccion": "horizontal",
+          "pista": "El Enfoque _____ en Riesgos (EBR) es el principio central establecido en la Recomendación 1.",
+          "respuesta": "BASADO"
+        },
+        {
+          "numero": 6,
+          "direccion": "vertical",
+          "pista": "Siglas de las actividades no financieras designadas por el GAFI: Designated Non-Financial Businesses and ___. Reguladas por las Recs. 22 y 23.",
+          "respuesta": "PROFESSIONS"
+        },
+        {
+          "numero": 7,
+          "direccion": "horizontal",
+          "pista": "Número de la Recomendación del GAFI que establece las 4 obligaciones especiales para PEPs: sistema de detección, aprobación de alta dirección, origen de riqueza y monitoreo intensificado. Escribe el número en letras.",
+          "respuesta": "DOCE"
+        },
+        {
+          "numero": 8,
+          "direccion": "vertical",
+          "pista": "Institución que la Recomendación 29 del GAFI establece que debe existir en cada país como centro de recepción y análisis de reportes de operaciones sospechosas. Siglas en español.",
+          "respuesta": "UIF"
+        },
+        {
+          "numero": 9,
+          "direccion": "horizontal",
+          "pista": "El cuarto elemento de la Debida Diligencia del Cliente (CDD) según la Recomendación 10: vigilar continuamente la relación y las transacciones del cliente para detectar inconsistencias.",
+          "respuesta": "MONITOREO"
+        },
+        {
+          "numero": 10,
+          "direccion": "vertical",
+          "pista": "Nombre de los 7 bloques en que se organizan las 40 Recomendaciones. El Bloque D es el de _____.",
+          "respuesta": "PREVENTIVAS"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "VIAJE",
+        "2V": "KYC",
+        "3H": "OFF",
+        "4V": "BANK",
+        "5H": "BASADO",
+        "6V": "PROFESSIONS",
+        "7H": "DOCE",
+        "8V": "UIF",
+        "9H": "MONITOREO",
+        "10V": "PREVENTIVAS"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 8,
+    "tema": "40 Recomendaciones del GAFI",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio 6: Los 4 elementos del CDD y su aplicación práctica",
+    "instrucciones": "La Recomendación 10 del GAFI establece 4 elementos del CDD (Debida Diligencia del Cliente). Relaciona cada elemento con la descripción correcta y con el instrumento que lo implementa en México.",
+    "contenido": {
+      "columna_elementos": [
+        {"id": "A", "elemento": "Elemento 1: Identificar y verificar al cliente"},
+        {"id": "B", "elemento": "Elemento 2: Identificar y verificar al propietario real"},
+        {"id": "C", "elemento": "Elemento 3: Entender el propósito y naturaleza de la relación"},
+        {"id": "D", "elemento": "Elemento 4: Monitoreo continuo"}
+      ],
+      "columna_descripciones": [
+        {"id": "1", "descripcion": "Verificar que las transacciones del cliente son consistentes con su perfil transaccional y actualizar la información cuando sea necesario. Detectar desviaciones del comportamiento esperado."},
+        {"id": "2", "descripcion": "Obtener documentos de identidad oficiales vigentes (INE, pasaporte) y verificar que correspondan a la persona real. Para personas morales: acta constitutiva, poderes del representante."},
+        {"id": "3", "descripcion": "Para personas morales: identificar a la persona física que en última instancia posee o controla a la entidad (≥25% accionario o control efectivo)."},
+        {"id": "4", "descripcion": "Conocer la actividad económica, el origen esperado de los fondos y el uso que dará el cliente a los productos y servicios financieros."}
+      ],
+      "columna_implementacion_mexico": [
+        {"id": "X", "implementacion": "Política de Identificación del Cliente (PIC) en las disposiciones CNBV"},
+        {"id": "Y", "implementacion": "Perfil transaccional del cliente + sistema de monitoreo transaccional + alertas"},
+        {"id": "Z", "implementacion": "Política de Conocimiento del Cliente (PCC) + clasificación por grado de riesgo"},
+        {"id": "W", "implementacion": "Identificación del propietario real (Beneficiario Controlador) en personas morales — umbral 25%"}
+      ]
+    },
+    "solucion": {
+      "relacion_elemento_descripcion": {
+        "A": "2",
+        "B": "3",
+        "C": "4",
+        "D": "1"
+      },
+      "relacion_elemento_implementacion": {
+        "A": "X",
+        "B": "W",
+        "C": "Z",
+        "D": "Y"
+      },
+      "calificacion_maxima": 8,
+      "puntos": "1 punto por relación correcta con descripción + 1 punto por relación correcta con implementación"
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 10
+  }
+]

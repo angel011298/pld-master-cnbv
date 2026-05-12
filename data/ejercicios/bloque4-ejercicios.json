@@ -1,0 +1,336 @@
+[
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Autoridades y sus funciones específicas",
+    "instrucciones": "Relaciona cada autoridad con la función que le corresponde en el sistema PLD/FT mexicano. Algunas funciones pueden no corresponderse con ninguna de las autoridades listadas.",
+    "contenido": {
+      "columna_autoridades": [
+        {"id": "A", "autoridad": "UIF (Unidad de Inteligencia Financiera — SHCP)"},
+        {"id": "B", "autoridad": "CNBV (Comisión Nacional Bancaria y de Valores)"},
+        {"id": "C", "autoridad": "SAT (Servicio de Administración Tributaria)"},
+        {"id": "D", "autoridad": "FGR (Fiscalía General de la República)"},
+        {"id": "E", "autoridad": "Banco de México (BANXICO)"},
+        {"id": "F", "autoridad": "SAE (Servicio de Administración y Enajenación de Bienes)"},
+        {"id": "G", "autoridad": "PJF (Poder Judicial Federal)"},
+        {"id": "H", "autoridad": "CNSF (Comisión Nacional de Seguros y Fianzas)"}
+      ],
+      "columna_funciones": [
+        {"id": "1", "funcion": "Emite la Lista de Personas Bloqueadas cuyos activos deben ser congelados por las entidades financieras"},
+        {"id": "2", "funcion": "Realiza visitas de inspección a bancos, casas de bolsa, SOCAP, casas de cambio y transmisores de dinero para verificar el cumplimiento PLD/FT"},
+        {"id": "3", "funcion": "Emite sentencias penales por lavado de dinero, ordena el decomiso de bienes y resuelve los juicios de extinción de dominio"},
+        {"id": "4", "funcion": "Regula y supervisa el cumplimiento de las obligaciones PLD/FT de las actividades vulnerables no financieras establecidas en la LFPIORPI (notarios, inmobiliarias, joyeros, etc.)"},
+        {"id": "5", "funcion": "Administra los bienes asegurados o decomisados en procedimientos penales o de extinción de dominio"},
+        {"id": "6", "funcion": "Autoriza a las Instituciones de Tecnología Financiera para operar con activos virtuales y regula las operaciones con dólares en efectivo"},
+        {"id": "7", "funcion": "Investiga penalmente los delitos de lavado de dinero (ORPI) y financiamiento al terrorismo. Ejerce la acción penal ante los tribunales federales"},
+        {"id": "8", "funcion": "Regula y supervisa el cumplimiento PLD/FT de las instituciones de seguros y fianzas"}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "1",
+        "B": "2",
+        "C": "4",
+        "D": "7",
+        "E": "6",
+        "F": "5",
+        "G": "3",
+        "H": "8"
+      },
+      "calificacion_maxima": 8,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 10
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 1: El caso del Presidente Municipal",
+    "instrucciones": "Lee el caso y aplica los conceptos de PEP, corrupción como delito fuente, tipologías, señales de alerta y acciones del sistema PLD/FT mexicano.",
+    "contenido": {
+      "descripcion_caso": "El señor Ignacio Morales es Presidente Municipal de un municipio mediano en el estado de Veracruz desde hace 2 años. Su salario declarado es de $45,000 pesos mensuales. El banco donde tiene sus cuentas personales detecta los siguientes movimientos en los últimos 18 meses: (1) Su esposa, Lucía García, abrió una cuenta hace 1 año y ha recibido 8 transferencias de distintas empresas constructoras por un total de $3,200,000 pesos. (2) El señor Morales compró un terreno con valor catastral de $800,000 pesos pagando $2,500,000 pesos al contado según la escritura pública. (3) La hija mayor del señor Morales, que estudia en el extranjero, ha recibido transferencias al exterior por $480,000 pesos en el último año para 'gastos educativos'. (4) Una de las empresas constructoras que transfirió fondos a la esposa es contratista del municipio que preside el señor Morales. El banco también confirma que el señor Morales nunca ha declarado otras fuentes de ingreso.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Es el señor Morales una PEP? ¿De qué tipo? ¿Qué consecuencias tiene esto para el banco?",
+          "respuesta_guia": "Sí, es una PEP Nacional — es Presidente Municipal en funciones, cargo electo de alta jerarquía. También su esposa Lucía y su hija son familiares directos de PEP y reciben el mismo tratamiento. Consecuencias: (1) El señor Morales, su esposa y su hija deben clasificarse automáticamente como clientes de ALTO RIESGO, (2) Deben aplicar Debida Diligencia Reforzada: verificar origen de fondos, actualizar expedientes, monitoreo intensificado, autorización de alta jerarquía para mantener las relaciones, (3) Las cuentas deben estar sujetas a monitoreo más frecuente y con umbrales de alerta más sensibles."
+        },
+        {
+          "numero": 2,
+          "pregunta": "Identifica las señales de alerta presentes en el caso y clasifícalas por tipo.",
+          "respuesta_guia": "Señales de alerta: INCREMENTO PATRIMONIAL INEXPLICABLE: Con salario de $45,000/mes ($810,000 en 18 meses), no puede justificar $3,200,000 recibidos por la esposa + $2,500,000 en la compra del terreno + $480,000 en gastos de la hija = ~$6,180,000 en activos/gastos en 18 meses. Esto es aproximadamente 7.6 veces su ingreso total en ese período. TESTAFERROS/INTERPOSICIÓN DE PERSONAS: Los fondos llegan a la esposa, no directamente al funcionario, posible intento de ocultar el enriquecimiento. SOBREPRECIO EN INMUEBLE: El terreno se compró por $2,500,000 cuando el valor catastral es $800,000 — puede indicar que los $1,700,000 de diferencia son fondos ilícitos que se introducen como parte del precio. CONFLICTO DE INTERÉS Y POSIBLE COHECHO: La empresa que transfirió fondos a la esposa es contratista del municipio — señal clara de posible soborno o desvío de recursos. TRANSFERENCIAS AL EXTERIOR SIN JUSTIFICACIÓN PROPORCIONAL: $480,000 en gastos educativos en el extranjero son desproporcionados al ingreso declarado."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué reportes debe generar el banco y ante quién? ¿En qué plazo?",
+          "respuesta_guia": "El banco debe generar: (1) REPORTES DE OPERACIÓN RELEVANTE (OR): Las transferencias que superen el umbral de $7,500 USD deben reportarse el día 17 del mes siguiente. (2) REPORTE DE TRANSFERENCIA INTERNACIONAL: Las transferencias al exterior para la hija en el extranjero, dependiendo del monto individual ($480,000 / número de transferencias). (3) REPORTE DE OPERACIÓN INUSUAL (OI): El caso completo, analizando el patrón general, la desproporción con el ingreso declarado, el conflicto de interés con el contratista. Plazo: 60 días desde que el banco tuvo conocimiento del patrón completo. TODOS los reportes van ante la UIF (SHCP). Aplicando el DEBER DE RESERVA: no informar al señor Morales ni a su esposa que han sido reportados."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Qué puede hacer el sistema de justicia mexicano con los bienes del señor Morales si hay indicios de corrupción + lavado?",
+          "respuesta_guia": "El sistema mexicano tiene varias herramientas: (1) INVESTIGACIÓN PENAL por FGR: Los delitos que se investigan son ORPI (Art. 400 Bis CPF) + Cohecho (Arts. 222-225 CPF) + Enriquecimiento ilícito (Art. 224 CPF). (2) MEDIDAS CAUTELARES: La FGR puede solicitar ante el Poder Judicial el congelamiento de las cuentas bancarias durante la investigación. (3) EXTINCIÓN DE DOMINIO (Ley Nacional 2019): Sin necesidad de condena penal previa, el Estado puede iniciar un procedimiento civil para confiscar el terreno y los fondos si se demuestra que son de origen ilícito. La esposa y el señor Morales tendrán que demostrar el origen lícito de los fondos — la carga de la prueba se invierte. (4) La UIF transmitirá su análisis de inteligencia financiera a la FGR, quien lo usará como punto de partida para la investigación."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 10,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Identifica PEP nacional, familiares PEP, DDR y monitoreo intensificado"},
+        {"pregunta": 2, "puntos": 3, "criterio": "Identifica al menos 4 señales de alerta con clasificación correcta"},
+        {"pregunta": 3, "puntos": 3, "criterio": "Menciona OR, transferencia internacional, OI, plazos correctos, deber de reserva"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Menciona FGR, medidas cautelares, extinción de dominio y carga de la prueba invertida"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 25
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 2: La visita de inspección de la CNBV",
+    "instrucciones": "La CNBV realiza una visita de inspección a Financiera Popular SA. Lee los hallazgos y determina las consecuencias regulatorias.",
+    "contenido": {
+      "descripcion_caso": "La CNBV realiza una visita de inspección ordinaria a Financiera Popular SA (SOFIPO). El equipo inspector detecta: (1) El Manual PLD/FT tiene fecha de última actualización de hace 4 años y no menciona activos virtuales ni los cambios regulatorios recientes. (2) De una muestra de 50 expedientes de clientes de alto riesgo, 18 no tienen evidencia de actualización en los últimos 2 años. (3) El sistema de monitoreo no tiene configuradas reglas para detectar estructuración. (4) El 45% del personal de sucursales no tiene registro de capacitación en PLD/FT en el último año. (5) En los últimos 6 meses, la Financiera generó 3 alertas de posibles operaciones inusuales pero ninguna fue escalada al Oficial de Cumplimiento ni reportada a la UIF. (6) El Oficial de Cumplimiento fue cambiado hace 3 meses pero la CNBV no fue notificada del cambio.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "Clasifica cada hallazgo según su gravedad (grave / moderado / leve) con base en las disposiciones CNBV.",
+          "respuesta_guia": "Clasificación por gravedad: (1) Manual desactualizado 4 años: GRAVE — el Manual es el documento rector del programa PLD/FT; 4 años sin actualización ante cambios regulatorios significativos es incumplimiento grave. (2) 18/50 expedientes de alto riesgo sin actualización: GRAVE — los clientes de alto riesgo requieren actualización anual; 36% sin actualizar es un porcentaje significativo. (3) Sistema de monitoreo sin reglas de estructuración: GRAVE — la estructuración es una de las tipologías más frecuentes y no detectarla es una vulnerabilidad crítica. (4) 45% del personal sin capacitación anual: GRAVE — la capacitación es obligatoria para TODO el personal; 45% incumpliente es una falla sistémica. (5) Alertas no escaladas ni reportadas: MUY GRAVE — es el incumplimiento más serio: hay indicios de operaciones inusuales que no se reportaron. Esto podría constituir omisión de reporte ante la UIF. (6) Oficial de Cumplimiento no notificado a CNBV: MODERADO — es una obligación formal incumplida pero de menor impacto en la efectividad del programa."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Qué sanciones puede imponer la CNBV a Financiera Popular SA?",
+          "respuesta_guia": "La CNBV puede imponer: (1) AMONESTACIÓN para los hallazgos menores (falta de notificación del Oficial de Cumplimiento). (2) MULTAS para los hallazgos graves: por no actualizar el Manual, por expedientes desactualizados, por sistema de monitoreo deficiente, por falta de capacitación. Las multas pueden llegar a cientos de miles de días de salario mínimo para cada infracción. (3) Para la NO PRESENTACIÓN DE REPORTES (hallazgo #5): multa elevada + posible requerimiento de presentar los reportes pendientes ante la UIF. (4) MEDIDAS CORRECTIVAS: la CNBV puede ordenar un plan de acción con plazos para corregir todas las deficiencias. (5) En casos graves o reincidentes: la CNBV podría iniciar un proceso para INHABILITAR a los directivos responsables. Las sanciones se aplican por cada infracción de forma independiente, por lo que el total puede ser muy significativo."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué debe hacer inmediatamente el Oficial de Cumplimiento al recibir el informe de visita?",
+          "respuesta_guia": "El Oficial de Cumplimiento debe: (1) PRESENTAR EL INFORME AL CCC Y CONSEJO: Informar inmediatamente de los hallazgos y sus implicaciones regulatorias. (2) REVISAR LAS ALERTAS NO PROCESADAS: Analizar las 3 alertas de operaciones posiblemente inusuales que no fueron escaladas. Si después del análisis hay justificación razonable, documentarla. Si no hay justificación, presentar los reportes de OI ante la UIF INMEDIATAMENTE, aun cuando sea de forma tardía. (3) ELABORAR UN PLAN DE ACCIÓN: Para cada hallazgo de la CNBV, definir: responsable, acción concreta, recursos necesarios, fecha de implementación. (4) NOTIFICAR A LA CNBV el cambio de Oficial de Cumplimiento (hallazgo #6) de forma inmediata. (5) ACTUALIZAR EL MANUAL PLD/FT con carácter urgente. (6) INICIAR EL PROGRAMA DE CAPACITACIÓN para el personal rezagado. El plan de acción debe presentarse ante la CNBV en el plazo establecido en el informe de visita."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 9,
+      "criterios": [
+        {"pregunta": 1, "puntos": 3, "criterio": "Clasifica correctamente los 6 hallazgos con justificación, identificando el #5 como el más grave"},
+        {"pregunta": 2, "puntos": 3, "criterio": "Menciona multas, medidas correctivas, posible inhabilitación, y la gravedad especial por los reportes no presentados"},
+        {"pregunta": 3, "puntos": 3, "criterio": "Describe acciones inmediatas: CCC/Consejo, revisar alertas, OI tardío si aplica, plan de acción, notificación CNBV"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 22
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "completar",
+    "titulo": "Completa los espacios: Autoridades y sistema PLD/FT mexicano",
+    "instrucciones": "Completa cada enunciado con el término, sigla, nombre de autoridad o concepto correcto.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "En el sistema PLD/FT mexicano, las autoridades se clasifican en tres categorías: _____ (emiten normas), _____ (verifican el cumplimiento) y de _____ y _____ (recopilan inteligencia y persiguen penalmente).",
+          "espacios": ["reguladoras", "supervisoras", "detección", "combate"]
+        },
+        {
+          "id": 2,
+          "texto": "La _____ regula y supervisa a las entidades financieras del sistema financiero mexicano. El _____ regula y supervisa las actividades vulnerables no financieras establecidas en la LFPIORPI.",
+          "espacios": ["CNBV", "SAT"]
+        },
+        {
+          "id": 3,
+          "texto": "La UIF (Unidad de Inteligencia Financiera) depende de la _____. Su modelo es de tipo _____ (no policial ni judicial). Es miembro del Grupo _____, que es la red mundial de UIFs.",
+          "espacios": ["SHCP", "administrativo", "Egmont"]
+        },
+        {
+          "id": 4,
+          "texto": "El flujo de información PLD/FT en México sigue esta cadena: Entidad financiera → _____ (recibe reportes y analiza) → _____ (investiga penalmente) → _____ (juzga y condena).",
+          "espacios": ["UIF", "FGR", "PJF"]
+        },
+        {
+          "id": 5,
+          "texto": "La CNBV realiza tres tipos de supervisión: extramuros (revisión de _____ sin visita presencial), visita de inspección _____ (programada e integral) y visita de inspección _____ (no programada o focalizada).",
+          "espacios": ["reportes", "ordinaria", "especial"]
+        },
+        {
+          "id": 6,
+          "texto": "Las _____ son modus operandi completos de LD/FT documentados. La _____ (México) publica tipologías basadas en casos reales nacionales. El _____ publica tipologías sectoriales internacionales.",
+          "espacios": ["tipologías", "UIF", "GAFI"]
+        },
+        {
+          "id": 7,
+          "texto": "La _____ es uno de los principales delitos fuente del lavado de dinero en México. Los recursos obtenidos por funcionarios corruptos necesitan ser _____ para poder utilizarse libremente. Los _____ (PEPs) reciben Debida Diligencia Reforzada precisamente por este riesgo.",
+          "espacios": ["corrupción", "lavados", "Personas Políticamente Expuestas"]
+        },
+        {
+          "id": 8,
+          "texto": "La Ley Nacional de _____ de _____ (2019) permite al Estado confiscar bienes vinculados a delitos graves SIN necesidad de _____ penal previa. La carga de la prueba se _____ al titular del bien.",
+          "espacios": ["Extinción", "Dominio", "condena", "invierte"]
+        },
+        {
+          "id": 9,
+          "texto": "La Evaluación Nacional de _____ (ENR) de México identifica como principales amenazas: el _____ (muy alto riesgo), la _____ (alto riesgo), la extorsión y secuestro (alto riesgo) y el robo de _____ o 'huachicol' (alto riesgo emergente).",
+          "espacios": ["Riesgos", "narcotráfico", "corrupción", "hidrocarburos"]
+        },
+        {
+          "id": 10,
+          "texto": "La evaluación _____ de riesgos analiza todo el negocio de la entidad (macro). La asignación del grado de riesgo a _____ individuales (micro) aplica los criterios de esa evaluación a cada relación comercial concreta. En grupos financieros siempre prevalece el estándar más _____.",
+          "espacios": ["institucional", "clientes", "estricto"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["reguladoras", "supervisoras", "detección", "combate"],
+        "2": ["CNBV", "SAT"],
+        "3": ["SHCP", "administrativo", "Egmont"],
+        "4": ["UIF", "FGR", "PJF"],
+        "5": ["reportes", "ordinaria", "especial"],
+        "6": ["tipologías", "UIF", "GAFI"],
+        "7": ["corrupción", "lavados", "Personas Políticamente Expuestas (PEPs)"],
+        "8": ["Extinción", "Dominio", "condena", "invierte"],
+        "9": ["Riesgos", "narcotráfico", "corrupción", "hidrocarburos"],
+        "10": ["institucional", "clientes", "estricto"]
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: Autoridades y sistema PLD/FT en México",
+    "instrucciones": "Completa el crucigrama con autoridades, siglas y conceptos del Bloque 4.",
+    "contenido": {
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "pista": "Siglas de la Unidad de Inteligencia Financiera de México, dependencia de la SHCP que recibe todos los reportes de operaciones y analiza inteligencia financiera.",
+          "respuesta": "UIF"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "pista": "Siglas de la Comisión que regula y supervisa a las entidades del sistema financiero mexicano en materia PLD/FT: bancos, casas de bolsa, SOCAP, transmisores, etc.",
+          "respuesta": "CNBV"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "pista": "Siglas de la Fiscalía General de la República, que investiga penalmente el lavado de dinero y ejerce la acción penal ante los tribunales.",
+          "respuesta": "FGR"
+        },
+        {
+          "numero": 4,
+          "direccion": "vertical",
+          "pista": "Autoridad que regula y supervisa el cumplimiento de las actividades vulnerables no financieras establecidas en la LFPIORPI (notarios, inmobiliarios, joyeros). Siglas.",
+          "respuesta": "SAT"
+        },
+        {
+          "numero": 5,
+          "direccion": "horizontal",
+          "pista": "Ley mexicana que regula las actividades vulnerables no financieras en materia PLD/FT. Siglas.",
+          "respuesta": "LFPIORPI"
+        },
+        {
+          "numero": 6,
+          "direccion": "vertical",
+          "pista": "Herramienta legal mexicana (2019) que permite confiscar bienes vinculados a delitos sin necesidad de condena penal previa. Se invierte la carga de la prueba.",
+          "respuesta": "EXTINCION"
+        },
+        {
+          "numero": 7,
+          "direccion": "horizontal",
+          "pista": "Organismo que administra los bienes asegurados o decomisados en procedimientos penales o de extinción de dominio en México. Siglas.",
+          "respuesta": "SAE"
+        },
+        {
+          "numero": 8,
+          "direccion": "vertical",
+          "pista": "Tipo de supervisión de la CNBV que se realiza en las instalaciones de la entidad, es programada e integral y revisa todos los aspectos del programa PLD/FT.",
+          "respuesta": "ORDINARIA"
+        },
+        {
+          "numero": 9,
+          "direccion": "horizontal",
+          "pista": "Una de las principales amenazas identificadas en la ENR de México. Consiste en la desviación de recursos públicos, sobornos y enriquecimiento ilícito de funcionarios.",
+          "respuesta": "CORRUPCION"
+        },
+        {
+          "numero": 10,
+          "direccion": "vertical",
+          "pista": "Nombre informal del robo de hidrocarburos de ductos de PEMEX, identificado como amenaza emergente de alto riesgo en la ENR de México.",
+          "respuesta": "HUACHICOL"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "UIF",
+        "2V": "CNBV",
+        "3H": "FGR",
+        "4V": "SAT",
+        "5H": "LFPIORPI",
+        "6V": "EXTINCION",
+        "7H": "SAE",
+        "8V": "ORDINARIA",
+        "9H": "CORRUPCION",
+        "10V": "HUACHICOL"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 4,
+    "tema": "Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Tipologías y sus características",
+    "instrucciones": "Relaciona cada tipología de LD/FT con la señal de alerta o característica que mejor la describe.",
+    "contenido": {
+      "columna_tipologias": [
+        {"id": "A", "tipologia": "Empresa fachada con giro de alto efectivo"},
+        {"id": "B", "tipologia": "Estructuración por múltiples depositantes"},
+        {"id": "C", "tipologia": "Triangulación con paraíso fiscal"},
+        {"id": "D", "tipologia": "Cuenta de tránsito o pass-through"},
+        {"id": "E", "tipologia": "Sub-facturación en comercio exterior"},
+        {"id": "F", "tipologia": "Financiamiento al terrorismo vía ONG"},
+        {"id": "G", "tipologia": "Uso de testaferros en bienes raíces"},
+        {"id": "H", "tipologia": "Uso de remesas para estratificación"}
+      ],
+      "columna_caracteristicas": [
+        {"id": "1", "caracteristica": "ONG registrada legalmente en México que transfiere mensualmente fondos a una organización en el extranjero sin actividades verificables en ese país. Los donantes son personas con ingresos lícitos."},
+        {"id": "2", "caracteristica": "Empresa de estacionamiento que declara ingresos de $3 millones mensuales en una zona residencial donde la capacidad física no justifica ese volumen."},
+        {"id": "3", "caracteristica": "Recursos que viajan desde México a una empresa en las Islas Caimán y regresan como 'inversión extranjera' sin respaldo de actividad comercial real."},
+        {"id": "4", "caracteristica": "Persona física sin ingresos aparentes figura como comprador de un inmueble de $8 millones, mientras la escritura no muestra financiamiento bancario."},
+        {"id": "5", "caracteristica": "Múltiples personas distintas realizan depósitos en efectivo de $9,000-9,800 pesos en la misma cuenta en el mismo día."},
+        {"id": "6", "caracteristica": "Empresa de importación factura bienes a un precio 35% inferior al precio de mercado internacional documentado."},
+        {"id": "7", "caracteristica": "Cuenta bancaria que recibe 20 transferencias de distintos orígenes en 3 días y transfiere el saldo completo al extranjero sin retención."},
+        {"id": "8", "caracteristica": "Emisión de múltiples remesas de $4,000-5,000 pesos desde distintos estados hacia el mismo beneficiario en dos semanas, acumulando $120,000 pesos."}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "2",
+        "B": "5",
+        "C": "3",
+        "D": "7",
+        "E": "6",
+        "F": "1",
+        "G": "4",
+        "H": "8"
+      },
+      "calificacion_maxima": 8,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 10
+  }
+]

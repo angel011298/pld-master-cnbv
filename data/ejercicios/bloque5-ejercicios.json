@@ -1,0 +1,380 @@
+[
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 1: La cuenta del Diputado",
+    "instrucciones": "Lee el siguiente caso y responde las preguntas aplicando los conceptos de PEP, Debida Diligencia Reforzada y obligaciones de reporte.",
+    "contenido": {
+      "descripcion_caso": "El Diputado Federal Ernesto Valdés acude a Casa de Bolsa Horizonte a abrir una cuenta de inversión. Presenta su credencial de elector vigente, RFC y comprobante de domicilio. Informa que desea invertir $3,500,000 pesos provenientes de 'ahorros personales y herencia familiar'. La ejecutiva de cuenta, Lucía, identifica que el señor Valdés es Diputado Federal en funciones. El Director de Sucursal, sin consultar al Oficial de Cumplimiento, aprueba la apertura de la cuenta porque 'el señor Valdés es una persona pública y de confianza'. Tres meses después, el señor Valdés retira $3,200,000 pesos en una sola operación para transferirlos a una cuenta en Las Islas Caimán.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿El señor Valdés es una PEP? ¿De qué tipo? ¿Qué implica esto para la apertura de su cuenta?",
+          "respuesta_guia": "Sí, es una PEP Nacional — es un Diputado Federal en funciones, lo que lo clasifica como funcionario público de alta jerarquía. Implicaciones: (1) clasificación automática como cliente de ALTO RIESGO, (2) Debida Diligencia Reforzada obligatoria (verificación del origen de fondos, entrevista formal documentada, investigación en fuentes abiertas), (3) la apertura de la cuenta NO puede ser aprobada por el Director de Sucursal — requiere autorización de la alta dirección (Consejo de Administración o equivalente). El Director actuó incorrectamente al aprobar sin seguir el proceso correcto."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Qué información adicional debió obtener la ejecutiva Lucía antes de aperturar la cuenta?",
+          "respuesta_guia": "Debió obtener: (1) Documentación que acredite el origen de los $3,500,000 pesos: declaraciones fiscales, estados de cuenta previos, documentos de la herencia (acta de defunción del testador, testamento, declaratoria de herederos). (2) Información sobre la herencia: ¿de quién? ¿cuándo? ¿está documentada legalmente? (3) Investigación en bases de datos de medios de comunicación (adverse media) sobre el señor Valdés. (4) Verificación en listas de sanciones y personas bloqueadas. (5) Autorización formal de la alta dirección con toda la información anterior."
+        },
+        {
+          "numero": 3,
+          "pregunta": "El retiro de $3,200,000 para transferencia a Las Islas Caimán — ¿genera algún reporte? ¿De qué tipo y en qué plazo?",
+          "respuesta_guia": "Genera DOS tipos de reporte: (1) Operación Relevante (OR): el monto supera ampliamente el umbral de reporte. Plazo: día 17 del mes siguiente. (2) Operación Inusual (OI): el retiro de prácticamente todo el capital en una sola operación hacia una jurisdicción conocida de alto riesgo (Las Islas Caimán aparecen en contextos de offshore) se aparta del perfil transaccional de un inversionista y genera sospecha justificada. Plazo: 60 días desde el conocimiento. Ambos reportes deben presentarse ante la UIF sin alertar al señor Valdés (deber de reserva)."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿El Director de Sucursal incurrió en alguna infracción al aprobar la cuenta directamente?",
+          "respuesta_guia": "Sí. Al aprobar la apertura de la cuenta de un PEP sin seguir el proceso de Debida Diligencia Reforzada y sin obtener la autorización de alta jerarquía requerida para PEPs, el Director incurrió en: (1) Incumplimiento de las disposiciones CNBV sobre tratamiento de PEPs, (2) Posible falla en la política interna de la entidad. Esto puede resultar en: sanciones administrativas a la entidad por parte de la CNBV y potencialmente en responsabilidad personal del Director. Si la entidad detecta esto en auditoría, debe documentar el incumplimiento y tomar medidas correctivas."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 10,
+      "criterios": [
+        {"pregunta": 1, "puntos": 3, "criterio": "Identifica PEP nacional, DDR obligatoria, autorización de alta dirección"},
+        {"pregunta": 2, "puntos": 2, "criterio": "Menciona documentación de origen de fondos, herencia, adverse media"},
+        {"pregunta": 3, "puntos": 3, "criterio": "Identifica OR y OI, plazos correctos, deber de reserva"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Identifica incumplimiento del Director y consecuencias"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 20
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 2: El cliente nuevo con depósitos fraccionados",
+    "instrucciones": "Analiza el caso, identifica el tipo de conducta, las señales de alerta, las obligaciones de la entidad y las acciones del Oficial de Cumplimiento.",
+    "contenido": {
+      "descripcion_caso": "Margarita González abrió una cuenta de nómina hace 6 meses en Banco Regional con un salario declarado de $18,000 pesos mensuales como secretaria ejecutiva. Su perfil transaccional histório mostraba depósitos de nómina regulares y retiros en efectivo modestos. En el último mes, el sistema automatizado de monitoreo detectó: lunes — depósito en efectivo $9,800 pesos; martes — depósito en efectivo $9,500 pesos; miércoles — depósito en efectivo $9,700 pesos; jueves — depósito en efectivo $9,600 pesos; viernes — depósito en efectivo $9,900 pesos. Total semanal: $48,500 pesos. El patrón se repitió las cuatro semanas del mes. El total mensual en efectivo adicional fue de $194,000 pesos, equivalente a casi 11 veces su salario mensual declarado. La señora González nunca informó cambio alguno en su situación económica.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Qué tipo de conducta sospechosa ilustra este caso? Explica el mecanismo.",
+          "respuesta_guia": "Estructuración o 'pitufeo' (smurfing). La señora González divide depósitos que probablemente corresponden a una suma mayor en importes diarios de ~$9,500-9,900 pesos. Los montos son consistentemente inferiores a $10,000 (umbral típico de reporte en algunos contextos) y el patrón es artificialmente regular. El objetivo es mantenerse por debajo del umbral y evitar levantar alertas individuales, aunque el acumulado mensual es altamente sospechoso."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Cómo debería detectar esto el sistema automatizado de monitoreo y qué tipo de alerta generaría?",
+          "respuesta_guia": "El sistema debería tener parametrizadas reglas de detección de estructuración como: (1) múltiples depósitos en efectivo en el mismo período (semana/mes) que acumulan un importe significativo, (2) montos que caen de forma consistente por debajo de un umbral específico, (3) desviación significativa (>200%) respecto al perfil transaccional establecido. La alerta generada debería ser para revisión por el Oficial de Cumplimiento como posible Operación Inusual."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿La entidad debe generar un Reporte de Operación Relevante (OR), Inusual (OI) o ambos? ¿Por qué?",
+          "respuesta_guia": "Principalmente un Reporte de Operación Inusual (OI), porque: el criterio es la sospecha y el desvío del perfil, no el monto individual. Cada depósito individual es menor al umbral de OR. Sin embargo, si la suma acumulada en el mes supera el umbral de OR ($7,500 USD aproximadamente $135,000+ pesos), también podría generarse un OR por el acumulado, dependiendo de cómo esté parametrizada la norma para operaciones en moneda nacional. El OI es el reporte central de este caso. Plazo: 60 días desde el conocimiento."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Qué acciones debe tomar el Oficial de Cumplimiento antes de decidir si reporta o no?",
+          "respuesta_guia": "Debe: (1) revisar el expediente completo de la señora González y su perfil transaccional histórico, (2) consultar si existe alguna justificación registrada (¿informó un cambio de trabajo, un negocio paralelo?), (3) considerar si el ejecutivo de cuenta debe contactar a la cliente para actualizar su expediente (si la justificación no aplica o es insuficiente, igual se reporta), (4) revisar si la señora González aparece en alguna lista de control, (5) consultar el expediente de depósitos: ¿fueron en la misma sucursal? ¿en distintas? ¿alguna tercera persona hizo algún depósito?, (6) documentar todo el análisis con fecha y fundamento, (7) decidir si reporta como OI ante la UIF — la decisión de NO reportar también debe documentarse con justificación."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 8,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Identifica estructuración/pitufeo y explica el mecanismo correctamente"},
+        {"pregunta": 2, "puntos": 2, "criterio": "Describe reglas del sistema de monitoreo y tipo de alerta"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Distingue OR vs OI correctamente y aplica al caso"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Describe proceso del Oficial de Cumplimiento de forma completa"}
+      ]
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 18
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Tipos de reportes y sus características",
+    "instrucciones": "Relaciona cada descripción de la columna derecha con el tipo de reporte correcto de la columna izquierda. Cada tipo de reporte puede usarse más de una vez.",
+    "contenido": {
+      "columna_tipos": [
+        {"id": "A", "concepto": "Operación Relevante (OR)"},
+        {"id": "B", "concepto": "Operación Inusual (OI)"},
+        {"id": "C", "concepto": "Operación Interna Preocupante (OIP)"},
+        {"id": "D", "concepto": "Reporte de Transferencias Internacionales"},
+        {"id": "E", "concepto": "Deber de Reserva (NO es un reporte, es una obligación)"}
+      ],
+      "columna_situaciones": [
+        {"id": "1", "situacion": "Un cajero realiza retiros de su propia caja registradora al final del turno y los deposita en su cuenta personal"},
+        {"id": "2", "situacion": "Un cliente realiza un depósito en efectivo de $15,000 USD"},
+        {"id": "3", "situacion": "Un cliente de perfil bajo realiza de repente una transferencia de $500,000 pesos a una cuenta en Bahamas sin justificación aparente"},
+        {"id": "4", "situacion": "Una entidad presentó un reporte ante la UIF pero no puede decirle al cliente que fue reportado"},
+        {"id": "5", "situacion": "Un cliente envía $2,500 USD a un familiar en los Estados Unidos"},
+        {"id": "6", "situacion": "El sistema detecta que un ejecutivo de cuenta abrió 15 cuentas de clientes ficticios en el último mes"},
+        {"id": "7", "situacion": "Un cliente de negocios, cuyo perfil indica ventas mensuales de $100,000 pesos, comienza a depositar $800,000 pesos mensuales sin explicación"},
+        {"id": "8", "situacion": "El plazo para presentar este tipo de reporte es el día 17 del mes siguiente a la operación"},
+        {"id": "9", "situacion": "Este reporte se genera por sospecha, no por monto, y tiene un plazo de 60 días"},
+        {"id": "10", "situacion": "Busca detectar amenazas desde dentro de la propia entidad financiera"}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": "C",
+        "2": "A",
+        "3": "B",
+        "4": "E",
+        "5": "D",
+        "6": "C",
+        "7": "B",
+        "8": "A",
+        "9": "B",
+        "10": "C"
+      },
+      "calificacion_maxima": 10,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 10
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: Régimen PLD/FT en el sistema financiero",
+    "instrucciones": "Completa el crucigrama con los conceptos clave del Bloque 5.",
+    "contenido": {
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "pista": "Funcionario designado por el Consejo de Administración responsable del programa PLD/FT. Punto de contacto ante la UIF.",
+          "respuesta": "OFICIAL"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "pista": "Siglas del órgano colegiado interno que supervisa el programa PLD/FT y aprueba reportes de operaciones inusuales.",
+          "respuesta": "CCC"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "pista": "Persona que desempeña o ha desempeñado funciones públicas prominentes. Requiere Debida Diligencia Reforzada. Siglas en inglés y español.",
+          "respuesta": "PEP"
+        },
+        {
+          "numero": 4,
+          "direccion": "horizontal",
+          "pista": "Tipo de reporte que se genera por MONTO, independientemente de si la operación es sospechosa. Umbral en banca: $7,500 USD.",
+          "respuesta": "RELEVANTE"
+        },
+        {
+          "numero": 5,
+          "direccion": "vertical",
+          "pista": "Obligación que prohíbe informar al cliente que fue objeto de un reporte. Su violación es sancionable penalmente.",
+          "respuesta": "RESERVA"
+        },
+        {
+          "numero": 6,
+          "direccion": "horizontal",
+          "pista": "Persona física que en última instancia controla o se beneficia de una estructura jurídica o transacción. Concepto clave para personas morales.",
+          "respuesta": "PROPIETARIO"
+        },
+        {
+          "numero": 7,
+          "direccion": "vertical",
+          "pista": "Tipo de reporte que se genera por la conducta sospechosa de empleados de la propia entidad financiera. Siglas.",
+          "respuesta": "OIP"
+        },
+        {
+          "numero": 8,
+          "direccion": "horizontal",
+          "pista": "Plazo en días para presentar un reporte de Operación Inusual ante la UIF.",
+          "respuesta": "SESENTA"
+        },
+        {
+          "numero": 9,
+          "direccion": "horizontal",
+          "pista": "Años que deben conservarse los expedientes de clientes desde el fin de la relación comercial.",
+          "respuesta": "DIEZ"
+        },
+        {
+          "numero": 10,
+          "direccion": "vertical",
+          "pista": "Política que establece los procedimientos para verificar la identidad del cliente mediante documentos oficiales al inicio de la relación. Siglas.",
+          "respuesta": "PIC"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "OFICIAL",
+        "2V": "CCC",
+        "3H": "PEP",
+        "4H": "RELEVANTE",
+        "5V": "RESERVA",
+        "6H": "PROPIETARIO",
+        "7V": "OIP",
+        "8H": "SESENTA",
+        "9H": "DIEZ",
+        "10V": "PIC"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "completar",
+    "titulo": "Completa los espacios: Obligaciones clave del Bloque 5",
+    "instrucciones": "Completa los enunciados con el término, número, sigla o concepto correcto.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "La distinción fundamental en el régimen PLD/FT es que _____ significa verificar quién es el cliente mediante documentos, mientras que _____ significa entender su actividad, perfil de riesgo y comportamiento transaccional esperado.",
+          "espacios": ["identificar", "conocer"]
+        },
+        {
+          "id": 2,
+          "texto": "El _____ es el parámetro de referencia que establece el comportamiento esperado de las operaciones de un cliente y es la base del _____ continuo de transacciones.",
+          "espacios": ["perfil transaccional", "monitoreo"]
+        },
+        {
+          "id": 3,
+          "texto": "Las Personas Políticamente Expuestas (PEPs) se clasifican automáticamente como clientes de riesgo _____ y requieren _____ _____ _____.",
+          "espacios": ["alto", "Debida Diligencia Reforzada"]
+        },
+        {
+          "id": 4,
+          "texto": "El reporte de Operación _____ se genera por monto (umbral $7,500 USD en banca) y debe presentarse el día _____ del mes siguiente. El reporte de Operación _____ se genera por sospecha y tiene un plazo de _____ días.",
+          "espacios": ["Relevante", "17", "Inusual", "60"]
+        },
+        {
+          "id": 5,
+          "texto": "El _____ es el funcionario designado por el Consejo de Administración, notificado a la CNBV, responsable de coordinar el programa PLD/FT y presentar reportes ante la _____.",
+          "espacios": ["Oficial de Cumplimiento", "UIF"]
+        },
+        {
+          "id": 6,
+          "texto": "El deber de _____ prohíbe informar al _____ que ha sido objeto de un reporte ante la UIF. Esta prohibición aplica a _____ los empleados que tengan conocimiento.",
+          "espacios": ["reserva", "cliente", "todos"]
+        },
+        {
+          "id": 7,
+          "texto": "Los expedientes de identificación de clientes deben conservarse durante _____ años contados a partir de la _____ de la relación comercial.",
+          "espacios": ["10", "terminación"]
+        },
+        {
+          "id": 8,
+          "texto": "La _____ es el vehículo jurídico de alto riesgo PLD/FT en el que la entidad financiera actúa como _____. Debe identificar al fideicomitente, fiduciaria y _____.",
+          "espacios": ["fideicomiso", "fiduciaria", "fideicomisario"]
+        },
+        {
+          "id": 9,
+          "texto": "Las SOFIPO pueden atender al _____ en general, mientras que las SOCAP solo operan con sus _____. Ambas están reguladas bajo la Ley de _____ y _____ _____.",
+          "espacios": ["público", "socios", "Ahorro", "Crédito Popular"]
+        },
+        {
+          "id": 10,
+          "texto": "La Ley FinTech de 2018 creó dos nuevos tipos de entidades reguladas sujetas al régimen PLD/FT: las _____ (fondos de pago electrónico) y las _____ (financiamiento colectivo).",
+          "espacios": ["IFPE", "IFC"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["identificar", "conocer"],
+        "2": ["perfil transaccional", "monitoreo"],
+        "3": ["alto", "Debida Diligencia Reforzada"],
+        "4": ["Relevante", "17", "Inusual", "60"],
+        "5": ["Oficial de Cumplimiento", "UIF"],
+        "6": ["reserva", "cliente", "todos"],
+        "7": ["10", "terminación"],
+        "8": ["fideicomiso", "fiduciaria", "fideicomisario"],
+        "9": ["público", "socios", "Ahorro", "Crédito Popular"],
+        "10": ["IFPE", "IFC"]
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Entidades financieras y su marco regulatorio",
+    "instrucciones": "Relaciona cada entidad financiera con su marco legal principal y su particularidad PLD más relevante.",
+    "contenido": {
+      "columna_entidades": [
+        {"id": "A", "entidad": "Banca Múltiple"},
+        {"id": "B", "entidad": "Casa de Bolsa"},
+        {"id": "C", "entidad": "SOCAP"},
+        {"id": "D", "entidad": "Casa de Cambio"},
+        {"id": "E", "entidad": "IFPE (FinTech)"},
+        {"id": "F", "entidad": "Transmisor de Dinero"}
+      ],
+      "columna_caracteristicas": [
+        {"id": "1", "caracteristica": "Aplica la Regla de Viaje del GAFI: debe transmitir datos del ordenante y beneficiario con cada transferencia. Regulada por LGOAAC Art. 82-H."},
+        {"id": "2", "caracteristica": "Maneja activos virtuales (criptomonedas) solo si tiene autorización de Banco de México. Sujeta a Ley FinTech Art. 58."},
+        {"id": "3", "caracteristica": "Opera bajo LIC Art. 115. Mayor volumen y diversidad de clientes. Umbral OR: $7,500 USD. Considerada de muy alto riesgo PLD."},
+        {"id": "4", "caracteristica": "Opera solo con sus socios (sector cerrado). Regulada por LRASCAP. Supervisada con apoyo de Federaciones."},
+        {"id": "5", "caracteristica": "Alto riesgo por manejo intensivo de divisas en efectivo. Tiene umbrales de reporte específicos para operaciones en dólares. Regulada por LGOAAC."},
+        {"id": "6", "caracteristica": "Sujeta a LMV Art. 212. Sus clientes son inversionistas. Debe elaborar perfil transaccional basado en perfil de inversión."}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "3",
+        "B": "6",
+        "C": "4",
+        "D": "5",
+        "E": "2",
+        "F": "1"
+      },
+      "calificacion_maxima": 6,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 8
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 3: El Oficial de Cumplimiento ante un dilema",
+    "instrucciones": "Analiza la situación del Oficial de Cumplimiento y determina las acciones correctas conforme a la regulación.",
+    "contenido": {
+      "descripcion_caso": "Roberto Medina es Oficial de Cumplimiento en Banco Estrella. El Director Comercial lo llama a su oficina y le informa: 'Tenemos un cliente muy importante — el señor Pérez — que genera $5 millones en comisiones anuales al banco. El ejecutivo de cuenta detectó algunas operaciones que podría reportar como inusuales, pero quiero que lo pienses muy bien antes de hacerlo. Si lo reportamos, el cliente se va a enterar, se va a ir del banco y perdemos un cliente clave. Además, el Gerente Regional también prefiere que manejemos esto con discreción.' Roberto sabe que las operaciones del señor Pérez presentan señales claras de estructuración.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Debe Roberto reportar las operaciones inusuales ante la UIF a pesar de la presión del Director Comercial?",
+          "respuesta_guia": "SÍ, debe reportar. Las obligaciones de reporte en materia PLD/FT son LEGALES, no discrecionales. La importancia económica del cliente para el banco no es criterio válido para omitir un reporte cuando existen señales claras de operaciones inusuales. El Director Comercial no tiene autoridad para instruir al Oficial de Cumplimiento a omitir reportes obligatorios. El Oficial de Cumplimiento responde ante el Comité de Comunicación y Control (CCC) y, en última instancia, ante el Consejo de Administración — no ante el Director Comercial."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Puede Roberto informar al señor Pérez o al Director Comercial que se realizará el reporte?",
+          "respuesta_guia": "NO. El deber de reserva (LFPIORPI Art. 17, fracción VII) prohíbe revelar a cualquier persona — incluyendo al propio cliente Y a otros empleados de la entidad que no necesiten saberlo — que se ha presentado o se presentará un reporte de operación inusual. Roberto no puede alertar al Director Comercial de que el señor Pérez será reportado, ni indirectamente. Hacerlo podría alertar al cliente (tipping-off) y constituye una violación grave sancionable."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Roberto incurrirá en alguna responsabilidad legal por reportar al señor Pérez aunque este resulte ser inocente?",
+          "respuesta_guia": "NO. La regulación protege expresamente al Oficial de Cumplimiento que actúa de buena fe al presentar reportes de operaciones inusuales, aunque posteriormente se determine que el cliente no estaba involucrado en LD/FT. Esta protección está establecida en el LFPIORPI Art. 19 y en las Disposiciones CNBV. La buena fe y la existencia de señales objetivas de alerta son los criterios protectores."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Ante quién debe escalar Roberto esta situación de presión indebida?",
+          "respuesta_guia": "Roberto debe: (1) documentar por escrito la conversación con el Director Comercial (fecha, hora, contenido), (2) escalar la situación al Comité de Comunicación y Control (CCC), específicamente al Presidente del CCC (generalmente el Director General), (3) si el propio Director General está involucrado en la presión, escalar al Consejo de Administración, (4) la presión para no reportar puede en sí misma constituir una Operación Interna Preocupante (OIP) si implica conducta del personal directivo. Roberto tiene obligación de proteger la integridad del programa PLD/FT independientemente de la jerarquía de quien presione."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 8,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Afirma correctamente que debe reportar y explica que es obligación legal"},
+        {"pregunta": 2, "puntos": 2, "criterio": "Identifica deber de reserva y alcance a todos incluyendo Director Comercial"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Menciona protección legal de buena fe — LFPIORPI Art. 19"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Describe escalamiento correcto al CCC/Consejo y posible OIP"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 20
+  }
+]

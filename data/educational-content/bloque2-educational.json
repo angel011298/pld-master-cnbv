@@ -1,0 +1,1053 @@
+[
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Introducción al marco internacional PLD/FT",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El sistema internacional de lucha contra el LD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El lavado de dinero y el financiamiento al terrorismo son fenómenos transnacionales: los recursos cruzan fronteras, utilizan sistemas financieros de múltiples países y explotan las diferencias regulatorias entre jurisdicciones. Esto hace que la cooperación internacional sea indispensable. Ningún país puede combatir eficazmente el LD/FT de forma aislada."
+        },
+        {
+          "tipo": "arquitectura_internacional",
+          "titulo": "Arquitectura del sistema internacional PLD/FT",
+          "descripcion": "El sistema internacional se compone de organismos con distintos roles: normadores (establecen estándares), evaluadores (miden el cumplimiento), financiadores (apoyan la implementación) e inteligencia (comparten información). Juntos forman el ecosistema global de combate al LD/FT.",
+          "organismos": [
+            {
+              "tipo": "Normador principal",
+              "organismo": "GAFI (Grupo de Acción Financiera Internacional)",
+              "rol": "Establece el estándar internacional: las 40 Recomendaciones"
+            },
+            {
+              "tipo": "Normador financiero",
+              "organismo": "Comité de Supervisión Bancaria de Basilea",
+              "rol": "Estándares de gestión de riesgos para bancos, incluyendo riesgo de LD/FT"
+            },
+            {
+              "tipo": "Marco jurídico universal",
+              "organismo": "Organización de las Naciones Unidas (ONU)",
+              "rol": "Convenios internacionales, sanciones del Consejo de Seguridad"
+            },
+            {
+              "tipo": "Inteligencia financiera",
+              "organismo": "Grupo Egmont",
+              "rol": "Red global de Unidades de Inteligencia Financiera (UIFs)"
+            },
+            {
+              "tipo": "Sector privado bancario",
+              "organismo": "Grupo Wolfsberg",
+              "rol": "Principios de cumplimiento PLD/FT para bancos privados globales"
+            },
+            {
+              "tipo": "Apoyo técnico y financiero",
+              "organismo": "Banco Mundial y FMI",
+              "rol": "Asistencia técnica, evaluaciones y financiamiento para implementación"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Para el examen CNBV, es fundamental conocer la función específica de cada organismo, su composición, los instrumentos que genera y la relación de México con cada uno. Las preguntas frecuentes se enfocan en qué hace cada organismo, no en su estructura interna detallada."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — 40 Recomendaciones 2012 (revisadas 2023); Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 1
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Comité de Basilea",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Comité de Supervisión Bancaria de Basilea",
+      "cuerpo": [
+        {
+          "tipo": "datos_generales",
+          "items": [
+            {"campo": "Nombre completo", "valor": "Comité de Supervisión Bancaria de Basilea (Basel Committee on Banking Supervision — BCBS)"},
+            {"campo": "Creado en", "valor": "1974, por los gobernadores de los bancos centrales del G-10"},
+            {"campo": "Sede", "valor": "Banco de Pagos Internacionales (BIS) en Basilea, Suiza"},
+            {"campo": "Naturaleza", "valor": "Foro de cooperación — sus documentos NO son tratados vinculantes, pero se convierten en estándares globales adoptados por los países"},
+            {"campo": "Composición", "valor": "45 instituciones (bancos centrales y autoridades supervisoras) de 28 jurisdicciones"},
+            {"campo": "Relación con México", "valor": "México participa a través del Banco de México y la CNBV"}
+          ]
+        },
+        {
+          "tipo": "contribuciones_pld",
+          "titulo": "Contribuciones del Comité de Basilea en materia PLD/FT",
+          "items": [
+            {
+              "documento": "Declaración de Principios de Basilea (1988)",
+              "descripcion": "Primer documento del Comité orientado específicamente a PLD. Estableció cuatro principios fundamentales: (1) identificación correcta de clientes, (2) cumplimiento con leyes locales, (3) cooperación con autoridades, (4) política de conocimiento del cliente. Aunque no vinculante, fue el precursor del moderno KYC.",
+              "relevancia": "Alta — documento histórico fundacional del KYC bancario"
+            },
+            {
+              "documento": "Debida Diligencia con la Clientela de los Bancos (CDD, 2001)",
+              "descripcion": "Documento técnico que desarrolla en detalle los procedimientos de Debida Diligencia con el Cliente (Customer Due Diligence). Define los elementos mínimos del KYC: identificación, verificación, propietario beneficiario y monitoreo continuo.",
+              "relevancia": "Muy Alta — base técnica del KYC moderno adoptada mundialmente"
+            },
+            {
+              "documento": "Gestión Adecuada de los Riesgos relacionados con el Blanqueo de Capitales y la Financiación del Terrorismo (2014)",
+              "descripcion": "Actualización fundamental que incorpora el Enfoque Basado en Riesgos (EBR) al marco de supervisión bancaria. Establece cómo los supervisores deben evaluar la gestión del riesgo LD/FT en los bancos. Este documento es referencia directa en la Guía CNBV.",
+              "relevancia": "Muy Alta — fundamento del EBR en la supervisión bancaria mexicana"
+            },
+            {
+              "documento": "Sanas Prácticas para la Gestión y Supervisión del Riesgo Operativo (2003)",
+              "descripcion": "Aunque no es exclusivamente PLD, incorpora el riesgo de cumplimiento (incluyendo PLD) como componente del riesgo operativo bancario.",
+              "relevancia": "Media"
+            }
+          ]
+        },
+        {
+          "tipo": "acuerdos_basilea",
+          "titulo": "Los Acuerdos de Capital de Basilea y su relación con PLD",
+          "items": [
+            {
+              "acuerdo": "Basilea I (1988)",
+              "descripcion": "Primer acuerdo de capital. Establece requerimientos mínimos de capital para bancos. No aborda directamente el riesgo de LD/FT pero crea el marco de supervisión prudencial.",
+              "relacion_pld": "Indirecta — establece cultura de supervisión bancaria internacional"
+            },
+            {
+              "acuerdo": "Basilea II (2004)",
+              "descripcion": "Introduce el concepto de riesgo operativo como categoría separada. El riesgo de incumplimiento normativo (compliance risk), incluyendo el riesgo PLD, cae bajo el riesgo operativo.",
+              "relacion_pld": "Media — riesgo PLD como parte del riesgo operativo"
+            },
+            {
+              "acuerdo": "Basilea III (2010, implementación gradual hasta 2028)",
+              "descripcion": "Respuesta a la crisis financiera de 2008. Fortalece requerimientos de capital, liquidez y apalancamiento. No modifica directamente el riesgo PLD pero refuerza la cultura de gestión de riesgos integral.",
+              "relacion_pld": "Indirecta — marcos de riesgo más robustos incluyen el riesgo de cumplimiento"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El Comité de Basilea NO es el organismo que establece el estándar PLD/FT global — ese rol corresponde al GAFI. El Comité de Basilea se enfoca en la supervisión prudencial bancaria y ha contribuido con los estándares de KYC y gestión de riesgos de LD/FT desde la perspectiva de la supervisión bancaria."
+        }
+      ]
+    },
+    "fuente_detallada": "Comité de Supervisión Bancaria de Basilea — Gestión Adecuada de los Riesgos relacionados con el Blanqueo de Capitales y la Financiación del Terrorismo, 2014; BCBS — Customer Due Diligence for Banks, 2001; Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 2
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Organización de las Naciones Unidas — Resoluciones del Consejo de Seguridad",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La ONU y su rol en el combate al LD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "La Organización de las Naciones Unidas (ONU) proporciona el marco jurídico universal del combate al LD/FT a través de Convenciones internacionales y Resoluciones del Consejo de Seguridad. A diferencia del GAFI (que emite recomendaciones técnicas), los instrumentos de la ONU son tratados con fuerza jurídica vinculante para los países que los ratifican."
+        },
+        {
+          "tipo": "convenciones",
+          "titulo": "Las Convenciones de la ONU relevantes para PLD/FT",
+          "items": [
+            {
+              "instrumento": "Convención de Viena (1988)",
+              "nombre_completo": "Convención de las Naciones Unidas contra el Tráfico Ilícito de Estupefacientes y Sustancias Sicotrópicas",
+              "fecha_mexico": "Ratificada por México en 1990",
+              "aportacion_pld": [
+                "Primera Convención internacional en tipificar el lavado de dinero como delito autónomo",
+                "Obliga a los países signatarios a penalizar el lavado del producto del narcotráfico",
+                "Establece obligación de confiscación del producto del delito",
+                "Crea mecanismos de cooperación judicial internacional",
+                "Es el origen directo del Art. 400 Bis del Código Penal Federal mexicano"
+              ],
+              "relevancia_examen": "Muy Alta — es la 'madre' de la tipificación del lavado de dinero en México"
+            },
+            {
+              "instrumento": "Convención de Palermo (2000)",
+              "nombre_completo": "Convención de las Naciones Unidas contra la Delincuencia Organizada Transnacional",
+              "fecha_mexico": "Ratificada por México en 2003",
+              "aportacion_pld": [
+                "Amplía el lavado de dinero más allá del narcotráfico — cualquier delito grave puede ser delito fuente",
+                "Define el concepto de 'grupo delictivo organizado'",
+                "Obliga a tipificar: lavado de dinero, corrupción, obstrucción de la justicia",
+                "Fortalece la cooperación policial y judicial internacional",
+                "Crea instrumentos de decomiso y confiscación más amplios"
+              ],
+              "relevancia_examen": "Alta — amplía el delito fuente del LD más allá del narco"
+            },
+            {
+              "instrumento": "Convenio Internacional para la Represión de la Financiación del Terrorismo (1999)",
+              "nombre_completo": "Convenio Internacional para la Represión de la Financiación del Terrorismo",
+              "fecha_mexico": "Ratificado por México en 2005",
+              "aportacion_pld": [
+                "Primer instrumento internacional específico sobre Financiamiento al Terrorismo (FT)",
+                "Obliga a los estados a tipificar el FT como delito",
+                "Establece que los fondos del FT pueden ser de origen lícito o ilícito",
+                "Crea obligaciones de congelamiento de activos de terroristas",
+                "Base del Art. 139 Quáter del CPF mexicano"
+              ],
+              "relevancia_examen": "Muy Alta — fundamento internacional del delito de FT en México"
+            },
+            {
+              "instrumento": "Convención de Mérida (2003)",
+              "nombre_completo": "Convención de las Naciones Unidas contra la Corrupción (UNCAC)",
+              "fecha_mexico": "Ratificada por México en 2004",
+              "aportacion_pld": [
+                "Aborda la corrupción como delito fuente del lavado de dinero",
+                "Establece obligaciones de recuperación de activos provenientes de corrupción",
+                "Crea mecanismos de cooperación para localizar y repatriar activos",
+                "Especialmente relevante para PEPs y funcionarios públicos corruptos"
+              ],
+              "relevancia_examen": "Alta — vincula corrupción con LD y recuperación de activos"
+            }
+          ]
+        },
+        {
+          "tipo": "resoluciones_consejo",
+          "titulo": "Resoluciones del Consejo de Seguridad de la ONU",
+          "descripcion": "Las Resoluciones del Consejo de Seguridad son jurídicamente vinculantes para todos los Estados miembros de la ONU bajo el Capítulo VII de la Carta de la ONU. En materia de terrorismo y FT son especialmente relevantes:",
+          "resoluciones": [
+            {
+              "resolucion": "Resolución 1267 (1999)",
+              "contexto": "Aprobada en respuesta a los ataques de Al-Qaeda. Establece el régimen de sanciones contra los Talibanes.",
+              "contenido": "Crea el Comité de Sanciones 1267 y obliga a todos los Estados a: (1) congelar fondos y activos de personas y entidades listadas, (2) prohibir el ingreso o tránsito de personas listadas, (3) impedir la venta o suministro de armas a listados.",
+              "lista_vinculada": "Lista consolidada del Comité 1267 (ahora ampliada a Resoluciones 1988 y 2253 para Al-Qaeda e ISIS separadamente)",
+              "obligacion_entidades": "Las instituciones financieras mexicanas deben consultar esta lista antes de establecer relaciones comerciales y en el monitoreo continuo"
+            },
+            {
+              "resolucion": "Resolución 1373 (2001)",
+              "contexto": "Aprobada 28 días después de los atentados del 11 de septiembre de 2001. Respuesta urgente y universal.",
+              "contenido": "Obliga a TODOS los estados miembros (no solo los que ratificaron convenios) a: (1) tipificar el FT como delito, (2) congelar activos de terroristas, (3) prohibir financiamiento del terrorismo, (4) criminalizar la provisión de refugio a terroristas, (5) cooperar con otros países en investigaciones.",
+              "importancia": "A diferencia de la Resolución 1267 (que lista personas específicas), la 1373 establece obligaciones generales para todos los estados.",
+              "crea": "El Comité Contra el Terrorismo (CCT) para supervisar la implementación"
+            },
+            {
+              "resolucion": "Resolución 1540 (2004)",
+              "contexto": "Dirigida a la proliferación de armas de destrucción masiva.",
+              "contenido": "Obliga a los estados a no proveer apoyo financiero o de otro tipo a actores no estatales que busquen desarrollar armas nucleares, químicas o biológicas.",
+              "relacion_pld": "Vincula el FT con el financiamiento de la proliferación de armas (FP) — un tercer ámbito además del LD y FT tradicional"
+            },
+            {
+              "resolucion": "Resolución 2253 (2015)",
+              "contexto": "Actualización del régimen de sanciones post-surgimiento del Estado Islámico (ISIS/DAESH).",
+              "contenido": "Separa el régimen de sanciones en dos listas independientes: una para Al-Qaeda y otra para el Estado Islámico. Añade controles sobre el petróleo, antigüedades y obras de arte como fuentes de financiamiento terrorista.",
+              "relevancia": "Alta — actualización más reciente del régimen de sanciones ONU"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La distinción clave entre la Res. 1267 y la Res. 1373: la 1267 crea una LISTA de personas/entidades específicas que deben tener sus activos congelados. La 1373 crea OBLIGACIONES GENERALES para todos los países (tipificar FT, cooperar, etc.) sin listar personas específicas. Ambas son de cumplimiento obligatorio para México."
+        }
+      ]
+    },
+    "fuente_detallada": "ONU — Convención de Viena 1988 (A/RES/44/141); ONU — Convención de Palermo 2000 (A/RES/55/25); ONU — Convenio FT 1999 (A/RES/54/109); ONU — CS/RES/1267 (1999); ONU — CS/RES/1373 (2001); ONU — CS/RES/2253 (2015); Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 3
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Grupo Egmont de Unidades de Inteligencia Financiera",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Grupo Egmont: La red global de Unidades de Inteligencia Financiera",
+      "cuerpo": [
+        {
+          "tipo": "datos_generales",
+          "items": [
+            {"campo": "Nombre completo", "valor": "Grupo Egmont de Unidades de Inteligencia Financiera (Egmont Group of Financial Intelligence Units)"},
+            {"campo": "Fundado", "valor": "1995, en el Palacio Egmont-Arenberg en Bruselas, Bélgica"},
+            {"campo": "Naturaleza", "valor": "Foro internacional de Unidades de Inteligencia Financiera (UIFs)"},
+            {"campo": "Membresía", "valor": "168 UIFs de países de todo el mundo (al 2023)"},
+            {"campo": "Secretaría", "valor": "Toronto, Canadá"},
+            {"campo": "México", "valor": "La UIF de México (Unidad de Inteligencia Financiera de la SHCP) es miembro del Grupo Egmont"}
+          ]
+        },
+        {
+          "tipo": "que_es_uif",
+          "titulo": "¿Qué es una Unidad de Inteligencia Financiera (UIF)?",
+          "texto": "Una UIF es la autoridad central de cada país que recibe, analiza y disemina reportes de operaciones financieras sospechosas (y otros tipos de información financiera) con el objetivo de combatir el LD/FT. Es el 'cerebro' de la lucha antilavado a nivel nacional.",
+          "caracteristicas": [
+            "Es el receptor central de todos los reportes de operaciones (OR, OI, OIP y especiales)",
+            "Realiza análisis de inteligencia financiera para identificar patrones y redes criminales",
+            "Transmite inteligencia procesada a las autoridades judiciales y policiales para investigaciones",
+            "Intercambia inteligencia financiera con UIFs de otros países (a través del Grupo Egmont)",
+            "En México: la UIF es parte de la SHCP (Secretaría de Hacienda y Crédito Público)"
+          ]
+        },
+        {
+          "tipo": "modelos_uif",
+          "titulo": "Modelos de UIFs en el mundo",
+          "modelos": [
+            {
+              "modelo": "Modelo administrativo",
+              "descripcion": "La UIF es una entidad administrativa (no policial ni judicial) que recibe y analiza reportes pero no tiene facultades de investigación penal directa. Transfiere inteligencia a fiscalías y policías.",
+              "ejemplo": "México (UIF-SHCP), España (Sepblac), EUA (FinCEN)"
+            },
+            {
+              "modelo": "Modelo policial",
+              "descripcion": "La UIF está integrada o vinculada directamente a los cuerpos policiales. Tiene más acceso a información de inteligencia criminal.",
+              "ejemplo": "Australia (AUSTRAC), Países Bajos"
+            },
+            {
+              "modelo": "Modelo judicial",
+              "descripcion": "La UIF opera bajo el paraguas del poder judicial o la fiscalía.",
+              "ejemplo": "Algunos países de tradición jurídica napoleónica"
+            },
+            {
+              "modelo": "Modelo híbrido",
+              "descripcion": "Combina elementos de más de un modelo.",
+              "ejemplo": "Reino Unido (NCA)"
+            }
+          ]
+        },
+        {
+          "tipo": "funcion_egmont",
+          "titulo": "Funciones del Grupo Egmont",
+          "items": [
+            "Facilitar el intercambio de información entre las UIFs miembro mediante canales seguros",
+            "Establecer estándares y principios para el funcionamiento de las UIFs",
+            "Proporcionar capacitación y asistencia técnica a UIFs de países en desarrollo",
+            "Promover el reconocimiento mutuo y la cooperación entre UIFs",
+            "Publicar tipologías y casos de estudio sobre LD/FT para retroalimentar a las entidades financieras"
+          ]
+        },
+        {
+          "tipo": "intercambio_informacion",
+          "titulo": "Intercambio de información entre UIFs",
+          "texto": "Las UIFs miembro del Grupo Egmont pueden intercambiar inteligencia financiera entre sí de forma directa y confidencial, sin necesidad de comisiones rogatorias judiciales. Este mecanismo agiliza significativamente las investigaciones transnacionales de LD/FT. El intercambio se realiza bajo el principio de reciprocidad y con las garantías de confidencialidad establecidas en las reglas del Grupo Egmont.",
+          "fundamento": "Principios del Grupo Egmont para el Intercambio de Información (Egmont Principles)"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El Grupo Egmont NO establece normas vinculantes para las entidades financieras. Su función es facilitar la cooperación entre UIFs gubernamentales. Las tipologías que publica son herramientas de capacitación valiosas pero no son regulación obligatoria."
+        }
+      ]
+    },
+    "fuente_detallada": "Grupo Egmont — Principios para el Intercambio de Información entre Unidades de Inteligencia Financiera; GAFI — Recomendación 29 (Unidades de Inteligencia Financiera); Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 4
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Grupo Wolfsberg",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Grupo Wolfsberg: El estándar del sector bancario privado",
+      "cuerpo": [
+        {
+          "tipo": "datos_generales",
+          "items": [
+            {"campo": "Nombre completo", "valor": "Grupo Wolfsberg (Wolfsberg Group)"},
+            {"campo": "Fundado", "valor": "2000, en el Castillo Wolfsberg, Suiza"},
+            {"campo": "Naturaleza", "valor": "Asociación de bancos privados globales (sector privado, no gubernamental)"},
+            {"campo": "Membresía", "valor": "13 de los bancos privados más importantes del mundo: Banco Santander, Bank of America, Barclays, Citigroup, Credit Suisse, Deutsche Bank, Goldman Sachs, HSBC, JP Morgan Chase, MUFG, Société Générale, Standard Chartered, UBS"},
+            {"campo": "Objetivo", "valor": "Desarrollar estándares y guías de mejores prácticas para el cumplimiento AML/CFT en la banca privada y banca corresponsal"}
+          ]
+        },
+        {
+          "tipo": "documentos_clave",
+          "titulo": "Documentos principales del Grupo Wolfsberg",
+          "items": [
+            {
+              "documento": "Principios Wolfsberg para la Prevención del Blanqueo de Capitales en la Banca Privada (2000, revisados 2012 y 2019)",
+              "descripcion": "El primer y más conocido documento. Establece estándares de KYC y debida diligencia para la banca privada (clientes de alto patrimonio). Aborda: identificación de clientes, PEPs, propietario beneficiario, monitoreo de cuentas y reporte de operaciones sospechosas.",
+              "relevancia": "Alta — estándar de referencia para banca privada global"
+            },
+            {
+              "documento": "Principios de Banca Corresponsal Wolfsberg (2014, revisados 2018)",
+              "descripcion": "Estándares para las relaciones de banca corresponsal (cuando un banco actúa como intermediario para otro banco en operaciones internacionales). La banca corresponsal es de muy alto riesgo PLD por las transferencias internacionales de fondos sin contacto directo con el cliente final.",
+              "relevancia": "Muy Alta — la banca corresponsal es el canal principal de lavado transnacional"
+            },
+            {
+              "documento": "Cuestionario de Debida Diligencia de Banca Corresponsal (CBDDQ / Wolfsberg Questionnaire)",
+              "descripcion": "Cuestionario estandarizado que los bancos corresponsales aplican a los bancos respondientes para evaluar su programa PLD/FT. Ampliamente utilizado en el sector financiero global como herramienta de evaluación.",
+              "relevancia": "Alta — herramienta práctica de uso cotidiano en banca internacional"
+            },
+            {
+              "documento": "Guía Wolfsberg sobre Sanciones (2019)",
+              "descripcion": "Orientación práctica sobre cómo las instituciones financieras deben gestionar los programas de cumplimiento de sanciones financieras (OFAC, ONU, UE).",
+              "relevancia": "Media-Alta"
+            },
+            {
+              "documento": "Declaración Wolfsberg sobre el Financiamiento del Terrorismo (2002)",
+              "descripcion": "Primera guía del sector bancario privado específica sobre FT. Posterior a los eventos del 11 de septiembre de 2001.",
+              "relevancia": "Media"
+            }
+          ]
+        },
+        {
+          "tipo": "banca_corresponsal",
+          "titulo": "La banca corresponsal: por qué es de alto riesgo PLD",
+          "texto": "La banca corresponsal es la relación en la que un banco (banco corresponsal) provee servicios a otro banco (banco respondiente) en una moneda o mercado en el que el segundo no tiene presencia directa. Por ejemplo, un banco mexicano que necesita realizar pagos en dólares utilizará a un banco estadounidense como corresponsal.",
+          "riesgos": [
+            "El banco corresponsal no tiene contacto directo con los clientes del banco respondiente",
+            "Las transacciones se procesan de forma automática y masiva",
+            "El banco corresponsal confía en que el respondiente ha realizado el KYC de sus clientes",
+            "Un banco corresponsal puede procesar inadvertidamente fondos ilícitos de clientes de su respondiente",
+            "El 'anidamiento' (nesting): un banco de mala reputación usa a un banco respondiente legítimo para acceder al corresponsal, ocultando su identidad"
+          ],
+          "fundamento": "GAFI — Recomendación 13 (Banca Corresponsal)"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El Grupo Wolfsberg es un organismo del SECTOR PRIVADO — no es una autoridad gubernamental. Sus documentos son guías de mejores prácticas, no regulación obligatoria. Sin embargo, sus estándares son ampliamente adoptados por los bancos globales y referenciados por los reguladores como punto de comparación."
+        }
+      ]
+    },
+    "fuente_detallada": "Wolfsberg Group — Anti-Money Laundering Principles for Private Banking, 2019; Wolfsberg Group — Correspondent Banking Due Diligence Questionnaire; GAFI — Recomendación 13 (Banca Corresponsal); Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 5
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "El Banco Mundial y el Fondo Monetario Internacional",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Banco Mundial y FMI: Apoyo técnico y financiero en PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "banco_mundial",
+          "titulo": "El Banco Mundial (BM) en PLD/FT",
+          "datos": [
+            {"campo": "Sede", "valor": "Washington D.C., EUA"},
+            {"campo": "Composición", "valor": "189 países miembros"},
+            {"campo": "Rol principal en PLD/FT", "valor": "Asistencia técnica y financiamiento para que países en desarrollo implementen regímenes PLD/FT efectivos"}
+          ],
+          "contribuciones": [
+            "Realiza evaluaciones del régimen PLD/FT de países (a veces en conjunto con el FMI)",
+            "Provee asistencia técnica: capacitación de reguladores, diseño de marcos normativos, sistemas de información para UIFs",
+            "Financia proyectos de fortalecimiento institucional en materia de PLD/FT en países de renta media y baja",
+            "Publica investigaciones y metodologías sobre tipologías de LD/FT",
+            "Ha desarrollado herramientas de evaluación del riesgo de LD/FT a nivel nacional (National Money Laundering Risk Assessment)"
+          ]
+        },
+        {
+          "tipo": "fmi",
+          "titulo": "El Fondo Monetario Internacional (FMI) en PLD/FT",
+          "datos": [
+            {"campo": "Sede", "valor": "Washington D.C., EUA"},
+            {"campo": "Composición", "valor": "190 países miembros"},
+            {"campo": "Rol principal en PLD/FT", "valor": "Supervisión de la estabilidad del sistema financiero internacional e integración del PLD/FT en la vigilancia macroeconómica"}
+          ],
+          "contribuciones": [
+            "Integra la evaluación del riesgo PLD/FT en sus evaluaciones de estabilidad financiera (FSAP — Financial Sector Assessment Program)",
+            "Desarrolla guías metodológicas para evaluar el cumplimiento con los estándares del GAFI",
+            "Realiza evaluaciones conjuntas con el Banco Mundial del régimen PLD/FT de países miembros",
+            "Ha estimado que el LD representa entre 2% y 5% del PIB mundial anual (800,000 millones a 2 billones USD)",
+            "Publica estudios sobre el impacto macroeconómico del LD/FT en los países"
+          ]
+        },
+        {
+          "tipo": "cooperacion_gafi",
+          "titulo": "Relación BM/FMI con el GAFI",
+          "texto": "El Banco Mundial y el FMI son Observadores del GAFI y colaboran estrechamente con él. Junto con el GAFI, participan en las evaluaciones mutuas de los países para medir el cumplimiento con las 40 Recomendaciones. También contribuyen a la metodología de evaluación del GAFI. Esta colaboración garantiza que el estándar PLD/FT esté integrado con los marcos de estabilidad financiera y desarrollo económico."
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Para el examen CNBV, la distinción clave es: el BM y el FMI NO establecen estándares PLD/FT (eso lo hace el GAFI). Su rol es de apoyo técnico, financiero y de vigilancia macroeconómica. El FMI además integra el PLD/FT en sus análisis de estabilidad financiera (FSAP)."
+        }
+      ]
+    },
+    "fuente_detallada": "FMI — Estimaciones sobre lavado de dinero como porcentaje del PIB mundial; GAFI — Relación con organismos internacionales; BM-FMI — Financial Sector Assessment Program (FSAP); Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 6
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Grupo de Acción Financiera Internacional (GAFI) — Generalidades",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El GAFI: El organismo central del estándar PLD/FT global",
+      "cuerpo": [
+        {
+          "tipo": "datos_generales",
+          "items": [
+            {"campo": "Nombre completo español", "valor": "Grupo de Acción Financiera Internacional (GAFI)"},
+            {"campo": "Nombre en inglés", "valor": "Financial Action Task Force (FATF)"},
+            {"campo": "Fundado", "valor": "1989, por el G-7 (grupo de los 7 países más industrializados) en la Cumbre de París"},
+            {"campo": "Sede", "valor": "París, Francia (en las instalaciones de la OCDE)"},
+            {"campo": "Naturaleza", "valor": "Organismo intergubernamental de política. Sus decisiones son adoptadas por consenso."},
+            {"campo": "Mandato original", "valor": "Examinar y desarrollar medidas para combatir el lavado de dinero proveniente del narcotráfico"},
+            {"campo": "Mandato ampliado", "valor": "Desde 2001 incluye el Financiamiento al Terrorismo (FT). Desde 2012 incluye el Financiamiento de la Proliferación de Armas (FP)."},
+            {"campo": "Miembros plenos", "valor": "40 miembros: 37 países + Comisión Europea + Consejo de Cooperación del Golfo + Comité de Expertos del Consejo de Europa (MONEYVAL)"},
+            {"campo": "México", "valor": "Miembro pleno desde el año 2000"},
+            {"campo": "Organismos asociados", "valor": "9 Organismos Regionales tipo GAFI (GAFILAT en América Latina) + observadores internacionales (BM, FMI, ONU, Egmont, Wolfsberg, etc.)"}
+          ]
+        },
+        {
+          "tipo": "evolucion_historica",
+          "titulo": "Evolución histórica del GAFI",
+          "hitos": [
+            {
+              "año": "1989",
+              "evento": "Fundación del GAFI",
+              "descripcion": "Creado por el G-7 en la Cumbre de París. Mandato inicial: combatir el lavado de dinero del narcotráfico. 16 miembros fundadores."
+            },
+            {
+              "año": "1990",
+              "evento": "Las 40 Recomendaciones originales",
+              "descripcion": "Primera versión de las 40 Recomendaciones como marco para combatir el LD. Estándar técnico fundamental."
+            },
+            {
+              "año": "1996",
+              "evento": "Primera revisión de las 40 Recomendaciones",
+              "descripcion": "Amplía el delito fuente del LD más allá del narcotráfico. Incorpora delitos graves en general."
+            },
+            {
+              "año": "2000",
+              "evento": "México se une al GAFI",
+              "descripcion": "México se convierte en miembro pleno del GAFI."
+            },
+            {
+              "año": "2001",
+              "evento": "Las 8 Recomendaciones Especiales sobre FT",
+              "descripcion": "Post 11/09. El GAFI amplía su mandato al Financiamiento al Terrorismo y emite 8 Recomendaciones Especiales adicionales (posteriormente se amplían a 9)."
+            },
+            {
+              "año": "2003",
+              "evento": "Segunda revisión de las 40 Recomendaciones",
+              "descripcion": "Revisión técnica integral. Incorpora el enfoque basado en riesgos en varios aspectos."
+            },
+            {
+              "año": "2012",
+              "evento": "Fusión en las 40 Recomendaciones actuales",
+              "descripcion": "El GAFI fusiona las 40 Recomendaciones y las 9 Especiales en un nuevo documento único de 40 Recomendaciones. Se incorpora formalmente el Enfoque Basado en Riesgos (EBR) como metodología central. Se agrega el Financiamiento de la Proliferación de Armas (FP)."
+            },
+            {
+              "año": "2023",
+              "evento": "Revisiones parciales más recientes",
+              "descripcion": "Actualizaciones a las Notas Interpretativas y Guías del GAFI, especialmente en activos virtuales, personas jurídicas y beneficiarios finales."
+            }
+          ]
+        },
+        {
+          "tipo": "estructura_organizacional",
+          "titulo": "Cómo funciona el GAFI",
+          "items": [
+            {
+              "organo": "Plenario",
+              "funcion": "Órgano de decisión supremo. Se reúne tres veces al año. Adopta por consenso todas las decisiones, incluidas las 40 Recomendaciones y las evaluaciones mutuas."
+            },
+            {
+              "organo": "Presidencia",
+              "funcion": "El Presidente es elegido por los miembros por un período de dos años. Representa al GAFI públicamente."
+            },
+            {
+              "organo": "Grupos de trabajo",
+              "funcion": "Grupos especializados que desarrollan políticas técnicas: Grupo de trabajo sobre evaluaciones y cumplimiento, sobre tipologías, sobre activos virtuales, etc."
+            },
+            {
+              "organo": "Secretaría",
+              "funcion": "Con sede en la OCDE en París. Proporciona apoyo técnico y administrativo al Plenario y a los grupos de trabajo."
+            }
+          ]
+        },
+        {
+          "tipo": "gafilat",
+          "titulo": "GAFILAT: El organismo regional tipo GAFI para América Latina",
+          "texto": "El Grupo de Acción Financiera de Latinoamérica (GAFILAT) es el organismo regional tipo GAFI que agrupa a los países de América Latina y el Caribe. México es miembro del GAFILAT (además de ser miembro pleno del GAFI global). El GAFILAT realiza evaluaciones mutuas regionales, capacitación y tipologías adaptadas a la realidad latinoamericana.",
+          "miembros": "18 países: Argentina, Bolivia, Brasil, Chile, Colombia, Costa Rica, Cuba, Ecuador, El Salvador, Guatemala, Honduras, México, Nicaragua, Panamá, Paraguay, Perú, Uruguay y Venezuela"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El GAFI establece el ESTÁNDAR pero NO tiene facultades de sanción directa sobre los países. Su poder radica en la presión reputacional y económica: un país con un mal resultado en la evaluación GAFI puede ver cómo los bancos internacionales les cierran líneas de crédito y los inversores evitan el mercado. La 'lista negra' del GAFI tiene consecuencias económicas reales."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Historia y Mandato (www.fatf-gafi.org); GAFI — 40 Recomendaciones 2012 (revisadas 2023); GAFILAT — Sitio oficial; Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 7
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "La Lista de Países y Territorios No Cooperantes del GAFI",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las listas del GAFI: países de alto riesgo y no cooperantes",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El GAFI mantiene un proceso de revisión continua del cumplimiento de los países con sus estándares. Como resultado, publica listas de países con deficiencias estratégicas, que tienen consecuencias prácticas directas para las instituciones financieras que operan con esas jurisdicciones."
+        },
+        {
+          "tipo": "dos_listas",
+          "titulo": "Las dos listas del GAFI",
+          "listas": [
+            {
+              "nombre": "Lista de jurisdicciones de alto riesgo sujetas a un llamado a la acción (Lista Negra)",
+              "nombre_informal": "'Lista Negra' del GAFI",
+              "descripcion": "Países con deficiencias estratégicas graves en sus regímenes PLD/FT y que NO están haciendo progresos suficientes para corregirlas, o que representan un riesgo significativo para el sistema financiero internacional.",
+              "consecuencias_para_instituciones": [
+                "Las entidades financieras deben aplicar Debida Diligencia Reforzada (DDR) en TODAS las transacciones con clientes o entidades de estos países",
+                "Algunos países miembros del GAFI aplican medidas adicionales (restricciones de operaciones, prohibición de ciertas transacciones)",
+                "Los bancos corresponsales pueden rechazar o suspender relaciones con bancos de países listados"
+              ],
+              "ejemplos_historicos": "Corea del Norte e Irán han estado permanentemente en esta lista"
+            },
+            {
+              "nombre": "Lista de jurisdicciones bajo mayor monitoreo (Lista Gris)",
+              "nombre_informal": "'Lista Gris' del GAFI",
+              "descripcion": "Países con deficiencias estratégicas en sus regímenes PLD/FT que han COMPROMETIDO realizar reformas para corregirlas bajo supervisión del GAFI. Están cooperando pero aún presentan debilidades.",
+              "consecuencias_para_instituciones": [
+                "Las entidades deben considerar estos países como de mayor riesgo y aplicar mayor escrutinio en transacciones con sus residentes o entidades",
+                "Se recomienda aplicar medidas adicionales de due diligence aunque no necesariamente DDR completa",
+                "Los bancos internacionales pueden requerir información adicional para transacciones con estas jurisdicciones"
+              ],
+              "dinamica": "Los países en lista gris pueden salir cuando el GAFI verifica que han implementado las reformas comprometidas"
+            }
+          ]
+        },
+        {
+          "tipo": "proceso_listado",
+          "titulo": "¿Cómo se llega a la lista negra o gris?",
+          "pasos": [
+            "El GAFI realiza una evaluación mutua del país (ver sección siguiente)",
+            "Si se detectan deficiencias estratégicas, se inicia un diálogo con el país",
+            "El país desarrolla un plan de acción con el GAFI para corregir las deficiencias",
+            "Si el progreso es insuficiente o no hay cooperación, el GAFI puede incluir al país en la lista gris",
+            "Si el país no coopera o el riesgo es crítico, puede escalar a la lista negra",
+            "Cuando el GAFI verifica que las reformas se implementaron, el país sale de la lista"
+          ]
+        },
+        {
+          "tipo": "obligacion_entidades",
+          "titulo": "Obligación de las entidades financieras mexicanas",
+          "texto": "Las disposiciones CNBV establecen que las entidades financieras mexicanas deben: (1) conocer y mantener actualizado el listado de jurisdicciones incluidas en las listas GAFI, (2) aplicar Debida Diligencia Reforzada en transacciones con países de la lista negra, (3) dar tratamiento de mayor riesgo a transacciones con países de la lista gris, (4) reportar como operaciones inusuales transacciones con jurisdicciones de alto riesgo que no tengan justificación económica aparente.",
+          "fundamento": "GAFI — Recomendación 19 (Países de alto riesgo y medidas a aplicar); Disposiciones CNBV"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Las listas del GAFI se actualizan en cada Plenario (tres veces al año). Las instituciones financieras tienen la obligación de consultar la versión actualizada para sus procesos de debida diligencia y no pueden basar sus decisiones en listas desactualizadas."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Recomendación 19 (Jurisdicciones de alto riesgo y medidas reforzadas); GAFI — Proceso de identificación de jurisdicciones de alto riesgo; Disposiciones CNBV, capítulo de conocimiento del cliente; Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 8
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Las 40 Recomendaciones del GAFI",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las 40 Recomendaciones del GAFI: El estándar internacional PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "Las 40 Recomendaciones del GAFI son el conjunto de medidas que todos los países deben implementar para tener un régimen PLD/FT efectivo. No son vinculantes jurídicamente, pero son el estándar de facto global adoptado por todos los países del G-20 y por la mayoría de los países del mundo. La versión vigente data de 2012 y ha sido objeto de revisiones parciales, con las más recientes en 2023."
+        },
+        {
+          "tipo": "estructura",
+          "titulo": "Estructura de las 40 Recomendaciones",
+          "descripcion": "Las 40 Recomendaciones se organizan en 7 bloques temáticos:",
+          "bloques": [
+            {
+              "bloque": "A. Políticas y coordinación PLD/FT (Recs. 1-2)",
+              "recomendaciones": [
+                {
+                  "numero": 1,
+                  "titulo": "Evaluación del riesgo y aplicación de un enfoque basado en riesgo",
+                  "descripcion": "Los países deben identificar, evaluar y entender sus riesgos de LD/FT. Deben tomar medidas proporcionales al riesgo identificado. Las entidades financieras también deben hacer su propia evaluación de riesgos.",
+                  "importancia": "FUNDAMENTAL — es la base de todo el enfoque moderno PLD/FT"
+                },
+                {
+                  "numero": 2,
+                  "titulo": "Cooperación y coordinación nacional",
+                  "descripcion": "Debe existir un mecanismo de coordinación entre todas las autoridades relevantes del país (reguladores, UIFs, policía, fiscalía, etc.)."
+                }
+              ]
+            },
+            {
+              "bloque": "B. Lavado de dinero y decomiso (Recs. 3-4)",
+              "recomendaciones": [
+                {
+                  "numero": 3,
+                  "titulo": "Delito de lavado de dinero",
+                  "descripcion": "Los países deben tipificar el LD conforme a los Convenios de Viena y Palermo. El delito debe aplicarse a los delitos subyacentes más serios."
+                },
+                {
+                  "numero": 4,
+                  "titulo": "Decomiso y medidas provisionales",
+                  "descripcion": "Los países deben tener facultades para congelar, incautar y decomisar el producto e instrumentos del LD/FT y delitos subyacentes."
+                }
+              ]
+            },
+            {
+              "bloque": "C. Financiamiento del Terrorismo y Proliferación (Recs. 5-8)",
+              "recomendaciones": [
+                {
+                  "numero": 5,
+                  "titulo": "Delito de financiamiento del terrorismo",
+                  "descripcion": "Los países deben tipificar el FT conforme al Convenio Internacional para la Represión de la FT de 1999.",
+                  "importancia": "Muy Alta"
+                },
+                {
+                  "numero": 6,
+                  "titulo": "Sanciones financieras dirigidas relacionadas con el terrorismo",
+                  "descripcion": "Los países deben implementar el régimen de sanciones de la ONU (Res. 1267 y 1373): congelar activos de terroristas y organizaciones listadas sin previo aviso.",
+                  "importancia": "Muy Alta"
+                },
+                {
+                  "numero": 7,
+                  "titulo": "Sanciones financieras dirigidas relacionadas con la proliferación",
+                  "descripcion": "Los países deben implementar sanciones financieras contra quienes financien la proliferación de armas de destrucción masiva (Res. ONU 1540)."
+                },
+                {
+                  "numero": 8,
+                  "titulo": "Organizaciones sin fines de lucro",
+                  "descripcion": "Los países deben asegurarse de que las ONGs no sean utilizadas para el FT. Enfoque basado en riesgo, sin sobre-regular el sector."
+                }
+              ]
+            },
+            {
+              "bloque": "D. Medidas preventivas — Instituciones Financieras (Recs. 9-23)",
+              "descripcion": "El bloque más extenso. Establece las obligaciones de las instituciones financieras. Incluye las Recomendaciones sobre KYC, debida diligencia, PEPs, banca corresponsal, nuevas tecnologías, reportes de operaciones sospechosas, etc.",
+              "recomendaciones_destacadas": [
+                {
+                  "numero": 10,
+                  "titulo": "Debida diligencia del cliente (CDD / KYC)",
+                  "descripcion": "Establece los 4 elementos del CDD: (1) identificar y verificar al cliente, (2) identificar y verificar al propietario beneficiario, (3) entender el propósito de la relación comercial, (4) monitoreo continuo. Aplica el EBR: mayor diligencia para mayor riesgo.",
+                  "importancia": "FUNDAMENTAL — la Rec. más citada en el examen CNBV"
+                },
+                {
+                  "numero": 11,
+                  "titulo": "Mantenimiento de registros",
+                  "descripcion": "Las entidades deben conservar registros de transacciones y expedientes de identificación por al menos 5 años (en México 10 años por disposición nacional más estricta)."
+                },
+                {
+                  "numero": 12,
+                  "titulo": "Personas Políticamente Expuestas (PEPs)",
+                  "descripcion": "Las entidades deben aplicar medidas adicionales (DDR) para PEPs: identificar si el cliente es PEP, obtener aprobación de alta dirección, verificar origen de fondos, monitoreo intensificado.",
+                  "importancia": "Muy Alta"
+                },
+                {
+                  "numero": 13,
+                  "titulo": "Banca corresponsal",
+                  "descripcion": "Las instituciones deben aplicar DDR en relaciones de banca corresponsal: evaluar controles PLD del banco respondiente, no relacionarse con bancos pantalla (shell banks)."
+                },
+                {
+                  "numero": 15,
+                  "titulo": "Nuevas tecnologías (incluye activos virtuales)",
+                  "descripcion": "Las entidades y los países deben gestionar el riesgo de nuevas tecnologías y activos virtuales. Los proveedores de activos virtuales (VASPs) deben estar regulados.",
+                  "importancia": "Alta — relevante para FinTech"
+                },
+                {
+                  "numero": 16,
+                  "titulo": "Transferencias electrónicas (Regla de Viaje)",
+                  "descripcion": "Los datos del ordenante y del beneficiario deben acompañar a las transferencias electrónicas durante todo el proceso de transmisión. Fundamental para rastrear el origen y destino de fondos.",
+                  "importancia": "Muy Alta"
+                },
+                {
+                  "numero": 20,
+                  "titulo": "Reporte de operaciones sospechosas (ROS)",
+                  "descripcion": "Las entidades financieras deben reportar a la UIF cuando sospechen que fondos están relacionados con LD/FT. El reporte es obligatorio y confidencial.",
+                  "importancia": "FUNDAMENTAL"
+                },
+                {
+                  "numero": 21,
+                  "titulo": "Tipping-off y confidencialidad",
+                  "descripcion": "Las entidades y su personal NO deben revelar al cliente ni a terceros que se ha presentado un ROS. La buena fe en el reporte otorga protección legal.",
+                  "importancia": "Muy Alta — deber de reserva"
+                }
+              ]
+            },
+            {
+              "bloque": "E. Medidas preventivas — Actividades y Profesiones No Financieras (Recs. 22-23)",
+              "descripcion": "Extiende las obligaciones PLD/FT a sectores no financieros de alto riesgo: abogados, notarios, contadores, agentes inmobiliarios, comerciantes de metales y piedras preciosas, casinos."
+            },
+            {
+              "bloque": "F. Transparencia y beneficiario final (Recs. 24-25)",
+              "descripcion": "Los países deben garantizar la transparencia de las personas jurídicas y los fideicomisos, haciendo accesible la información del beneficiario final a las autoridades.",
+              "recomendaciones_destacadas": [
+                {
+                  "numero": 24,
+                  "titulo": "Transparencia de personas jurídicas",
+                  "descripcion": "Los países deben tener registros actualizados de quiénes son los beneficiarios finales de las empresas."
+                },
+                {
+                  "numero": 25,
+                  "titulo": "Transparencia de fideicomisos",
+                  "descripcion": "Los fiduciarios deben mantener información del fideicomitente, fideicomisario y beneficiarios, accesible a las autoridades."
+                }
+              ]
+            },
+            {
+              "bloque": "G. Poderes y responsabilidades de autoridades competentes (Recs. 26-35)",
+              "descripcion": "Establece los requisitos para la regulación, supervisión y poderes de investigación de las autoridades. Incluye la UIF (Rec. 29), los supervisores financieros (Rec. 26 y 27), las fuerzas del orden (Rec. 30) y la cooperación (Rec. 31).",
+              "recomendaciones_destacadas": [
+                {
+                  "numero": 26,
+                  "titulo": "Regulación y supervisión de instituciones financieras",
+                  "descripcion": "Los supervisores (como la CNBV) deben tener poderes de licenciamiento, supervisión y sanción."
+                },
+                {
+                  "numero": 29,
+                  "titulo": "Unidades de Inteligencia Financiera (UIFs)",
+                  "descripcion": "Cada país debe tener una UIF como centro de recepción y análisis de reportes de operaciones sospechosas."
+                }
+              ]
+            },
+            {
+              "bloque": "H. Cooperación internacional (Recs. 36-40)",
+              "descripcion": "Los países deben cooperar con otros países en investigaciones, asistencia judicial mutua, extradición y compartición de información.",
+              "recomendaciones_destacadas": [
+                {
+                  "numero": 40,
+                  "titulo": "Otras formas de cooperación internacional",
+                  "descripcion": "Las autoridades (incluyendo UIFs) deben compartir inteligencia con sus contrapartes de otros países de la forma más rápida posible."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — International Standards on Combating Money Laundering and the Financing of Terrorism & Proliferation (Las 40 Recomendaciones), FATF, París 2012 (revisadas 2023); GAFI — Notas Interpretativas a las 40 Recomendaciones",
+    "orden": 9
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Mecanismos de Evaluación del GAFI",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las evaluaciones mutuas del GAFI: cómo se mide el cumplimiento",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El GAFI no solo establece el estándar — también verifica su cumplimiento a través de un proceso de evaluación mutua peer review. Cada país miembro del GAFI (y de los organismos regionales tipo GAFI) es evaluado periódicamente por un equipo de expertos de otros países. El resultado de la evaluación tiene consecuencias reputacionales y económicas significativas."
+        },
+        {
+          "tipo": "dos_dimensiones",
+          "titulo": "Las dos dimensiones de la evaluación: TC y EF",
+          "descripcion": "La metodología actual del GAFI (desde 2013) evalúa el cumplimiento de los países en dos dimensiones complementarias:",
+          "dimensiones": [
+            {
+              "dimension": "Cumplimiento Técnico (TC — Technical Compliance)",
+              "descripcion": "Mide si el país tiene las LEYES Y REGULACIONES necesarias para cumplir con cada una de las 40 Recomendaciones. Es una evaluación del marco normativo (¿existe la ley?)",
+              "calificaciones": ["C (Compliant) — Cumplimiento total", "LC (Largely Compliant) — Cumplimiento mayoritario", "PC (Partially Compliant) — Cumplimiento parcial", "NC (Non-Compliant) — Incumplimiento"],
+              "analogia": "Es el examen de '¿tienes el reglamento escrito?'"
+            },
+            {
+              "dimension": "Efectividad (EF — Effectiveness)",
+              "descripcion": "Mide si el régimen PLD/FT funciona en la PRÁCTICA — si produce los resultados esperados. Es la dimensión más importante y más difícil de lograr. Un país puede tener buenas leyes pero que no se apliquen en la realidad.",
+              "once_resultados_inmediatos": [
+                "RI.1: El riesgo de LD/FT se entiende y las políticas son coordinadas",
+                "RI.2: La cooperación internacional produce resultados apropiados",
+                "RI.3: Los supervisores regulan y supervisan apropiadamente",
+                "RI.4: Las instituciones financieras aplican medidas preventivas",
+                "RI.5: Las personas jurídicas tienen transparencia de beneficiario final",
+                "RI.6: Las autoridades financieras tienen información útil de la UIF",
+                "RI.7: Los delitos de LD/FT son investigados y procesados penalmente",
+                "RI.8: Se decomisan los productos del crimen",
+                "RI.9: El FT es investigado y sancionado",
+                "RI.10: El FP es prevenido",
+                "RI.11: Las ONGs no son usadas para FT"
+              ],
+              "calificaciones": ["AE (Alto Eficacia)", "E (Eficaz)", "ME (Moderadamente Eficaz)", "PE (Poco Eficaz)"],
+              "analogia": "Es el examen de '¿el reglamento se aplica en la práctica?'"
+            }
+          ]
+        },
+        {
+          "tipo": "proceso_evaluacion",
+          "titulo": "El proceso de evaluación mutua",
+          "pasos": [
+            {
+              "paso": "1. Autoevaluación del país",
+              "descripcion": "El país prepara un informe detallado de su régimen PLD/FT respondiendo a un cuestionario estructurado conforme a la metodología GAFI."
+            },
+            {
+              "paso": "2. Selección del equipo evaluador",
+              "descripcion": "Un equipo de expertos de otros países miembros del GAFI (generalmente 5-7 evaluadores: expertos legales, financieros y de aplicación de la ley) es designado para evaluar al país."
+            },
+            {
+              "paso": "3. Visita al país (on-site visit)",
+              "descripcion": "El equipo evaluador visita el país durante aproximadamente 2 semanas. Realiza reuniones con autoridades, reguladores, sector financiero y sociedad civil."
+            },
+            {
+              "paso": "4. Elaboración del informe",
+              "descripcion": "El equipo elabora el Informe de Evaluación Mutua (MER — Mutual Evaluation Report) con calificaciones de TC y EF para cada Recomendación."
+            },
+            {
+              "paso": "5. Revisión y adopción",
+              "descripcion": "El informe es revisado por el Plenario del GAFI y adoptado oficialmente. El país tiene oportunidad de presentar comentarios técnicos."
+            },
+            {
+              "paso": "6. Publicación",
+              "descripcion": "El MER es publicado en el sitio web del GAFI y es de acceso público. Las calificaciones bajas tienen consecuencias reputacionales inmediatas."
+            },
+            {
+              "paso": "7. Seguimiento",
+              "descripcion": "El país debe reportar periódicamente los avances realizados para corregir las deficiencias identificadas. Dependiendo de las calificaciones, puede ser objeto de seguimiento intensificado."
+            }
+          ]
+        },
+        {
+          "tipo": "mexico_evaluacion",
+          "titulo": "México y las evaluaciones del GAFI",
+          "texto": "México ha sido evaluado en múltiples rondas de evaluación mutua. La evaluación más reciente fue adoptada en el Plenario del GAFI en 2018. Los resultados identificaron áreas de mejora particularmente en efectividad: la investigación y sanción de delitos de LD/FT, el decomiso de activos y la transparencia del beneficiario final de personas jurídicas. México se comprometió a un plan de acción para mejorar estas áreas. La próxima evaluación de México está programada para los próximos años.",
+          "lecciones": "Las evaluaciones del GAFI son el principal motor de reformas PLD/FT en México. Cada deficiencia identificada se traduce en cambios regulatorios y operativos para las entidades financieras."
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La distinción clave entre TC y EF: un país puede tener Cumplimiento Técnico alto (buenas leyes) pero Efectividad baja (no se aplican en la práctica). El GAFI considera que la Efectividad es la medida más importante. Un país con buenas leyes pero sin condenas por lavado de dinero tiene un régimen PLD/FT inefectivo."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Metodología para evaluar el cumplimiento técnico con las Recomendaciones del GAFI y la efectividad de los sistemas PLD/FT, 2013 (revisada 2019); GAFI — Informe de Evaluación Mutua de México, 2018; Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 10
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Mecanismos de Evaluación del GAFI",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: Organismos internacionales PLD/FT y sus roles",
+      "nodo_central": "Sistema Internacional PLD/FT",
+      "ramas": [
+        {
+          "concepto": "GAFI",
+          "subnodos": [
+            "Funda el estándar: 40 Recomendaciones",
+            "Evaluaciones mutuas (TC + EF)",
+            "Listas negra y gris",
+            "Fundado 1989 por G-7",
+            "México miembro desde 2000",
+            "Sede: París (OCDE)"
+          ]
+        },
+        {
+          "concepto": "ONU",
+          "subnodos": [
+            "Convención de Viena 1988 (LD)",
+            "Convención de Palermo 2000",
+            "Convenio FT 1999",
+            "Resolución 1267 (lista terroristas)",
+            "Resolución 1373 (obligaciones FT)"
+          ]
+        },
+        {
+          "concepto": "Comité de Basilea",
+          "subnodos": [
+            "Estándares supervisión bancaria",
+            "CDD para bancos (2001)",
+            "Gestión riesgos LD/FT (2014)",
+            "Acuerdos Basilea I, II y III"
+          ]
+        },
+        {
+          "concepto": "Grupo Egmont",
+          "subnodos": [
+            "Red de 168 UIFs",
+            "Intercambio de inteligencia",
+            "Fundado 1995",
+            "México: UIF-SHCP es miembro"
+          ]
+        },
+        {
+          "concepto": "Grupo Wolfsberg",
+          "subnodos": [
+            "13 bancos privados globales",
+            "Principios banca privada y corresponsal",
+            "Cuestionario CBDDQ",
+            "Sector privado (no gubernamental)"
+          ]
+        },
+        {
+          "concepto": "BM y FMI",
+          "subnodos": [
+            "Asistencia técnica y financiamiento",
+            "Evaluaciones FSAP (FMI)",
+            "Metodologías de evaluación nacional de riesgo",
+            "Observadores del GAFI"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Guía PLD/FT CNBV 11ª ed., Bloque 2 — Organismos y Foros Internacionales",
+    "orden": 11
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Mecanismos de Evaluación del GAFI",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Diagrama: El proceso de evaluación mutua del GAFI",
+      "tipo_diagrama": "flujo_vertical",
+      "descripcion": "Las dos dimensiones de evaluación y el proceso completo",
+      "dimensiones": [
+        {
+          "nombre": "Cumplimiento Técnico (TC)",
+          "pregunta": "¿Tienes las leyes correctas?",
+          "calificaciones": ["C — Compliant", "LC — Largely Compliant", "PC — Partially Compliant", "NC — Non-Compliant"],
+          "ejemplo": "¿Está tipificado el LD en el CPF? ¿Existe la UIF? ¿Hay disposiciones CNBV sobre KYC?"
+        },
+        {
+          "nombre": "Efectividad (EF)",
+          "pregunta": "¿Funcionan en la práctica?",
+          "calificaciones": ["AE — Alta Eficacia", "E — Eficaz", "ME — Moderadamente Eficaz", "PE — Poco Eficaz"],
+          "ejemplo": "¿Se condena a lavadores de dinero? ¿Se decomisa el producto del delito? ¿Se reportan OIs en la práctica?"
+        }
+      ],
+      "proceso_evaluacion": [
+        "País prepara autoevaluación",
+        "Equipo de 5-7 expertos de otros países",
+        "Visita al país (2 semanas)",
+        "Informe preliminar",
+        "Revisión por Plenario GAFI",
+        "Publicación del Informe de Evaluación Mutua (MER)",
+        "Seguimiento periódico"
+      ]
+    },
+    "fuente_detallada": "GAFI — Metodología de evaluación mutua 2013 (revisada 2019); GAFI — Informe de Evaluación Mutua de México 2018",
+    "orden": 12
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "subtema": "Las 40 Recomendaciones del GAFI",
+    "tipo": "resumen",
+    "contenido": {
+      "titulo": "Puntos clave para el examen CNBV — Bloque 2",
+      "puntos_clave": [
+        "El GAFI es el organismo central que establece el estándar PLD/FT global a través de las 40 Recomendaciones. Fundado en 1989 por el G-7. México es miembro desde 2000. Sede en París (OCDE).",
+        "El Comité de Basilea contribuye con estándares de KYC para bancos (CDD 2001) y gestión del riesgo LD/FT (2014), pero NO establece el estándar PLD/FT global — eso es el GAFI.",
+        "La ONU provee el marco jurídico universal: Convención de Viena (1988, origen del LD como delito en México), Convención de Palermo (2000, amplía el delito fuente), Convenio FT (1999, base del Art. 139 Quáter CPF).",
+        "Las Resoluciones 1267 y 1373 del CS ONU son vinculantes. La 1267 crea la lista de terroristas a bloquear. La 1373 crea obligaciones generales para todos los países.",
+        "El Grupo Egmont es la red de 168 UIFs. Facilita el intercambio de inteligencia financiera entre UIFs de distintos países. La UIF de México (SHCP) es miembro.",
+        "El Grupo Wolfsberg son 13 bancos privados globales que emiten principios de mejores prácticas para banca privada y corresponsal. Es sector PRIVADO, sus documentos NO son regulación obligatoria.",
+        "El BM y el FMI prestan apoyo técnico y financiero. El FMI integra el PLD/FT en las evaluaciones de estabilidad financiera (FSAP). Son Observadores del GAFI.",
+        "Las 40 Recomendaciones se organizan en 7 bloques. La Rec. 10 (KYC/CDD) y la Rec. 20 (Reporte de Operaciones Sospechosas) son las más importantes para el examen.",
+        "El GAFI evalúa a los países en dos dimensiones: Cumplimiento Técnico (¿tienes las leyes?) y Efectividad (¿funcionan en la práctica?). La efectividad es más importante.",
+        "La lista negra del GAFI obliga a DDR en todas las transacciones. La lista gris requiere mayor escrutinio. Las listas se actualizan tres veces al año.",
+        "La Recomendación 16 (Regla de Viaje) obliga a que los datos del ordenante y beneficiario acompañen a cada transferencia electrónica. Es clave para transmisores de dinero.",
+        "GAFILAT es el organismo regional tipo GAFI para América Latina. México es miembro del GAFILAT además del GAFI global."
+      ],
+      "tabla_comparativa_organismos": [
+        {"organismo": "GAFI", "naturaleza": "Intergubernamental", "producto": "40 Recomendaciones", "vinculante": "No (pero adoptado universalmente)", "mexico": "Miembro desde 2000"},
+        {"organismo": "ONU", "naturaleza": "Intergubernamental universal", "producto": "Convenciones + Resoluciones CS", "vinculante": "Sí (Convenciones ratificadas y Resoluciones CS)", "mexico": "Miembro — ratificó Viena, Palermo, Convenio FT"},
+        {"organismo": "Comité de Basilea", "naturaleza": "Foro de bancos centrales", "producto": "Estándares bancarios (no solo PLD)", "vinculante": "No (soft law)", "mexico": "Participa vía Banxico y CNBV"},
+        {"organismo": "Grupo Egmont", "naturaleza": "Red de UIFs gubernamentales", "producto": "Intercambio de inteligencia", "vinculante": "No", "mexico": "UIF-SHCP es miembro"},
+        {"organismo": "Grupo Wolfsberg", "naturaleza": "Sector privado (bancos)", "producto": "Principios y cuestionarios", "vinculante": "No", "mexico": "Los bancos mexicanos adoptan sus principios voluntariamente"},
+        {"organismo": "BM y FMI", "naturaleza": "Organismos multilaterales de desarrollo y estabilidad", "producto": "Asistencia técnica, evaluaciones", "vinculante": "No", "mexico": "Miembro de ambos"}
+      ],
+      "preguntas_tipicas_examen": [
+        "¿En qué año fue creado el GAFI y por quién?",
+        "¿Cuál es la diferencia entre el Cumplimiento Técnico (TC) y la Efectividad (EF) en una evaluación GAFI?",
+        "¿Cuál es la Convención de la ONU que originó la tipificación del lavado de dinero en México?",
+        "¿Qué es el Grupo Egmont y cuál es su función principal?",
+        "¿El Grupo Wolfsberg es un organismo gubernamental o privado?",
+        "¿Qué obligación impone la Resolución 1267 del Consejo de Seguridad de la ONU a las entidades financieras?",
+        "¿Cuántas recomendaciones tiene el estándar GAFI vigente?",
+        "¿Qué consecuencias tiene para las entidades financieras que un país esté en la lista negra del GAFI?",
+        "¿Qué es la Regla de Viaje del GAFI (Recomendación 16)?",
+        "¿Qué es el GAFILAT y cuál es su relación con el GAFI global?"
+      ]
+    },
+    "fuente_detallada": "GAFI — 40 Recomendaciones 2012; ONU — Convenciones de Viena, Palermo y Convenio FT; Guía PLD/FT CNBV 11ª ed., Bloque 2",
+    "orden": 13
+  }
+]

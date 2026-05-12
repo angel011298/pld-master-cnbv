@@ -1,0 +1,676 @@
+[
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Objeto de la Ley — Antecedentes y finalidad",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La LFPIORPI: La Ley Antilavado para el sector no financiero",
+      "cuerpo": [
+        {
+          "tipo": "datos_generales",
+          "items": [
+            {"campo": "Nombre completo", "valor": "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita"},
+            {"campo": "Abreviatura", "valor": "LFPIORPI (también llamada 'Ley Antilavado')"},
+            {"campo": "Publicación en DOF", "valor": "17 de octubre de 2012"},
+            {"campo": "Entrada en vigor", "valor": "17 de julio de 2013 (9 meses después de su publicación)"},
+            {"campo": "Reglamento", "valor": "Publicado el 16 de agosto de 2013 en el DOF"},
+            {"campo": "Autoridad reguladora", "valor": "Secretaría de Hacienda y Crédito Público (SHCP)"},
+            {"campo": "Autoridad supervisora", "valor": "Servicio de Administración Tributaria (SAT)"},
+            {"campo": "Receptor de avisos", "valor": "SAT (a diferencia de las entidades financieras que reportan a la UIF)"}
+          ]
+        },
+        {
+          "tipo": "antecedentes",
+          "titulo": "¿Por qué surgió la LFPIORPI?",
+          "texto": "Antes de la LFPIORPI, el régimen PLD/FT mexicano se concentraba casi exclusivamente en el sistema financiero formal (bancos, casas de cambio, etc.). Sin embargo, los lavadores de dinero utilizan también sectores NO financieros para introducir recursos ilícitos: notarías, inmobiliarias, joyerías, casinos, agencias de autos, entre otros. La LFPIORPI vino a cubrir este vacío regulatorio, extendiendo las obligaciones PLD/FT a los sectores vulnerables de la economía no financiera.",
+          "contexto_internacional": "La LFPIORPI es la respuesta de México a las Recomendaciones del GAFI sobre actividades y profesiones no financieras designadas (DNFBPs — Designated Non-Financial Businesses and Professions), específicamente las Recomendaciones 22 y 23."
+        },
+        {
+          "tipo": "objeto_ley",
+          "titulo": "Objeto de la LFPIORPI — Art. 1",
+          "texto": "El objeto de la Ley es proteger al sistema financiero y la economía nacional, estableciendo medidas y procedimientos para prevenir y detectar actos u operaciones que involucren recursos de procedencia ilícita, a través de una coordinación interinstitucional, que tenga como fines recopilar elementos útiles para investigar y perseguir los delitos de operaciones con recursos de procedencia ilícita, los relacionados con estos últimos, las estructuras financieras de las organizaciones delictivas y evitar el uso de los recursos para su financiamiento.",
+          "elementos_clave": [
+            "PREVENIR y DETECTAR operaciones con recursos ilícitos",
+            "Ámbito: actividades VULNERABLES (no el sistema financiero, que tiene su propio régimen)",
+            "Finalidad: recopilar elementos para INVESTIGAR Y PERSEGUIR delitos",
+            "También busca evitar el FINANCIAMIENTO AL TERRORISMO",
+            "Mecanismo: COORDINACIÓN INTERINSTITUCIONAL (SHCP-SAT-UIF-FGR)"
+          ],
+          "fundamento": "LFPIORPI Art. 1"
+        },
+        {
+          "tipo": "diferencia_sistemas",
+          "titulo": "LFPIORPI vs. Régimen PLD del Sistema Financiero: Las dos grandes vías",
+          "descripcion": "México tiene DOS sistemas paralelos de prevención del LD/FT:",
+          "cuadro_comparativo": {
+            "columnas": ["Dimensión", "Sistema Financiero (CNBV)", "Actividades Vulnerables (LFPIORPI)"],
+            "filas": [
+              ["Marco legal principal", "LIC Art. 115, LMV Art. 212, etc.", "LFPIORPI"],
+              ["Autoridad supervisora", "CNBV, CNSF, Consar", "SAT"],
+              ["Qué se presenta", "Reportes: OR, OI, OIP (a la UIF)", "Avisos (al SAT, quien los transmite a la UIF)"],
+              ["Plazo de presentación", "Según tipo: día 17 del mes o 60 días", "Dentro de los 30 días hábiles siguientes a la operación"],
+              ["Umbral en divisas", "Varía por sector (ej: $7,500 USD en banca)", "Varía por actividad vulnerable (algunas en UMAs)"],
+              ["Destinatarios", "Entidades financieras reguladas", "Personas físicas y morales que realizan actividades vulnerables"],
+              ["Sistema de envío", "SUAdeO (sistema UIF)", "Portal del SAT (PFPIORPI)"]
+            ]
+          }
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La LFPIORPI NO deroga ni sustituye el régimen PLD del sistema financiero. Ambos sistemas coexisten. Una empresa puede estar sujeta A AMBOS simultáneamente: por ejemplo, una institución de crédito que también realiza operaciones cambiarias está sujeta a las disposiciones CNBV como entidad financiera Y puede también estar sujeta a LFPIORPI como actividad vulnerable, dependiendo de la naturaleza de la operación."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 1-5; DOF 17/10/2012 — publicación LFPIORPI; DOF 16/08/2013 — Reglamento LFPIORPI; GAFI — Recomendaciones 22 y 23 (DNFBPs)",
+    "orden": 1
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Autoridades que participan y sus funciones",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las autoridades de la LFPIORPI y sus funciones",
+      "cuerpo": [
+        {
+          "tipo": "autoridades_lfpiorpi",
+          "items": [
+            {
+              "autoridad": "Secretaría de Hacienda y Crédito Público (SHCP)",
+              "rol_lfpiorpi": "Autoridad máxima — emite la política general y la regulación secundaria",
+              "funciones": [
+                "Emite las Reglas de Carácter General en materia de la LFPIORPI",
+                "Coordina la política nacional de PLD/FT para actividades vulnerables",
+                "A través de la UIF, recibe la inteligencia generada por los avisos del SAT",
+                "Emite la Lista de Personas Bloqueadas",
+                "Preside el Comité Coordinador PLD/FT"
+              ],
+              "fundamento": "LFPIORPI Arts. 6-7"
+            },
+            {
+              "autoridad": "Servicio de Administración Tributaria (SAT)",
+              "rol_lfpiorpi": "Autoridad supervisora operativa — recibe avisos, verifica cumplimiento, impone sanciones",
+              "funciones": [
+                "Recibe los avisos de actividades vulnerables presentados por los sujetos obligados",
+                "Realiza visitas de verificación para comprobar el cumplimiento de la LFPIORPI",
+                "Impone sanciones administrativas a quienes incumplan",
+                "Mantiene el Padrón de Actividades Vulnerables",
+                "Transmite la información recibida a la UIF para su análisis",
+                "Emite criterios de interpretación y guías para los sujetos obligados"
+              ],
+              "nota": "El SAT NO analiza inteligencia financiera — solo recibe, verifica y transmite. El análisis corresponde a la UIF.",
+              "fundamento": "LFPIORPI Arts. 6, fracción III y 8"
+            },
+            {
+              "autoridad": "Unidad de Inteligencia Financiera (UIF — SHCP)",
+              "rol_lfpiorpi": "Análisis de inteligencia — recibe la información del SAT y genera inteligencia financiera",
+              "funciones": [
+                "Recibe del SAT los avisos de actividades vulnerables",
+                "Analiza la información para identificar patrones de LD/FT",
+                "Transmite la inteligencia a la FGR cuando hay indicios de delito",
+                "Emite la Lista de Personas Bloqueadas",
+                "Coordina con organismos internacionales (Grupo Egmont)"
+              ],
+              "fundamento": "LFPIORPI Arts. 6 fracción I y 13-14"
+            },
+            {
+              "autoridad": "Fiscalía General de la República (FGR)",
+              "rol_lfpiorpi": "Persecución penal de los delitos relacionados con las actividades vulnerables",
+              "funciones": [
+                "Recibe la inteligencia de la UIF cuando hay indicios de ORPI",
+                "Inicia investigaciones penales",
+                "Solicita medidas cautelares y decomiso de bienes"
+              ],
+              "fundamento": "LFPIORPI Art. 6 fracción IV"
+            }
+          ]
+        },
+        {
+          "tipo": "flujo_lfpiorpi",
+          "titulo": "Flujo de información bajo la LFPIORPI",
+          "descripcion": "A diferencia del sistema financiero donde las entidades reportan directamente a la UIF, en la LFPIORPI los sujetos obligados presentan AVISOS al SAT, quien los procesa y transmite a la UIF:",
+          "flujo": [
+            "Sujeto obligado (actividad vulnerable) detecta operación que supera el umbral",
+            "Presenta AVISO al SAT dentro de los 30 días hábiles siguientes",
+            "SAT recibe, verifica la forma y registra el aviso",
+            "SAT transmite la información a la UIF",
+            "UIF analiza y, si hay indicios de delito, transmite a la FGR",
+            "FGR inicia investigación penal si procede"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La distinción entre REPORTE (sistema financiero, va a la UIF directamente) y AVISO (LFPIORPI, va al SAT que lo transmite a la UIF) es frecuentemente preguntada en el examen CNBV. Las entidades financieras REPORTAN. Los sujetos de actividades vulnerables AVISAN."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 6-16; Reglamento LFPIORPI; Reglas de Carácter General LFPIORPI emitidas por la SHCP",
+    "orden": 2
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Las Actividades Vulnerables",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las Actividades Vulnerables: Catálogo completo del Art. 17 LFPIORPI",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El Art. 17 de la LFPIORPI establece un catálogo de 16 tipos de actividades consideradas 'vulnerables' porque son susceptibles de ser utilizadas para lavar dinero. Las personas físicas y morales que realicen estas actividades por cuenta propia o de terceros están sujetas a las obligaciones de la Ley cuando las operaciones igualen o superen los umbrales establecidos.",
+          "umbral_base": "Los umbrales se expresan en términos de Salario Mínimo General (SMG), Unidades de Inversión (UDIS) o montos fijos en pesos o dólares según cada actividad."
+        },
+        {
+          "tipo": "catalogo_actividades",
+          "titulo": "Catálogo de Actividades Vulnerables — Art. 17 LFPIORPI",
+          "actividades": [
+            {
+              "fraccion": "I",
+              "actividad": "Juegos con apuesta, concursos o sorteos",
+              "descripcion": "Casinos, centros de apuestas, loterías, rifas y sorteos que realicen operaciones con clientes.",
+              "umbral_aviso": "Operaciones iguales o superiores a 325 veces el SMG diario vigente en el Distrito Federal (~$33,000 pesos aprox.)",
+              "umbral_identificacion": "Operaciones iguales o superiores a 125 veces el SMG",
+              "riesgo_pld": "Muy Alto — los casinos son clásicamente utilizados para convertir efectivo ilícito en fichas y cobrar cheque o transferencia",
+              "regulacion_adicional": "Secretaría de Gobernación para la autorización de operaciones"
+            },
+            {
+              "fraccion": "II",
+              "actividad": "Tarjetas de servicios, crédito, prepagadas o similares",
+              "descripcion": "Emisión o comercialización de tarjetas de servicios, crédito, prepagadas y otros instrumentos de almacenamiento de valor que no sean emitidos por entidades financieras.",
+              "umbral_aviso": "Operaciones de carga o recarga iguales o superiores a 325 veces el SMG en un mes",
+              "riesgo_pld": "Alto — las tarjetas prepagadas pueden usarse para mover fondos con relativo anonimato"
+            },
+            {
+              "fraccion": "III",
+              "actividad": "Blindaje de vehículos terrestres, aéreos o marítimos",
+              "descripcion": "Servicios de blindaje de cualquier tipo de vehículo.",
+              "umbral_aviso": "Precio igual o superior a 2,410 veces el SMG (~$245,000 pesos aprox.)",
+              "riesgo_pld": "Medio — los vehículos blindados son bienes de alto valor vinculados frecuentemente a figuras del crimen organizado"
+            },
+            {
+              "fraccion": "IV",
+              "actividad": "Traslado o custodia de dinero o valores",
+              "descripcion": "Servicios de transporte de valores, empresas de mensajería especializada en valores.",
+              "umbral_aviso": "Operaciones con clientes por montos iguales o superiores a 325 veces el SMG",
+              "riesgo_pld": "Alto — el traslado físico de efectivo es canal clave de colocación"
+            },
+            {
+              "fraccion": "V",
+              "actividad": "Personas que realicen fe pública (Notarios, Corredores Públicos)",
+              "descripcion": "Notarios y corredores públicos que en el ejercicio de sus funciones realicen, autentiquen, certifiquen o den fe de actos jurídicos que involucren operaciones de compraventa de inmuebles, constitución de personas morales, aportaciones de capital, entre otros actos.",
+              "umbral_aviso": "Operaciones que involucren actos de compraventa de inmuebles iguales o superiores a 16,000 veces el SMG (~$1,640,000 pesos aprox.) u otras operaciones por montos equivalentes",
+              "riesgo_pld": "Muy Alto — los notarios son actores clave en operaciones inmobiliarias, donde frecuentemente se realizan esquemas de lavado",
+              "nota_importante": "Los notarios tienen obligación de identificar a los clientes, verificar el origen de los recursos y presentar aviso cuando corresponda"
+            },
+            {
+              "fraccion": "VI",
+              "actividad": "Prestación de servicios de blindaje y/o custodia de metales y piedras preciosas",
+              "descripcion": "Custodia, resguardo o protección de metales preciosos, piedras preciosas u obras de arte.",
+              "umbral_aviso": "Operaciones iguales o superiores a 325 veces el SMG",
+              "riesgo_pld": "Alto — los metales y piedras preciosas son activos de alta densidad de valor y relativo anonimato"
+            },
+            {
+              "fraccion": "VII",
+              "actividad": "Compraventa de inmuebles o intermediación en dichas operaciones",
+              "descripcion": "Compraventa de bienes inmuebles y los servicios de intermediación inmobiliaria (agentes y corredores de bienes raíces).",
+              "umbral_aviso": "Operaciones de compraventa iguales o superiores a 16,000 veces el SMG (~$1,640,000 pesos aprox.)",
+              "umbral_identificacion": "Iguales o superiores a 8,025 veces el SMG",
+              "riesgo_pld": "Muy Alto — el sector inmobiliario es uno de los principales mecanismos de integración del LD en México",
+              "nota": "La obligación aplica tanto al vendedor como al intermediario/agente"
+            },
+            {
+              "fraccion": "VIII",
+              "actividad": "Compraventa de vehículos, nuevos o usados",
+              "descripcion": "Comercialización de vehículos terrestres, aéreos, marítimos o lacustres, nuevos o usados.",
+              "umbral_aviso": "Operaciones de compraventa iguales o superiores a 3,210 veces el SMG (~$327,000 pesos aprox.)",
+              "umbral_identificacion": "Iguales o superiores a 1,605 veces el SMG",
+              "riesgo_pld": "Alto — las agencias de autos son frecuentemente utilizadas para convertir efectivo en bienes de valor"
+            },
+            {
+              "fraccion": "IX",
+              "actividad": "Compraventa de obras de arte, antigüedades u objetos de colección",
+              "descripcion": "Compraventa de pinturas, esculturas, antigüedades, monedas, sellos postales y otros objetos de valor cultural o artístico.",
+              "umbral_aviso": "Operaciones iguales o superiores a 2,410 veces el SMG (~$245,000 pesos aprox.)",
+              "riesgo_pld": "Alto — los mercados de arte tienen valuaciones subjetivas y menor transparencia regulatoria"
+            },
+            {
+              "fraccion": "X",
+              "actividad": "Compraventa de metales y piedras preciosas",
+              "descripcion": "Joyerías y comerciantes de metales preciosos (oro, plata, platino) y piedras preciosas.",
+              "umbral_aviso": "Operaciones iguales o superiores a 805 veces el SMG (~$82,000 pesos aprox.)",
+              "umbral_identificacion": "Iguales o superiores a 205 veces el SMG",
+              "riesgo_pld": "Alto"
+            },
+            {
+              "fraccion": "XI",
+              "actividad": "Prestación de servicios de fe pública por notarios y Registro Público de Comercio",
+              "descripcion": "Notarios en operaciones de constitución de personas morales, otorgamiento de poderes, modificaciones societarias.",
+              "umbral_aviso": "Cuando el monto del capital social o los activos involucrados igualen o superen 3,210 veces el SMG",
+              "riesgo_pld": "Alto — la constitución de empresas es una etapa clave en esquemas de testaferros y empresas fachada"
+            },
+            {
+              "fraccion": "XII",
+              "actividad": "Prestación de servicios de construcción o desarrollo de inmuebles",
+              "descripcion": "Empresas constructoras que reciban recursos para el desarrollo o construcción de bienes inmuebles.",
+              "umbral_aviso": "Contratos iguales o superiores a 16,000 veces el SMG",
+              "riesgo_pld": "Alto — la construcción es frecuentemente utilizada para integrar recursos ilícitos"
+            },
+            {
+              "fraccion": "XIII",
+              "actividad": "Comercio de joyería, relojes de lujo, artículos de moda o de casa de alto valor",
+              "descripcion": "Tiendas y comerciantes de artículos de lujo: joyería, relojes de lujo, marroquinería, artículos de moda y similares.",
+              "umbral_aviso": "Operaciones iguales o superiores a 805 veces el SMG",
+              "riesgo_pld": "Medio-Alto"
+            },
+            {
+              "fraccion": "XIV",
+              "actividad": "Prestación de servicios de comercio exterior",
+              "descripcion": "Agentes y apoderados aduanales, así como empresas que realizan operaciones de importación y exportación.",
+              "umbral_aviso": "Operaciones que involucren mercancías por valor superior a 10,000 USD",
+              "riesgo_pld": "Alto — el comercio exterior es un canal clásico de estratificación del LD (sobre y sub-facturación)"
+            },
+            {
+              "fraccion": "XV",
+              "actividad": "Prestación de servicios profesionales: gestión de recursos o administración",
+              "descripcion": "Abogados, contadores, contadores públicos, consultores u otros profesionistas que presten servicios de: gestión o administración de recursos o bienes de clientes, administración de cuentas bancarias o carteras de valores, organización de aportaciones de recursos para constitución o compra/venta de personas morales, gestión de activos de personas jurídicas.",
+              "umbral_aviso": "Servicios de valor igual o superior a 3,210 veces el SMG",
+              "riesgo_pld": "Muy Alto — los profesionistas son frecuentemente utilizados para crear estructuras complejas de testaferros",
+              "nota": "Esta fracción aplica solo a los servicios descritos, no a la asesoría legal general o la representación en litigios"
+            },
+            {
+              "fraccion": "XVI",
+              "actividad": "Prestación de servicios de blindaje de personas",
+              "descripcion": "Servicios de seguridad personal (guardaespaldas, escoltas) para personas físicas.",
+              "umbral_aviso": "Contratos de servicio iguales o superiores a 2,410 veces el SMG",
+              "riesgo_pld": "Medio — los servicios de seguridad personal son frecuentemente requeridos por figuras del crimen organizado"
+            }
+          ]
+        },
+        {
+          "tipo": "aclaracion_umbrales",
+          "titulo": "Sobre los umbrales en UMAs",
+          "texto": "Desde 2016, México sustituyó el Salario Mínimo General (SMG) por la Unidad de Medida y Actualización (UMA) para efectos de cuantificación de obligaciones no laborales. Sin embargo, la LFPIORPI aún hace referencia al SMG en algunos umbrales. Las Reglas de Carácter General actualizan periódicamente los valores en pesos. Para el examen, lo importante es conocer qué actividades generan obligaciones y el concepto de umbral — no memorizar los montos exactos en pesos, que cambian anualmente.",
+          "fundamento": "DOF 27/01/2016 — Decreto por el que se declara reformadas disposiciones de la CPEUM respecto a la desvinculación del salario mínimo como referencia"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Para el examen CNBV, las actividades vulnerables de mayor riesgo y más frecuentemente preguntadas son: (1) Casinos y juegos con apuesta — fracción I, (2) Notarios — fracciones V y XI, (3) Compraventa de inmuebles — fracciones VII y XII, (4) Compraventa de vehículos — fracción VIII, (5) Servicios profesionales de gestión — fracción XV, y (6) Comercio exterior — fracción XIV."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Art. 17, fracciones I-XVI; Reglamento LFPIORPI; Reglas de Carácter General de la LFPIORPI emitidas por la SHCP; GAFI — Recomendaciones 22 y 23 (DNFBPs)",
+    "orden": 3
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Las Actividades Vulnerables",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Mapa de Actividades Vulnerables por nivel de riesgo",
+      "tipo_diagrama": "clasificacion_riesgo",
+      "descripcion": "Las 16 actividades vulnerables organizadas por nivel de riesgo PLD/FT",
+      "grupos": [
+        {
+          "nivel": "Muy Alto Riesgo",
+          "color": "rojo",
+          "actividades": [
+            "Juegos con apuesta / Casinos (Fr. I)",
+            "Notarios en operaciones inmobiliarias (Fr. V)",
+            "Compraventa de inmuebles e intermediación (Fr. VII)",
+            "Servicios profesionales de gestión de recursos (Fr. XV)"
+          ]
+        },
+        {
+          "nivel": "Alto Riesgo",
+          "color": "naranja",
+          "actividades": [
+            "Traslado o custodia de dinero o valores (Fr. IV)",
+            "Blindaje — custodia de metales y piedras (Fr. VI)",
+            "Compraventa de vehículos (Fr. VIII)",
+            "Compraventa de obras de arte y antigüedades (Fr. IX)",
+            "Compraventa de metales y piedras preciosas / Joyerías (Fr. X)",
+            "Constitución de personas morales — Notarios (Fr. XI)",
+            "Construcción de inmuebles (Fr. XII)",
+            "Comercio exterior (Fr. XIV)"
+          ]
+        },
+        {
+          "nivel": "Medio-Alto Riesgo",
+          "color": "amarillo",
+          "actividades": [
+            "Tarjetas de servicios/prepagadas (Fr. II)",
+            "Blindaje de vehículos (Fr. III)",
+            "Comercio de joyería y artículos de lujo (Fr. XIII)",
+            "Blindaje de personas / Seguridad personal (Fr. XVI)"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Art. 17, fracciones I-XVI; Reglamento LFPIORPI",
+    "orden": 4
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Obligaciones de quienes realizan actividades vulnerables",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las obligaciones de los sujetos de actividades vulnerables",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "Las personas físicas y morales que realizan actividades vulnerables tienen un conjunto de obligaciones similares (aunque no idénticas) a las de las entidades financieras. La diferencia fundamental es que presentan AVISOS al SAT (no reportes directamente a la UIF) y el nivel de exigencia es generalmente menor dado el contexto no financiero."
+        },
+        {
+          "tipo": "obligaciones_principales",
+          "titulo": "Obligaciones de los sujetos de actividades vulnerables — Art. 18 LFPIORPI",
+          "obligaciones": [
+            {
+              "numero": 1,
+              "obligacion": "Identificar a los clientes y usuarios",
+              "descripcion": "Solicitar y verificar la identidad de los clientes con quienes se realicen operaciones que alcancen los umbrales establecidos. Para personas físicas: nombre, CURP, RFC, fecha y lugar de nacimiento, domicilio, número de identificación oficial. Para personas morales: denominación o razón social, RFC, datos de constitución, datos del representante legal.",
+              "cuando": "Antes de realizar la operación que alcance el umbral",
+              "fundamento": "LFPIORPI Art. 18, fracción I"
+            },
+            {
+              "numero": 2,
+              "obligacion": "Solicitar información sobre el propietario real (beneficiario controlador)",
+              "descripcion": "Cuando el cliente sea una persona moral, solicitar información sobre quien la controla o se beneficia de la operación en última instancia (propietario real).",
+              "cuando": "En operaciones con personas morales que alcancen umbrales",
+              "fundamento": "LFPIORPI Art. 18, fracción II"
+            },
+            {
+              "numero": 3,
+              "obligacion": "Custodiar, proteger, resguardar y conservar la información y documentación",
+              "descripcion": "Conservar por un plazo no menor a 5 años la información y documentación obtenida en el proceso de identificación del cliente y de las operaciones realizadas.",
+              "plazo": "Mínimo 5 años (vs. 10 años para entidades financieras)",
+              "fundamento": "LFPIORPI Art. 18, fracción III"
+            },
+            {
+              "numero": 4,
+              "obligacion": "Presentar los Avisos",
+              "descripcion": "Presentar ante el SAT los avisos de las operaciones que alcancen o superen los umbrales establecidos para cada actividad vulnerable. Esta es la obligación central y más importante de la Ley.",
+              "plazo": "Dentro de los 30 días hábiles siguientes a la operación",
+              "forma": "A través del portal electrónico del SAT (PFPIORPI)",
+              "contenido_aviso": ["Datos de identificación del cliente", "Descripción de la operación", "Monto de la operación", "Forma de pago (efectivo, transferencia, etc.)", "Datos del sujeto obligado"],
+              "fundamento": "LFPIORPI Art. 18, fracción IV"
+            },
+            {
+              "numero": 5,
+              "obligacion": "Abstenerse de realizar operaciones prohibidas",
+              "descripcion": "Abstenerse de realizar las operaciones que establezcan las Reglas de Carácter General como prohibidas, o que se realicen con personas que figuren en la Lista de Personas Bloqueadas.",
+              "fundamento": "LFPIORPI Art. 18, fracción V"
+            },
+            {
+              "numero": 6,
+              "obligacion": "Reserva de información",
+              "descripcion": "Guardar reserva y confidencialidad respecto a los avisos presentados y la información del cliente relacionada. Prohibición de alertar al cliente que se presentó un aviso (equivalente al deber de reserva del sistema financiero).",
+              "fundamento": "LFPIORPI Art. 18, fracción VI"
+            },
+            {
+              "numero": 7,
+              "obligacion": "Proporcionar capacitación al personal",
+              "descripcion": "Los sujetos de actividades vulnerables que tengan personal deben capacitarlo para que conozca las obligaciones de la Ley y sepa cómo identificar operaciones sospechosas.",
+              "fundamento": "LFPIORPI Art. 18, fracción VII"
+            },
+            {
+              "numero": 8,
+              "obligacion": "Establecer medidas y procedimientos internos",
+              "descripcion": "Contar con una política de identificación de clientes, procedimientos internos para la presentación de avisos y mecanismos de control que garanticen el cumplimiento de la Ley.",
+              "fundamento": "LFPIORPI Art. 18, fracción VIII"
+            }
+          ]
+        },
+        {
+          "tipo": "restricciones_pago",
+          "titulo": "Restricciones en la forma de pago — Art. 32 LFPIORPI",
+          "descripcion": "Uno de los aspectos más importantes de la LFPIORPI son las restricciones al pago en EFECTIVO para operaciones de alto valor. El objetivo es forzar el uso de instrumentos financieros rastreables.",
+          "regla_general": "Para las operaciones vinculadas a actividades vulnerables que superen los umbrales establecidos, está PROHIBIDO recibir como forma de pago moneda nacional o extranjera en efectivo.",
+          "umbrales_restriccion": [
+            {
+              "actividad": "Compraventa de inmuebles",
+              "umbral_restriccion": "Operaciones superiores a 8,025 veces el SMG (~$820,000 pesos aprox.) — No puede pagarse en efectivo",
+              "forma_pago_permitida": "Transferencia electrónica de fondos, cheque de caja, cheque nominativo"
+            },
+            {
+              "actividad": "Compraventa de vehículos",
+              "umbral_restriccion": "Operaciones superiores a 3,210 veces el SMG (~$327,000 pesos aprox.)",
+              "forma_pago_permitida": "Instrumentos financieros rastreables"
+            },
+            {
+              "actividad": "Adquisición de joyas, relojes, metales y piedras preciosas",
+              "umbral_restriccion": "Operaciones superiores a 805 veces el SMG (~$82,000 pesos aprox.)",
+              "forma_pago_permitida": "Instrumentos financieros rastreables"
+            }
+          ],
+          "objetivo": "Al prohibir el pago en efectivo por encima de ciertos montos, se obliga a que el dinero pase por el sistema financiero, donde queda registrado y es trazable.",
+          "fundamento": "LFPIORPI Art. 32"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Las restricciones al pago en efectivo del Art. 32 LFPIORPI son de las disposiciones más importantes de la Ley desde la perspectiva práctica. Un notario que autorice una escritura de compraventa de inmueble superior al umbral con pago en efectivo incumple la LFPIORPI y puede ser sancionado. El art. 32 busca eliminar las transacciones de alto valor en efectivo que son el principal mecanismo de colocación del lavado de dinero."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 18-32; Reglamento LFPIORPI; Reglas de Carácter General LFPIORPI; GAFI — Recomendaciones 22 y 23",
+    "orden": 5
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Régimen aplicable a las entidades financieras — Obligaciones — Similitudes y diferencias",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El régimen de la LFPIORPI aplicable a entidades financieras y sus diferencias con el régimen sectorial",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "Aunque la LFPIORPI está principalmente dirigida a actividades vulnerables no financieras, también establece un régimen específico para las entidades financieras. Sin embargo, las entidades financieras tienen un régimen propio más completo en sus leyes sectoriales (LIC, LMV, etc.) y en las disposiciones CNBV. La LFPIORPI tiene carácter SUPLETORIO para las entidades financieras."
+        },
+        {
+          "tipo": "regimen_entidades_financieras",
+          "titulo": "El régimen LFPIORPI para entidades financieras",
+          "descripcion": "Las entidades financieras (bancos, casas de bolsa, etc.) que realicen actividades descritas como vulnerables en el Art. 17 LFPIORPI también están sujetas a esa ley, PERO si ya cumplen con las disposiciones emitidas por sus reguladores sectoriales (CNBV, CNSF, Consar) que sean equivalentes o más estrictas, se considera que cumplen con la LFPIORPI respecto a esas actividades.",
+          "principio": "La regulación sectorial específica PREVALECE sobre la LFPIORPI para las entidades financieras. La LFPIORPI solo aplica a las entidades financieras en los aspectos no cubiertos por su regulación sectorial.",
+          "fundamento": "LFPIORPI Art. 17, último párrafo; Reglamento LFPIORPI"
+        },
+        {
+          "tipo": "obligaciones_entidades",
+          "titulo": "Obligaciones específicas que genera la LFPIORPI para entidades financieras",
+          "items": [
+            "Si una entidad financiera realiza actividades no cubiertas por su regulación sectorial pero sí por la LFPIORPI, debe cumplir con las obligaciones de la LFPIORPI para esas actividades específicas",
+            "Las entidades financieras deben verificar que sus clientes de actividades vulnerables cumplan con la LFPIORPI (por ejemplo, verificar que un cliente inmobiliario tenga las políticas de identificación requeridas)",
+            "Las entidades financieras que actúan como intermediarios en operaciones de actividades vulnerables pueden ser co-responsables del cumplimiento"
+          ]
+        },
+        {
+          "tipo": "comparativo_completo",
+          "titulo": "Similitudes y diferencias entre el régimen LFPIORPI y el régimen sectorial financiero",
+          "cuadro_comparativo": {
+            "columnas": ["Dimensión", "Régimen Sectorial Financiero (CNBV)", "LFPIORPI (Actividades Vulnerables)"],
+            "filas": [
+              ["Ámbito de aplicación", "Entidades del sistema financiero reguladas", "Personas físicas y morales que realizan actividades vulnerables no financieras"],
+              ["Marco legal base", "LIC Art. 115, LMV Art. 212, Ley FinTech, etc.", "LFPIORPI Art. 17"],
+              ["Autoridad reguladora", "CNBV (principalmente)", "SHCP"],
+              ["Autoridad supervisora", "CNBV", "SAT"],
+              ["Tipo de comunicación", "REPORTES ante la UIF (OR, OI, OIP)", "AVISOS ante el SAT"],
+              ["Plazo de presentación", "OR: día 17 del mes siguiente; OI: 60 días hábiles", "30 días hábiles tras la operación"],
+              ["Sistema de presentación", "SUAdeO (sistema UIF)", "Portal del SAT (PFPIORPI)"],
+              ["Conservación de documentos", "10 años mínimo", "5 años mínimo"],
+              ["Umbral de identificación", "Varía por sector y tipo de operación (generalmente bajo)", "Varía por actividad (ver Art. 17)"],
+              ["Restricciones en efectivo", "Controles sobre efectivo en todas las operaciones", "Restricciones específicas en operaciones de alto valor (Art. 32)"],
+              ["Manual/Políticas", "Manual PLD/FT obligatorio con todos los procedimientos", "Medidas y procedimientos internos (menos formal)"],
+              ["Oficial de Cumplimiento", "Obligatorio — designado y notificado a CNBV", "No obligatorio como tal (solo en entidades grandes)"],
+              ["Capacitación", "Anual para todo el personal", "Requerida pero con menor especificidad"],
+              ["Sanciones por incumplimiento", "Multas CNBV hasta cientos de miles de SMG + inhabilitación", "Multas SAT + clausura + en casos graves sanción penal"],
+              ["Supervisión", "Visitas de inspección CNBV (ordinarias y especiales)", "Verificaciones del SAT"],
+              ["Similitudes clave", "Identificación de clientes, propietario real, deber de reserva, restricciones con bloqueados", "Identificación de clientes, propietario real, deber de reserva, restricciones con bloqueados"]
+            ]
+          }
+        },
+        {
+          "tipo": "similitudes_destacadas",
+          "titulo": "Las SIMILITUDES más importantes (aplican a ambos regímenes)",
+          "items": [
+            {
+              "similitud": "Identificación de clientes",
+              "descripcion": "Ambos regímenes requieren identificar y verificar la identidad de los clientes con quienes se realizan operaciones que superen los umbrales. Los documentos de identificación son similares."
+            },
+            {
+              "similitud": "Propietario real / beneficiario controlador",
+              "descripcion": "Ambos requieren identificar a la persona física que en última instancia controla o se beneficia de la operación, cuando el cliente es una persona moral."
+            },
+            {
+              "similitud": "Deber de reserva",
+              "descripcion": "Ambos prohíben revelar al cliente o a terceros que se ha presentado un aviso o reporte relacionado con sus operaciones."
+            },
+            {
+              "similitud": "Restricciones con personas bloqueadas",
+              "descripcion": "Ambos prohíben realizar operaciones con personas que figuren en la Lista de Personas Bloqueadas."
+            },
+            {
+              "similitud": "Conservación de documentación",
+              "descripcion": "Ambos requieren conservar la documentación (aunque los plazos difieren: 10 años en financiero, 5 años en LFPIORPI)."
+            },
+            {
+              "similitud": "Capacitación",
+              "descripcion": "Ambos requieren capacitar al personal sobre las obligaciones y señales de alerta de LD/FT."
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La pregunta 'AVISO vs. REPORTE' es una de las más frecuentes en el examen CNBV: Los sujetos de actividades vulnerables (LFPIORPI) presentan AVISOS al SAT. Las entidades financieras (sistema financiero) presentan REPORTES directamente a la UIF. La confusión entre ambas terminologías es un error común y evaluado en el examen."
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 17-32; LIC Art. 115; Reglamento LFPIORPI; Disposiciones CNBV; GAFI — Recomendaciones 22 y 23",
+    "orden": 6
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Las Actividades Vulnerables",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: La LFPIORPI completa",
+      "nodo_central": "LFPIORPI",
+      "ramas": [
+        {
+          "concepto": "Datos generales",
+          "subnodos": [
+            "DOF: 17/10/2012",
+            "Vigor: 17/07/2013",
+            "Regula actividades vulnerables NO financieras",
+            "Complementa el régimen del sistema financiero"
+          ]
+        },
+        {
+          "concepto": "Autoridades",
+          "subnodos": [
+            "SHCP — Política y regulación",
+            "SAT — Supervisión operativa y avisos",
+            "UIF — Análisis de inteligencia",
+            "FGR — Persecución penal"
+          ]
+        },
+        {
+          "concepto": "16 Actividades Vulnerables (Art. 17)",
+          "subnodos": [
+            "Casinos y juegos de apuesta (Fr. I)",
+            "Notarios — inmobiliario y constitución (Fr. V y XI)",
+            "Compraventa inmuebles (Fr. VII)",
+            "Compraventa vehículos (Fr. VIII)",
+            "Metales y piedras preciosas (Fr. X)",
+            "Servicios profesionales gestión (Fr. XV)",
+            "Comercio exterior (Fr. XIV)",
+            "...y 9 más"
+          ]
+        },
+        {
+          "concepto": "8 Obligaciones (Art. 18)",
+          "subnodos": [
+            "1. Identificar clientes",
+            "2. Propietario real",
+            "3. Conservar 5 años",
+            "4. Presentar Avisos al SAT (30 días hábiles)",
+            "5. Abstenerse de operaciones prohibidas",
+            "6. Deber de reserva",
+            "7. Capacitar al personal",
+            "8. Medidas y procedimientos internos"
+          ]
+        },
+        {
+          "concepto": "Restricciones al efectivo (Art. 32)",
+          "subnodos": [
+            "Compraventa inmuebles > 8,025 SMG: sin efectivo",
+            "Compraventa vehículos > 3,210 SMG: sin efectivo",
+            "Joyas y metales > 805 SMG: sin efectivo",
+            "Objetivo: hacer trazables las transacciones de alto valor"
+          ]
+        },
+        {
+          "concepto": "Diferencias vs. Sistema Financiero",
+          "subnodos": [
+            "AVISO al SAT (no reporte a UIF)",
+            "Plazo: 30 días hábiles",
+            "Conservación: 5 años (no 10)",
+            "Supervisor: SAT (no CNBV)",
+            "Sin Oficial de Cumplimiento obligatorio"
+          ]
+        },
+        {
+          "concepto": "Similitudes con Sistema Financiero",
+          "subnodos": [
+            "Identificar clientes",
+            "Propietario real",
+            "Deber de reserva",
+            "Restricciones con bloqueados",
+            "Capacitación"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 1-58; Reglamento LFPIORPI; Reglas de Carácter General LFPIORPI",
+    "orden": 7
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "subtema": "Régimen aplicable a las entidades financieras — Obligaciones — Similitudes y diferencias",
+    "tipo": "resumen",
+    "contenido": {
+      "titulo": "Puntos clave para el examen CNBV — Bloque 6",
+      "puntos_clave": [
+        "La LFPIORPI fue publicada el 17/10/2012 y entró en vigor el 17/07/2013. Regula las actividades vulnerables NO financieras — complementa (no sustituye) el régimen del sistema financiero.",
+        "Las autoridades de la LFPIORPI son: SHCP (política y regulación), SAT (supervisión y recepción de avisos), UIF (análisis de inteligencia) y FGR (persecución penal).",
+        "Distinción CLAVE: Los sujetos de actividades vulnerables presentan AVISOS al SAT. Las entidades financieras presentan REPORTES directamente a la UIF.",
+        "El Art. 17 LFPIORPI establece 16 actividades vulnerables. Las más importantes: casinos (Fr. I), notarios en operaciones inmobiliarias (Fr. V y XI), compraventa de inmuebles (Fr. VII), vehículos (Fr. VIII), joyerías (Fr. X), servicios profesionales de gestión (Fr. XV) y comercio exterior (Fr. XIV).",
+        "Los AVISOS deben presentarse dentro de los 30 días hábiles siguientes a la operación que supere el umbral establecido para cada actividad.",
+        "Las obligaciones del Art. 18 son 8: identificar clientes, propietario real, conservar documentos (5 años), presentar avisos, abstenerse de operaciones prohibidas, deber de reserva, capacitar personal y establecer procedimientos internos.",
+        "El Art. 32 LFPIORPI restringe el pago en EFECTIVO en operaciones de alto valor: inmuebles > 8,025 SMG, vehículos > 3,210 SMG, joyas/metales > 805 SMG — deben pagarse con instrumentos financieros rastreables.",
+        "La conservación de documentos en LFPIORPI es de MÍNIMO 5 AÑOS (vs. 10 años en el sistema financiero). Esta diferencia es importante para el examen.",
+        "Similitudes entre ambos regímenes: identificación de clientes, propietario real, deber de reserva, restricciones con personas bloqueadas, capacitación.",
+        "Para las entidades financieras, la regulación sectorial (CNBV) PREVALECE sobre la LFPIORPI. La LFPIORPI tiene carácter supletorio para las entidades financieras.",
+        "El SAT es supervisor de actividades vulnerables LFPIORPI; la CNBV es supervisora de entidades financieras. Son universos regulatorios distintos con supervisores distintos.",
+        "Los notarios tienen obligaciones dobles: como personas que ejercen fe pública (Fr. V) en operaciones inmobiliarias Y como actores en la constitución de personas morales (Fr. XI) — ambas fracciones aplican a los notarios."
+      ],
+      "preguntas_tipicas_examen": [
+        "¿Cuál es la diferencia entre un AVISO (LFPIORPI) y un REPORTE (sistema financiero)?",
+        "¿Qué autoridad recibe los avisos de actividades vulnerables y en qué plazo deben presentarse?",
+        "¿Qué establece el Art. 32 LFPIORPI respecto a las restricciones de pago en efectivo?",
+        "¿Cuánto tiempo deben conservarse los documentos bajo la LFPIORPI?",
+        "¿Cuáles son las tres actividades vulnerables de mayor riesgo PLD/FT según la LFPIORPI?",
+        "¿Cuál es el objeto de la LFPIORPI según su Art. 1?",
+        "¿Cuántas y cuáles son las obligaciones de los sujetos de actividades vulnerables?",
+        "¿La LFPIORPI aplica a las entidades financieras? ¿En qué casos?",
+        "¿Qué fracción del Art. 17 aplica a los notarios en operaciones de compraventa inmobiliaria?",
+        "¿Cuál es la diferencia entre el régimen LFPIORPI y el régimen sectorial de la CNBV en cuanto a plazo de conservación de documentos?"
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Arts. 1-58; Reglamento LFPIORPI DOF 16/08/2013; Reglas de Carácter General LFPIORPI; GAFI — Recomendaciones 22 y 23; Guía PLD/FT CNBV 11ª ed., Bloque 6",
+    "orden": 8
+  }
+]

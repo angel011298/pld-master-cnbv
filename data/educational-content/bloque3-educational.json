@@ -1,0 +1,909 @@
+[
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Concepto de riesgo — Definición y dimensiones",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El concepto de riesgo en el contexto PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El concepto de riesgo es la piedra angular de todo el régimen moderno de PLD/FT. A partir de 2012, el GAFI reorientó el estándar internacional desde un enfoque basado en reglas fijas hacia un Enfoque Basado en Riesgos (EBR). Esto significa que las entidades ya no aplican las mismas medidas a todos los clientes por igual, sino que concentran sus recursos donde el riesgo es mayor y pueden simplificar sus controles donde el riesgo es menor."
+        },
+        {
+          "tipo": "definicion",
+          "titulo": "Definición de riesgo en PLD/FT",
+          "texto": "El riesgo de LD/FT es la probabilidad de que una entidad financiera sea utilizada como canal para lavar dinero o financiar actos terroristas, considerando tanto la posibilidad de que ocurra como el impacto que tendría si ocurriera. Se expresa como la función de dos variables fundamentales: AMENAZA y VULNERABILIDAD.",
+          "formula": "RIESGO = AMENAZA × VULNERABILIDAD (× IMPACTO)"
+        },
+        {
+          "tipo": "componentes_riesgo",
+          "titulo": "Los tres componentes del riesgo PLD/FT",
+          "componentes": [
+            {
+              "componente": "AMENAZA",
+              "definicion": "Cualquier persona, grupo, objeto o actividad con el potencial de causar daño al sistema financiero a través del LD/FT. Las amenazas son externas a la entidad.",
+              "ejemplos": [
+                "Organizaciones de crimen organizado activas en la región",
+                "Grupos terroristas con presencia en el país",
+                "Personas políticamente expuestas con riesgo de corrupción",
+                "Países con deficiencias en sus regímenes PLD/FT (lista gris o negra GAFI)",
+                "Sectores económicos con alta propensión al manejo de efectivo"
+              ],
+              "fuente_evaluacion": "Evaluación Nacional de Riesgos (ENR) del país; tipologías del GAFI y GAFILAT; informes de organismos internacionales"
+            },
+            {
+              "componente": "VULNERABILIDAD",
+              "definicion": "Las características de la entidad, sus productos, clientes, canales de distribución o geografía que la hacen más susceptible de ser utilizada para LD/FT. Las vulnerabilidades son internas o inherentes al negocio.",
+              "ejemplos": [
+                "Productos financieros que permiten anonimato (cuentas numeradas, al portador)",
+                "Canales digitales con menor verificación presencial",
+                "Alta concentración de operaciones en efectivo",
+                "Presencia en zonas geográficas de alto riesgo (fronteras, puertos, ciudades con crimen organizado)",
+                "Cartera de clientes con alta proporción de PEPs o personas morales complejas",
+                "Sistema de monitoreo desactualizado o con reglas insuficientes"
+              ],
+              "fuente_evaluacion": "Autoevaluación institucional del riesgo; auditorías internas y externas; evaluaciones supervisoras de la CNBV"
+            },
+            {
+              "componente": "IMPACTO",
+              "definicion": "El daño potencial que representaría para la entidad, el sistema financiero y la sociedad si el riesgo de LD/FT se materializa. Incluye impacto financiero, reputacional, legal y social.",
+              "dimensiones": [
+                "Impacto financiero: multas, sanciones, costos de remediación",
+                "Impacto reputacional: pérdida de confianza de clientes y corresponsales",
+                "Impacto legal: responsabilidad penal de directivos y empleados",
+                "Impacto operativo: restricción o revocación de licencias",
+                "Impacto social: contribución involuntaria al crimen organizado o terrorismo"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "tipos_riesgo",
+          "titulo": "Tipos de riesgo en la gestión PLD/FT",
+          "items": [
+            {
+              "tipo": "Riesgo Inherente",
+              "definicion": "El nivel de riesgo de LD/FT que existe ANTES de considerar los controles implementados por la entidad. Es el riesgo 'bruto' o natural de la actividad.",
+              "ejemplo": "Una casa de cambio tiene un riesgo inherente muy alto por su naturaleza (manejo de divisas en efectivo), independientemente de sus controles."
+            },
+            {
+              "tipo": "Riesgo Residual",
+              "definicion": "El nivel de riesgo que QUEDA DESPUÉS de aplicar los controles y mitigantes de la entidad. Es el riesgo 'neto' o real al que está expuesta la entidad.",
+              "formula": "Riesgo Residual = Riesgo Inherente - Efecto de los Controles",
+              "ejemplo": "Si la casa de cambio tiene excelentes controles KYC, monitoreo robusto y personal capacitado, su riesgo residual puede ser significativamente menor que su riesgo inherente."
+            },
+            {
+              "tipo": "Apetito de Riesgo",
+              "definicion": "El nivel de riesgo que la entidad está dispuesta a aceptar en el desarrollo de su negocio. Establecido por la alta dirección y el Consejo de Administración.",
+              "implicacion": "Si una entidad tiene un apetito de riesgo bajo, rechazará a clientes de alto riesgo aunque sean rentables. Si tiene apetito de riesgo alto, aceptará mayor riesgo PLD/FT a cambio de mayor rentabilidad, requiriendo controles más robustos."
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El Enfoque Basado en Riesgos (EBR) NO significa menos controles — significa controles PROPORCIONALES al riesgo. Una entidad puede simplificar la debida diligencia para clientes de bajo riesgo, pero debe intensificar significativamente los controles para clientes de alto riesgo. El EBR exige conocer y documentar el nivel de riesgo de cada cliente y tipo de operación."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Recomendación 1 (Evaluación del riesgo y aplicación del EBR); GAFI — Guía sobre el Enfoque Basado en Riesgos para el Sector Bancario, 2014; Comité de Supervisión Bancaria de Basilea — Gestión Adecuada de los Riesgos relacionados con el BC/FT, 2014",
+    "orden": 1
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Concepto de riesgo — Definición y dimensiones",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: El riesgo PLD/FT y el Enfoque Basado en Riesgos",
+      "nodo_central": "Riesgo PLD/FT",
+      "ramas": [
+        {
+          "concepto": "Componentes",
+          "subnodos": [
+            "Amenaza (externa a la entidad)",
+            "Vulnerabilidad (interna/inherente)",
+            "Impacto (financiero, legal, reputacional)"
+          ]
+        },
+        {
+          "concepto": "Tipos de riesgo",
+          "subnodos": [
+            "Inherente (antes de controles)",
+            "Residual (después de controles)",
+            "Apetito de riesgo (nivel aceptado)"
+          ]
+        },
+        {
+          "concepto": "Factores de riesgo",
+          "subnodos": [
+            "Tipo de cliente (PEP, persona moral, etc.)",
+            "Producto/servicio ofrecido",
+            "Canal de distribución (presencial, digital)",
+            "Geografía (zona fronteriza, lista gris GAFI)"
+          ]
+        },
+        {
+          "concepto": "Enfoque Basado en Riesgos (EBR)",
+          "subnodos": [
+            "GAFI Recomendación 1",
+            "Controles proporcionales al riesgo",
+            "Simplificación en bajo riesgo",
+            "Intensificación en alto riesgo",
+            "Documentar la evaluación"
+          ]
+        },
+        {
+          "concepto": "Fuentes de evaluación",
+          "subnodos": [
+            "Evaluación Nacional de Riesgos (ENR)",
+            "Autoevaluación institucional",
+            "Tipologías GAFI/GAFILAT",
+            "Supervisión CNBV"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Recomendación 1; GAFI — Guía EBR para el Sector Bancario 2014; Comité de Basilea — Gestión de Riesgos BC/FT 2014",
+    "orden": 2
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Guía de Enfoque Basado en Riesgos para el Sector Bancario — GAFI",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La Guía del GAFI sobre el Enfoque Basado en Riesgos para el Sector Bancario (2014)",
+      "cuerpo": [
+        {
+          "tipo": "contexto",
+          "titulo": "¿Por qué existe esta guía?",
+          "texto": "La Guía del GAFI sobre el Enfoque Basado en Riesgos para el Sector Bancario (2014) surgió como respuesta a la necesidad de orientar a los bancos y a los supervisores sobre cómo implementar prácticamente el EBR establecido en la Recomendación 1 de 2012. Es el documento técnico de referencia para la aplicación del EBR en la banca."
+        },
+        {
+          "tipo": "principios_ebr",
+          "titulo": "Los principios fundamentales del EBR según el GAFI",
+          "principios": [
+            {
+              "numero": 1,
+              "principio": "Identificar y evaluar los riesgos",
+              "descripcion": "Las entidades deben comprender los riesgos de LD/FT a los que están expuestas a través de sus clientes, productos, servicios, transacciones y distribución geográfica. Esta evaluación debe ser documentada y actualizada periódicamente.",
+              "como_se_hace": "Matriz de riesgo institucional que clasifica todos los factores de riesgo por categoría e impacto"
+            },
+            {
+              "numero": 2,
+              "principio": "Mitigar los riesgos identificados",
+              "descripcion": "Las entidades deben diseñar e implementar controles proporcionales a los riesgos identificados. Mayor riesgo = controles más robustos. Menor riesgo = controles simplificados.",
+              "como_se_hace": "Políticas de KYC diferenciadas, sistemas de monitoreo con reglas ajustadas al perfil de riesgo, Debida Diligencia Reforzada para alto riesgo"
+            },
+            {
+              "numero": 3,
+              "principio": "Monitorear y gestionar los riesgos residuales",
+              "descripcion": "Una vez implementados los controles, la entidad debe monitorear continuamente si los controles son efectivos y si el riesgo residual se mantiene dentro del apetito de riesgo establecido.",
+              "como_se_hace": "Indicadores de riesgo, revisiones periódicas de la efectividad de controles, auditorías PLD/FT, reportes al CCC y Consejo"
+            },
+            {
+              "numero": 4,
+              "principio": "Documentar el proceso",
+              "descripcion": "Todas las evaluaciones de riesgo, decisiones tomadas y controles implementados deben estar documentados. La documentación es la evidencia de que el EBR se aplicó correctamente ante el supervisor.",
+              "como_se_hace": "Expedientes de clientes con clasificación de riesgo, matrices de riesgo institucionales actualizadas, actas del CCC"
+            }
+          ]
+        },
+        {
+          "tipo": "factores_riesgo_banco",
+          "titulo": "Factores de riesgo que los bancos deben evaluar",
+          "categorias": [
+            {
+              "categoria": "Riesgo por tipo de cliente",
+              "factores": [
+                "Personas físicas vs. personas morales (las morales generalmente tienen mayor riesgo)",
+                "PEPs y sus familiares/colaboradores",
+                "Clientes con residencia en jurisdicciones de alto riesgo",
+                "Clientes cuya actividad económica tiene mayor exposición al crimen organizado",
+                "Clientes con estructura jurídica compleja u opaca (holdings, fideicomisos anidados)",
+                "Clientes con quienes no se puede establecer contacto presencial"
+              ]
+            },
+            {
+              "categoria": "Riesgo por producto o servicio",
+              "factores": [
+                "Productos que permiten mayor anonimato (tarjetas prepagadas, cuentas sin chequera)",
+                "Productos con alta movilidad de fondos (transferencias internacionales, divisas)",
+                "Activos virtuales — criptomonedas",
+                "Servicios de banca corresponsal",
+                "Productos de banca privada para alto patrimonio",
+                "Banca por internet y canales digitales (menor contacto personal)"
+              ]
+            },
+            {
+              "categoria": "Riesgo por canal de distribución",
+              "factores": [
+                "Canal presencial: menor riesgo (verificación directa del cliente)",
+                "Canal digital/remoto: mayor riesgo (mayor dificultad de verificación de identidad)",
+                "Intermediarios o agentes externos: riesgo adicional si no están bien supervisados",
+                "Corresponsalías: riesgo por distancia del cliente final"
+              ]
+            },
+            {
+              "categoria": "Riesgo geográfico",
+              "factores": [
+                "Presencia en zonas fronterizas con alta actividad de crimen organizado",
+                "Operaciones con clientes o contrapartes en países de la lista negra o gris del GAFI",
+                "Presencia en regiones con alta actividad de economía informal",
+                "Ciudades o corredores con actividad documentada de grupos delictivos"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "debida_diligencia_simplificada",
+          "titulo": "Debida Diligencia Simplificada (DDS) — Cuándo aplica",
+          "descripcion": "El EBR permite aplicar medidas simplificadas de debida diligencia en casos de bajo riesgo. La DDS NO significa ausencia de controles — significa que los controles son menos intensivos que los estándar.",
+          "condiciones": [
+            "El riesgo del cliente, producto y jurisdicción es objetivamente bajo",
+            "La entidad ha documentado la evaluación que sustenta el bajo riesgo",
+            "El supervisor acepta la aplicación de DDS en ese contexto",
+            "La entidad monitorea que el perfil de bajo riesgo se mantiene"
+          ],
+          "ejemplos_bajo_riesgo": [
+            "Instituciones financieras reguladas en jurisdicciones con EBR equivalente",
+            "Empresas cotizadas en bolsa en mercados regulados (con divulgación pública)",
+            "Entidades gubernamentales de países con bajo riesgo de corrupción",
+            "Cuentas de nómina de bajo monto para asalariados verificables"
+          ],
+          "advertencia": "La DDS NO puede aplicarse cuando existen sospechas de LD/FT, independientemente del perfil general de bajo riesgo del cliente. Una señal de alerta activa suspende la posibilidad de DDS.",
+          "fundamento": "GAFI — Recomendación 10, nota interpretativa (Debida diligencia simplificada)"
+        },
+        {
+          "tipo": "implementacion_ebr",
+          "titulo": "El proceso de implementación del EBR en una institución bancaria",
+          "pasos": [
+            {
+              "paso": "1. Evaluación institucional del riesgo (Enterprise-Wide Risk Assessment)",
+              "descripcion": "La entidad realiza una evaluación global de todos sus riesgos de LD/FT considerando: tipos de clientes que atiende, productos y servicios que ofrece, canales de distribución, geografía de operación. Resultado: Mapa de riesgo institucional.",
+              "periodicidad": "Mínimo anual o cuando hay cambios significativos en el negocio"
+            },
+            {
+              "paso": "2. Clasificación del riesgo por cliente",
+              "descripcion": "Con base en la evaluación institucional, se establece un sistema de clasificación del riesgo de cada cliente (bajo, medio, alto). Se asigna una calificación de riesgo al abrir la relación y se actualiza periódicamente.",
+              "herramienta": "Sistemas de scoring de riesgo (automatizados o manuales según el tamaño de la entidad)"
+            },
+            {
+              "paso": "3. Aplicación de controles diferenciados",
+              "descripcion": "Se implementan controles proporcionales: DDS para bajo riesgo, DD estándar para riesgo medio, DDR para alto riesgo. Los umbrales de alerta en el monitoreo se ajustan al perfil de riesgo de cada cliente.",
+              "principio": "Recursos concentrados donde el riesgo es mayor"
+            },
+            {
+              "paso": "4. Monitoreo y revisión continua",
+              "descripcion": "Las clasificaciones de riesgo se revisan periódicamente. Los eventos que alteran el perfil de riesgo (operaciones inusuales, cambio de actividad, nueva información) generan revisión inmediata.",
+              "herramienta": "Sistema automatizado de monitoreo transaccional con reglas ajustadas al perfil"
+            },
+            {
+              "paso": "5. Reporte y escalamiento",
+              "descripcion": "Las alertas del sistema de monitoreo son revisadas por el Oficial de Cumplimiento y el CCC. Las operaciones que no pueden justificarse razonablemente generan reportes ante la UIF.",
+              "fundamento": "GAFI Rec. 20 — Reporte de operaciones sospechosas"
+            },
+            {
+              "paso": "6. Documentación y rendición de cuentas",
+              "descripcion": "Todo el proceso debe estar documentado: evaluaciones de riesgo, decisiones de clasificación, justificaciones de DDS o DDR, reportes presentados. El supervisor (CNBV) puede requerir esta documentación en cualquier momento.",
+              "fundamento": "GAFI Rec. 1 — documentación del EBR"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La Guía del GAFI sobre EBR reconoce que el EBR requiere mayor juicio profesional que un régimen basado en reglas fijas. Esto implica que el Oficial de Cumplimiento tiene más autonomía pero también más responsabilidad: las decisiones de clasificación de riesgo y los criterios de debida diligencia deben estar bien fundamentados y documentados, pues serán el foco principal de las visitas de inspección de la CNBV."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Guía sobre el Enfoque Basado en Riesgos para el Sector Bancario, 2014; GAFI — Recomendación 1 y su Nota Interpretativa; GAFI — Recomendación 10 y su Nota Interpretativa (Debida Diligencia Simplificada)",
+    "orden": 3
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Guía de Enfoque Basado en Riesgos para el Sector Bancario — GAFI",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Diagrama del proceso de implementación del Enfoque Basado en Riesgos (EBR)",
+      "tipo_diagrama": "ciclo",
+      "descripcion": "El EBR como un proceso circular y continuo de evaluación, mitigación y monitoreo",
+      "etapas": [
+        {
+          "etapa": 1,
+          "nombre": "Evaluar",
+          "descripcion": "Identificar amenazas, vulnerabilidades e impacto potencial a nivel institucional y por cliente",
+          "herramienta": "Matriz de riesgo institucional (Enterprise-Wide Risk Assessment)"
+        },
+        {
+          "etapa": 2,
+          "nombre": "Clasificar",
+          "descripcion": "Asignar grado de riesgo a cada cliente y tipo de operación: Bajo / Medio / Alto",
+          "herramienta": "Sistema de scoring de riesgo"
+        },
+        {
+          "etapa": 3,
+          "nombre": "Controlar",
+          "descripcion": "Aplicar controles proporcionales: DDS (bajo), DD estándar (medio), DDR (alto)",
+          "herramienta": "Políticas diferenciadas de KYC + monitoreo transaccional"
+        },
+        {
+          "etapa": 4,
+          "nombre": "Monitorear",
+          "descripcion": "Vigilar continuamente las operaciones y revisar periódicamente las clasificaciones de riesgo",
+          "herramienta": "Sistema automatizado de monitoreo + revisiones del Oficial de Cumplimiento"
+        },
+        {
+          "etapa": 5,
+          "nombre": "Reportar",
+          "descripcion": "Escalar alertas, presentar reportes ante la UIF y documentar todo el proceso",
+          "herramienta": "Sistema de reporte (OR, OI, OIP) + documentación para CNBV"
+        }
+      ],
+      "nota": "El ciclo regresa a la etapa 1 cuando hay cambios significativos en el negocio, en el entorno de riesgo o cuando la evaluación anual indica necesidad de actualización"
+    },
+    "fuente_detallada": "GAFI — Guía EBR Sector Bancario 2014; GAFI — Recomendación 1",
+    "orden": 4
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Guía de Enfoque Basado en Riesgos para el Sector Bancario — GAFI",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La Evaluación Nacional de Riesgos (ENR) y su relación con el EBR institucional",
+      "cuerpo": [
+        {
+          "tipo": "definicion",
+          "titulo": "¿Qué es la Evaluación Nacional de Riesgos (ENR)?",
+          "texto": "La Evaluación Nacional de Riesgos (ENR) es el proceso mediante el cual un país evalúa de forma comprehensiva las amenazas y vulnerabilidades de LD/FT a nivel nacional, identifica los sectores y actividades de mayor riesgo, y desarrolla políticas y recursos proporcionales a esos riesgos. Es la aplicación del EBR a nivel de país, no de entidad individual.",
+          "fundamento": "GAFI — Recomendación 1, párrafo sobre la evaluación de riesgos a nivel nacional"
+        },
+        {
+          "tipo": "componentes_enr",
+          "titulo": "Componentes de una ENR",
+          "items": [
+            {
+              "componente": "Identificación de amenazas nacionales",
+              "descripcion": "¿Cuáles son los principales delitos fuente que generan recursos ilícitos en el país? En México: narcotráfico, corrupción, secuestro, extorsión, trata de personas, robo de hidrocarburos."
+            },
+            {
+              "componente": "Identificación de vulnerabilidades sectoriales",
+              "descripcion": "¿Qué sectores de la economía son más vulnerables a ser utilizados para LD/FT? Evaluación por sector: bancario, casas de cambio, bienes raíces, comercio de arte, abogados y notarios, etc."
+            },
+            {
+              "componente": "Evaluación del impacto potencial",
+              "descripcion": "Si el LD/FT se materializa en un sector determinado, ¿cuál sería el daño para la economía, las finanzas públicas y la sociedad?"
+            },
+            {
+              "componente": "Identificación de brechas en el sistema de control",
+              "descripcion": "¿Dónde hay debilidades en el marco regulatorio, en la supervisión o en la cooperación entre autoridades que crean riesgo adicional?"
+            }
+          ]
+        },
+        {
+          "tipo": "relacion_institucional",
+          "titulo": "¿Cómo usa la ENR una institución financiera?",
+          "texto": "Las instituciones financieras no realizan la ENR (eso lo hace el gobierno), pero deben conocerla y utilizarla como insumo para su propia evaluación de riesgo institucional. La ENR provee contexto sobre las amenazas nacionales que pueden afectar a la entidad.",
+          "usos": [
+            "Identificar cuáles son los delitos fuente más relevantes en el contexto donde opera la entidad",
+            "Comparar el perfil de riesgo de sus clientes con las amenazas identificadas en la ENR",
+            "Justificar la clasificación de ciertos sectores o geografías como de mayor riesgo",
+            "Calibrar los parámetros de su sistema de monitoreo transaccional"
+          ]
+        },
+        {
+          "tipo": "evaluacion_mexico",
+          "titulo": "Evaluación Nacional de Riesgos en México",
+          "texto": "México publicó su primera Evaluación Nacional de Riesgos de LD y FT en 2016, actualizada posteriormente. Sus principales hallazgos identifican como amenazas prioritarias el narcotráfico, la corrupción y el robo de hidrocarburos. Los sectores más vulnerables identificados incluyen el sistema bancario (por volumen), las actividades inmobiliarias, los transmisores de dinero y las actividades vulnerables de la LFPIORPI. Estos hallazgos se traducen en mayor supervisión de la CNBV hacia los sectores identificados como vulnerables.",
+          "fuente": "Secretaría de Hacienda y Crédito Público / UIF — Evaluación Nacional de Riesgos de LD y FT en México"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La ENR es una obligación del GAFI (Recomendación 1). Un país que no realiza la ENR o no la actualiza periódicamente incumple el estándar internacional, lo que puede resultar en una calificación baja en su evaluación mutua del GAFI. Las entidades financieras tienen la obligación de conocer la ENR y considerarla en sus propias evaluaciones de riesgo."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Recomendación 1 (párrafo sobre ENR); SHCP/UIF — Evaluación Nacional de Riesgos de LD y FT en México, 2016; GAFI — Guía para la Evaluación Nacional de Riesgos, 2013",
+    "orden": 5
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Adecuada Gestión de los Riesgos relacionados con el BC/FT del Comité de Basilea (2014)",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El documento del Comité de Basilea de 2014: Gestión del riesgo LD/FT en bancos",
+      "cuerpo": [
+        {
+          "tipo": "contexto",
+          "titulo": "¿Por qué el Comité de Basilea emitió este documento?",
+          "texto": "El documento 'Adecuada Gestión de los Riesgos relacionados con el Blanqueo de Capitales y la Financiación del Terrorismo' (2014) del Comité de Supervisión Bancaria de Basilea complementa la Guía del GAFI (2014) desde la perspectiva de la supervisión bancaria prudencial. Mientras el GAFI aborda el EBR desde la perspectiva de cumplimiento normativo, el Comité de Basilea lo integra al marco de gestión de riesgos bancarios (especialmente el riesgo operativo y el riesgo de cumplimiento).",
+          "antecedente": "Actualización del documento CDD de 2001 para incorporar el EBR y los desarrollos regulatorios de la década de 2000-2010."
+        },
+        {
+          "tipo": "contribuciones_basilea_2014",
+          "titulo": "Contribuciones clave del documento Basilea 2014",
+          "items": [
+            {
+              "contribucion": "Integración del riesgo LD/FT en el marco de riesgo operativo",
+              "descripcion": "El documento establece que el riesgo de LD/FT debe ser gestionado como parte del riesgo operativo del banco, no como un tema exclusivamente de cumplimiento normativo. Esto implica que el Consejo de Administración y la Alta Dirección deben involucrarse directamente en la gestión del riesgo LD/FT.",
+              "implicacion_practica": "El riesgo PLD/FT debe estar en la agenda del Consejo y la Alta Dirección, no solo en el área de cumplimiento."
+            },
+            {
+              "contribucion": "Definición de las tres líneas de defensa",
+              "descripcion": "El documento formaliza el modelo de las Tres Líneas de Defensa para la gestión del riesgo LD/FT en bancos:",
+              "lineas": [
+                {
+                  "linea": "Primera línea de defensa",
+                  "actores": "Áreas de negocio (cajeros, ejecutivos de cuenta, gerentes de sucursal)",
+                  "responsabilidad": "Identificar y gestionar el riesgo PLD/FT en sus operaciones diarias. Son los 'ojos y oídos' en contacto directo con el cliente. Deben reportar internamente las señales de alerta.",
+                  "ejemplo": "El cajero que detecta un depósito en efectivo inusual y lo reporta al Oficial de Cumplimiento"
+                },
+                {
+                  "linea": "Segunda línea de defensa",
+                  "actores": "Función de cumplimiento (Oficial de Cumplimiento, CCC) y gestión de riesgos",
+                  "responsabilidad": "Diseñar el marco de control PLD/FT, supervisar que la primera línea lo aplique, presentar reportes ante la UIF, interactuar con el supervisor.",
+                  "ejemplo": "El Oficial de Cumplimiento que analiza las alertas de la primera línea y decide si reporta a la UIF"
+                },
+                {
+                  "linea": "Tercera línea de defensa",
+                  "actores": "Auditoría interna y externa independiente",
+                  "responsabilidad": "Evaluar de forma independiente si las dos primeras líneas funcionan correctamente. Identifica debilidades en el sistema de control que no son detectadas internamente.",
+                  "ejemplo": "El auditor externo que revisa el programa PLD/FT y emite recomendaciones al Consejo"
+                }
+              ]
+            },
+            {
+              "contribucion": "Responsabilidades del Consejo de Administración y Alta Dirección",
+              "descripcion": "El documento establece claramente que el Consejo de Administración es el responsable último del programa PLD/FT del banco. Debe: (1) establecer el apetito de riesgo PLD/FT, (2) aprobar las políticas generales, (3) garantizar que se asignen recursos suficientes para el cumplimiento, (4) recibir informes periódicos del Oficial de Cumplimiento.",
+              "consecuencia": "Los directivos no pueden alegar 'ignorancia' del programa PLD/FT. Su responsabilidad es establecida expresamente."
+            },
+            {
+              "contribucion": "Gestión del riesgo de terceros y corresponsales",
+              "descripcion": "El documento aborda el riesgo que representan los terceros con los que opera el banco (corresponsales, agentes, distribuidores). El banco debe aplicar diligencia debida a estos terceros y no puede delegar en ellos su responsabilidad de cumplimiento sin controles adecuados.",
+              "principio": "La responsabilidad de cumplimiento PLD/FT NO se delega — el banco corresponsal que confía ciegamente en su respondiente sigue siendo responsable si hay un incumplimiento."
+            },
+            {
+              "contribucion": "Gestión de riesgos tecnológicos en PLD/FT",
+              "descripcion": "El documento reconoce el impacto de las nuevas tecnologías (banca digital, pagos electrónicos, activos virtuales) en el perfil de riesgo PLD/FT de los bancos. Los sistemas de monitoreo deben adaptarse continuamente a los nuevos canales y productos.",
+              "implicacion": "Los bancos deben evaluar el riesgo PLD/FT de cada nuevo producto o canal ANTES de lanzarlo al mercado."
+            }
+          ]
+        },
+        {
+          "tipo": "tres_lineas_comparativo",
+          "titulo": "Las Tres Líneas de Defensa — resumen comparativo",
+          "tabla": {
+            "columnas": ["Línea", "¿Quiénes?", "Función principal", "Herramienta clave"],
+            "filas": [
+              ["1ª — Negocios", "Ejecutivos de cuenta, cajeros, gerentes de área", "Detectar y gestionar el riesgo en operaciones diarias", "Capacitación, señales de alerta, reporte interno"],
+              ["2ª — Cumplimiento", "Oficial de Cumplimiento, CCC, gestión de riesgos", "Diseñar y supervisar el marco de control PLD/FT", "Manual PLD/FT, monitoreo transaccional, reportes UIF"],
+              ["3ª — Auditoría", "Auditoría interna y externa independiente", "Evaluar independientemente si las dos primeras líneas funcionan", "Informe de auditoría anual PLD/FT"]
+            ]
+          }
+        },
+        {
+          "tipo": "diferencia_gafi_basilea",
+          "titulo": "GAFI 2014 vs. Basilea 2014: Diferencias de enfoque",
+          "items": [
+            {
+              "dimension": "Perspectiva",
+              "gafi": "Cumplimiento normativo — ¿cumple el banco con las obligaciones legales y regulatorias de PLD/FT?",
+              "basilea": "Gestión prudencial de riesgos — ¿gestiona el banco el riesgo LD/FT como parte de su marco integral de riesgos?"
+            },
+            {
+              "dimension": "Destinatario principal",
+              "gafi": "Bancos (cómo implementar el EBR) y supervisores (cómo evaluar a los bancos)",
+              "basilea": "Principalmente supervisores bancarios prudenciales (cómo integrar el riesgo LD/FT en la supervisión bancaria general)"
+            },
+            {
+              "dimension": "Gobernanza",
+              "gafi": "Énfasis en el Oficial de Cumplimiento y el CCC como ejecutores",
+              "basilea": "Énfasis en el rol del Consejo de Administración y la Alta Dirección como responsables últimos"
+            },
+            {
+              "dimension": "Marco de referencia",
+              "gafi": "40 Recomendaciones GAFI como estándar",
+              "basilea": "Marco de supervisión bancaria prudencial (Basilea I, II, III) ampliado con riesgo LD/FT"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Tanto la Guía del GAFI (2014) como el documento del Comité de Basilea (2014) son pilares del Bloque 3 del temario CNBV. El examen puede preguntar sobre sus contenidos específicos, pero la pregunta clave siempre será: ¿qué organismo emitió cada documento y cuál es la diferencia de enfoque entre ambos? GAFI = perspectiva de cumplimiento normativo PLD. Basilea = perspectiva de supervisión bancaria prudencial con el EBR integrado."
+        }
+      ]
+    },
+    "fuente_detallada": "Comité de Supervisión Bancaria de Basilea — Adecuada Gestión de los Riesgos relacionados con el Blanqueo de Capitales y la Financiación del Terrorismo, enero 2014; GAFI — Guía sobre el Enfoque Basado en Riesgos para el Sector Bancario, octubre 2014",
+    "orden": 6
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Adecuada Gestión de los Riesgos relacionados con el BC/FT del Comité de Basilea (2014)",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Señales de alerta y tipologías: La detección práctica del riesgo PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "Las señales de alerta (red flags) son indicios o patrones de comportamiento que sugieren la posible existencia de actividades de LD/FT. No son prueba de un delito — son indicadores que deben investigarse. El conocimiento de las señales de alerta es fundamental para el personal de las entidades financieras, especialmente para quienes tienen contacto directo con clientes."
+        },
+        {
+          "tipo": "categorias_senales",
+          "titulo": "Categorías de señales de alerta por tipo de operación",
+          "categorias": [
+            {
+              "categoria": "Señales de alerta en operaciones con efectivo",
+              "senales": [
+                "Depósitos frecuentes en efectivo por montos ligeramente inferiores al umbral de reporte",
+                "Depósitos en efectivo realizados en varias sucursales el mismo día",
+                "Depósitos en efectivo que no corresponden a la actividad declarada del cliente",
+                "Retiros de grandes sumas en efectivo inmediatamente después de recibir una transferencia",
+                "Cliente que convierte billetes de baja denominación en billetes de alta denominación (cambio de moneda)",
+                "Billets nuevos, sin circulación y en cantidades inusualmente grandes",
+                "Solicitud de cambio de moneda extranjera en efectivo sin justificación de viaje o negocio"
+              ]
+            },
+            {
+              "categoria": "Señales de alerta en el comportamiento del cliente",
+              "senales": [
+                "Cliente que se muestra ansioso o nervioso al realizar transacciones",
+                "Cliente que paga con efectivo bienes o servicios de alto valor (joyas, autos, bienes raíces) sin uso de sistema financiero",
+                "Cliente que solicita transferencias hacia jurisdicciones de alto riesgo o que no tienen relación con su actividad declarada",
+                "Cliente que da información inconsistente o que cambia su historia sobre el origen de sus fondos",
+                "Cliente que rehúsa proporcionar información requerida o que es reticente a actualizar su expediente",
+                "Cliente que solicita anonimato y pregunta si la transacción será reportada",
+                "Cliente que realiza múltiples operaciones pequeñas en corto tiempo usando distintos cajeros o ejecutivos"
+              ]
+            },
+            {
+              "categoria": "Señales de alerta en transferencias y cuentas",
+              "senales": [
+                "Transferencias frecuentes hacia o desde jurisdicciones en la lista negra o gris del GAFI",
+                "Cuenta que recibe múltiples transferencias de distintas fuentes y luego transfiere el total en una sola operación (pass-through account)",
+                "Actividad de la cuenta inconsistente con la actividad declarada del cliente",
+                "Múltiples personas realizando depósitos en la misma cuenta (posible estructuración grupal)",
+                "Transferencias internacionales sin propósito comercial aparente",
+                "Cuenta con muy poca actividad durante largo tiempo y luego operaciones repentinas de gran volumen"
+              ]
+            },
+            {
+              "categoria": "Señales de alerta en personas morales y estructuras",
+              "senales": [
+                "Empresa recién constituida con movimientos financieros desproporcionados a su antigüedad",
+                "Empresa cuyos estados financieros no corresponden al volumen de operaciones bancarias",
+                "Estructura de propietarios con múltiples capas de personas morales en distintos países (sin justificación comercial)",
+                "Empresa con múltiples poderes notariales que operan cuentas sin relación aparente entre sí",
+                "Empresa cuyo giro declarado no coincide con sus operaciones financieras",
+                "Administrador o propietario que no puede explicar el origen de los fondos de la empresa"
+              ]
+            },
+            {
+              "categoria": "Señales de alerta en sector inmobiliario",
+              "senales": [
+                "Compraventa de inmuebles con precio notablemente por encima o por debajo del valor de mercado",
+                "Pago total en efectivo de inmuebles de alto valor",
+                "Cambios frecuentes de propietario del mismo inmueble en corto tiempo (quick flip)",
+                "Uso de presta-nombres para figurar como comprador del inmueble",
+                "Pago de inmuebles a través de personas no vinculadas al comprador declarado"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "tipologias",
+          "titulo": "Tipologías de LD/FT: Patrones comunes en México",
+          "descripcion": "Las tipologías son métodos o esquemas conocidos de LD/FT documentados por las autoridades y organismos internacionales. Son distintas a las señales de alerta — las tipologías describen el modus operandi completo del esquema.",
+          "tipologias_frecuentes": [
+            {
+              "tipologia": "Empresas de fachada con giros de alto efectivo",
+              "descripcion": "Negocios de restaurantes, lavandería, estacionamiento, abarrotes o entretenimiento usados para mezclar fondos ilícitos con ingresos legítimos. El volumen de efectivo real no corresponde a la capacidad física o tamaño del negocio.",
+              "sector": "Colocación + Integración",
+              "señal_clave": "Ingresos declarados vs. depósitos en efectivo sin relación razonable"
+            },
+            {
+              "tipologia": "Estructuración o pitufeo (smurfing)",
+              "descripcion": "División de grandes sumas en múltiples depósitos menores por parte de una o varias personas para evadir umbrales de reporte. Puede realizarse en una o múltiples sucursales.",
+              "sector": "Colocación",
+              "señal_clave": "Depósitos repetidos en montos casi idénticos justo por debajo del umbral"
+            },
+            {
+              "tipologia": "Cambio de moneda como mecanismo de lavado",
+              "descripcion": "Conversión de billetes de baja denominación (producto del narco o crimen) en billetes de alta denominación o en divisas, para facilitar el transporte o la colocación. Las casas de cambio son especialmente vulnerables.",
+              "sector": "Colocación + Estratificación",
+              "señal_clave": "Grandes volúmenes de cambio de moneda sin justificación de actividad exportadora o viajes"
+            },
+            {
+              "tipologia": "Cuentas de tránsito o cuentas espejo (pass-through)",
+              "descripcion": "Cuentas que reciben fondos de múltiples fuentes y los transfieren casi inmediatamente a otras cuentas o al extranjero, sin retención ni movimientos de consumo típicos. El saldo casi siempre está cerca de cero.",
+              "sector": "Estratificación",
+              "señal_clave": "Movimientos de entrada y salida casi simultáneos, sin retención de saldo"
+            },
+            {
+              "tipologia": "Facturación falsa en comercio exterior",
+              "descripcion": "Sobre o sub-facturación de bienes exportados o importados para mover valor ilícito entre países. Si se sobrefactura una exportación, el exportador recibe más dinero del que corresponde y puede declarar ese exceso como ingreso legítimo.",
+              "sector": "Estratificación + Integración",
+              "señal_clave": "Precios de importación/exportación que se desvían significativamente de precios de mercado"
+            },
+            {
+              "tipologia": "Uso de testaferros en bienes raíces",
+              "descripcion": "Compra de inmuebles a nombre de familiares, amigos o empleados del lavador para ocultar la titularidad real. Los notarios y agentes inmobiliarios son actividades vulnerables bajo LFPIORPI precisamente para detectar esto.",
+              "sector": "Integración",
+              "señal_clave": "Comprador sin ingresos aparentes que adquiere inmueble de alto valor"
+            },
+            {
+              "tipologia": "Remesas como instrumento de lavado",
+              "descripcion": "Envío de múltiples remesas de pequeño monto desde o hacia el extranjero, acumulando sumas importantes. El sistema de remesas es de alto riesgo por el volumen de operaciones y el manejo de efectivo.",
+              "sector": "Colocación + Estratificación",
+              "señal_clave": "Remesas frecuentes hacia el mismo beneficiario o desde el mismo origen sin justificación de relación familiar o laboral"
+            }
+          ]
+        },
+        {
+          "tipo": "fuentes_tipologias",
+          "titulo": "Fuentes de tipologías para las entidades financieras mexicanas",
+          "items": [
+            "GAFI — Informes de tipologías anuales sobre sectores específicos (bienes raíces, activos virtuales, arte, etc.)",
+            "GAFILAT — Tipologías regionales para América Latina (especialmente relevantes para México)",
+            "UIF (SHCP) — Tipologías publicadas por la Unidad de Inteligencia Financiera mexicana",
+            "CNBV — Señales de alerta incorporadas en las Disposiciones de carácter general sectoriales",
+            "Grupo Egmont — Casos de estudio de investigaciones internacionales de LD/FT"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Una señal de alerta NO es prueba de LD/FT. El personal de la entidad que detecta una señal de alerta debe reportarla internamente al Oficial de Cumplimiento. El Oficial de Cumplimiento analiza si la señal tiene justificación razonable. Si no la tiene, reporta ante la UIF. Si la tiene (el cliente puede explicar razonablemente la operación), se documenta la justificación y se continúa el monitoreo."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Tipologías regionales y sectoriales; GAFILAT — Informe de Tipologías regionales; UIF (SHCP) — Tipologías publicadas; CNBV — Disposiciones de carácter general (señales de alerta en anexos sectoriales); Comité de Basilea — Gestión de Riesgos BC/FT 2014",
+    "orden": 7
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Metodología de Evaluación de Riesgos — Enfoque Basado en Riesgos para grupos financieros",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Metodología de evaluación de riesgos y su aplicación en grupos financieros",
+      "cuerpo": [
+        {
+          "tipo": "metodologia_evaluacion",
+          "titulo": "Metodología de Evaluación de Riesgos PLD/FT a nivel institucional",
+          "descripcion": "La metodología de evaluación de riesgos es el proceso estructurado mediante el cual una entidad financiera identifica, mide, gestiona y reporta sus riesgos de LD/FT. No existe una metodología única obligatoria — cada entidad puede usar su propia metodología, siempre que cumpla con los principios del EBR.",
+          "componentes_metodologia": [
+            {
+              "componente": "1. Identificación de los factores de riesgo",
+              "descripcion": "La entidad lista todos los factores de riesgo relevantes para su negocio: tipos de clientes, productos, canales, geografía. Este inventario es la base de la evaluación.",
+              "herramienta": "Cuestionario de autoevaluación de riesgo"
+            },
+            {
+              "componente": "2. Ponderación de los factores",
+              "descripcion": "Se asigna un peso relativo a cada factor según su importancia para la entidad. Por ejemplo, si la entidad tiene alta concentración de clientes en efectivo, el factor 'manejo de efectivo' tiene mayor peso.",
+              "herramienta": "Matriz de ponderación"
+            },
+            {
+              "componente": "3. Calificación del riesgo inherente",
+              "descripcion": "Se califica cada factor de riesgo en una escala (ej: 1=bajo, 2=medio, 3=alto) y se pondera para obtener una calificación global del riesgo inherente de la entidad.",
+              "resultado": "Mapa de calor de riesgo inherente"
+            },
+            {
+              "componente": "4. Evaluación de los controles existentes",
+              "descripcion": "Se evalúa la efectividad de los controles implementados para cada factor de riesgo. Un control efectivo reduce el riesgo residual; un control débil o inexistente lo deja alto.",
+              "herramienta": "Inventario de controles con calificación de efectividad"
+            },
+            {
+              "componente": "5. Determinación del riesgo residual",
+              "descripcion": "Combina el riesgo inherente con la efectividad de los controles para obtener el riesgo residual. Si el riesgo residual está fuera del apetito de riesgo, deben diseñarse controles adicionales.",
+              "resultado": "Mapa de calor de riesgo residual"
+            },
+            {
+              "componente": "6. Plan de acción para brechas",
+              "descripcion": "Para cada área donde el riesgo residual supera el apetito de riesgo, se define un plan de acción con responsables y fechas para implementar controles adicionales.",
+              "herramienta": "Plan de mitigación de riesgos"
+            }
+          ]
+        },
+        {
+          "tipo": "riesgo_grado_clientes",
+          "titulo": "Metodología de evaluación de riesgos vs. grado de riesgo de clientes",
+          "texto": "La evaluación institucional de riesgo (a nivel entidad) y la clasificación de riesgo de clientes son procesos distintos pero relacionados. La evaluación institucional establece el marco general de riesgo y los criterios; la clasificación de clientes aplica esos criterios a cada relación comercial individual.",
+          "diferencias": [
+            {
+              "dimension": "Nivel de análisis",
+              "institucional": "Toda la entidad — segmentos de negocio, carteras, líneas de producto",
+              "clientes": "Cada cliente individual"
+            },
+            {
+              "dimension": "Periodicidad",
+              "institucional": "Anual o ante cambios significativos en el negocio",
+              "clientes": "Al inicio de la relación + actualizaciones periódicas según grado de riesgo"
+            },
+            {
+              "dimension": "Responsable",
+              "institucional": "Oficial de Cumplimiento + CCC + Alta Dirección",
+              "clientes": "Ejecutivo de cuenta + Oficial de Cumplimiento"
+            },
+            {
+              "dimension": "Resultado",
+              "institucional": "Mapa de riesgo institucional + plan de mitigación",
+              "clientes": "Clasificación Bajo/Medio/Alto + nivel de diligencia aplicable"
+            }
+          ]
+        },
+        {
+          "tipo": "grupos_financieros",
+          "titulo": "EBR en grupos financieros",
+          "texto": "Cuando una entidad forma parte de un grupo financiero, la evaluación de riesgo PLD/FT debe hacerse tanto a nivel individual (cada entidad del grupo) como a nivel consolidado (todo el grupo). Esto es especialmente relevante porque una debilidad en una entidad del grupo puede representar un riesgo para todo el conglomerado.",
+          "principios": [
+            "El grupo debe tener políticas PLD/FT consistentes a nivel grupal que cada entidad adopta y adapta a su regulación local",
+            "La entidad controladora (holding) es responsable de supervisar que todas las filiales implementen el programa PLD/FT grupal",
+            "Las filiales en jurisdicciones con requisitos más estrictos aplican los estándares más altos",
+            "El intercambio de información PLD/FT dentro del grupo es generalmente permitido (ver Bloque 5)",
+            "Si una filiale está en un país con estándares PLD/FT más bajos que el grupo, debe aplicar los estándares del grupo (el más alto prevalece)"
+          ],
+          "fundamento": "GAFI — Recomendación 18 (Controles internos, sucursales y filiales); Disposiciones CNBV para grupos financieros"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El principio de 'estándar más alto prevalece' en grupos financieros es importante para el examen: si el estándar de un país donde opera una filiale es menor que el del grupo, la filiale aplica el estándar del grupo. Si el estándar del país es mayor, la filiale aplica el del país. Siempre se aplica el más estricto."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Recomendación 1 (Metodología de evaluación de riesgos) y Recomendación 18 (Grupos financieros); Comité de Basilea — Gestión de Riesgos BC/FT 2014; Guía CNBV sobre evaluación de riesgos institucional",
+    "orden": 8
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Adecuada Gestión de los Riesgos relacionados con el BC/FT del Comité de Basilea (2014)",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Las Tres Líneas de Defensa en la gestión del riesgo PLD/FT",
+      "tipo_diagrama": "capas_horizontales",
+      "descripcion": "Modelo de gobernanza del riesgo PLD/FT según el Comité de Basilea 2014",
+      "capas": [
+        {
+          "numero": 1,
+          "nombre": "Primera Línea de Defensa — Negocio",
+          "actores": ["Cajeros", "Ejecutivos de cuenta", "Gerentes de sucursal", "Personal de operaciones"],
+          "funcion": "Detectar señales de alerta en contacto directo con el cliente. Reportar internamente.",
+          "herramientas": ["Capacitación anual PLD/FT", "Manual de señales de alerta", "Sistema de reporte interno"],
+          "responsabilidad": "OPERATIVA — gestionar el riesgo en el día a día"
+        },
+        {
+          "numero": 2,
+          "nombre": "Segunda Línea de Defensa — Cumplimiento",
+          "actores": ["Oficial de Cumplimiento", "CCC", "Área de Gestión de Riesgos", "Área Jurídica"],
+          "funcion": "Diseñar el marco de control. Supervisar la 1ª línea. Analizar alertas. Reportar a la UIF.",
+          "herramientas": ["Manual PLD/FT", "Sistema de monitoreo transaccional", "Conexión con UIF (SUAdeO)"],
+          "responsabilidad": "DE CONTROL — diseñar y supervisar los controles"
+        },
+        {
+          "numero": 3,
+          "nombre": "Tercera Línea de Defensa — Auditoría",
+          "actores": ["Auditoría Interna", "Auditor Externo Independiente"],
+          "funcion": "Evaluar de forma independiente si las dos primeras líneas funcionan correctamente.",
+          "herramientas": ["Informe de auditoría PLD/FT anual", "Recomendaciones al Consejo y CCC"],
+          "responsabilidad": "DE ASEGURAMIENTO — verificar la efectividad del sistema"
+        }
+      ],
+      "gobierno": {
+        "actor": "Consejo de Administración y Alta Dirección",
+        "funcion": "Responsables últimos del programa PLD/FT. Establecen el apetito de riesgo. Aprueban políticas. Reciben informes de las tres líneas."
+      }
+    },
+    "fuente_detallada": "Comité de Supervisión Bancaria de Basilea — Adecuada Gestión de los Riesgos BC/FT, 2014; GAFI — Recomendación 18 (Controles internos)",
+    "orden": 9
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Guía de Enfoque Basado en Riesgos para el Sector Bancario — GAFI",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: Detección y gestión de riesgos PLD/FT — Bloque 3 completo",
+      "nodo_central": "Detección y Gestión de Riesgos PLD/FT",
+      "ramas": [
+        {
+          "concepto": "El riesgo (definición)",
+          "subnodos": [
+            "Amenaza × Vulnerabilidad × Impacto",
+            "Riesgo inherente (antes de controles)",
+            "Riesgo residual (después de controles)",
+            "Apetito de riesgo (nivel aceptado)"
+          ]
+        },
+        {
+          "concepto": "Enfoque Basado en Riesgos (EBR)",
+          "subnodos": [
+            "GAFI Recomendación 1",
+            "Controles proporcionales al riesgo",
+            "DDS (bajo riesgo)",
+            "DD estándar (riesgo medio)",
+            "DDR (alto riesgo)",
+            "Documentar siempre"
+          ]
+        },
+        {
+          "concepto": "Guía GAFI EBR Banca 2014",
+          "subnodos": [
+            "Factores de riesgo: cliente, producto, canal, geografía",
+            "Proceso: evaluar → clasificar → controlar → monitorear → reportar",
+            "Evaluación Nacional de Riesgos (ENR)",
+            "Autoevaluación institucional"
+          ]
+        },
+        {
+          "concepto": "Basilea 2014 — Gestión Riesgos BC/FT",
+          "subnodos": [
+            "Riesgo LD/FT como parte del riesgo operativo",
+            "Tres Líneas de Defensa",
+            "Responsabilidad del Consejo de Administración",
+            "Riesgo de terceros y corresponsales",
+            "Riesgo tecnológico"
+          ]
+        },
+        {
+          "concepto": "Señales de alerta y tipologías",
+          "subnodos": [
+            "Señales en efectivo, comportamiento, transferencias, personas morales, inmobiliario",
+            "Tipologías: empresas fachada, pitufeo, pass-through, facturas falsas, remesas",
+            "Fuentes: GAFI, GAFILAT, UIF, CNBV"
+          ]
+        },
+        {
+          "concepto": "Metodología de evaluación",
+          "subnodos": [
+            "6 pasos: identificar, ponderar, calificar, evaluar controles, residual, plan de acción",
+            "Mapa de calor de riesgo",
+            "EBR en grupos financieros (estándar más estricto prevalece)"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Guía EBR Sector Bancario 2014; Comité de Basilea — Gestión Riesgos BC/FT 2014; GAFI — Recomendación 1",
+    "orden": 10
+  },
+  {
+    "bloque": 3,
+    "tema": "Detección y Gestión de Riesgos en Materia de PLD/FT",
+    "subtema": "Adecuada Gestión de los Riesgos relacionados con el BC/FT del Comité de Basilea (2014)",
+    "tipo": "resumen",
+    "contenido": {
+      "titulo": "Puntos clave para el examen CNBV — Bloque 3",
+      "puntos_clave": [
+        "El riesgo PLD/FT = Amenaza × Vulnerabilidad × Impacto. Las amenazas son externas; las vulnerabilidades son internas o inherentes al negocio de la entidad.",
+        "Riesgo Inherente = riesgo antes de controles. Riesgo Residual = riesgo después de controles. El objetivo es que el riesgo residual esté dentro del apetito de riesgo de la entidad.",
+        "El Enfoque Basado en Riesgos (EBR) establece controles PROPORCIONALES al riesgo: simplificados para bajo riesgo (DDS), estándar para riesgo medio, y reforzados para alto riesgo (DDR). No significa menos controles — significa controles calibrados.",
+        "La Guía del GAFI sobre EBR para el Sector Bancario (2014) es el documento técnico de referencia para implementar el EBR en bancos. Identifica 4 categorías de factores de riesgo: cliente, producto, canal y geografía.",
+        "El documento del Comité de Basilea de 2014 integra el riesgo LD/FT al marco de riesgo operativo bancario y formaliza el modelo de las Tres Líneas de Defensa.",
+        "Las Tres Líneas de Defensa: 1ª = negocios (detecta en operaciones diarias), 2ª = cumplimiento (diseña y supervisa controles, reporta a UIF), 3ª = auditoría (evalúa independientemente la efectividad).",
+        "El Consejo de Administración es el responsable último del programa PLD/FT según el Comité de Basilea 2014. No puede delegar esta responsabilidad total al Oficial de Cumplimiento.",
+        "La Evaluación Nacional de Riesgos (ENR) es obligatoria para los países (GAFI Rec. 1). Las entidades deben conocerla y usarla como insumo para su autoevaluación institucional.",
+        "Las señales de alerta son indicios que deben investigarse — no son prueba de delito. El personal que detecta una señal la reporta internamente; el Oficial de Cumplimiento decide si reportar a la UIF.",
+        "En grupos financieros, siempre aplica el estándar PLD/FT más estricto: el del grupo o el del país local, el que sea mayor.",
+        "La Debida Diligencia Simplificada (DDS) puede aplicarse en casos de bajo riesgo documentado, pero se suspende inmediatamente ante cualquier señal de alerta.",
+        "GAFI 2014 = perspectiva de cumplimiento normativo. Basilea 2014 = perspectiva de gestión prudencial del riesgo. Ambos son complementarios y referenciados en el examen CNBV."
+      ],
+      "preguntas_tipicas_examen": [
+        "¿Cuál es la fórmula del riesgo PLD/FT y qué significa cada componente?",
+        "¿Cuál es la diferencia entre riesgo inherente y riesgo residual?",
+        "¿Qué es la Debida Diligencia Simplificada y cuándo puede aplicarse?",
+        "¿Cuáles son las Tres Líneas de Defensa según el Comité de Basilea 2014?",
+        "¿Cuál es la función de cada línea de defensa en la gestión del riesgo PLD/FT?",
+        "¿Quién es el responsable último del programa PLD/FT según el Comité de Basilea?",
+        "¿Qué es la Evaluación Nacional de Riesgos y quién la realiza?",
+        "¿Cuál es la diferencia de enfoque entre la Guía del GAFI (2014) y el documento del Comité de Basilea (2014)?",
+        "¿Qué es una señal de alerta y cómo debe procesarse en una entidad financiera?",
+        "¿Qué principio aplica en grupos financieros cuando hay diferencias entre el estándar del grupo y el del país local?"
+      ]
+    },
+    "fuente_detallada": "GAFI — Recomendación 1 y Guía EBR Sector Bancario 2014; Comité de Supervisión Bancaria de Basilea — Gestión Adecuada de Riesgos BC/FT 2014; Guía PLD/FT CNBV 11ª ed., Bloque 3",
+    "orden": 11
+  }
+]

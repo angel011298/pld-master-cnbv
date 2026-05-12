@@ -1,0 +1,1431 @@
+[
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Entidades financieras y personas sujetas al régimen de PLD/FT",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "¿Quiénes están obligados por el régimen de PLD/FT?",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El régimen de PLD/FT en México aplica a dos grandes universos: (1) las entidades del sistema financiero reguladas por la CNBV y otras comisiones supervisoras, y (2) las personas que realizan 'actividades vulnerables' definidas en la LFPIORPI. El Bloque 5 se enfoca en el régimen aplicable al sistema financiero mexicano."
+        },
+        {
+          "tipo": "lista_expandida",
+          "titulo": "Entidades del sistema financiero sujetas al régimen PLD/FT",
+          "items": [
+            {
+              "entidad": "Instituciones de Crédito (Banca Múltiple y Banca de Desarrollo)",
+              "regulador": "CNBV",
+              "marco_legal": "Ley de Instituciones de Crédito (LIC) Art. 115; Disposiciones de carácter general CNBV",
+              "riesgo": "Muy Alto — mayor volumen de operaciones y diversidad de clientes"
+            },
+            {
+              "entidad": "Casas de Bolsa",
+              "regulador": "CNBV",
+              "marco_legal": "Ley del Mercado de Valores (LMV) Art. 212",
+              "riesgo": "Alto"
+            },
+            {
+              "entidad": "Sociedades Cooperativas de Ahorro y Préstamo (SOCAP)",
+              "regulador": "CNBV",
+              "marco_legal": "Ley para Regular las Actividades de las Sociedades Cooperativas de Ahorro y Préstamo (LRASCAP)",
+              "riesgo": "Medio-Alto"
+            },
+            {
+              "entidad": "Sociedades Financieras Populares (SOFIPO)",
+              "regulador": "CNBV",
+              "marco_legal": "Ley de Ahorro y Crédito Popular (LACP)",
+              "riesgo": "Medio"
+            },
+            {
+              "entidad": "Sociedades Financieras Comunitarias (SOFINCO)",
+              "regulador": "CNBV",
+              "marco_legal": "Ley de Ahorro y Crédito Popular (LACP)",
+              "riesgo": "Medio"
+            },
+            {
+              "entidad": "Casas de Cambio",
+              "regulador": "CNBV",
+              "marco_legal": "Ley General de Organizaciones y Actividades Auxiliares del Crédito (LGOAAC)",
+              "riesgo": "Alto — alto manejo de efectivo y divisas"
+            },
+            {
+              "entidad": "Transmisores de Dinero",
+              "regulador": "CNBV",
+              "marco_legal": "LGOAAC Art. 82-H; Disposiciones CNBV específicas",
+              "riesgo": "Alto — remesas y transferencias internacionales"
+            },
+            {
+              "entidad": "Instituciones de Tecnología Financiera (ITF): IFPE e IFC",
+              "regulador": "CNBV",
+              "marco_legal": "Ley para Regular las Instituciones de Tecnología Financiera (Ley FinTech) Art. 58",
+              "riesgo": "Alto — innovación tecnológica, KYC digital, activos virtuales"
+            },
+            {
+              "entidad": "Aseguradoras y Afianzadoras",
+              "regulador": "CNSF",
+              "marco_legal": "Ley de Instituciones de Seguros y de Fianzas (LISF)",
+              "riesgo": "Medio"
+            },
+            {
+              "entidad": "SOFOMES (Entidades Reguladas y No Reguladas)",
+              "regulador": "CNBV (ER) / Conducef (ENR)",
+              "marco_legal": "Ley General de Organizaciones y Actividades Auxiliares del Crédito",
+              "riesgo": "Medio-Alto"
+            },
+            {
+              "entidad": "Uniones de Crédito",
+              "regulador": "CNBV",
+              "marco_legal": "Ley de Uniones de Crédito",
+              "riesgo": "Medio"
+            },
+            {
+              "entidad": "Almacenes Generales de Depósito",
+              "regulador": "CNBV",
+              "marco_legal": "LGOAAC",
+              "riesgo": "Medio"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Las Disposiciones de carácter general en materia de PLD/FT son emitidas por la CNBV para cada tipo de entidad de forma específica. No existe una circular única para todo el sistema financiero — cada sector tiene sus propias disposiciones adaptadas a su naturaleza y riesgos."
+        }
+      ]
+    },
+    "fuente_detallada": "LIC Art. 115; LMV Art. 212; LRASCAP; LACP; LGOAAC; Ley FinTech Art. 58; Disposiciones de carácter general CNBV aplicables a cada tipo de entidad",
+    "orden": 1
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Obligaciones en materia de PLD/FT",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las obligaciones fundamentales del régimen PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "Las obligaciones de PLD/FT para entidades del sistema financiero se articulan en torno a cuatro pilares fundamentales, conocidos como las '4 A' del cumplimiento: Avisar (reportar), Abstener (no realizar operaciones sospechosas), Archivar (conservar documentación) y Aplicar (políticas y procedimientos internos)."
+        },
+        {
+          "tipo": "pilares",
+          "titulo": "Los pilares del régimen de obligaciones",
+          "items": [
+            {
+              "pilar": "1. Identificar y conocer al cliente (KYC/KYB)",
+              "descripcion": "Establecer la identidad del cliente mediante documentos oficiales, integrar expedientes completos y conocer el perfil transaccional esperado. Distingue entre 'identificar' (saber quién es) y 'conocer' (entender su actividad y perfil de riesgo).",
+              "fundamento": "Disposiciones CNBV — capítulo de identificación de clientes"
+            },
+            {
+              "pilar": "2. Clasificar el riesgo del cliente",
+              "descripcion": "Asignar a cada cliente un grado de riesgo (bajo, medio, alto) basado en criterios objetivos. El grado de riesgo determina el nivel de debida diligencia aplicable.",
+              "fundamento": "Disposiciones CNBV — capítulo de evaluación de riesgo; GAFI Recomendación 10"
+            },
+            {
+              "pilar": "3. Monitorear las operaciones",
+              "descripcion": "Vigilar continuamente las transacciones del cliente para detectar desviaciones respecto a su perfil transaccional o señales de alerta predefinidas.",
+              "fundamento": "Disposiciones CNBV — capítulo de monitoreo"
+            },
+            {
+              "pilar": "4. Reportar operaciones",
+              "descripcion": "Presentar ante la UIF los reportes establecidos: relevantes, inusuales, internas preocupantes y otros tipos específicos según el sector.",
+              "fundamento": "LIC Art. 115; LFPIORPI Art. 17"
+            },
+            {
+              "pilar": "5. Conservar documentación",
+              "descripcion": "Mantener expedientes, registros de operaciones y reportes durante los plazos establecidos (generalmente 10 años).",
+              "fundamento": "Disposiciones CNBV; LFPIORPI Art. 18"
+            },
+            {
+              "pilar": "6. Estructura interna de cumplimiento",
+              "descripcion": "Contar con: Oficial de Cumplimiento, Comité de Comunicación y Control (CCC), Manual PLD/FT, programa de capacitación y sistemas automatizados de monitoreo.",
+              "fundamento": "Disposiciones CNBV — capítulo de estructura interna"
+            },
+            {
+              "pilar": "7. Auditoría independiente",
+              "descripcion": "Someter el programa PLD/FT a revisión por auditor interno y externo independiente al menos una vez al año.",
+              "fundamento": "Disposiciones CNBV — capítulo de auditoría"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El incumplimiento de estas obligaciones puede resultar en sanciones administrativas de la CNBV que van desde amonestación hasta multas millonarias y revocación de la autorización para operar. Adicionalmente, el personal responsable puede enfrentar sanciones penales."
+        }
+      ]
+    },
+    "fuente_detallada": "LIC Art. 115; Disposiciones de carácter general CNBV aplicables a instituciones de crédito; GAFI — Recomendaciones 10, 11, 20 y 21",
+    "orden": 2
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Tipos de entidades: Banca Múltiple vs. Banca de Desarrollo — SOCAP vs. SOFIPO vs. SOFINCO",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Tipos de entidades financieras: diferencias clave para PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "cuadro_comparativo",
+          "titulo": "Banca Múltiple vs. Banca de Desarrollo",
+          "columnas": ["Dimensión", "Banca Múltiple", "Banca de Desarrollo"],
+          "filas": [
+            ["Naturaleza jurídica", "Sociedad Anónima (privada)", "Entidad de la Administración Pública Federal"],
+            ["Objetivo", "Lucro — maximizar valor para accionistas", "Fomento económico y social (mandato de ley)"],
+            ["Ejemplos", "BBVA, Banorte, Santander, HSBC, Citibanamex", "Nafin, Banobras, Banjercito, Banco del Bienestar"],
+            ["Marco legal principal", "Ley de Instituciones de Crédito (LIC)", "Ley orgánica de cada institución + LIC supletoriamente"],
+            ["Regulador/Supervisor", "CNBV", "CNBV"],
+            ["Clientes típicos", "Público en general, empresas, gobierno", "Empresas (especialmente PyMES), gobiernos estatales/municipales, sectores prioritarios"],
+            ["Nivel de riesgo PLD", "Muy Alto (mayor volumen y diversidad)", "Alto (aunque clientela más acotada)"],
+            ["Obligaciones PLD", "Idénticas en lo esencial", "Idénticas en lo esencial"]
+          ]
+        },
+        {
+          "tipo": "cuadro_comparativo",
+          "titulo": "SOCAP vs. SOFIPO vs. SOFINCO — El sector de ahorro y crédito popular",
+          "columnas": ["Dimensión", "SOCAP", "SOFIPO", "SOFINCO"],
+          "filas": [
+            ["Nombre completo", "Sociedad Cooperativa de Ahorro y Préstamo", "Sociedad Financiera Popular", "Sociedad Financiera Comunitaria"],
+            ["Forma jurídica", "Sociedad Cooperativa", "Sociedad Anónima de Capital Variable", "Organismo de Integración Financiera Rural"],
+            ["Marco legal", "LRASCAP", "Ley de Ahorro y Crédito Popular (LACP)", "LACP"],
+            ["Socios/clientes", "Solo socios (sector cerrado)", "Socios y clientes (público en general)", "Comunidades rurales marginadas"],
+            ["Regulador", "CNBV", "CNBV", "CNBV"],
+            ["Enfoque geográfico", "Nacional / Urban-rural", "Nacional", "Principalmente rural"],
+            ["Supervisión auxiliar", "CNBV + Federaciones", "CNBV + Federaciones", "CNBV + Organismos de Integración"],
+            ["Riesgo PLD típico", "Medio — clientela definida", "Medio", "Bajo-Medio — operaciones pequeñas"]
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Para efectos del examen CNBV, la distinción clave entre SOCAP, SOFIPO y SOFINCO es la forma jurídica y el tipo de clientela. Las SOCAP solo operan con sus socios; las SOFIPO pueden atender al público en general. Las tres están sujetas a obligaciones PLD/FT similares adaptadas a su escala de operación."
+        }
+      ]
+    },
+    "fuente_detallada": "Ley de Instituciones de Crédito Art. 2 y 6; LRASCAP; LACP Art. 3; Disposiciones CNBV para cada sector",
+    "orden": 3
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Identificar vs. Conocer — Política de Identificación del Cliente",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Identificar vs. Conocer al cliente: distinción conceptual fundamental",
+      "cuerpo": [
+        {
+          "tipo": "diferencia_clave",
+          "titulo": "La distinción fundamental: IDENTIFICAR ≠ CONOCER",
+          "columnas": ["Dimensión", "IDENTIFICAR", "CONOCER"],
+          "filas": [
+            ["¿Qué es?", "Verificar y registrar la identidad del cliente mediante documentos oficiales", "Entender quién es el cliente, a qué se dedica, cuál es su perfil transaccional esperado y cuál es su nivel de riesgo"],
+            ["Momento", "Al inicio de la relación comercial (apertura)", "Durante toda la vigencia de la relación (proceso continuo)"],
+            ["Herramienta principal", "Expediente de identificación", "Perfil transaccional del cliente"],
+            ["Pregunta que responde", "'¿Quién eres?'", "'¿Qué haces? ¿Para qué usas tus cuentas? ¿Cuánto ganas?'"],
+            ["Proceso en la norma", "Política de Identificación del Cliente (PIC)", "Política de Conocimiento del Cliente (PCC)"],
+            ["Equivalente internacional", "Customer Identification Program (CIP)", "Customer Due Diligence (CDD) / Know Your Customer (KYC)"]
+          ]
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "Ambas políticas son complementarias e indispensables. No basta con saber el nombre y RFC de un cliente si no se conoce su actividad económica. De la misma forma, no se puede evaluar si una transacción es 'inusual' sin un perfil transaccional de referencia contra el cual comparar."
+        },
+        {
+          "tipo": "proceso",
+          "titulo": "Política de Identificación del Cliente (PIC) — Elementos obligatorios",
+          "pasos": [
+            {
+              "paso": "1. Solicitar documentación de identificación",
+              "descripcion": "Persona física: identificación oficial vigente (INE/IFE, pasaporte, cédula profesional, cartilla militar). Persona moral: acta constitutiva, poderes notariales, RFC, comprobante de domicilio de la empresa."
+            },
+            {
+              "paso": "2. Entrevista al cliente",
+              "descripcion": "Recopilación de información sobre actividad económica, origen de fondos, propósito de la relación comercial. La entrevista es obligatoria para clientes de alto riesgo."
+            },
+            {
+              "paso": "3. Comprobante de domicilio",
+              "descripcion": "Documento reciente (no mayor a 3 meses) que acredite el domicilio del cliente. Puede ser recibo de servicios, estado de cuenta bancario, etc."
+            },
+            {
+              "paso": "4. Integrar el expediente",
+              "descripcion": "Crear y mantener un expediente físico o digital con toda la documentación del cliente."
+            },
+            {
+              "paso": "5. Verificar en listas de control",
+              "descripcion": "Consultar listas de personas bloqueadas, PEPs, listas OFAC, ONU y otras aplicables."
+            },
+            {
+              "paso": "6. Actualizar periódicamente",
+              "descripcion": "El expediente debe actualizarse cuando hay cambios en la información del cliente o cuando la entidad así lo determine según el nivel de riesgo."
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La regulación distingue entre 'cliente' y 'usuario'. El cliente tiene una relación contractual continua con la entidad (cuenta, crédito, etc.). El usuario realiza operaciones ocasionales sin relación contractual permanente. Ambos requieren identificación, pero los requisitos difieren en intensidad."
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulo II (Política de Identificación); GAFI — Recomendación 10 — Debida Diligencia del Cliente",
+    "orden": 4
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Integración de expedientes — Documentos de identificación — Conservación",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Expediente del cliente: integración, documentos y conservación",
+      "cuerpo": [
+        {
+          "tipo": "lista_expandida",
+          "titulo": "Documentos de identificación aceptados — Personas Físicas",
+          "items": [
+            {
+              "documento": "Credencial para votar (INE/IFE) vigente",
+              "nota": "Documento de mayor aceptación. Debe estar vigente. Se acepta con fotografía. La versión digitalizada puede aceptarse en onboarding remoto.",
+              "preferencia": "Primera opción"
+            },
+            {
+              "documento": "Pasaporte vigente",
+              "nota": "Emitido por la SRE mexicana o por autoridad competente extranjera para clientes no residentes.",
+              "preferencia": "Primera opción"
+            },
+            {
+              "documento": "Cédula profesional",
+              "nota": "Emitida por la SEP. Acredita identidad y nivel educativo.",
+              "preferencia": "Aceptada"
+            },
+            {
+              "documento": "Cartilla del Servicio Militar Nacional",
+              "nota": "Emitida por la SEDENA. Válida para hombres.",
+              "preferencia": "Aceptada"
+            },
+            {
+              "documento": "Documento migratorio",
+              "nota": "Para personas extranjeras residentes en México. Emitido por el INM.",
+              "preferencia": "Para extranjeros"
+            }
+          ]
+        },
+        {
+          "tipo": "reglas_especiales",
+          "titulo": "Reglas especiales de identificación",
+          "items": [
+            {
+              "regla": "Tachaduras y enmendaduras",
+              "descripcion": "Los documentos de identificación con tachaduras, enmendaduras, alteraciones o que presenten daños que impidan la lectura clara de los datos NO son aceptados. La entidad debe solicitar documento alternativo o en mejores condiciones."
+            },
+            {
+              "regla": "Contrataciones remotas (digital/onboarding)",
+              "descripcion": "Las disposiciones CNBV permiten la contratación remota siempre que la entidad implemente mecanismos de verificación de identidad equivalentes a los presenciales (biometría, NIP, validación de INE con RENAPO, videollamada, etc.)."
+            },
+            {
+              "regla": "Expedientes de trabajadores del cliente",
+              "descripcion": "Cuando la entidad tiene como cliente a una empresa, también debe integrar expediente de los funcionarios que operan las cuentas y de los firmantes autorizados."
+            },
+            {
+              "regla": "Cuentas internas de entidades",
+              "descripcion": "Las cuentas que las propias entidades financieras usan para sus operaciones internas también requieren documentación que permita identificar su propósito."
+            },
+            {
+              "regla": "Grupos Financieros",
+              "descripcion": "Las entidades pertenecientes a un mismo grupo financiero pueden compartir información de expedientes, evitando duplicar el proceso de identificación para el mismo cliente."
+            },
+            {
+              "regla": "Visitas al domicilio",
+              "descripcion": "Para ciertos clientes de alto riesgo o cuando exista inconsistencia en la información, la entidad puede realizar visitas de verificación al domicilio declarado."
+            }
+          ]
+        },
+        {
+          "tipo": "conservacion",
+          "titulo": "Conservación del expediente",
+          "plazo": "10 años",
+          "descripcion": "Las entidades están obligadas a conservar el expediente de identificación del cliente durante al menos 10 años contados a partir de la terminación de la relación comercial. Esta obligación se extiende a los registros de las operaciones realizadas.",
+          "forma": "Físico o digital, siempre que sea posible su consulta y reproducción posterior.",
+          "fundamento": "Disposiciones CNBV; LFPIORPI Art. 18, fracción II"
+        },
+        {
+          "tipo": "actualizacion",
+          "titulo": "Actualización de expedientes",
+          "descripcion": "Los expedientes deben actualizarse cuando: (1) el cliente reporte cambios en sus datos, (2) la entidad detecte inconsistencias, (3) el perfil de riesgo del cliente cambie, (4) haya operaciones inusuales que requieran nueva verificación, o (5) la entidad establezca periodos de actualización sistemática según el nivel de riesgo (alto: anual; medio: cada 2 años; bajo: cada 3-5 años)."
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulo II (Política de Identificación) y capítulo IX (Conservación de documentos); LFPIORPI Art. 18",
+    "orden": 5
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Política de Conocimiento del Cliente — Perfil Transaccional — Clasificación por riesgo",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Conocimiento del cliente: perfil transaccional y clasificación de riesgo",
+      "cuerpo": [
+        {
+          "tipo": "definicion",
+          "titulo": "Perfil Transaccional del Cliente",
+          "texto": "El perfil transaccional es el parámetro de referencia que establece el comportamiento esperado de las operaciones de un cliente, basado en la información que proporcionó al abrir su relación con la entidad (actividad económica, ingresos, origen de fondos, monto y frecuencia esperados de operaciones). Es el instrumento central del monitoreo: cualquier operación que se desvíe significativamente del perfil debe analizarse como potencialmente inusual."
+        },
+        {
+          "tipo": "componentes",
+          "titulo": "Componentes del perfil transaccional",
+          "items": [
+            "Actividad económica o giro del negocio del cliente",
+            "Nivel de ingresos o facturación esperada",
+            "Origen habitual de los recursos (salario, ventas, dividendos, remesas, etc.)",
+            "Monto típico y frecuencia de las operaciones",
+            "Tipos de operaciones habituales (depósitos, retiros, transferencias, cambio de divisas)",
+            "Contrapartes habituales (nacionales, internacionales, sector)",
+            "Geografía de las operaciones (local, nacional, internacional)"
+          ]
+        },
+        {
+          "tipo": "clasificacion_riesgo",
+          "titulo": "Clasificación de clientes por grado de riesgo",
+          "descripcion": "La entidad debe asignar a cada cliente un grado de riesgo basado en criterios establecidos en sus políticas internas, alineados con las disposiciones CNBV.",
+          "grados": [
+            {
+              "grado": "BAJO",
+              "criterios": [
+                "Personas físicas asalariadas con ingresos estables y verificables",
+                "Operaciones en montos pequeños y consistentes con la actividad declarada",
+                "Sin antecedentes de operaciones inusuales",
+                "Sin vinculación con PEPs, listas de sanción o países de alto riesgo",
+                "Relación comercial de larga data sin incidentes"
+              ],
+              "diligencia": "Debida diligencia estándar (simplificada en algunos casos)"
+            },
+            {
+              "grado": "MEDIO",
+              "criterios": [
+                "Personas morales pequeñas y medianas con actividad verificable",
+                "Clientes con algunas operaciones en efectivo dentro de parámetros normales",
+                "Actividades económicas con riesgo moderado (comercio, servicios)",
+                "Operaciones ocasionales con contrapartes internacionales"
+              ],
+              "diligencia": "Debida diligencia estándar"
+            },
+            {
+              "grado": "ALTO",
+              "criterios": [
+                "Personas Políticamente Expuestas (PEPs) nacionales o extranjeras",
+                "Clientes con residencia fiscal en jurisdicciones de alto riesgo o no cooperantes",
+                "Empresas con estructura accionaria compleja u opaca",
+                "Clientes con actividades de alto riesgo PLD (casas de cambio, joyas, bienes raíces)",
+                "Clientes con antecedentes de operaciones inusuales",
+                "Fideicomisos y vehículos jurídicos complejos"
+              ],
+              "diligencia": "Debida diligencia reforzada (DDR)"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El grado de riesgo no es estático. Debe revisarse periódicamente y puede modificarse si el comportamiento del cliente cambia. Un cliente clasificado como 'bajo riesgo' puede reclasificarse como 'alto riesgo' si comienza a realizar operaciones inusuales o si se detecta su vinculación con una PEP o con una jurisdicción de alto riesgo."
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulo III (Política de Conocimiento del Cliente); GAFI — Recomendación 10 — Debida Diligencia del Cliente; Guía del GAFI sobre el Enfoque Basado en Riesgos para el Sector Bancario, 2014",
+    "orden": 6
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Debida Diligencia Reforzada — Clientes de alto riesgo — Escalamiento",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Debida Diligencia Reforzada (DDR) para clientes de alto riesgo",
+      "cuerpo": [
+        {
+          "tipo": "definicion",
+          "titulo": "¿Qué es la Debida Diligencia Reforzada?",
+          "texto": "La Debida Diligencia Reforzada (DDR) — o Enhanced Due Diligence (EDD) en inglés — es un conjunto de medidas adicionales que las entidades financieras aplican a clientes o transacciones que presentan mayor riesgo de estar vinculados con lavado de dinero o financiamiento al terrorismo. Va más allá de los procedimientos estándar de KYC."
+        },
+        {
+          "tipo": "medidas_ddr",
+          "titulo": "Medidas de Debida Diligencia Reforzada",
+          "items": [
+            {
+              "medida": "Entrevista obligatoria",
+              "descripcion": "Para clientes de alto riesgo, la entrevista no es opcional. Debe documentarse y archivarse en el expediente."
+            },
+            {
+              "medida": "Verificación del origen de fondos",
+              "descripcion": "Obtener documentación que acredite el origen legítimo de los recursos (declaraciones fiscales, estados de cuenta, contratos, escrituras, etc.)."
+            },
+            {
+              "medida": "Identificación del propietario real (beneficiario controlador)",
+              "descripcion": "Para personas morales, fideicomisos y estructuras complejas: identificar a la persona física que en última instancia controla o se beneficia, no solo al representante legal."
+            },
+            {
+              "medida": "Aprobación de alta jerarquía",
+              "descripcion": "El inicio de la relación con clientes de alto riesgo (especialmente PEPs) debe ser autorizado por un funcionario de nivel gerencial o superior, no puede ser aprobado solo por el ejecutivo de cuenta."
+            },
+            {
+              "medida": "Monitoreo intensificado",
+              "descripcion": "Las operaciones de clientes de alto riesgo se monitorean con mayor frecuencia y con umbrales de alerta más sensibles."
+            },
+            {
+              "medida": "Actualización frecuente del expediente",
+              "descripcion": "El expediente de clientes de alto riesgo debe actualizarse al menos anualmente (vs. cada 2-5 años para clientes de menor riesgo)."
+            },
+            {
+              "medida": "Búsqueda en fuentes abiertas",
+              "descripcion": "Investigación en bases de datos comerciales, medios de comunicación y fuentes públicas para detectar información negativa (adverse media)."
+            }
+          ]
+        },
+        {
+          "tipo": "escalamiento",
+          "titulo": "Escalamiento y aprobación de operaciones",
+          "descripcion": "Las disposiciones CNBV establecen que ciertas operaciones o relaciones con clientes de alto riesgo requieren aprobación de funcionarios de mayor jerarquía dentro de la entidad:",
+          "niveles": [
+            {
+              "situacion": "Inicio de relación con PEP nacional de alto nivel (Secretarios de Estado, Gobernadores, etc.)",
+              "nivel_aprobacion": "Director General o Consejo de Administración",
+              "fundamento": "GAFI — Recomendación 12"
+            },
+            {
+              "situacion": "Operaciones inusuales de alto monto en cliente de riesgo alto",
+              "nivel_aprobacion": "Oficial de Cumplimiento o Comité de Comunicación y Control",
+              "fundamento": "Disposiciones CNBV"
+            },
+            {
+              "situacion": "Renovación de relación con PEP después de dejar el cargo",
+              "nivel_aprobacion": "Alta dirección (el riesgo PEP se mantiene por 1-2 años después de dejar el cargo)",
+              "fundamento": "GAFI — Recomendación 12; Nota Interpretativa"
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulo III, sección de debida diligencia reforzada; GAFI — Recomendación 10 y 12; GAFI — Guía sobre Clientes de Alto Riesgo, 2021",
+    "orden": 7
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Propietarios Reales — Personas Políticamente Expuestas (PEP) — Lista de Personas Bloqueadas",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Figuras de alto riesgo: Propietario Real, PEPs y Lista de Bloqueados",
+      "cuerpo": [
+        {
+          "tipo": "seccion",
+          "titulo": "1. Propietario Real (Beneficiario Controlador)",
+          "contenido": [
+            {
+              "tipo": "definicion_legal",
+              "texto": "El Propietario Real es la persona física que en última instancia posee o controla a un cliente y/o la persona en cuyo nombre se realiza una transacción. Incluye también a quienes ejercen control efectivo sobre una persona jurídica a través de la titularidad, el voto u otros medios.",
+              "fundamento": "GAFI — Recomendación 10 y 24; Disposiciones CNBV"
+            },
+            {
+              "tipo": "umbral",
+              "texto": "En México, se considera que una persona física tiene el control de una persona moral cuando posee directa o indirectamente el 25% o más de las acciones o participaciones con derecho a voto, o cuando ejerce el control de la administración de la entidad independientemente del porcentaje accionario.",
+              "fundamento": "Disposiciones CNBV; Ley Antilavado (criterios)"
+            },
+            {
+              "tipo": "implicacion",
+              "texto": "La entidad financiera está obligada a identificar al propietario real de sus clientes personas morales y estructuras jurídicas (fideicomisos, asociaciones, etc.). No basta con identificar al representante legal — se debe llegar hasta la persona física detrás de la estructura."
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "2. Personas Políticamente Expuestas (PEPs)",
+          "contenido": [
+            {
+              "tipo": "definicion_legal",
+              "texto": "Las PEPs son individuos que desempeñan o han desempeñado funciones públicas prominentes, que por su posición tienen mayor riesgo de estar involucrados en actos de corrupción. Incluye tanto a PEPs nacionales como extranjeras.",
+              "fundamento": "Disposiciones CNBV; GAFI — Recomendación 12"
+            },
+            {
+              "tipo": "categorias",
+              "titulo": "Categorías de PEPs",
+              "items": [
+                {
+                  "categoria": "PEPs Nacionales",
+                  "ejemplos": ["Secretarios de Estado y subsecretarios", "Senadores y Diputados federales", "Gobernadores y presidentes municipales", "Magistrados y ministros del Poder Judicial", "Directores de organismos descentralizados y empresas productivas del Estado (Pemex, CFE)", "Funcionarios de alta jerarquía del Banco de México", "Altos mandos militares y policiales"]
+                },
+                {
+                  "categoria": "PEPs Extranjeras",
+                  "ejemplos": ["Jefes de Estado y de Gobierno extranjeros", "Ministros y secretarios de Estado de otros países", "Directivos de organismos internacionales (ONU, FMI, BM, etc.)"]
+                },
+                {
+                  "categoria": "Familiares de PEPs",
+                  "ejemplos": ["Cónyuge o concubino/a", "Hijos y sus cónyuges", "Padres"]
+                },
+                {
+                  "categoria": "Colaboradores cercanos (Associates)",
+                  "ejemplos": ["Socios de negocios conocidos", "Personas con copropiedad de personas morales", "Personas con asociación estrecha conocida públicamente"]
+                }
+              ]
+            },
+            {
+              "tipo": "tratamiento",
+              "titulo": "Tratamiento especial para PEPs",
+              "items": [
+                "Clasificación automática como cliente de ALTO riesgo",
+                "Debida diligencia reforzada obligatoria",
+                "Autorización de alta jerarquía para iniciar la relación",
+                "Monitoreo intensificado durante toda la relación",
+                "El estatus PEP se extiende a familiares y colaboradores cercanos",
+                "Después de dejar el cargo público, la condición PEP se mantiene como mínimo 1 año (muchas entidades aplican 2-3 años)"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "3. Lista de Personas Bloqueadas",
+          "contenido": [
+            {
+              "tipo": "definicion_legal",
+              "texto": "La Lista de Personas Bloqueadas es el registro que emite la Secretaría de Hacienda y Crédito Público (SHCP) con los nombres de personas físicas y morales cuyos activos deben ser congelados por estar vinculadas al terrorismo o a su financiamiento.",
+              "fundamento": "LFPIORPI Art. 2, fracción XIII; Resolución de la SHCP"
+            },
+            {
+              "tipo": "obligaciones",
+              "titulo": "Obligaciones ante un cliente en lista de bloqueados",
+              "items": [
+                "CONGELAR de inmediato todos los activos del cliente en la entidad",
+                "ABSTENERSE de realizar cualquier operación con dicho cliente",
+                "REPORTAR a la UIF dentro de las 24 horas siguientes al hallazgo",
+                "NO alertar al cliente del bloqueo (deber de reserva)",
+                "NO liberar los activos sin instrucción expresa de la SHCP"
+              ]
+            },
+            {
+              "tipo": "listas_adicionales",
+              "titulo": "Otras listas que las entidades deben consultar",
+              "items": [
+                "Lista de la ONU — Comité de Sanciones 1267/1988/2253 (Al-Qaeda, ISIS, Talibán)",
+                "Lista OFAC — Specially Designated Nationals (SDN) del Departamento del Tesoro de EUA",
+                "Lista de países y territorios con deficiencias estratégicas del GAFI (lista negra y gris)",
+                "Listas emitidas por la SHCP de forma específica"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Art. 2, fracciones XII, XIII y XIV; Disposiciones CNBV — capítulo de conocimiento del cliente; GAFI — Recomendaciones 10, 12 y 6; ONU — Resolución CS/RES/1373 (2001)",
+    "orden": 8
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Reportes: Relevantes, Inusuales, Internas Preocupantes y otros",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Sistema de reportes PLD/FT: tipos, umbrales y plazos",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El sistema de reportes es el mecanismo central mediante el cual las entidades financieras comunican a la Unidad de Inteligencia Financiera (UIF) de la SHCP las operaciones que pueden estar relacionadas con LD/FT. Existen varios tipos de reportes con características, umbrales y plazos distintos."
+        },
+        {
+          "tipo": "tabla_reportes",
+          "titulo": "Tipos de reportes ante la UIF",
+          "reportes": [
+            {
+              "tipo": "Operaciones Relevantes (OR)",
+              "criterio": "MONTO — operaciones en efectivo, metales preciosos o divisas que igualen o superen los umbrales establecidos, independientemente de si son sospechosas o no",
+              "umbral_banca": "$7,500 USD o su equivalente en otras divisas (para depósitos/retiros en efectivo en banca)",
+              "plazo": "A más tardar el día 17 del mes siguiente al que se realizó la operación",
+              "caracter": "OBLIGATORIO — no requiere juicio de valor, solo superar el umbral",
+              "fundamento": "LIC Art. 115; Disposiciones CNBV — capítulo de reportes"
+            },
+            {
+              "tipo": "Operaciones Inusuales (OI)",
+              "criterio": "SOSPECHA — operaciones que se aparten del perfil transaccional del cliente, carezcan de justificación económica aparente, o que por cualquier otra razón el personal de la entidad considere que podrían estar relacionadas con LD/FT",
+              "umbral_banca": "No hay umbral de monto — cualquier monto puede ser inusual",
+              "plazo": "A más tardar el día 60 siguiente a que la entidad tuvo conocimiento de la operación",
+              "caracter": "OBLIGATORIO cuando se identifica — requiere juicio de valor del oficial de cumplimiento",
+              "fundamento": "LIC Art. 115; Disposiciones CNBV — capítulo de reportes"
+            },
+            {
+              "tipo": "Operaciones Internas Preocupantes (OIP)",
+              "criterio": "CONDUCTA DEL PERSONAL — operaciones o conductas del personal de la propia entidad que generen sospecha de participación en LD/FT",
+              "umbral_banca": "No hay umbral — cualquier conducta sospechosa del personal",
+              "plazo": "A más tardar el día 60 siguiente al conocimiento",
+              "caracter": "OBLIGATORIO — aplica para detectar amenaza interna",
+              "fundamento": "Disposiciones CNBV — capítulo de reportes"
+            },
+            {
+              "tipo": "Reporte de Operaciones en Efectivo con Dólares (DÓLARES)",
+              "criterio": "Operaciones de compra o venta de dólares en efectivo",
+              "umbral_banca": "Depende del sector: casas de cambio tienen umbrales específicos",
+              "plazo": "Según disposiciones sectoriales",
+              "caracter": "OBLIGATORIO según umbral",
+              "fundamento": "Disposiciones CNBV para casas de cambio e instituciones de crédito"
+            },
+            {
+              "tipo": "Reporte de Operaciones con Cheques de Caja",
+              "criterio": "Emisión o cobro de cheques de caja en efectivo que superen umbrales",
+              "umbral_banca": "$7,500 USD o equivalente",
+              "plazo": "Mes siguiente",
+              "caracter": "OBLIGATORIO",
+              "fundamento": "Disposiciones CNBV para instituciones de crédito"
+            },
+            {
+              "tipo": "Reporte de Transferencias Internacionales",
+              "criterio": "Transferencias de fondos hacia o desde el extranjero",
+              "umbral_banca": "$1,000 USD o su equivalente (umbral bajo para mayor vigilancia)",
+              "plazo": "Mes siguiente",
+              "caracter": "OBLIGATORIO según umbral",
+              "fundamento": "Disposiciones CNBV"
+            },
+            {
+              "tipo": "Reporte de Operaciones con Activos Virtuales",
+              "criterio": "Operaciones con criptomonedas u otros activos virtuales",
+              "umbral": "Establecido en disposiciones FinTech",
+              "plazo": "Según disposiciones FinTech",
+              "caracter": "OBLIGATORIO para ITF habilitadas",
+              "fundamento": "Ley FinTech Art. 58; Disposiciones CNBV para ITF"
+            }
+          ]
+        },
+        {
+          "tipo": "deber_reserva",
+          "titulo": "Deber de reserva — Prohibición de alertar al cliente",
+          "texto": "Una vez que la entidad ha presentado o ha decidido presentar un reporte ante la UIF, está terminantemente prohibido informar al cliente, a sus representantes o a cualquier tercero que se realizó o se está por realizar el reporte. Esta obligación se denomina 'deber de reserva' o 'tipping-off prohibition'. Su violación es sancionable administrativamente y puede constituir obstaculización a la justicia.",
+          "fundamento": "LFPIORPI Art. 17, fracción VII; Disposiciones CNBV"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Diferencia clave OR vs OI: las Operaciones Relevantes se reportan por MONTO (objetivo, automático). Las Operaciones Inusuales se reportan por SOSPECHA (subjetivo, requiere análisis). Una operación puede generar ambos reportes simultáneamente si supera el umbral Y es sospechosa."
+        }
+      ]
+    },
+    "fuente_detallada": "LIC Art. 115, fracciones I a VI; Disposiciones de carácter general CNBV para instituciones de crédito, capítulo de reportes; GAFI — Recomendación 20 (Reporte de Operaciones Sospechosas) y 21 (Tipping-off)",
+    "orden": 9
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Monitoreo de efectivo — Operaciones fraccionadas — Cheques de viajero",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Monitoreo de efectivo y operaciones especiales",
+      "cuerpo": [
+        {
+          "tipo": "seccion",
+          "titulo": "Monitoreo de efectivo",
+          "contenido": [
+            {
+              "tipo": "parrafo",
+              "texto": "El efectivo es el instrumento de mayor riesgo en la etapa de colocación del lavado de dinero. Por ello, las disposiciones CNBV establecen controles especiales para las operaciones en efectivo, con independencia de los reportes obligatorios por umbral."
+            },
+            {
+              "tipo": "lista",
+              "items": [
+                "Las entidades deben llevar un registro detallado de todas las operaciones en efectivo, independientemente del monto",
+                "Se deben implementar sistemas automatizados capaces de detectar patrones de estructuración (depósitos fraccionados en el mismo día, misma semana, o periodos definidos)",
+                "El personal de ventanilla debe estar capacitado para detectar señales de alerta en operaciones en efectivo",
+                "Las operaciones inusuales en efectivo deben escalarse al Oficial de Cumplimiento aunque no superen el umbral de reporte"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Operaciones fraccionadas (estructuración)",
+          "contenido": [
+            {
+              "tipo": "definicion",
+              "texto": "La estructuración o fraccionamiento consiste en dividir una operación grande en varias operaciones menores, realizadas en el mismo día o en días consecutivos, con el objetivo de mantenerse por debajo del umbral de reporte obligatorio. Esta práctica es ilegal y constituye por sí misma una señal de alerta."
+            },
+            {
+              "tipo": "ejemplo",
+              "texto": "Una persona que necesita depositar $200,000 pesos en efectivo lo divide en 3 depósitos de $66,000 pesos en la misma sucursal el mismo día, o en sucursales diferentes. El sistema de monitoreo debe detectar estos patrones y generar una alerta para análisis."
+            },
+            {
+              "tipo": "indicadores",
+              "titulo": "Indicadores de posible estructuración",
+              "items": [
+                "Múltiples depósitos en efectivo en el mismo día por importes similares",
+                "Depósitos en varias sucursales el mismo día",
+                "Depósitos realizados por varias personas distintas a la misma cuenta (complicidad)",
+                "Montos consistentemente $500 o $1,000 por debajo del umbral de reporte",
+                "Incremento súbito en la frecuencia de depósitos en efectivo"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Cheques de viajero",
+          "contenido": [
+            {
+              "tipo": "parrafo",
+              "texto": "Los cheques de viajero han sido históricamente utilizados en esquemas de lavado por su portabilidad, negociabilidad y (antes) relativo anonimato. La regulación mexicana establece controles específicos para su emisión y cobro."
+            },
+            {
+              "tipo": "controles",
+              "items": [
+                "La emisión de cheques de viajero por montos que igualen o superen $7,500 USD requiere identificación completa del comprador",
+                "El cobro de cheques de viajero en efectivo por montos significativos requiere identificación del beneficiario",
+                "Las instituciones deben registrar y reportar las operaciones con cheques de viajero que superen los umbrales establecidos",
+                "El pago de cheques de viajero emitidos por entidades extranjeras de jurisdicciones de alto riesgo requiere especial atención"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Operaciones con dólares de los EUA",
+          "contenido": [
+            {
+              "tipo": "parrafo",
+              "texto": "Dada la frontera compartida de México con Estados Unidos, las operaciones con dólares en efectivo tienen controles especiales. La CNBV ha establecido disposiciones específicas para la recepción de dólares en efectivo, con umbrales diferenciados por tipo de entidad y ubicación geográfica."
+            },
+            {
+              "tipo": "reglas_clave",
+              "items": [
+                "Instituciones de crédito: pueden recibir dólares en efectivo con límites establecidos por zona geográfica (mayores en ciudades fronterizas)",
+                "Casas de cambio: pueden operar con dólares en efectivo con umbrales específicos de reporte",
+                "Todo el efectivo en dólares recibido debe registrarse y reportarse a la CNBV mensualmente mediante el 'Reporte de Montos Totales de Divisas'",
+                "Las entidades deben implementar procedimientos para verificar la autenticidad de los billetes"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulo de monitoreo y reportes; Disposiciones CNBV para casas de cambio; Circular 4/2012 del Banco de México sobre operaciones con dólares en efectivo",
+    "orden": 10
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Estructuras internas: Comité de Comunicación y Control — Oficial de Cumplimiento",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Estructura interna de cumplimiento PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "La regulación CNBV exige que las entidades financieras cuenten con una estructura interna dedicada a la prevención del LD/FT. Los dos pilares son el Comité de Comunicación y Control (CCC) y el Oficial de Cumplimiento."
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Comité de Comunicación y Control (CCC)",
+          "contenido": [
+            {
+              "tipo": "definicion",
+              "texto": "El CCC es el órgano colegiado interno de la entidad responsable de supervisar el programa PLD/FT, tomar decisiones sobre reportes de operaciones inusuales y definir las políticas de cumplimiento."
+            },
+            {
+              "tipo": "integracion",
+              "titulo": "Integración del CCC",
+              "items": [
+                "Debe estar presidido por un miembro del Consejo de Administración o el Director General",
+                "Debe incluir al Oficial de Cumplimiento (quien generalmente funge como Secretario)",
+                "Debe incluir a representantes de las áreas de mayor riesgo: operaciones, crédito, jurídico, auditoría, tecnología",
+                "La composición exacta varía según el tamaño y tipo de entidad"
+              ]
+            },
+            {
+              "tipo": "funciones",
+              "titulo": "Funciones del CCC",
+              "items": [
+                "Definir y aprobar las políticas y procedimientos PLD/FT de la entidad",
+                "Conocer y resolver sobre los casos de operaciones inusuales escalados por el Oficial de Cumplimiento",
+                "Autorizar o negar el inicio de relaciones comerciales con clientes de alto riesgo",
+                "Aprobar la presentación de reportes ante la UIF",
+                "Supervisar el programa de capacitación",
+                "Dar seguimiento a las recomendaciones de auditoría en materia PLD/FT",
+                "Sesionar con la periodicidad establecida en sus estatutos (generalmente mensual)"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Oficial de Cumplimiento",
+          "contenido": [
+            {
+              "tipo": "definicion_legal",
+              "texto": "El Oficial de Cumplimiento es el funcionario de la entidad responsable de coordinar y supervisar el cumplimiento del programa PLD/FT, actuar como enlace ante la UIF y las autoridades supervisoras, y presentar los reportes correspondientes.",
+              "fundamento": "Disposiciones CNBV — capítulo de estructura interna"
+            },
+            {
+              "tipo": "requisitos",
+              "titulo": "Requisitos del Oficial de Cumplimiento",
+              "items": [
+                "Debe ser designado formalmente por el Consejo de Administración",
+                "Debe tener el nivel jerárquico suficiente para acceder a información de todas las áreas",
+                "Debe contar con conocimientos en materia PLD/FT (la certificación CNBV es el estándar de referencia)",
+                "Debe ser empleado de tiempo completo en entidades de mayor tamaño",
+                "Su identidad debe ser notificada a la CNBV",
+                "No puede desempeñar funciones operativas que generen conflicto de interés (ej.: no puede ser jefe de operaciones simultáneamente en entidades grandes)"
+              ]
+            },
+            {
+              "tipo": "funciones",
+              "titulo": "Funciones del Oficial de Cumplimiento",
+              "items": [
+                "Recibir y analizar los reportes internos de posibles operaciones inusuales del personal",
+                "Tomar la decisión de reportar o no reportar ante la UIF (o escalar al CCC)",
+                "Presentar los reportes ante la UIF mediante el sistema habilitado (SUAdeO u otros)",
+                "Capacitar y sensibilizar al personal en materia PLD/FT",
+                "Mantener actualizado el Manual PLD/FT",
+                "Coordinar con auditoría interna y externa",
+                "Ser el punto de contacto ante la CNBV en visitas de supervisión",
+                "Elaborar informes periódicos para el CCC y el Consejo de Administración"
+              ]
+            },
+            {
+              "tipo": "proteccion",
+              "titulo": "Protección del Oficial de Cumplimiento",
+              "texto": "El Oficial de Cumplimiento que, de buena fe, presente reportes ante la UIF no incurre en responsabilidad civil, penal ni administrativa, aunque posteriormente se determine que la operación no estaba relacionada con LD/FT. Esta protección es fundamental para fomentar el reporte sin temor a represalias.",
+              "fundamento": "LFPIORPI Art. 19; Disposiciones CNBV"
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulo de estructura interna; LFPIORPI Art. 19; GAFI — Recomendación 18 (Controles Internos)",
+    "orden": 11
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Auditor interno y externo — Capacitación — Selección de personal — Reserva",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Auditoría, capacitación y selección de personal en el régimen PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "seccion",
+          "titulo": "Auditoría en materia PLD/FT",
+          "contenido": [
+            {
+              "tipo": "parrafo",
+              "texto": "El programa PLD/FT de la entidad debe ser sometido a revisión por el área de auditoría interna y por un auditor externo independiente. Esto garantiza la objetividad en la evaluación del programa."
+            },
+            {
+              "tipo": "tabla",
+              "columnas": ["Dimensión", "Auditoría Interna", "Auditoría Externa Independiente"],
+              "filas": [
+                ["Quién realiza", "Área de auditoría de la propia entidad", "Despacho externo independiente contratado"],
+                ["Periodicidad", "Según plan anual de auditoría", "Al menos una vez al año"],
+                ["Alcance", "Revisión continua de todos los aspectos del programa", "Evaluación integral del programa PLD/FT"],
+                ["Resultado", "Informe interno con hallazgos y recomendaciones", "Informe de auditoría PLD/FT para el CCC y el Consejo"],
+                ["Uso por CNBV", "Insumo en visitas de supervisión", "Referencia en evaluación supervisora"]
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Capacitación del personal",
+          "contenido": [
+            {
+              "tipo": "obligaciones_capacitacion",
+              "items": [
+                "La capacitación en materia PLD/FT es OBLIGATORIA para TODO el personal, no solo para el área de cumplimiento",
+                "Debe realizarse al menos una vez al año (programa anual de capacitación)",
+                "El contenido debe adaptarse al rol del empleado: personal de ventanilla recibe capacitación en señales de alerta operativas; directivos reciben capacitación en obligaciones legales y responsabilidades",
+                "Debe documentarse la asistencia y el contenido de cada sesión de capacitación",
+                "La capacitación debe actualizarse cuando hay cambios regulatorios relevantes",
+                "El personal de nuevo ingreso debe recibir capacitación PLD/FT antes de iniciar sus funciones",
+                "La certificación CNBV (examen de PLD/FT) es un estándar de conocimiento para el Oficial de Cumplimiento y personal especializado"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Procedimiento de selección de personal",
+          "contenido": [
+            {
+              "tipo": "parrafo",
+              "texto": "La contratación de personal adecuado es parte del programa PLD/FT. Las disposiciones CNBV establecen que las entidades deben contar con un procedimiento de selección que ayude a identificar riesgos de integridad antes de la contratación."
+            },
+            {
+              "tipo": "elementos",
+              "items": [
+                "Verificación de referencias laborales y personales",
+                "Consulta en listas de personas con antecedentes penales o administrativos (cuando sea legalmente posible)",
+                "Verificación de autenticidad de documentos académicos y de experiencia",
+                "Entrevistas estructuradas que evalúen integridad y valores",
+                "El proceso es especialmente riguroso para puestos sensibles: Oficial de Cumplimiento, gerentes de operaciones, ejecutivos de cuenta con clientes de alto riesgo"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Reserva y confidencialidad de la información",
+          "contenido": [
+            {
+              "tipo": "definicion",
+              "texto": "La obligación de reserva (o 'tipping-off prohibition') prohíbe a la entidad y a su personal revelar a cualquier persona (incluyendo el propio cliente) que se ha presentado un reporte de operación inusual, relevante o de cualquier tipo ante la UIF.",
+              "fundamento": "LFPIORPI Art. 17, fracción VII; GAFI — Recomendación 21"
+            },
+            {
+              "tipo": "alcance",
+              "items": [
+                "La prohibición aplica a TODOS los empleados que tengan conocimiento del reporte",
+                "Aplica tanto antes como después de presentar el reporte",
+                "Se extiende a la existencia de investigaciones internas relacionadas",
+                "La violación puede constituir un delito penal",
+                "El personal puede decirle al cliente que 'no puede proceder con la operación' sin revelar el motivo real"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulos de auditoría, capacitación y selección de personal; LFPIORPI Art. 17, fracción VII y Art. 19; GAFI — Recomendaciones 18 y 21",
+    "orden": 12
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Sistemas automatizados — Transmisores de dinero — Ley FinTech",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Tecnología en el cumplimiento PLD/FT: sistemas, transmisores y FinTech",
+      "cuerpo": [
+        {
+          "tipo": "seccion",
+          "titulo": "Sistemas automatizados de monitoreo",
+          "contenido": [
+            {
+              "tipo": "parrafo",
+              "texto": "Las entidades de mayor tamaño están obligadas a contar con sistemas automatizados capaces de procesar grandes volúmenes de transacciones y detectar patrones anómalos. Estos sistemas son el núcleo tecnológico del programa PLD/FT."
+            },
+            {
+              "tipo": "funcionalidades",
+              "titulo": "Funcionalidades mínimas requeridas",
+              "items": [
+                "Detección de operaciones que superen umbrales de reporte (OR)",
+                "Detección de patrones de estructuración (fraccionamiento de operaciones)",
+                "Comparación de operaciones contra el perfil transaccional del cliente",
+                "Consulta automática de listas de personas bloqueadas, PEPs y listas de sanción",
+                "Generación de alertas para análisis por el Oficial de Cumplimiento",
+                "Generación automática de reportes para la UIF en los formatos establecidos",
+                "Conservación y consulta de registros históricos de operaciones"
+              ]
+            },
+            {
+              "tipo": "dato_clave",
+              "texto": "Las disposiciones CNBV permiten que entidades de menor tamaño (SOCAP, SOFIPO pequeñas) implementen sistemas proporcionales a su escala de operación, sin exigir plataformas tecnológicas de alto costo."
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Transmisores de Dinero",
+          "contenido": [
+            {
+              "tipo": "definicion_legal",
+              "texto": "Los transmisores de dinero son entidades autorizadas para realizar transferencias de fondos nacionales e internacionales, incluyendo el negocio de remesas. Su regulación PLD/FT es especialmente relevante por el alto volumen de operaciones en efectivo y las transferencias internacionales.",
+              "fundamento": "LGOAAC Art. 82-H; Disposiciones CNBV específicas para transmisores"
+            },
+            {
+              "tipo": "obligaciones_especificas",
+              "items": [
+                "Registro obligatorio ante la CNBV antes de operar",
+                "Identificación del ordenante Y del beneficiario en cada operación",
+                "Reportes específicos de transferencias que superen umbrales",
+                "La 'Regla de Viaje' del GAFI (Rec. 16): deben transmitir información del ordenante y beneficiario junto con cada transferencia",
+                "Verificación de las operaciones contra listas de sanción en tiempo real"
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Ley FinTech y obligaciones PLD/FT",
+          "contenido": [
+            {
+              "tipo": "contexto",
+              "texto": "La Ley para Regular las Instituciones de Tecnología Financiera (Ley FinTech), publicada en 2018, creó dos nuevos tipos de entidades reguladas: las Instituciones de Fondos de Pago Electrónico (IFPE) y las Instituciones de Financiamiento Colectivo (IFC). Ambas están sujetas al régimen PLD/FT.",
+              "fundamento": "Ley FinTech Art. 58; DOF 09/03/2018"
+            },
+            {
+              "tipo": "tipos_entidades",
+              "items": [
+                {
+                  "tipo": "IFPE (Instituciones de Fondos de Pago Electrónico)",
+                  "descripcion": "Emiten y administran fondos de pago electrónico (monederos electrónicos, pagos digitales). Equivalentes a e-money institutions en el estándar internacional.",
+                  "riesgo_pld": "Alto — muchas operaciones, potencial anonimato, velocidad"
+                },
+                {
+                  "tipo": "IFC (Instituciones de Financiamiento Colectivo / Crowdfunding)",
+                  "descripcion": "Plataformas que conectan a solicitantes de fondos con inversionistas. Incluye deuda, capital y copropiedad.",
+                  "riesgo_pld": "Medio-Alto — flujos de fondos de múltiples fuentes"
+                }
+              ]
+            },
+            {
+              "tipo": "activos_virtuales",
+              "titulo": "Activos virtuales y Ley FinTech",
+              "texto": "La Ley FinTech reconoce los activos virtuales como una realidad económica y establece que solo las ITF autorizadas expresamente por Banco de México pueden operar con activos virtuales. Las operaciones con activos virtuales que superen las 645 UMAs deben reportarse ante la UIF.",
+              "fundamento": "Ley FinTech Art. 30 y 58; Circular Banxico 4/2019"
+            },
+            {
+              "tipo": "modelos_novedosos",
+              "titulo": "Modelos Novedosos (Sandbox regulatorio)",
+              "texto": "La Ley FinTech crea un régimen de 'modelo novedoso' que permite a empresas innovadoras probar productos financieros bajo condiciones controladas y supervisión especial. Las entidades en modelo novedoso también están sujetas a obligaciones PLD/FT proporcionales a su escala.",
+              "fundamento": "Ley FinTech Art. 73-80"
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Ley FinTech Arts. 30, 58 y 73-80; LGOAAC Art. 82-H; Disposiciones CNBV para transmisores de dinero; GAFI — Recomendación 15 (Activos virtuales) y Recomendación 16 (Regla de Viaje); Circular Banco de México 4/2019",
+    "orden": 13
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Fideicomisos — Tipos de personas — Intercambio de información",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Fideicomisos, tipos de personas e intercambio de información",
+      "cuerpo": [
+        {
+          "tipo": "seccion",
+          "titulo": "Fideicomisos y PLD/FT",
+          "contenido": [
+            {
+              "tipo": "introduccion",
+              "texto": "Los fideicomisos son vehículos jurídicos de alto riesgo PLD/FT porque pueden utilizarse para ocultar la identidad del beneficiario real y para introducir o mover recursos ilícitos. La regulación establece obligaciones específicas para la entidad fiduciaria (banco o institución financiera que administra el fideicomiso)."
+            },
+            {
+              "tipo": "partes_fideicomiso",
+              "titulo": "Partes del fideicomiso y obligaciones de identificación",
+              "items": [
+                {
+                  "parte": "Fideicomitente",
+                  "rol": "Quien constituye el fideicomiso y aporta los bienes",
+                  "obligacion": "Identificación completa — expediente con documentación oficial"
+                },
+                {
+                  "parte": "Fiduciaria",
+                  "rol": "La institución financiera que administra el fideicomiso (siempre una entidad regulada)",
+                  "obligacion": "Responsable de cumplir todas las obligaciones PLD/FT del fideicomiso"
+                },
+                {
+                  "parte": "Fideicomisario",
+                  "rol": "El beneficiario del fideicomiso",
+                  "obligacion": "Identificación obligatoria — puede ser persona física o moral"
+                },
+                {
+                  "parte": "Comité técnico / Representante",
+                  "rol": "Quien da instrucciones a la fiduciaria",
+                  "obligacion": "Identificación y verificación de poderes"
+                }
+              ]
+            },
+            {
+              "tipo": "dato_clave",
+              "texto": "Los fideicomisos se clasifican automáticamente como clientes de ALTO RIESGO cuando el fideicomitente o fideicomisario no puede ser claramente identificado, cuando la estructura tiene capas múltiples de personas morales, o cuando el propósito no es claro."
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Tipos de personas: Persona física vs. Persona moral",
+          "contenido": [
+            {
+              "tipo": "cuadro_comparativo",
+              "columnas": ["Dimensión", "Persona Física", "Persona Moral"],
+              "filas": [
+                ["Definición", "Ser humano individualmente considerado", "Entidad jurídica creada por la voluntad de dos o más personas (empresa, asociación, etc.)"],
+                ["Identificación", "ID oficial vigente + CURP + RFC", "Acta constitutiva + RFC + poderes del representante + identificación del representante"],
+                ["Propietario real", "Es la persona física misma", "Debe identificarse la persona física que la controla (≥25% o control efectivo)"],
+                ["Riesgo inherente", "Generalmente menor", "Mayor — capas de opacidad potencial"],
+                ["Debida diligencia", "Estándar (salvo PEP o alto riesgo)", "Siempre más intensa que para persona física"],
+                ["Ejemplos", "Clientes individuales, empresarios individuales", "Empresas SA, SC, AC, SPR, fideicomisos, cooperativas"]
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "seccion",
+          "titulo": "Intercambio de información entre entidades",
+          "contenido": [
+            {
+              "tipo": "tabla",
+              "titulo": "¿Cuándo pueden las entidades compartir información de PLD?",
+              "columnas": ["Supuesto", "¿Puede compartirse?", "Condición"],
+              "filas": [
+                ["Entidades del mismo Grupo Financiero", "SÍ", "Siempre que sea para fines de PLD/FT y con acuerdo de confidencialidad"],
+                ["Entidades nacionales distintas sin relación de grupo", "SÍ, limitado", "Solo para verificar identidad o para gestión de riesgo compartido, bajo las condiciones de las disposiciones"],
+                ["Entidades extranjeras (instituciones de crédito)", "SÍ, con restricciones", "Dentro del grupo financiero internacional, sujeto a convenios y estándares equivalentes de confidencialidad"],
+                ["Entidades extranjeras (ITF / FinTech)", "SÍ, con restricciones específicas", "Ley FinTech Art. 87 establece condiciones específicas"],
+                ["Con autoridades (UIF, CNBV, PGR/FGR)", "SÍ, obligatorio", "Ante requerimiento formal de autoridad competente"],
+                ["Con el cliente sobre sus propios datos", "SÍ, normalmente", "EXCEPTO cuando exista un reporte de operación inusual activo — entonces aplica deber de reserva"]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito, capítulo de identificación de fideicomisos y personas morales; Ley FinTech Art. 87; GAFI — Recomendación 24 (Transparencia de personas jurídicas) y 25 (Fidecomisos)",
+    "orden": 14
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Infracciones y sanciones en materia de PLD/FT — Proceso sancionatorio CNBV",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Infracciones, sanciones y proceso sancionatorio de la CNBV",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El incumplimiento de las obligaciones PLD/FT por parte de las entidades financieras reguladas puede resultar en sanciones administrativas impuestas por la CNBV, con independencia de las responsabilidades penales que pudieran derivarse."
+        },
+        {
+          "tipo": "tipos_infracciones",
+          "titulo": "Consideraciones de incumplimiento — Infracciones graves",
+          "infracciones": [
+            {
+              "infraccion": "No presentar reportes obligatorios (OR, OI, OIP) en tiempo y forma",
+              "calificacion": "Grave",
+              "sancion_tipica": "Multa hasta 100,000 días de salario mínimo general"
+            },
+            {
+              "infraccion": "No contar con el Oficial de Cumplimiento designado o sin notificar a la CNBV",
+              "calificacion": "Grave",
+              "sancion_tipica": "Multa hasta 50,000 días de salario mínimo"
+            },
+            {
+              "infraccion": "No integrar expedientes de identificación de clientes",
+              "calificacion": "Grave",
+              "sancion_tipica": "Multa hasta 100,000 días de salario mínimo"
+            },
+            {
+              "infraccion": "No contar con sistema automatizado de monitoreo (para entidades obligadas)",
+              "calificacion": "Grave",
+              "sancion_tipica": "Multa hasta 50,000 días de salario mínimo"
+            },
+            {
+              "infraccion": "Revelar a un cliente que ha sido objeto de un reporte (violación del deber de reserva)",
+              "calificacion": "Muy Grave — puede tener consecuencias penales",
+              "sancion_tipica": "Multa elevada + posible inhabilitación"
+            },
+            {
+              "infraccion": "No contar con Manual PLD/FT actualizado",
+              "calificacion": "Moderada",
+              "sancion_tipica": "Multa hasta 30,000 días de salario mínimo"
+            },
+            {
+              "infraccion": "No ejecutar el programa de capacitación anual",
+              "calificacion": "Moderada",
+              "sancion_tipica": "Multa hasta 30,000 días de salario mínimo"
+            }
+          ]
+        },
+        {
+          "tipo": "proceso_sancionatorio",
+          "titulo": "Proceso para imposición de sanciones por la CNBV",
+          "pasos": [
+            {
+              "paso": "1. Visita de inspección o supervisión",
+              "descripcion": "La CNBV realiza visita de inspección (ordinaria o especial) o supervisión extramuros. Detecta posibles incumplimientos."
+            },
+            {
+              "paso": "2. Formulación de cargos",
+              "descripcion": "La CNBV notifica formalmente a la entidad los presuntos incumplimientos detectados, con fundamento jurídico."
+            },
+            {
+              "paso": "3. Audiencia de la entidad",
+              "descripcion": "La entidad tiene derecho a audiencia para presentar pruebas y argumentos de defensa (garantía de audiencia — Art. 14 Constitucional)."
+            },
+            {
+              "paso": "4. Resolución de la CNBV",
+              "descripcion": "La CNBV emite resolución determinando si procede la sanción y su monto."
+            },
+            {
+              "paso": "5. Recursos legales",
+              "descripcion": "La entidad puede impugnar la resolución mediante recurso de revisión ante la propia CNBV o mediante juicio de nulidad ante el TFJFA (Tribunal Federal de Justicia Fiscal y Administrativa)."
+            }
+          ]
+        },
+        {
+          "tipo": "criterios_sancion",
+          "titulo": "Criterios para graduar la severidad de la sanción",
+          "items": [
+            "La intencionalidad o negligencia del infractor",
+            "El tiempo que duró el incumplimiento",
+            "El daño causado o el riesgo generado",
+            "El historial de cumplimiento de la entidad (reincidencia agrava la sanción)",
+            "Las medidas correctivas adoptadas voluntariamente",
+            "El tamaño y capacidad económica de la entidad",
+            "La cooperación con las autoridades durante la investigación"
+          ]
+        },
+        {
+          "tipo": "sanciones_personales",
+          "titulo": "Sanciones al personal directivo",
+          "texto": "Además de las sanciones a la entidad como persona moral, la CNBV puede imponer sanciones directamente a los consejeros, directivos y funcionarios responsables: inhabilitación para ejercer cargos en el sistema financiero por periodos de 1 a 10 años, y multas personales. El Oficial de Cumplimiento que actuó de buena fe está protegido.",
+          "fundamento": "LIC Art. 108-bis; Disposiciones CNBV"
+        }
+      ]
+    },
+    "fuente_detallada": "LIC Art. 108 y 115; Disposiciones de carácter general CNBV para instituciones de crédito, capítulo de sanciones; LFPIORPI Art. 52-58 (sanciones para actividades vulnerables)",
+    "orden": 15
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Resumen del Bloque 5 — Manual PLD/FT — Transmisión accionaria",
+    "tipo": "resumen",
+    "contenido": {
+      "titulo": "Puntos clave para el examen CNBV — Bloque 5",
+      "puntos_clave": [
+        "El régimen PLD/FT aplica a todas las entidades del sistema financiero mexicano, cada una bajo sus disposiciones sectoriales específicas emitidas por la CNBV.",
+        "IDENTIFICAR ≠ CONOCER: identificar es saber quién es el cliente (expediente); conocer es entender su perfil transaccional y nivel de riesgo (política de conocimiento).",
+        "Los tres grados de riesgo son: Bajo, Medio y Alto. Las PEPs siempre son Alto riesgo y requieren Debida Diligencia Reforzada (DDR).",
+        "El Oficial de Cumplimiento debe ser designado por el Consejo de Administración, notificado a la CNBV, y tiene protección legal si reporta de buena fe.",
+        "El CCC (Comité de Comunicación y Control) es el órgano colegiado que supervisa el programa PLD/FT y toma decisiones sobre reportes inusuales.",
+        "Tipos de reporte: OR (por monto, automático, umbral $7,500 USD en banca), OI (por sospecha, 60 días), OIP (conducta del personal, 60 días).",
+        "El deber de reserva prohíbe informar al cliente que fue reportado ante la UIF. Su violación es sancionable.",
+        "La conservación de expedientes y registros es obligatoria por 10 años desde el fin de la relación comercial.",
+        "La estructuración (pitufeo) — dividir operaciones para evadir umbrales — es ilegal y señal de alerta por sí misma.",
+        "Las PEPs incluyen a la persona en el cargo, sus familiares directos y sus colaboradores cercanos. El estatus se mantiene al menos 1 año después de dejar el cargo.",
+        "La Ley FinTech de 2018 creó las IFPE e IFC, ambas sujetas al régimen PLD/FT con enfoque especial en activos virtuales.",
+        "Las sanciones de la CNBV pueden recaer sobre la entidad (multas millonarias) y sobre sus directivos personalmente (inhabilitación)."
+      ],
+      "mapa_mental_temas": [
+        "Entidades sujetas → Sistema financiero completo",
+        "Pilares → KYC + Monitoreo + Reportes + Estructura interna + Conservación",
+        "Identificación → Expediente + Documentos + Actualización 10 años",
+        "Conocimiento → Perfil transaccional + Clasificación de riesgo",
+        "DDR → PEPs + Propietario real + Alto riesgo",
+        "Reportes → OR (monto) + OI (sospecha) + OIP (personal)",
+        "Estructura → Oficial Cumplimiento + CCC + Auditoría + Capacitación",
+        "Tecnología → Sistemas automatizados + FinTech + Activos virtuales",
+        "Sanciones → Multas CNBV + Inhabilitación personal"
+      ],
+      "preguntas_tipicas_examen": [
+        "¿Cuál es la diferencia entre identificar y conocer al cliente?",
+        "¿Qué es una Persona Políticamente Expuesta (PEP) y qué tratamiento especial recibe?",
+        "¿Cuál es el umbral para reportar una Operación Relevante en banca múltiple?",
+        "¿En qué plazo debe presentarse un reporte de Operación Inusual ante la UIF?",
+        "¿Qué es el deber de reserva y qué consecuencias tiene su violación?",
+        "¿Quién designa al Oficial de Cumplimiento y a quién debe notificarse?",
+        "¿Cuánto tiempo deben conservarse los expedientes de clientes?",
+        "¿Qué es la debida diligencia reforzada y cuándo aplica?",
+        "¿Cuál es la diferencia entre OR y OI?",
+        "¿Qué es el CCC y cuáles son sus principales funciones?"
+      ]
+    },
+    "fuente_detallada": "LIC Art. 115; Disposiciones de carácter general CNBV para instituciones de crédito (texto completo); GAFI — Recomendaciones 10, 11, 12, 16, 18, 20, 21 y 24; Ley FinTech Art. 58",
+    "orden": 16
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Entidades financieras y personas sujetas al régimen de PLD/FT",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Mapa del sistema de obligaciones PLD/FT en el sistema financiero mexicano",
+      "tipo_diagrama": "jerarquico",
+      "descripcion": "Estructura de actores, obligaciones y flujo de información en el régimen PLD/FT mexicano",
+      "nivel_superior": {
+        "nodo": "SHCP / UIF",
+        "descripcion": "Receptora de reportes, emisora de lista de bloqueados, política nacional PLD"
+      },
+      "nivel_regulador": [
+        {"nodo": "CNBV", "descripcion": "Regula y supervisa entidades financieras"},
+        {"nodo": "CNSF", "descripcion": "Supervisa aseguradoras"},
+        {"nodo": "Banxico", "descripcion": "Regula activos virtuales (FinTech)"}
+      ],
+      "nivel_entidades": [
+        "Banca Múltiple",
+        "Banca de Desarrollo",
+        "Casas de Bolsa",
+        "SOCAP / SOFIPO / SOFINCO",
+        "Casas de Cambio",
+        "Transmisores de Dinero",
+        "ITF (IFPE / IFC)",
+        "SOFOMES",
+        "Aseguradoras"
+      ],
+      "flujos_informacion": [
+        {"de": "Entidades", "a": "UIF", "tipo": "Reportes OR, OI, OIP y especiales"},
+        {"de": "CNBV", "a": "Entidades", "tipo": "Disposiciones, circulares, visitas de supervisión"},
+        {"de": "UIF", "a": "Entidades", "tipo": "Lista de personas bloqueadas, retroalimentación"},
+        {"de": "FGR / PGR", "a": "Entidades", "tipo": "Requerimientos de información en investigaciones"},
+        {"de": "Entidades", "a": "FGR / PGR", "tipo": "Respuesta a requerimientos"}
+      ]
+    },
+    "fuente_detallada": "Estructura del sistema financiero mexicano y régimen PLD/FT; GAFI — Recomendación 29 (UIF) y 26 (Regulación y supervisión de instituciones financieras)",
+    "orden": 17
+  },
+  {
+    "bloque": 5,
+    "tema": "Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
+    "subtema": "Política de Conocimiento del Cliente — Perfil Transaccional — Clasificación por riesgo",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: El sistema de reportes PLD/FT",
+      "nodo_central": "Sistema de Reportes UIF",
+      "ramas": [
+        {
+          "concepto": "Operación Relevante (OR)",
+          "subnodos": [
+            "Criterio: MONTO",
+            "Umbral banca: $7,500 USD",
+            "Plazo: día 17 del mes siguiente",
+            "No requiere sospecha",
+            "Automático por umbral"
+          ]
+        },
+        {
+          "concepto": "Operación Inusual (OI)",
+          "subnodos": [
+            "Criterio: SOSPECHA",
+            "Sin umbral de monto",
+            "Plazo: 60 días",
+            "Requiere análisis y juicio",
+            "Desviación del perfil transaccional"
+          ]
+        },
+        {
+          "concepto": "Op. Interna Preocupante (OIP)",
+          "subnodos": [
+            "Criterio: CONDUCTA DEL PERSONAL",
+            "Sin umbral de monto",
+            "Plazo: 60 días",
+            "Amenaza interna"
+          ]
+        },
+        {
+          "concepto": "Deber de Reserva",
+          "subnodos": [
+            "Prohibición de alertar al cliente",
+            "Aplica a todos los empleados",
+            "Violación = sanción grave",
+            "LFPIORPI Art. 17 fracción VII"
+          ]
+        },
+        {
+          "concepto": "Receptor de Reportes",
+          "subnodos": [
+            "UIF — Unidad de Inteligencia Financiera",
+            "Dependencia de la SHCP",
+            "Análisis de inteligencia financiera",
+            "Reenvía a FGR si procede"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "LIC Art. 115; Disposiciones CNBV — capítulo de reportes; LFPIORPI Art. 17, fracción VII; GAFI — Recomendaciones 20 y 21",
+    "orden": 18
+  }
+]

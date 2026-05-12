@@ -1,218 +1,161 @@
 #!/usr/bin/env node
+/**
+ * Script para insertar contenido educativo pre-generado en Supabase
+ * Run: node scripts/insert-educational-content.mjs
+ */
 
-import fs from "fs";
-import path from "path";
+import { readFileSync, existsSync, readdirSync } from "fs";
 import { createClient } from "@supabase/supabase-js";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Configuration
-// ─────────────────────────────────────────────────────────────────────────────
-
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
-  console.error(
-    "❌ Error: NEXT_PUBLIC_SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY son requeridos"
-  );
-  process.exit(1);
-}
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
-  auth: { persistSession: false, autoRefreshToken: false },
-});
-
-const DATA_DIR = path.join(process.cwd(), "data/educational-content");
-const EJERCICIOS_DIR = path.join(process.cwd(), "data/ejercicios");
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Utilities
-// ─────────────────────────────────────────────────────────────────────────────
-
-function readJsonFile(filePath) {
-  try {
-    const content = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(content);
-  } catch (error) {
-    console.error(`❌ Error reading ${filePath}:`, error.message);
-    return null;
-  }
-}
-
-function getFiles(directory, pattern) {
-  try {
-    if (!fs.existsSync(directory)) {
-      console.warn(`⚠️  Directorio no existe: ${directory}`);
-      return [];
-    }
-    return fs
-      .readdirSync(directory)
-      .filter((file) => file.match(pattern))
-      .map((file) => path.join(directory, file));
-  } catch (error) {
-    console.error(`❌ Error reading directory ${directory}:`, error.message);
-    return [];
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Educational Content Insertion
-// ─────────────────────────────────────────────────────────────────────────────
-
-async function insertEducationalContent() {
-  console.log("\n📚 Insertando contenido educativo...\n");
-
-  const files = getFiles(DATA_DIR, /^bloque\d+\.json$|^gafi\.json$/);
-
-  if (files.length === 0) {
-    console.log("⚠️  No hay archivos de contenido educativo para insertar");
-    return;
-  }
-
-  for (const filePath of files) {
-    const fileName = path.basename(filePath);
-    const data = readJsonFile(filePath);
-
-    if (!data) continue;
-
-    const bloqueNum = data.bloque || 0;
-    const tema = data.tema || "Sin tema";
-    const contenidos = data.contenido || [];
-
-    let insertCount = 0;
-    let errorCount = 0;
-
-    for (const item of contenidos) {
-      try {
-        const { error } = await supabase
-          .from("educational_content")
-          .upsert(
-            {
-              bloque: bloqueNum,
-              tema: tema,
-              subtema: item.subtema || "",
-              tipo: item.tipo || "explicacion",
-              contenido: item.contenido || {},
-              fuente_detallada: item.fuente_detallada || null,
-              orden: item.orden || 0,
-            },
-            {
-              onConflict: "bloque,subtema,tipo",
-            }
-          );
-
-        if (error) {
-          console.error(
-            `  ❌ Error insertando subtema "${item.subtema}":`,
-            error.message
-          );
-          errorCount++;
-        } else {
-          insertCount++;
-        }
-      } catch (err) {
-        console.error(`  ❌ Error procesando subtema:`, err.message);
-        errorCount++;
-      }
-    }
-
-    const status = errorCount > 0 ? `⚠️` : `✅`;
-    console.log(
-      `${status} ${fileName}: ${insertCount} registros insertados${errorCount > 0 ? `, ${errorCount} errores` : ""}`
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Ejercicios Insertion
-// ─────────────────────────────────────────────────────────────────────────────
-
-async function insertEjercicios() {
-  console.log("\n🎯 Insertando ejercicios didácticos...\n");
-
-  const files = getFiles(EJERCICIOS_DIR, /^ejercicios-bloque\d+\.json$|^ejercicios-gafi\.json$/);
-
-  if (files.length === 0) {
-    console.log("⚠️  No hay archivos de ejercicios para insertar");
-    return;
-  }
-
-  for (const filePath of files) {
-    const fileName = path.basename(filePath);
-    const data = readJsonFile(filePath);
-
-    if (!data) continue;
-
-    const bloqueNum = data.bloque || 0;
-    const tema = data.tema || "Sin tema";
-    const ejercicios = data.ejercicios || [];
-
-    let insertCount = 0;
-    let errorCount = 0;
-
-    for (const ejercicio of ejercicios) {
-      try {
-        const { error } = await supabase
-          .from("ejercicios_didacticos")
-          .upsert(
-            {
-              bloque: bloqueNum,
-              tema: tema,
-              tipo: ejercicio.tipo || "caso_practico",
-              titulo: ejercicio.titulo || "Sin título",
-              instrucciones: ejercicio.instrucciones || "",
-              contenido: ejercicio.contenido || {},
-              solucion: ejercicio.solucion || {},
-              dificultad: ejercicio.dificultad || "medio",
-              tiempo_estimado: ejercicio.tiempo_estimado || 10,
-            },
-            {
-              onConflict: "bloque,titulo",
-            }
-          );
-
-        if (error) {
-          console.error(
-            `  ❌ Error insertando ejercicio "${ejercicio.titulo}":`,
-            error.message
-          );
-          errorCount++;
-        } else {
-          insertCount++;
-        }
-      } catch (err) {
-        console.error(`  ❌ Error procesando ejercicio:`, err.message);
-        errorCount++;
-      }
-    }
-
-    const status = errorCount > 0 ? `⚠️` : `✅`;
-    console.log(
-      `${status} ${fileName}: ${insertCount} ejercicios insertados${errorCount > 0 ? `, ${errorCount} errores` : ""}`
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Main
-// ─────────────────────────────────────────────────────────────────────────────
-
-async function main() {
-  console.log("╔════════════════════════════════════════════════════════════╗");
-  console.log("║  Insertor de Contenido Educativo — Certifik PLD           ║");
-  console.log("╚════════════════════════════════════════════════════════════╝");
-
-  try {
-    await insertEducationalContent();
-    await insertEjercicios();
-
-    console.log("\n╔════════════════════════════════════════════════════════════╗");
-    console.log("║  ✅ Inserción completada                                  ║");
-    console.log("╚════════════════════════════════════════════════════════════╝\n");
-  } catch (error) {
-    console.error("\n❌ Error fatal:", error.message);
+function loadEnv() {
+  const envFile = ".env.local";
+  if (!existsSync(envFile)) {
+    console.error("❌ .env.local not found");
     process.exit(1);
   }
+  const lines = readFileSync(envFile, "utf-8").split("\n");
+  for (const line of lines) {
+    const [key, ...rest] = line.split("=");
+    if (key && rest.length) process.env[key.trim()] = rest.join("=").trim();
+  }
 }
 
-main();
+loadEnv();
+
+const sb = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  { auth: { persistSession: false } }
+);
+
+async function insertEducationalContent(filePath) {
+  const fileName = filePath.split("/").pop();
+  console.log(`\n📚 Procesando: ${fileName}`);
+
+  if (!existsSync(filePath)) {
+    console.log(`   ⚠️  Archivo no encontrado: ${filePath}`);
+    return 0;
+  }
+
+  const data = JSON.parse(readFileSync(filePath, "utf-8"));
+  let inserted = 0;
+  let errors = 0;
+
+  for (const item of data) {
+    const { error } = await sb
+      .from("educational_content")
+      .upsert(
+        {
+          bloque: item.bloque,
+          tema: item.tema,
+          subtema: item.subtema,
+          tipo: item.tipo,
+          contenido: item.contenido,
+          fuente_detallada: item.fuente_detallada,
+          orden: item.orden,
+        },
+        { onConflict: "bloque,subtema,tipo" }
+      );
+
+    if (error) {
+      console.log(`   ❌ Error en "${item.subtema}" (${item.tipo}): ${error.message}`);
+      errors++;
+    } else {
+      inserted++;
+    }
+  }
+
+  console.log(`   ✅ ${inserted} registros insertados, ${errors} errores`);
+  return inserted;
+}
+
+async function insertEjercicios(filePath) {
+  const fileName = filePath.split("/").pop();
+  console.log(`\n🎯 Procesando ejercicios: ${fileName}`);
+
+  if (!existsSync(filePath)) {
+    console.log(`   ⚠️  Archivo no encontrado: ${filePath}`);
+    return 0;
+  }
+
+  const data = JSON.parse(readFileSync(filePath, "utf-8"));
+  let inserted = 0;
+  let errors = 0;
+
+  for (const item of data) {
+    const { error } = await sb
+      .from("ejercicios_didacticos")
+      .upsert(
+        {
+          bloque: item.bloque,
+          tema: item.tema,
+          tipo: item.tipo,
+          titulo: item.titulo,
+          instrucciones: item.instrucciones,
+          contenido: item.contenido,
+          solucion: item.solucion,
+          dificultad: item.dificultad,
+          tiempo_estimado: item.tiempo_estimado,
+        },
+        { onConflict: "bloque,titulo" }
+      );
+
+    if (error) {
+      console.log(`   ❌ Error en "${item.titulo}": ${error.message}`);
+      errors++;
+    } else {
+      inserted++;
+    }
+  }
+
+  console.log(`   ✅ ${inserted} ejercicios insertados, ${errors} errores`);
+  return inserted;
+}
+
+async function main() {
+  console.log("🚀 Insertando contenido educativo pre-generado en Supabase...\n");
+
+  const contentFiles = [
+    "data/educational-content/bloque1-educational.json",
+    "data/educational-content/bloque2-educational.json",
+    "data/educational-content/bloque3-educational.json",
+    "data/educational-content/bloque4-educational.json",
+    "data/educational-content/bloque5-educational.json",
+    "data/educational-content/bloque6-educational.json",
+    "data/educational-content/bloque7-educational.json",
+    "data/educational-content/gafi-educational.json",
+  ];
+
+  const ejerciciosFiles = [
+    "data/ejercicios/bloque1-ejercicios.json",
+    "data/ejercicios/bloque2-ejercicios.json",
+    "data/ejercicios/bloque3-ejercicios.json",
+    "data/ejercicios/bloque4-ejercicios.json",
+    "data/ejercicios/bloque5-ejercicios.json",
+    "data/ejercicios/bloque6-ejercicios.json",
+    "data/ejercicios/bloque7-ejercicios.json",
+    "data/ejercicios/gafi-ejercicios.json",
+  ];
+
+  let totalContent = 0;
+  let totalEjercicios = 0;
+
+  for (const file of contentFiles) {
+    totalContent += await insertEducationalContent(file);
+  }
+
+  for (const file of ejerciciosFiles) {
+    totalEjercicios += await insertEjercicios(file);
+  }
+
+  console.log("\n" + "=".repeat(50));
+  console.log(`✨ RESUMEN FINAL:`);
+  console.log(`   📚 Contenido educativo: ${totalContent} registros`);
+  console.log(`   🎯 Ejercicios didácticos: ${totalEjercicios} registros`);
+  console.log("=".repeat(50));
+}
+
+main().catch((err) => {
+  console.error("❌ Error fatal:", err.message);
+  process.exit(1);
+});

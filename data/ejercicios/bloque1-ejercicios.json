@@ -1,0 +1,378 @@
+[
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 1: El Restaurante El Buen Sabor",
+    "instrucciones": "Lee el siguiente caso y responde las preguntas. Identifica las señales de alerta, la etapa del lavado de dinero y las obligaciones del oficial de cumplimiento.",
+    "contenido": {
+      "descripcion_caso": "El señor Rodrigo Fuentes es propietario del Restaurante 'El Buen Sabor', establecimiento de comida mexicana con capacidad para 40 personas, ubicado en una colonia de clase media en Guadalajara. El restaurante está registrado en el RFC y tiene cuenta bancaria en el Banco Nacional. Durante los últimos 6 meses, el contador de la institución bancaria detectó los siguientes patrones: (1) Depósitos en efectivo diarios de entre $85,000 y $95,000 pesos, de lunes a domingo, sin excepción. (2) Los depósitos se realizan en tres sucursales diferentes del mismo banco. (3) El señor Fuentes declaró al abrir la cuenta que el restaurante tiene ingresos mensuales aproximados de $180,000 pesos. (4) Los depósitos mensuales acumulados ascienden a $2,700,000 pesos. (5) Cuando el ejecutivo de cuenta intentó actualizar el expediente, el señor Fuentes respondió que está 'muy ocupado' y ha evitado tres citas consecutivas.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Qué señales de alerta están presentes en este caso? Lista al menos 4.",
+          "respuesta_guia": "1) Los ingresos declarados ($180,000/mes) no coinciden con los depósitos reales ($2,700,000/mes — 15 veces más). 2) Los depósitos se fraccionan en tres sucursales para evitar concentración (posible estructuración). 3) Los depósitos son diarios, incluyendo domingos (patrón inusual para restaurante). 4) El cliente evita actualizar su expediente y rehúsa citas. 5) Los montos son consistentemente inferiores a $100,000 (posible pitufeo para evitar umbral CNBV)."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿En qué etapa del proceso de lavado de dinero se encuentra este caso?",
+          "respuesta_guia": "Se trata de la etapa de COLOCACIÓN: el dinero en efectivo de origen presumiblemente ilícito está siendo introducido al sistema bancario a través del negocio del restaurante (negocio de alto manejo de efectivo usado como fachada). La estrategia típica es mezclar ingresos ilícitos con los legítimos del restaurante para darles apariencia de operaciones comerciales normales."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué tipo de reporte debe generar la institución bancaria y ante quién?",
+          "respuesta_guia": "La institución debe generar un Reporte de Operación Inusual (ROI) ante la Unidad de Inteligencia Financiera (UIF) de la SHCP. También podría ser reporte de operación relevante si los montos superan los umbrales establecidos. El reporte debe generarse sin informar al cliente (deber de reserva). Adicionalmente, debe intentarse la actualización del expediente por vía formal (carta certificada) y escalar el caso al Oficial de Cumplimiento para evaluar la continuación de la relación."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿El banco puede cerrar la cuenta sin avisar al cliente sobre el motivo real?",
+          "respuesta_guia": "Sí. El banco puede dar por terminada la relación comercial sin revelar al cliente que el motivo es una sospecha de lavado de dinero. El deber de reserva (LFPIORPI Art. 17, fracción VII y disposiciones sectoriales) prohíbe al personal revelar que se ha presentado un reporte o que existe una investigación. El banco simplemente notifica el cierre de cuenta conforme a los términos del contrato."
+        },
+        {
+          "numero": 5,
+          "pregunta": "¿En qué consiste la estrategia de 'mezcla' utilizada en este caso?",
+          "respuesta_guia": "La mezcla o 'commingling' consiste en integrar fondos ilícitos dentro de los ingresos legítimos de un negocio real. El restaurante genera ingresos reales (legítimos) y el lavador añade dinero ilícito a los depósitos, presentándolo como ingreso adicional del negocio. La dificultad para las autoridades es distinguir qué porción es legítima y cuál no."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 10,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Identifica al menos 4 señales de alerta correctas"},
+        {"pregunta": 2, "puntos": 2, "criterio": "Identifica correctamente la etapa de Colocación y explica el mecanismo"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Menciona ROI, UIF y deber de reserva"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Responde correctamente sobre el deber de reserva"},
+        {"pregunta": 5, "puntos": 2, "criterio": "Explica correctamente el mecanismo de mezcla"}
+      ]
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 15
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 2: La ONG Solidaridad Global",
+    "instrucciones": "Analiza el siguiente caso y determina si se trata de lavado de dinero, financiamiento al terrorismo, ambos o ninguno. Justifica tu respuesta.",
+    "contenido": {
+      "descripcion_caso": "La señora Amelia Torres es directora de la ONG 'Solidaridad Global', organización registrada legalmente que se dedica a la asistencia humanitaria. Amelia tiene una cuenta en el Banco Regional. El banco detecta lo siguiente: la ONG recibe donaciones de personas físicas en México por $300,000 pesos mensuales (montos verificables y donantes identificados). Sin embargo, el banco detecta que $250,000 de esos $300,000 son transferidos mensualmente a una cuenta en Turquía, a nombre de una organización llamada 'Yardim Fonu'. Al investigar, el oficial de cumplimiento descubre que 'Yardim Fonu' aparece en la Lista de Organizaciones Terroristas de la ONU (Comité 1267). Las donaciones en México provienen de personas que ejercen actividades lícitas (médicos, profesores, comerciantes).",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿Los fondos transferidos a Turquía tienen origen lícito o ilícito?",
+          "respuesta_guia": "Los fondos tienen origen LÍCITO. Provienen de donaciones de personas que ejercen actividades legales verificables. No hay evidencia de que el dinero provenga de delito alguno."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Estamos ante un caso de lavado de dinero, financiamiento al terrorismo, ambos o ninguno?",
+          "respuesta_guia": "Es un caso de FINANCIAMIENTO AL TERRORISMO, NO de lavado de dinero. Los fondos son lícitos en su origen (donaciones legales) pero su DESTINO es una organización terrorista listada por la ONU. Esto ilustra la diferencia fundamental: en el LD los fondos son ilícitos; en el FT pueden ser lícitos."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué debe hacer inmediatamente el banco al detectar la conexión con la lista de la ONU?",
+          "respuesta_guia": "1) CONGELAR los activos de la cuenta de forma inmediata, conforme a las obligaciones de sanciones financieras dirigidas (GAFI Rec. 6 y Res. ONU 1267). 2) NO ejecutar ninguna transferencia pendiente. 3) Reportar a la UIF el hallazgo de forma inmediata. 4) Notificar a las autoridades competentes (UIF, PGR). 5) NO alertar a la señora Torres ni a los donantes del congelamiento (deber de reserva)."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿La señora Amelia Torres cometió el delito de FT aunque ella afirme desconocer que Yardim Fonu es terrorista?",
+          "respuesta_guia": "Esto es una cuestión de elemento subjetivo (conocimiento). El CPF Art. 139 Quáter requiere que el sujeto activo sepa o deba saber el destino terrorista de los fondos. Si se acredita que la señora Torres era directora de una ONG que transfería mensualmente fondos a una organización listada como terrorista por la ONU, el argumento del desconocimiento es débil: como directora tenía obligación de conocer a sus contrapartes (debida diligencia). El desconocimiento no exime automáticamente de responsabilidad."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 8,
+      "criterios": [
+        {"pregunta": 1, "puntos": 1, "criterio": "Identifica correctamente origen lícito de fondos"},
+        {"pregunta": 2, "puntos": 3, "criterio": "Clasifica correctamente como FT, no LD, y explica la diferencia"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Menciona congelamiento, reporte UIF y deber de reserva"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Analiza correctamente el elemento subjetivo y la responsabilidad"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 15
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Conceptos y definiciones del Bloque 1",
+    "instrucciones": "Relaciona cada concepto de la columna izquierda con su definición correcta en la columna derecha. Cada concepto tiene una sola respuesta correcta.",
+    "contenido": {
+      "columna_conceptos": [
+        {"id": "A", "concepto": "Colocación"},
+        {"id": "B", "concepto": "Estructuración (pitufeo)"},
+        {"id": "C", "concepto": "Beneficiario final"},
+        {"id": "D", "concepto": "Interpósita persona"},
+        {"id": "E", "concepto": "Empresa fachada"},
+        {"id": "F", "concepto": "Estratificación"},
+        {"id": "G", "concepto": "Integración"},
+        {"id": "H", "concepto": "Delito precedente"},
+        {"id": "I", "concepto": "ORPI"},
+        {"id": "J", "concepto": "Financiamiento al Terrorismo"}
+      ],
+      "columna_definiciones": [
+        {"id": "1", "definicion": "Etapa del lavado donde el dinero ilícito regresa a la economía formal con apariencia legítima"},
+        {"id": "2", "definicion": "División intencional de grandes sumas en transacciones menores para evadir umbrales de reporte"},
+        {"id": "3", "definicion": "Persona física que en última instancia controla o se beneficia de una transacción, aunque no figure como titular"},
+        {"id": "4", "definicion": "Primer etapa del lavado de dinero: introducción de efectivo ilícito al sistema financiero"},
+        {"id": "5", "definicion": "Delito consistente en aportar fondos (de origen lícito o ilícito) para financiar actos terroristas. CPF Art. 139 Quáter"},
+        {"id": "6", "definicion": "Entidad jurídica que no realiza actividades comerciales reales y se usa para ocultar titularidad de activos"},
+        {"id": "7", "definicion": "El delito que genera los recursos ilícitos que serán posteriormente lavados"},
+        {"id": "8", "definicion": "Persona que actúa en nombre de otro ocultando la verdadera identidad del beneficiario real"},
+        {"id": "9", "definicion": "Etapa del lavado que consiste en múltiples transacciones para ocultar el rastro del dinero ilícito"},
+        {"id": "10", "definicion": "Denominación en el CPF para el delito de lavado de dinero: Operaciones con Recursos de Procedencia Ilícita"}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "4",
+        "B": "2",
+        "C": "3",
+        "D": "8",
+        "E": "6",
+        "F": "9",
+        "G": "1",
+        "H": "7",
+        "I": "10",
+        "J": "5"
+      },
+      "calificacion_maxima": 10,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 8
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: Terminología del Bloque 1",
+    "instrucciones": "Completa el crucigrama con los términos del Bloque 1. Las pistas hacen referencia a conceptos, artículos y etapas del lavado de dinero y financiamiento al terrorismo.",
+    "contenido": {
+      "cuadricula": {
+        "filas": 12,
+        "columnas": 15
+      },
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "inicio": {"fila": 1, "columna": 1},
+          "longitud": 11,
+          "pista": "Primera etapa del lavado de dinero. Es cuando el efectivo ilícito entra al sistema financiero.",
+          "respuesta": "COLOCACION"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "inicio": {"fila": 1, "columna": 5},
+          "longitud": 8,
+          "pista": "Nombre del grupo internacional creado en 1989 para combatir el lavado de dinero. Siglas en español.",
+          "respuesta": "GAFI"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "inicio": {"fila": 4, "columna": 1},
+          "longitud": 13,
+          "pista": "Técnica de lavado que consiste en dividir grandes sumas en depósitos menores para evadir reportes. También llamado 'pitufeo'.",
+          "respuesta": "ESTRUCTURACION"
+        },
+        {
+          "numero": 4,
+          "direccion": "vertical",
+          "inicio": {"fila": 1, "columna": 10},
+          "longitud": 10,
+          "pista": "Persona física que en última instancia controla o se beneficia de una transacción. Concepto clave en GAFI Recomendación 10.",
+          "respuesta": "BENEFICIARIO"
+        },
+        {
+          "numero": 5,
+          "direccion": "horizontal",
+          "inicio": {"fila": 7, "columna": 1},
+          "longitud": 15,
+          "pista": "Segunda etapa del lavado. Múltiples transacciones para ocultar el origen del dinero.",
+          "respuesta": "ESTRATIFICACION"
+        },
+        {
+          "numero": 6,
+          "direccion": "vertical",
+          "inicio": {"fila": 4, "columna": 7},
+          "longitud": 9,
+          "pista": "Siglas del delito de Lavado de Dinero tipificado en el Art. 400 Bis del CPF.",
+          "respuesta": "ORPI"
+        },
+        {
+          "numero": 7,
+          "direccion": "horizontal",
+          "inicio": {"fila": 10, "columna": 1},
+          "longitud": 11,
+          "pista": "Tercera y última etapa del lavado de dinero. El dinero ya 'limpio' entra a la economía formal.",
+          "respuesta": "INTEGRACION"
+        },
+        {
+          "numero": 8,
+          "direccion": "vertical",
+          "inicio": {"fila": 7, "columna": 12},
+          "longitud": 6,
+          "pista": "Unidad gubernamental que recibe los reportes de operaciones. Pertenece a la SHCP. Siglas.",
+          "respuesta": "UIF"
+        },
+        {
+          "numero": 9,
+          "direccion": "horizontal",
+          "inicio": {"fila": 12, "columna": 1},
+          "longitud": 9,
+          "pista": "Persona que actúa en nombre de otro ocultando al verdadero beneficiario. El CPF Art. 400 Bis la menciona expresamente.",
+          "respuesta": "TESTAFERRO"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "COLOCACION",
+        "2V": "GAFI",
+        "3H": "ESTRUCTURACION",
+        "4V": "BENEFICIARIO",
+        "5H": "ESTRATIFICACION",
+        "6V": "ORPI",
+        "7H": "INTEGRACION",
+        "8V": "UIF",
+        "9H": "TESTAFERRO"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras: Etapas y conceptos del lavado de dinero",
+    "instrucciones": "Encuentra las 12 palabras ocultas en la sopa de letras. Las palabras pueden estar en horizontal, vertical o diagonal, en cualquier dirección.",
+    "contenido": {
+      "cuadricula": [
+        "C O L O C A C I O N P I T U F E O",
+        "E S T R A T I F I C A C I O N A B",
+        "I N T E G R A C I O N C D E F G H",
+        "L A V A D O D I N E R O I J K L M",
+        "T E R R O R I S M O N O P Q R S T",
+        "U I F V W X Y Z A B C D E F G H I",
+        "G A F I J K L M N O P Q R S T U V",
+        "B E N E F I C I A R I O W X Y Z A",
+        "O R P I B C D E F G H I J K L M N",
+        "P E S T A F E R R O O P Q R S T U",
+        "C P F V I E N A W X Y Z A B C D E"
+      ],
+      "palabras_ocultas": [
+        "COLOCACION",
+        "ESTRATIFICACION",
+        "INTEGRACION",
+        "LAVADO",
+        "TERRORISMO",
+        "UIF",
+        "GAFI",
+        "BENEFICIARIO",
+        "ORPI",
+        "TESTAFERRO",
+        "CPF",
+        "VIENA"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "COLOCACION": {"fila": 1, "columna": 1, "direccion": "horizontal"},
+        "ESTRATIFICACION": {"fila": 2, "columna": 1, "direccion": "horizontal"},
+        "INTEGRACION": {"fila": 3, "columna": 1, "direccion": "horizontal"},
+        "LAVADO": {"fila": 4, "columna": 1, "direccion": "horizontal"},
+        "TERRORISMO": {"fila": 5, "columna": 1, "direccion": "horizontal"},
+        "UIF": {"fila": 6, "columna": 1, "direccion": "horizontal"},
+        "GAFI": {"fila": 7, "columna": 1, "direccion": "horizontal"},
+        "BENEFICIARIO": {"fila": 8, "columna": 1, "direccion": "horizontal"},
+        "ORPI": {"fila": 9, "columna": 1, "direccion": "horizontal"},
+        "TESTAFERRO": {"fila": 10, "columna": 2, "direccion": "horizontal"},
+        "CPF": {"fila": 11, "columna": 1, "direccion": "horizontal"},
+        "VIENA": {"fila": 11, "columna": 5, "direccion": "horizontal"}
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 8
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "tipo": "completar",
+    "titulo": "Completa los espacios: Artículos y penas del Bloque 1",
+    "instrucciones": "Completa los espacios en blanco con la palabra, número o concepto correcto. Puedes consultar el marco jurídico del Bloque 1.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "El delito de lavado de dinero en México está tipificado en el artículo _____ del Código Penal Federal y se denomina técnicamente '_____ con _____ de _____ _____'.",
+          "espacios": ["400 Bis", "Operaciones", "Recursos", "Procedencia", "Ilícita"]
+        },
+        {
+          "id": 2,
+          "texto": "La pena de prisión para el delito básico de ORPI es de _____ a _____ años de prisión.",
+          "espacios": ["5", "15"]
+        },
+        {
+          "id": 3,
+          "texto": "El Financiamiento al Terrorismo está tipificado en el artículo _____ del CPF y tiene una pena máxima de _____ años de prisión.",
+          "espacios": ["139 Quáter", "40"]
+        },
+        {
+          "id": 4,
+          "texto": "Las tres etapas del lavado de dinero en orden son: 1) _____, 2) _____, 3) _____.",
+          "espacios": ["Colocación", "Estratificación", "Integración"]
+        },
+        {
+          "id": 5,
+          "texto": "El GAFI fue creado en el año _____ por el grupo de países _____. México es miembro desde el año _____.",
+          "espacios": ["1989", "G-7", "2000"]
+        },
+        {
+          "id": 6,
+          "texto": "La diferencia fundamental entre el LD y el FT es que en el LD los fondos son siempre de origen _____, mientras que en el FT pueden ser de origen _____ o _____.",
+          "espacios": ["ilícito", "lícito", "ilícito"]
+        },
+        {
+          "id": 7,
+          "texto": "La ley especializada en PLD para actividades no financieras se denomina _____ y fue publicada en el DOF el _____.",
+          "espacios": ["LFPIORPI", "17 de octubre de 2012"]
+        },
+        {
+          "id": 8,
+          "texto": "La técnica de lavado que consiste en dividir grandes cantidades de dinero en múltiples depósitos menores se llama _____ o '_____'.",
+          "espacios": ["estructuración", "pitufeo"]
+        },
+        {
+          "id": 9,
+          "texto": "El delito de ORPI es _____ porque puede perseguirse sin necesidad de sentencia previa por el delito _____.",
+          "espacios": ["autónomo", "fuente (o precedente)"]
+        },
+        {
+          "id": 10,
+          "texto": "La primera etapa del lavado de dinero, la _____, es la más _____ para el lavador porque es cuando el dinero físico debe moverse.",
+          "espacios": ["colocación", "vulnerable"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["400 Bis", "Operaciones", "Recursos", "Procedencia", "Ilícita"],
+        "2": ["5", "15"],
+        "3": ["139 Quáter", "40"],
+        "4": ["Colocación", "Estratificación", "Integración"],
+        "5": ["1989", "G-7", "2000"],
+        "6": ["ilícito", "lícito", "ilícito"],
+        "7": ["LFPIORPI", "17 de octubre de 2012"],
+        "8": ["estructuración", "pitufeo"],
+        "9": ["autónomo", "fuente"],
+        "10": ["colocación", "vulnerable"]
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 10
+  }
+]

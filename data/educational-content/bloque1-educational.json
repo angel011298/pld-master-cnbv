@@ -1,0 +1,770 @@
+[
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Antecedentes históricos del lavado de dinero",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Antecedentes históricos del lavado de dinero",
+      "cuerpo": [
+        {
+          "tipo": "parrafo",
+          "texto": "El lavado de dinero no es un fenómeno reciente. Sus orígenes se remontan a las primeras civilizaciones comerciales, donde comerciantes buscaban ocultar ganancias de actividades ilícitas mezclándolas con negocios legítimos. Sin embargo, el concepto moderno del lavado de dinero surge en el siglo XX, vinculado principalmente al crimen organizado."
+        },
+        {
+          "tipo": "hito",
+          "items": [
+            {
+              "fecha": "Años 1920-1930 (EUA)",
+              "evento": "Al Capone y el origen del término",
+              "descripcion": "Las organizaciones criminales de la Prohibición en Estados Unidos utilizaban lavanderías de ropa como fachada para mezclar dinero ilícito del alcohol con ingresos legales. De ahí surge el término 'money laundering' — lavado de dinero."
+            },
+            {
+              "fecha": "1970",
+              "evento": "Bank Secrecy Act (EUA)",
+              "descripcion": "Primera ley moderna en establecer obligaciones de reporte para instituciones financieras. Obligó a reportar transacciones en efectivo superiores a $10,000 USD."
+            },
+            {
+              "fecha": "1988",
+              "evento": "Convención de Viena de la ONU",
+              "descripcion": "Primer instrumento internacional que tipificó el lavado de dinero como delito autónomo, vinculado al narcotráfico. México la ratificó en 1990."
+            },
+            {
+              "fecha": "1989",
+              "evento": "Creación del GAFI",
+              "descripcion": "El Grupo de los Siete (G-7) crea el Grupo de Acción Financiera Internacional (GAFI/FATF) para coordinar esfuerzos globales contra el lavado de dinero."
+            },
+            {
+              "fecha": "1990",
+              "evento": "Las 40 Recomendaciones del GAFI",
+              "descripcion": "El GAFI publica su primer conjunto de 40 Recomendaciones, estableciendo el estándar internacional en materia de PLD."
+            },
+            {
+              "fecha": "1996",
+              "evento": "México — Código Penal Federal",
+              "descripcion": "Se incorporan al CPF los artículos 400 Bis y 400 Bis-1, tipificando las operaciones con recursos de procedencia ilícita (ORPI) como delito en México."
+            },
+            {
+              "fecha": "2004",
+              "evento": "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI)",
+              "descripcion": "Ley especializada en PLD que establece obligaciones para actividades vulnerables no financieras. Publicada en el DOF el 17 de octubre de 2012, entrada en vigor en 2013."
+            },
+            {
+              "fecha": "2012",
+              "evento": "Revisión GAFI y nuevas 40 Recomendaciones",
+              "descripcion": "El GAFI actualiza su estándar incorporando el enfoque basado en riesgos (EBR) como metodología central."
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El Fondo Monetario Internacional (FMI) estima que el lavado de dinero representa entre el 2% y el 5% del PIB mundial anual, equivalente a entre 800,000 millones y 2 billones de dólares."
+        }
+      ]
+    },
+    "fuente_detallada": "Código Penal Federal, Art. 400 Bis; LFPIORPI publicada en DOF 17/10/2012; Convención de las Naciones Unidas contra el Tráfico Ilícito de Estupefacientes, Viena 1988",
+    "orden": 1
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "¿Qué es el lavado de dinero?",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Definición y concepto de lavado de dinero",
+      "cuerpo": [
+        {
+          "tipo": "definicion_legal",
+          "titulo": "Definición según el Código Penal Federal",
+          "texto": "El artículo 400 Bis del CPF establece que comete el delito de operaciones con recursos de procedencia ilícita quien por sí o por interpósita persona realice cualquiera de las siguientes conductas: adquiera, enajene, administre, custodie, posea, cambie, convierta, deposite, retire, dé o reciba por cualquier motivo, invierta, transfiera o traslade, dentro del territorio nacional, de éste hacia el extranjero o a la inversa, recursos, derechos o bienes de cualquier naturaleza, cuando tenga conocimiento de que proceden o representan el producto de una actividad ilícita."
+        },
+        {
+          "tipo": "parrafo",
+          "texto": "En términos simples, el lavado de dinero es el proceso mediante el cual el dinero obtenido ilegalmente (producto del crimen) se transforma e introduce al sistema financiero legítimo para que aparezca como si tuviera un origen lícito. El objetivo es 'limpiar' el dinero sucio para poder usarlo libremente sin levantar sospechas."
+        },
+        {
+          "tipo": "analogia",
+          "titulo": "La analogía del lavado de ropa",
+          "texto": "Así como la ropa sucia entra a la lavadora y sale limpia, el dinero ilícito entra al sistema financiero a través de múltiples capas y transacciones, y sale aparentemente limpio. El proceso implica: 1) Introducción del dinero sucio, 2) Múltiples movimientos para ocultar su origen, 3) Reintegración al sistema como dinero 'limpio'."
+        },
+        {
+          "tipo": "elementos_constitutivos",
+          "titulo": "Elementos del delito (Art. 400 Bis CPF)",
+          "elementos": [
+            "Existencia de recursos, derechos o bienes de cualquier naturaleza",
+            "Que procedan o representen el producto de una actividad ilícita",
+            "Conocimiento del sujeto activo sobre el origen ilícito",
+            "Realización de alguna de las conductas tipificadas (adquirir, enajenar, administrar, custodiar, poseer, cambiar, convertir, depositar, retirar, invertir, transferir o trasladar)"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "A diferencia de otros delitos, en el lavado de dinero el 'delito previo' o 'delito fuente' puede ser cualquier actividad ilícita: narcotráfico, corrupción, fraude, robo, secuestro, trata de personas, evasión fiscal, entre otros."
+        }
+      ]
+    },
+    "fuente_detallada": "Código Penal Federal, Art. 400 Bis y 400 Bis-1; LFPIORPI Art. 2, fracción X",
+    "orden": 2
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Definiciones relevantes del lavado de dinero",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Glosario técnico-legal del lavado de dinero",
+      "cuerpo": [
+        {
+          "tipo": "glosario",
+          "terminos": [
+            {
+              "termino": "Recursos de procedencia ilícita",
+              "definicion": "Bienes, derechos o dinero que son producto directo o indirecto de la comisión de un delito. Incluye tanto el producto primario del delito como cualquier bien adquirido con ese producto.",
+              "fuente": "CPF Art. 400 Bis"
+            },
+            {
+              "termino": "Delito precedente (o delito fuente)",
+              "definicion": "El delito que genera los recursos ilícitos que posteriormente son lavados. En México, cualquier delito puede ser delito fuente. El lavado de dinero es un delito autónomo; no requiere sentencia condenatoria previa por el delito fuente.",
+              "fuente": "LFPIORPI Art. 2, fracción VIII"
+            },
+            {
+              "termino": "Interpósita persona",
+              "definicion": "Persona que actúa en nombre o por cuenta de otro, ocultando la verdadera identidad del beneficiario. Es una figura clave en el lavado, pues el lavador frecuentemente utiliza terceros (prestanombres) para ocultar su participación.",
+              "fuente": "CPF Art. 400 Bis"
+            },
+            {
+              "termino": "Beneficiario final (Propietario real)",
+              "definicion": "Persona física que en última instancia posee o controla a un cliente y/o la persona física en cuyo nombre se realiza una transacción. También incluye a quienes ejercen control efectivo sobre una persona jurídica.",
+              "fuente": "GAFI — Recomendación 10; LFPIORPI Art. 2, fracción XII"
+            },
+            {
+              "termino": "Estructuración o 'pitufeo' (Smurfing)",
+              "definicion": "División de grandes sumas de dinero en múltiples depósitos o transacciones de menor cantidad para evitar los umbrales de reporte. Es una señal de alerta clásica.",
+              "fuente": "Circular CNBV única de instituciones de crédito, Anexo 1"
+            },
+            {
+              "termino": "Activo virtual",
+              "definicion": "Representación digital de valor que puede ser objeto de comercio digital y transferencia, y puede utilizarse con fines de pago o inversión. Incluye criptomonedas. Sujeto a obligaciones PLD desde 2018 en México.",
+              "fuente": "Ley FinTech Art. 30; GAFI — Recomendación 15"
+            },
+            {
+              "termino": "Persona Políticamente Expuesta (PEP)",
+              "definicion": "Individuo que desempeña o ha desempeñado funciones públicas prominentes, nacional o extranjero, así como sus familiares cercanos y colaboradores. Requiere debida diligencia reforzada por su mayor riesgo de corrupción.",
+              "fuente": "LFPIORPI Art. 2, fracción XIV; GAFI — Recomendación 12"
+            },
+            {
+              "termino": "Testaferro (Prestanombre)",
+              "definicion": "Persona que presta su nombre e identidad para que otra realice actos jurídicos o financieros, ocultando la verdadera titularidad. Puede incurrir en responsabilidad penal como partícipe en el lavado.",
+              "fuente": "CPF Art. 400 Bis — concepto de interpósita persona"
+            },
+            {
+              "termino": "Empresa fachada (Shell company)",
+              "definicion": "Entidad jurídica que carece de operaciones comerciales reales o significativas y se utiliza principalmente para ocultar la titularidad de activos o el flujo de dinero.",
+              "fuente": "GAFI — Nota Interpretativa Recomendación 24"
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Código Penal Federal, Art. 400 Bis; LFPIORPI Art. 2; GAFI — 40 Recomendaciones 2012 (revisadas 2023), Recomendaciones 10, 12, 15 y 24",
+    "orden": 3
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Etapas del lavado de dinero",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Las tres etapas del lavado de dinero",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El GAFI y los organismos internacionales describen el proceso del lavado de dinero en tres etapas secuenciales. Cada etapa tiene características propias y señales de alerta específicas que el oficial de cumplimiento debe conocer."
+        },
+        {
+          "tipo": "etapas",
+          "etapas": [
+            {
+              "numero": 1,
+              "nombre": "Colocación (Placement)",
+              "descripcion": "Es la etapa más vulnerable para el lavador. Consiste en introducir el dinero en efectivo de origen ilícito al sistema financiero o económico legal. Es el momento de mayor riesgo de detección porque el dinero físico debe moverse.",
+              "mecanismos_comunes": [
+                "Depósitos en efectivo fraccionados (pitufeo/estructuración)",
+                "Mezcla de efectivo ilícito con ingresos de negocios de alto manejo de efectivo (restaurantes, lavandería, parking)",
+                "Cambio de divisas en casas de cambio",
+                "Compra de instrumentos monetarios (cheques de caja, money orders)",
+                "Contrabando físico de efectivo (cross-border cash smuggling)",
+                "Juegos de azar: compra y cobro de fichas de casino"
+              ],
+              "senales_alerta": [
+                "Múltiples depósitos en efectivo por montos ligeramente inferiores al umbral de reporte",
+                "Depósitos frecuentes sin relación con la actividad declarada del cliente",
+                "Uso de múltiples sucursales para depositar en el mismo día"
+              ],
+              "color": "rojo"
+            },
+            {
+              "numero": 2,
+              "nombre": "Estratificación o Diversificación (Layering)",
+              "descripcion": "Una vez que el dinero está en el sistema, el objetivo es crear múltiples capas de transacciones para alejar el dinero de su origen y dificultar el seguimiento del rastro financiero (paper trail). Es la etapa más compleja.",
+              "mecanismos_comunes": [
+                "Transferencias electrónicas internacionales sucesivas a través de múltiples países",
+                "Conversión de efectivo en bienes de lujo (joyas, arte, yates, autos)",
+                "Uso de empresas fachada y holdings en jurisdicciones con poco control",
+                "Compraventa de inmuebles con precio manipulado",
+                "Inversiones en mercados financieros (acciones, derivados)",
+                "Uso de criptomonedas (mixing/tumbling)",
+                "Préstamos de regreso (loan-back): el lavador se presta a sí mismo su propio dinero"
+              ],
+              "senales_alerta": [
+                "Transacciones sin propósito económico aparente",
+                "Fondos que entran y salen de cuentas rápidamente sin propósito claro",
+                "Uso de múltiples cuentas en diferentes países",
+                "Operaciones complejas con sociedades instrumentales"
+              ],
+              "color": "naranja"
+            },
+            {
+              "numero": 3,
+              "nombre": "Integración (Integration)",
+              "descripcion": "El dinero ya 'limpio' regresa a la economía formal con apariencia legítima. En esta etapa es prácticamente imposible distinguir el dinero lavado del dinero legítimo. El lavador puede usar libremente los recursos.",
+              "mecanismos_comunes": [
+                "Inversión en bienes raíces de lujo",
+                "Adquisición de empresas legítimas",
+                "Facturación falsa (sobre o sub-facturación en comercio exterior)",
+                "Inversión en negocios de alto volumen de efectivo",
+                "Dividendos y retornos de inversiones aparentemente legítimas",
+                "Préstamos de regreso que se 'pagan' con el dinero lavado"
+              ],
+              "senales_alerta": [
+                "Compras de inmuebles con pago total en efectivo o sin financiamiento bancario",
+                "Empresas con patrimonio desproporcionado respecto a su antigüedad",
+                "Inversionistas que pagan al contado operaciones de alto valor"
+              ],
+              "color": "verde"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "No siempre se presentan las tres etapas de forma secuencial o claramente distinguible. En algunas tipologías modernas (especialmente con criptomonedas o empresas fachada), la colocación y estratificación ocurren simultáneamente."
+        }
+      ]
+    },
+    "fuente_detallada": "GAFI — Guía sobre el Enfoque Basado en Riesgos para el Sector Bancario, 2014; Comité de Supervisión Bancaria de Basilea — Gestión Adecuada de los Riesgos relacionados con el Blanqueo de Capitales, 2014",
+    "orden": 4
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Etapas del lavado de dinero",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Diagrama del proceso de lavado de dinero",
+      "tipo_diagrama": "flujo_horizontal",
+      "descripcion": "Representación visual de las tres etapas del lavado de dinero con sus mecanismos principales",
+      "nodos": [
+        {
+          "id": "origen",
+          "etiqueta": "Delito fuente",
+          "descripcion": "Narcotráfico, corrupción, fraude, secuestro, etc.",
+          "color": "gris",
+          "posicion": 0
+        },
+        {
+          "id": "colocacion",
+          "etiqueta": "1. Colocación",
+          "descripcion": "Ingreso del efectivo ilícito al sistema financiero",
+          "ejemplos": ["Pitufeo", "Casinos", "Cambio de divisas"],
+          "color": "rojo",
+          "posicion": 1
+        },
+        {
+          "id": "estratificacion",
+          "etiqueta": "2. Estratificación",
+          "descripcion": "Múltiples transacciones para ocultar el origen",
+          "ejemplos": ["Transferencias internacionales", "Empresas fachada", "Criptomonedas"],
+          "color": "naranja",
+          "posicion": 2
+        },
+        {
+          "id": "integracion",
+          "etiqueta": "3. Integración",
+          "descripcion": "Reingreso a la economía como dinero legítimo",
+          "ejemplos": ["Bienes raíces", "Empresas legítimas", "Inversiones"],
+          "color": "verde",
+          "posicion": 3
+        },
+        {
+          "id": "economia",
+          "etiqueta": "Economía formal",
+          "descripcion": "El dinero ya no puede distinguirse del legítimo",
+          "color": "azul",
+          "posicion": 4
+        }
+      ],
+      "flechas": [
+        {"de": "origen", "a": "colocacion", "etiqueta": "Efectivo ilícito"},
+        {"de": "colocacion", "a": "estratificacion", "etiqueta": "En el sistema"},
+        {"de": "estratificacion", "a": "integracion", "etiqueta": "Rastro oculto"},
+        {"de": "integracion", "a": "economia", "etiqueta": "Dinero 'limpio'"}
+      ]
+    },
+    "fuente_detallada": "GAFI — 40 Recomendaciones, Nota Interpretativa Recomendación 1; Guía PLD/FT CNBV, Bloque 1, sección Etapas del Lavado de Dinero",
+    "orden": 5
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Etapas del lavado de dinero",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: El lavado de dinero",
+      "nodo_central": "Lavado de Dinero",
+      "ramas": [
+        {
+          "concepto": "Definición",
+          "subnodos": ["Proceso para ocultar origen ilícito", "Dar apariencia legítima a recursos", "Delito autónomo (CPF Art. 400 Bis)"]
+        },
+        {
+          "concepto": "Etapas",
+          "subnodos": ["1. Colocación — ingreso al sistema", "2. Estratificación — múltiples capas", "3. Integración — retorno a economía"]
+        },
+        {
+          "concepto": "Sujetos",
+          "subnodos": ["Lavador (sujeto activo)", "Interpósita persona / testaferro", "Entidad financiera (si omite reportar)"]
+        },
+        {
+          "concepto": "Delito fuente",
+          "subnodos": ["Narcotráfico", "Corrupción", "Fraude", "Secuestro", "Evasión fiscal", "Cualquier delito"]
+        },
+        {
+          "concepto": "Consecuencias",
+          "subnodos": ["Pena 5-15 años CPF Art. 400 Bis", "Multa hasta 50,000 días de salario mínimo", "Extinción de dominio", "Sanciones CNBV a entidades"]
+        },
+        {
+          "concepto": "Marco regulatorio",
+          "subnodos": ["CPF Art. 400 Bis", "LFPIORPI", "GAFI 40 Recomendaciones", "Regulación CNBV sectorial"]
+        }
+      ]
+    },
+    "fuente_detallada": "Código Penal Federal, Art. 400 Bis y 400 Bis-1; LFPIORPI Art. 2; GAFI — 40 Recomendaciones 2012",
+    "orden": 6
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Lavado de dinero más allá del efectivo",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El lavado de dinero no es solo efectivo",
+      "cuerpo": [
+        {
+          "tipo": "parrafo",
+          "texto": "Una concepción errónea común es asociar el lavado de dinero exclusivamente con el efectivo. En realidad, cualquier bien, derecho o valor puede ser objeto de lavado. La diversificación de los mecanismos es una respuesta directa al endurecimiento de los controles sobre el efectivo."
+        },
+        {
+          "tipo": "lista_expandida",
+          "titulo": "Instrumentos utilizados más allá del efectivo",
+          "items": [
+            {
+              "instrumento": "Bienes inmuebles",
+              "descripcion": "La compraventa de propiedades es uno de los mecanismos de integración más comunes. Se manipulan los precios de compra (sub o sobrevaloración) para introducir o extraer valor ilícito. En México, las actividades inmobiliarias son actividades vulnerables bajo LFPIORPI.",
+              "riesgo": "Alto"
+            },
+            {
+              "instrumento": "Obras de arte y antigüedades",
+              "descripcion": "Mercado opaco, valuaciones subjetivas y ausencia histórica de regulación lo hacen atractivo. El GAFI incluyó a comerciantes de arte en su lista de actividades de alto riesgo desde 2019.",
+              "riesgo": "Alto"
+            },
+            {
+              "instrumento": "Criptomonedas y activos virtuales",
+              "descripcion": "La seudonimidad, la velocidad de las transacciones y la naturaleza transfronteriza los hacen vulnerables. El GAFI emitió la 'Regla de Viaje' (GAFI Rec. 15) que exige a los proveedores de activos virtuales (VASPs) intercambiar información de emisor y receptor. En México regulados desde 2018 por Ley FinTech.",
+              "riesgo": "Muy Alto"
+            },
+            {
+              "instrumento": "Metales y piedras preciosas",
+              "descripcion": "Alta densidad de valor, fácil transporte y relativamente anónimos. Actividad vulnerable en LFPIORPI cuando el precio supera el umbral establecido.",
+              "riesgo": "Alto"
+            },
+            {
+              "instrumento": "Vehículos de lujo, aeronaves y embarcaciones",
+              "descripcion": "Bienes de alto valor que pueden revenderse rápidamente. El uso de figuras jurídicas como fideicomisos y personas morales complica el rastreo del beneficiario final.",
+              "riesgo": "Medio-Alto"
+            },
+            {
+              "instrumento": "Seguros de vida con valor en efectivo",
+              "descripcion": "Contratar pólizas con primas altas en efectivo y luego rescatarlas prematuramente con cheque o transferencia. Las aseguradoras están sujetas al régimen PLD.",
+              "riesgo": "Medio"
+            },
+            {
+              "instrumento": "Préstamos de regreso (Loan-back)",
+              "descripcion": "El lavador deposita dinero ilícito en una institución extranjera y luego solicita un préstamo garantizado con esos fondos. El 'pago' del préstamo con dinero ilícito parece una transacción legítima.",
+              "riesgo": "Alto"
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "LFPIORPI Art. 17 — Actividades vulnerables; GAFI — Recomendación 15 (Activos virtuales) y Nota Interpretativa; GAFI — Guía para comerciantes de arte y antigüedades, 2021",
+    "orden": 7
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Lavado de dinero dentro y fuera de las empresas — Responsabilidad compartida",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Responsabilidad compartida en el lavado de dinero",
+      "cuerpo": [
+        {
+          "tipo": "parrafo",
+          "texto": "El lavado de dinero puede ocurrir tanto desde afuera de una empresa (cuando criminales intentan utilizar una institución legítima para sus fines) como desde adentro (cuando empleados o directivos participan activamente en el esquema). La regulación mexicana establece obligaciones y responsabilidades en ambos escenarios."
+        },
+        {
+          "tipo": "cuadro_comparativo",
+          "titulo": "Lavado interno vs. lavado externo",
+          "columnas": ["Dimensión", "Lavado Externo", "Lavado Interno"],
+          "filas": [
+            ["Origen", "Criminales que usan la institución como canal", "Empleados o directivos que participan en el esquema"],
+            ["Ejemplo típico", "Cliente que realiza depósitos estructurados", "Empleado que omite reportar u opera cuentas ficticias"],
+            ["Detección", "Sistema de monitoreo transaccional, señales de alerta del cliente", "Auditoría interna, análisis de conducta de empleados"],
+            ["Prevención clave", "Proceso de KYC robusto, monitoreo continuo", "Selección de personal, código de conducta, línea de denuncia"],
+            ["Marco regulatorio", "Obligaciones de reporte (LFPIORPI Art. 17)", "Responsabilidad penal Art. 400 Bis CPF + sanciones CNBV"]
+          ]
+        },
+        {
+          "tipo": "concepto_clave",
+          "titulo": "¿Responsabilidad compartida?",
+          "texto": "La regulación establece que no solo el lavador comete un delito. El oficial de cumplimiento, el director general o el empleado que tiene conocimiento de operaciones ilícitas y omite reportarlas puede incurrir en responsabilidad penal por encubrimiento o coparticipación. El artículo 400 Bis del CPF sanciona a quien 'tenga conocimiento' de que los recursos proceden de actividad ilícita."
+        },
+        {
+          "tipo": "obligaciones_personal",
+          "titulo": "Obligaciones del personal según la regulación",
+          "items": [
+            "Reportar operaciones inusuales o relevantes según los parámetros establecidos",
+            "No revelar al cliente o a terceros que una operación ha sido reportada (deber de reserva)",
+            "Seguir los procedimientos del Manual PLD/FT de la entidad",
+            "Participar en los programas de capacitación anuales obligatorios",
+            "Cumplir con el proceso de selección y evaluación de personal establecido"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La regulación CNBV establece expresamente en las Disposiciones de carácter general que el personal operativo que detecte señales de alerta tiene obligación de escalarlas al Oficial de Cumplimiento, independientemente de la jerarquía del cliente o del monto de la operación."
+        }
+      ]
+    },
+    "fuente_detallada": "CPF Art. 400 Bis; LFPIORPI Art. 17, fracción VII (reserva de información); Disposiciones de carácter general aplicables a instituciones de crédito (Circular CNBV única), capítulo de capacitación y selección de personal",
+    "orden": 8
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Operaciones con Recursos de Procedencia Ilícita (ORPI)",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "ORPI — Operaciones con Recursos de Procedencia Ilícita",
+      "cuerpo": [
+        {
+          "tipo": "definicion_legal",
+          "titulo": "Tipificación legal — CPF Art. 400 Bis",
+          "texto": "El delito de Operaciones con Recursos de Procedencia Ilícita (ORPI) es la denominación técnica en el ordenamiento jurídico mexicano para el lavado de dinero. Está tipificado en el Artículo 400 Bis del Código Penal Federal y en el artículo 400 Bis-1 para la modalidad de uso de recursos ilícitos."
+        },
+        {
+          "tipo": "penas",
+          "titulo": "Penas aplicables — Art. 400 Bis CPF",
+          "sanciones": [
+            {
+              "supuesto": "Modalidad básica (lavado de dinero)",
+              "pena_privativa": "5 a 15 años de prisión",
+              "multa": "De 1,000 a 5,000 días de salario mínimo general",
+              "fundamento": "CPF Art. 400 Bis, primer párrafo"
+            },
+            {
+              "supuesto": "Cuando el monto del lavado supere 50,000 días de salario mínimo",
+              "pena_privativa": "10 a 20 años de prisión",
+              "multa": "De 5,000 a 50,000 días de salario mínimo general",
+              "fundamento": "CPF Art. 400 Bis, párrafo calificado"
+            },
+            {
+              "supuesto": "Servidor público o ex servidor público que cometa el delito",
+              "pena_adicional": "Destitución e inhabilitación para desempeñar cargos públicos hasta por 20 años",
+              "fundamento": "CPF Art. 400 Bis, párrafo especial"
+            }
+          ]
+        },
+        {
+          "tipo": "circunstancias",
+          "titulo": "Circunstancias que agravan la pena",
+          "items": [
+            "Cuando el sujeto activo sea servidor público en ejercicio de sus funciones",
+            "Cuando se cometa por quien tiene la calidad de organización delictiva (crimen organizado)",
+            "Cuando el monto de las operaciones supere el umbral legal establecido",
+            "Cuando se utilicen a menores de edad o personas que no tienen capacidad para comprender el ilícito"
+          ]
+        },
+        {
+          "tipo": "concepto_clave",
+          "titulo": "Autonomía del delito",
+          "texto": "El delito de ORPI es autónomo: puede perseguirse y sancionarse sin necesidad de que exista sentencia previa por el delito fuente. Es suficiente con que se acredite que los recursos provienen de una actividad ilícita, aunque no se haya identificado al responsable del delito precedente ni exista condena al respecto."
+        }
+      ]
+    },
+    "fuente_detallada": "Código Penal Federal, Art. 400 Bis y Art. 400 Bis-1; DOF 14/03/2014 — reforma que fortaleció el tipo penal de ORPI",
+    "orden": 9
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "El Financiamiento al Terrorismo",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Definición, tipificación y características del Financiamiento al Terrorismo",
+      "cuerpo": [
+        {
+          "tipo": "definicion_legal",
+          "titulo": "Definición general del Financiamiento al Terrorismo",
+          "texto": "El Financiamiento al Terrorismo (FT) consiste en proveer o recolectar fondos, por cualquier medio, directa o indirectamente, con la intención de que sean usados, o a sabiendas de que serán usados, para cometer actos terroristas. A diferencia del lavado de dinero, los fondos del FT pueden tener origen tanto lícito como ilícito."
+        },
+        {
+          "tipo": "definicion_legal",
+          "titulo": "Tipificación en México — CPF Art. 139 Quáter",
+          "texto": "El artículo 139 Quáter del Código Penal Federal tipifica el financiamiento al terrorismo como: quien por sí o por interpósita persona realice, directa o indirectamente, aportaciones, recaudaciones o cualquier acto relacionado con el manejo de recursos económicos que tengan como finalidad apoyar económicamente a personas o grupos que realicen actos de terrorismo, ya sea nacional o internacional."
+        },
+        {
+          "tipo": "diferencia_clave",
+          "titulo": "Característica distintiva del FT: El origen de los fondos",
+          "texto": "Esta es la diferencia fundamental entre lavado de dinero y financiamiento al terrorismo. En el lavado, los fondos son SIEMPRE de origen ilícito y se busca darles apariencia lícita. En el FT, los fondos pueden tener origen LÍCITO (donaciones de iglesias, negocios legítimos, herencias) y el problema no es su origen sino su DESTINO: financiar actos terroristas.",
+          "ejemplo": "Una persona puede financiar el terrorismo con su propio salario legítimo o con una herencia sin que esos fondos provengan de ningún delito."
+        },
+        {
+          "tipo": "penas_ft",
+          "titulo": "Penas por Financiamiento al Terrorismo — CPF Art. 139 Quáter",
+          "sanciones": [
+            {
+              "supuesto": "Financiamiento al terrorismo",
+              "pena_privativa": "15 a 40 años de prisión",
+              "multa": "De 1,000 a 20,000 días de salario mínimo",
+              "nota": "Las penas son considerablemente más severas que las del lavado de dinero"
+            }
+          ]
+        },
+        {
+          "tipo": "antecedentes_internacionales",
+          "titulo": "Marco internacional del FT",
+          "items": [
+            {
+              "instrumento": "Convenio Internacional para la Represión de la Financiación del Terrorismo (ONU, 1999)",
+              "descripcion": "Primer instrumento internacional específico sobre FT. México lo ratificó en 2005.",
+              "fundamento": "ONU — Resolución A/RES/54/109"
+            },
+            {
+              "instrumento": "Resoluciones del Consejo de Seguridad ONU 1267 y 1373 (2001)",
+              "descripcion": "Post 9/11. La Resolución 1267 creó el Régimen de Sanciones contra Al-Qaeda/ISIS. La 1373 obligó a todos los estados miembros a tipificar el FT y bloquear activos de terroristas.",
+              "fundamento": "ONU — CS/RES/1267 (1999) y CS/RES/1373 (2001)"
+            },
+            {
+              "instrumento": "GAFI — Recomendaciones 5, 6 y 7",
+              "descripcion": "La Rec. 5 exige tipificar el FT. La Rec. 6 establece sanciones financieras dirigidas relacionadas con terrorismo. La Rec. 7 establece sanciones financieras relacionadas con proliferación de armas.",
+              "fundamento": "GAFI — 40 Recomendaciones 2012 (revisadas 2023)"
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "CPF Art. 139 Quáter; ONU — Convenio Internacional para la Represión de la Financiación del Terrorismo, Nueva York 1999; GAFI — Recomendaciones 5, 6 y 7",
+    "orden": 10
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Lavado de dinero vs. Financiamiento al Terrorismo — Diferencias y semejanzas",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "LD vs. FT: Análisis comparativo",
+      "cuerpo": [
+        {
+          "tipo": "cuadro_comparativo",
+          "titulo": "Diferencias fundamentales entre LD y FT",
+          "columnas": ["Dimensión", "Lavado de Dinero (LD)", "Financiamiento al Terrorismo (FT)"],
+          "filas": [
+            ["Objetivo principal", "Ocultar el origen ilícito de los fondos para poder usarlos libremente", "Financiar actos terroristas o a organizaciones terroristas"],
+            ["Origen de los fondos", "Siempre ilícito (producto del crimen)", "Puede ser lícito O ilícito"],
+            ["Dirección del flujo", "De lo ilícito hacia lo aparentemente lícito", "De cualquier origen hacia el terrorismo"],
+            ["Montos típicos", "Generalmente grandes volúmenes", "Frecuentemente montos pequeños pero con alto impacto"],
+            ["Motivación", "Beneficio económico personal", "Ideológica, política o religiosa"],
+            ["Delito fuente", "Requiere delito previo que genere recursos", "No requiere delito previo — los fondos pueden ser legítimos"],
+            ["Tipificación MX", "CPF Art. 400 Bis — ORPI", "CPF Art. 139 Quáter — FT"],
+            ["Pena máxima", "20 años de prisión (modalidad agravada)", "40 años de prisión"],
+            ["Detección", "Patrones financieros anómalos, montos, frecuencia", "Vinculación a listas de sanción, destino de fondos, ideología"]
+          ]
+        },
+        {
+          "tipo": "cuadro_semejanzas",
+          "titulo": "Semejanzas entre LD y FT",
+          "items": [
+            "Ambos utilizan el sistema financiero como canal o herramienta",
+            "Ambos requieren medidas preventivas similares: KYC, monitoreo, reporte",
+            "Ambas entidades financieras tienen las mismas obligaciones de reporte ante la UIF",
+            "Ambos pueden involucrar el uso de personas jurídicas, fideicomisos o estructuras complejas",
+            "Ambos son delitos graves que generan consecuencias penales severas",
+            "Ambos están sujetos al marco del GAFI y a la regulación sectorial de la CNBV",
+            "El oficial de cumplimiento tiene las mismas obligaciones preventivas respecto a ambos",
+            "Ambos pueden ejecutarse transnacionalmente, requiriendo cooperación internacional"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "En la práctica, el LD y el FT con frecuencia coexisten: una organización terrorista puede lavar el dinero obtenido de sus actividades delictivas (narcotráfico, secuestros) y simultáneamente financiar sus operaciones con esos recursos ya lavados."
+        }
+      ]
+    },
+    "fuente_detallada": "CPF Art. 400 Bis y Art. 139 Quáter; GAFI — Recomendaciones 1, 5 y 6; GAFI — Guía sobre la financiación del terrorismo, 2019",
+    "orden": 11
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Lavado de dinero vs. Financiamiento al Terrorismo — Diferencias y semejanzas",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa comparativo: LD vs FT",
+      "tipo": "venn",
+      "descripcion": "Diagrama de Venn mostrando diferencias y semejanzas entre LD y FT",
+      "circulo_izquierdo": {
+        "titulo": "Solo LD",
+        "items": [
+          "Fondos SIEMPRE ilícitos",
+          "Objetivo: limpiar dinero sucio",
+          "CPF Art. 400 Bis",
+          "Pena máx: 20 años",
+          "Motivación económica",
+          "Delito fuente obligatorio"
+        ]
+      },
+      "interseccion": {
+        "titulo": "Ambos comparten",
+        "items": [
+          "Uso del sistema financiero",
+          "Obligaciones KYC y reporte",
+          "Marco GAFI",
+          "Regulación CNBV",
+          "Posible uso de estructuras complejas",
+          "Delitos graves"
+        ]
+      },
+      "circulo_derecho": {
+        "titulo": "Solo FT",
+        "items": [
+          "Fondos pueden ser LÍCITOS",
+          "Objetivo: financiar terrorismo",
+          "CPF Art. 139 Quáter",
+          "Pena máx: 40 años",
+          "Motivación ideológica",
+          "Sin delito fuente obligatorio"
+        ]
+      }
+    },
+    "fuente_detallada": "CPF Art. 400 Bis y Art. 139 Quáter; GAFI — 40 Recomendaciones, Recomendaciones 1 y 5",
+    "orden": 12
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Fundamentos legales del Bloque 1",
+    "tipo": "fundamento_legal",
+    "contenido": {
+      "titulo": "Marco jurídico completo — Bloque 1",
+      "instrumentos": [
+        {
+          "nombre": "Código Penal Federal (CPF)",
+          "articulos": [
+            {
+              "articulo": "Art. 400 Bis",
+              "contenido": "Tipifica las Operaciones con Recursos de Procedencia Ilícita (ORPI/Lavado de Dinero). Establece las conductas prohibidas (adquirir, enajenar, administrar, custodiar, poseer, cambiar, convertir, depositar, retirar, invertir, transferir o trasladar recursos de origen ilícito) y las penas de 5 a 15 años de prisión en modalidad básica.",
+              "importancia_examen": "Alta — pregunta frecuente en examen CNBV"
+            },
+            {
+              "articulo": "Art. 400 Bis-1",
+              "contenido": "Establece una modalidad agravada del lavado cuando los actos se realizan de forma reiterada o el monto supera los umbrales establecidos.",
+              "importancia_examen": "Media"
+            },
+            {
+              "articulo": "Art. 139 Quáter",
+              "contenido": "Tipifica el Financiamiento al Terrorismo. Establece pena de 15 a 40 años de prisión para quien aporte, recaude o maneje recursos para financiar actos terroristas.",
+              "importancia_examen": "Alta"
+            }
+          ]
+        },
+        {
+          "nombre": "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita (LFPIORPI)",
+          "articulos": [
+            {
+              "articulo": "Art. 2",
+              "contenido": "Objeto de la ley y definiciones. Define términos fundamentales como: actividades vulnerables, aviso, beneficiario controlador, cliente, entidad colegiada, fedatario público, operación, persona jurídica, entre otros.",
+              "importancia_examen": "Alta — definiciones frecuentes en examen"
+            },
+            {
+              "articulo": "Art. 17",
+              "contenido": "Establece el catálogo de Actividades Vulnerables sujetas a la ley y sus umbrales. Incluye 16 tipos de actividades desde juegos de azar hasta servicios de fe pública.",
+              "importancia_examen": "Muy Alta"
+            }
+          ]
+        },
+        {
+          "nombre": "Instrumentos Internacionales",
+          "instrumentos": [
+            {
+              "instrumento": "Convención de Viena de la ONU (1988)",
+              "relevancia": "Primer instrumento internacional que tipificó el lavado de dinero como delito, vinculado al narcotráfico. Base del Art. 400 Bis CPF."
+            },
+            {
+              "instrumento": "Convenio Internacional para la Represión de la Financiación del Terrorismo (ONU, 1999)",
+              "relevancia": "Base internacional del delito de FT. Ratificado por México en 2005."
+            },
+            {
+              "instrumento": "Resoluciones CS ONU 1267 (1999) y 1373 (2001)",
+              "relevancia": "Crean el régimen de sanciones contra terrorismo. La lista 1267 (ahora 1988/1989/2253) identifica a organizaciones terroristas globales. Las entidades financieras deben consultar estas listas."
+            },
+            {
+              "instrumento": "40 Recomendaciones del GAFI (2012, revisadas 2023)",
+              "relevancia": "Estándar internacional de referencia en PLD/FT. México es miembro del GAFI desde 2000. Las evaluaciones mutuas del GAFI miden el cumplimiento mexicano con estas recomendaciones."
+            }
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Código Penal Federal, Arts. 139 Quáter, 400 Bis y 400 Bis-1; LFPIORPI DOF 17/10/2012; GAFI — 40 Recomendaciones 2012; ONU — Convenio de Viena 1988; ONU — CS/RES/1267 (1999) y CS/RES/1373 (2001)",
+    "orden": 13
+  },
+  {
+    "bloque": 1,
+    "tema": "El Lavado de Dinero y el Financiamiento al Terrorismo",
+    "subtema": "Resumen del Bloque 1",
+    "tipo": "resumen",
+    "contenido": {
+      "titulo": "Puntos clave para el examen CNBV — Bloque 1",
+      "puntos_clave": [
+        "El lavado de dinero es el proceso de dar apariencia lícita a recursos de origen ilícito. Tipificado en CPF Art. 400 Bis como ORPI.",
+        "Las tres etapas son: 1) Colocación (ingreso al sistema), 2) Estratificación (múltiples capas), 3) Integración (regreso a economía). La colocación es la etapa más vulnerable.",
+        "El FT financia actos terroristas y sus fondos pueden ser de origen lícito o ilícito. Tipificado en CPF Art. 139 Quáter con penas de hasta 40 años.",
+        "Diferencia clave LD vs FT: en el LD los fondos son siempre ilícitos; en el FT pueden ser lícitos. La diferencia es el ORIGEN vs el DESTINO de los fondos.",
+        "Semejanza clave: ambos utilizan el sistema financiero y generan las mismas obligaciones de KYC, monitoreo y reporte para las entidades reguladas.",
+        "El delito de ORPI es autónomo: no requiere sentencia previa por el delito fuente.",
+        "La estructuración o 'pitufeo' (depósitos fraccionados para evadir umbrales) es una de las señales de alerta más importantes en la etapa de colocación.",
+        "México ratificó la Convención de Viena (1988) y el Convenio ONU sobre FT (1999). Es miembro del GAFI desde 2000.",
+        "Las evaluaciones mutuas del GAFI evalúan si México cumple efectivamente (no solo formalmente) con las 40 Recomendaciones."
+      ],
+      "preguntas_tipicas_examen": [
+        "¿Cuál es el artículo del CPF que tipifica el lavado de dinero en México?",
+        "¿En qué etapa del lavado de dinero el lavador es más vulnerable a ser detectado?",
+        "¿Cuál es la diferencia fundamental entre el lavado de dinero y el financiamiento al terrorismo?",
+        "¿Puede el FT realizarse con fondos de origen lícito?",
+        "¿Qué es la estructuración o pitufeo y en qué etapa del lavado ocurre?"
+      ]
+    },
+    "fuente_detallada": "CPF Arts. 400 Bis y 139 Quáter; GAFI — 40 Recomendaciones; LFPIORPI",
+    "orden": 14
+  }
+]

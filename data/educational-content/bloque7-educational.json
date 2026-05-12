@@ -1,0 +1,803 @@
+[
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "La auditoría PLD/FT — Concepto, tipos y fundamento",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La auditoría en el régimen PLD/FT: concepto y marco regulatorio",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "La auditoría en materia de PLD/FT es el proceso sistemático e independiente de evaluación del programa de Prevención de Lavado de Dinero de una entidad financiera. Su objetivo es determinar si el programa PLD/FT es adecuado, efectivo y cumple con las disposiciones regulatorias aplicables. La auditoría es la Tercera Línea de Defensa en el modelo de gobernanza del riesgo PLD/FT establecido por el Comité de Basilea 2014."
+        },
+        {
+          "tipo": "fundamento_regulatorio",
+          "titulo": "Fundamento regulatorio de la auditoría PLD/FT",
+          "items": [
+            {
+              "fuente": "Disposiciones CNBV (por sector)",
+              "descripcion": "Las disposiciones de carácter general en materia de PLD/FT emitidas por la CNBV para cada tipo de entidad establecen expresamente la obligación de contar con auditoría interna y auditoría externa independiente que evalúen el programa PLD/FT al menos una vez al año.",
+              "ejemplo": "Las Disposiciones para instituciones de crédito establecen en su capítulo de estructura interna que el programa PLD/FT debe ser auditado anualmente."
+            },
+            {
+              "fuente": "GAFI — Recomendación 18",
+              "descripcion": "La Recomendación 18 del GAFI sobre controles internos establece que las instituciones financieras deben implementar programas de auditoría para verificar la efectividad de sus políticas, procedimientos y controles PLD/FT.",
+              "fundamento": "GAFI — Recomendación 18 (Controles internos, sucursales y filiales)"
+            },
+            {
+              "fuente": "Comité de Basilea 2014",
+              "descripcion": "El documento de Basilea sobre Gestión Adecuada de los Riesgos de BC/FT formaliza la auditoría como Tercera Línea de Defensa, complementaria a las funciones de negocio (1ª línea) y cumplimiento (2ª línea).",
+              "fundamento": "Comité de Supervisión Bancaria de Basilea — Gestión Adecuada de los Riesgos BC/FT, 2014"
+            }
+          ]
+        },
+        {
+          "tipo": "tipos_auditoria",
+          "titulo": "Tipos de auditoría PLD/FT",
+          "tipos": [
+            {
+              "tipo": "Auditoría Interna",
+              "definicion": "Evaluación realizada por el área de auditoría de la propia entidad financiera. Su independencia se garantiza a través de su reporte directo al Consejo de Administración o al Comité de Auditoría, no a la Dirección General.",
+              "caracteristicas": [
+                "Realizada por personal de la entidad especializado en auditoría",
+                "Periodicidad: según el plan anual de auditoría (puede ser más frecuente para entidades de mayor riesgo)",
+                "Cobertura: puede ser integral o por componentes del programa PLD/FT",
+                "Resultado: Informe de auditoría interna con hallazgos y recomendaciones",
+                "Seguimiento: El área de auditoría da seguimiento a que las recomendaciones sean implementadas"
+              ],
+              "independencia": "El auditor interno NO debe tener funciones operativas que generen conflicto de interés con las áreas que audita"
+            },
+            {
+              "tipo": "Auditoría Externa Independiente",
+              "definicion": "Evaluación realizada por un despacho o profesionista externo, independiente de la entidad, contratado para evaluar objetivamente el programa PLD/FT.",
+              "caracteristicas": [
+                "Realizada por despacho externo sin relación comercial sustancial con la entidad (independencia)",
+                "Periodicidad: AL MENOS UNA VEZ AL AÑO (obligatoria por disposiciones CNBV)",
+                "Cobertura: integral — evalúa todos los componentes del programa PLD/FT",
+                "Resultado: Informe de auditoría externa formal, dirigido al CCC y al Consejo de Administración",
+                "Uso regulatorio: La CNBV puede solicitar y revisar los informes de auditoría externa en visitas de inspección"
+              ],
+              "independencia": "El auditor externo no debe tener vínculos de interés con la entidad que puedan comprometer su objetividad"
+            }
+          ]
+        },
+        {
+          "tipo": "cuadro_comparativo",
+          "titulo": "Auditoría Interna vs. Auditoría Externa — Diferencias clave",
+          "columnas": ["Dimensión", "Auditoría Interna", "Auditoría Externa Independiente"],
+          "filas": [
+            ["¿Quién la realiza?", "Personal de auditoría de la propia entidad", "Despacho o profesionista externo contratado"],
+            ["Periodicidad", "Según plan anual (puede ser más frecuente)", "Al menos una vez al año (obligatoria)"],
+            ["Destinatario del informe", "Consejo/Comité de Auditoría interno", "CCC, Consejo de Administración, disponible para CNBV"],
+            ["Independencia", "Relativa — es empleado de la entidad", "Plena — no tiene relación de dependencia"],
+            ["Alcance típico", "Puede ser por componentes o segmentos", "Integral — evalúa todo el programa PLD/FT"],
+            ["Uso regulatorio", "Insumo en visitas de inspección", "Referencia directa de la CNBV en evaluación supervisora"],
+            ["Fundamento", "Disposiciones CNBV + Basilea 2014", "Disposiciones CNBV (obligatoria)"]
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La auditoría externa PLD/FT es OBLIGATORIA y debe realizarse al menos UNA VEZ AL AÑO. No puede sustituirse con la auditoría interna. Las entidades que no cuenten con auditoría externa anual del programa PLD/FT incumplen las disposiciones CNBV y pueden ser sancionadas. El informe de auditoría externa es uno de los primeros documentos que la CNBV solicita en una visita de inspección."
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV para instituciones de crédito — capítulo de auditoría; GAFI — Recomendación 18 (Controles internos); Comité de Supervisión Bancaria de Basilea — Gestión Adecuada de los Riesgos BC/FT, 2014; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 1
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "Informe de Auditoría PLD/FT",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El Informe de Auditoría PLD/FT: contenido, estructura y uso",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El informe de auditoría PLD/FT es el documento formal que resume los hallazgos, conclusiones y recomendaciones de la revisión del programa PLD/FT. Es el producto principal de la auditoría y el instrumento a través del cual el Consejo de Administración, el CCC y (en el caso de la auditoría externa) la CNBV obtienen una visión objetiva sobre la efectividad del programa."
+        },
+        {
+          "tipo": "contenido_informe",
+          "titulo": "Contenido típico del Informe de Auditoría PLD/FT",
+          "secciones": [
+            {
+              "seccion": "1. Portada e información general",
+              "contenido": [
+                "Nombre de la entidad auditada",
+                "Periodo evaluado",
+                "Fecha del informe",
+                "Nombre del auditor interno o del despacho externo",
+                "Alcance de la auditoría (qué componentes se evaluaron)"
+              ]
+            },
+            {
+              "seccion": "2. Resumen ejecutivo",
+              "contenido": [
+                "Opinión general sobre la suficiencia y efectividad del programa PLD/FT",
+                "Principales hallazgos (positivos y áreas de mejora)",
+                "Calificación global del programa (si la metodología lo incluye)",
+                "Número y severidad de observaciones identificadas"
+              ]
+            },
+            {
+              "seccion": "3. Alcance y metodología",
+              "contenido": [
+                "Descripción de los componentes del programa revisados",
+                "Metodología de muestreo utilizada (expedientes, transacciones, reportes)",
+                "Período cubierto por la revisión",
+                "Normas y disposiciones aplicadas como referencia"
+              ]
+            },
+            {
+              "seccion": "4. Evaluación por componente del programa PLD/FT",
+              "componentes": [
+                {
+                  "componente": "Políticas y Manual PLD/FT",
+                  "aspectos_revisados": ["¿Está actualizado?", "¿Refleja la regulación vigente?", "¿Es consistente con la práctica real?"]
+                },
+                {
+                  "componente": "Oficial de Cumplimiento y CCC",
+                  "aspectos_revisados": ["¿Cumple el Oficial los requisitos regulatorios?", "¿Sesiona el CCC con la frecuencia requerida?", "¿Las actas documentan correctamente las decisiones?"]
+                },
+                {
+                  "componente": "Identificación de clientes (KYC)",
+                  "aspectos_revisados": ["Calidad de expedientes — muestra aleatoria", "Completitud de la información", "Actualización de expedientes por grado de riesgo"]
+                },
+                {
+                  "componente": "Clasificación de riesgo de clientes",
+                  "aspectos_revisados": ["¿La clasificación es consistente con el perfil del cliente?", "¿Está actualizada?", "¿Los clientes de alto riesgo tienen DDR aplicada?"]
+                },
+                {
+                  "componente": "Sistema de monitoreo transaccional",
+                  "aspectos_revisados": ["¿Las reglas están actualizadas con tipologías recientes?", "¿Las alertas se procesan en tiempo?", "¿Hay evidencia de análisis de alertas?"]
+                },
+                {
+                  "componente": "Reportes ante la UIF",
+                  "aspectos_revisados": ["¿Se presentaron en tiempo y forma?", "¿Los OR cubren todos los umbrales?", "¿Los OI son completos y bien justificados?"]
+                },
+                {
+                  "componente": "Capacitación del personal",
+                  "aspectos_revisados": ["¿Se capacitó a todo el personal en el último año?", "¿El contenido es adecuado?", "¿Hay registros de asistencia?"]
+                },
+                {
+                  "componente": "Conservación de documentos",
+                  "aspectos_revisados": ["¿Se conservan por los plazos requeridos?", "¿Son accesibles para consulta?"]
+                }
+              ]
+            },
+            {
+              "seccion": "5. Hallazgos y observaciones",
+              "estructura_hallazgo": [
+                "Criterio: Cuál es la disposición o estándar que debe cumplirse",
+                "Condición: Qué encontró el auditor en la realidad",
+                "Causa: Por qué existe la diferencia entre el criterio y la condición",
+                "Efecto: Cuál es el riesgo o impacto del incumplimiento",
+                "Recomendación: Qué debe hacer la entidad para corregir la situación"
+              ]
+            },
+            {
+              "seccion": "6. Calificación / Conclusión del auditor",
+              "opciones_posibles": [
+                "Satisfactorio / Adecuado: El programa PLD/FT cumple con los requisitos regulatorios y es efectivo",
+                "Necesita mejoras menores: El programa es generalmente adecuado pero tiene áreas de mejora identificadas",
+                "Necesita mejoras significativas: Hay deficiencias importantes que comprometen la efectividad del programa",
+                "Insatisfactorio: El programa tiene fallas graves que representan un riesgo regulatorio significativo"
+              ]
+            },
+            {
+              "seccion": "7. Plan de acción y seguimiento",
+              "descripcion": "La entidad debe preparar un plan de acción formal respondiendo a cada observación del auditor, con: (1) la acción correctiva propuesta, (2) el responsable de implementarla, (3) la fecha compromiso de implementación. El CCC da seguimiento periódico al avance del plan."
+            }
+          ]
+        },
+        {
+          "tipo": "uso_regulatorio",
+          "titulo": "¿Cómo usa la CNBV el Informe de Auditoría?",
+          "items": [
+            "La CNBV puede solicitar el informe de auditoría externa como parte de la documentación en una visita de inspección",
+            "Los hallazgos del informe de auditoría son un indicador de la cultura de cumplimiento de la entidad",
+            "Un informe con hallazgos graves no corregidos en la siguiente auditoría puede agravar la calificación de la CNBV",
+            "Si la CNBV detecta que la entidad no tiene auditoría externa anual, puede sancionarla directamente",
+            "Un informe de auditoría de buena calidad, con seguimiento documentado de las recomendaciones, demuestra madurez del programa PLD/FT"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La estructura de un hallazgo de auditoría (Criterio - Condición - Causa - Efecto - Recomendación) es un estándar de práctica profesional en auditoría. Para el examen CNBV puede preguntarse cómo debe estructurarse un hallazgo o cómo debe responder la entidad a las observaciones del auditor. La respuesta es: con un plan de acción formal, con responsable y fecha, revisado periódicamente por el CCC."
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones CNBV — capítulo de auditoría; Normas Internacionales para el Ejercicio Profesional de la Auditoría Interna (IIA); GAFI — Recomendación 18; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 2
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "Lineamientos de auditoría PLD/FT",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Lineamientos y alcance de la auditoría PLD/FT",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "Las disposiciones CNBV establecen lineamientos específicos sobre cómo debe realizarse la auditoría PLD/FT, qué debe evaluar y cuáles son las características de independencia y calificación que debe tener el auditor. Estos lineamientos buscan garantizar que la auditoría sea genuinamente útil para identificar debilidades en el programa y no un mero ejercicio formal."
+        },
+        {
+          "tipo": "lineamientos_auditor",
+          "titulo": "Lineamientos sobre el auditor PLD/FT",
+          "lineamientos": [
+            {
+              "lineamiento": "Independencia del auditor externo",
+              "descripcion": "El auditor externo de PLD/FT debe ser completamente independiente de la entidad. No puede existir relación de dependencia económica, accionaria o de cualquier otra naturaleza que pueda comprometer su objetividad. No puede ser el mismo despacho que presta otros servicios de asesoría significativos a la entidad.",
+              "fundamento": "Disposiciones CNBV — principios de independencia del auditor"
+            },
+            {
+              "lineamiento": "Calificación y competencia del auditor",
+              "descripcion": "El auditor que realice la revisión del programa PLD/FT debe acreditar conocimiento suficiente en materia de PLD/FT. Esto puede incluir: certificación CNBV en PLD/FT, experiencia demostrable en auditorías similares, conocimiento de las disposiciones regulatorias aplicables al sector de la entidad auditada.",
+              "fundamento": "Disposiciones CNBV; Normas de competencia profesional del auditor"
+            },
+            {
+              "lineamiento": "Planificación de la auditoría",
+              "descripcion": "La auditoría debe estar debidamente planificada antes de su ejecución. El plan de auditoría debe establecer: el alcance de la revisión, los componentes del programa que serán evaluados, la metodología de muestreo, los riesgos clave a evaluar y el cronograma de trabajo.",
+              "elemento_clave": "El plan de auditoría debe estar basado en una evaluación de riesgos — los componentes de mayor riesgo deben recibir mayor profundidad de revisión (EBR aplicado a la auditoría)"
+            },
+            {
+              "lineamiento": "Alcance mínimo de la revisión",
+              "descripcion": "La auditoría del programa PLD/FT debe cubrir al menos los siguientes componentes:",
+              "componentes_minimos": [
+                "Suficiencia y actualización del Manual PLD/FT",
+                "Designación y funciones del Oficial de Cumplimiento",
+                "Funcionamiento del CCC (sesiones, actas, decisiones)",
+                "Calidad del proceso de identificación y conocimiento de clientes (KYC — muestra de expedientes)",
+                "Efectividad del sistema de monitoreo transaccional (reglas, alertas, seguimiento)",
+                "Completitud y oportunidad de los reportes presentados ante la UIF (OR, OI, OIP)",
+                "Cumplimiento del programa de capacitación anual",
+                "Cumplimiento de los plazos y formas de conservación de documentos",
+                "Verificación de listas de control (bloqueados, PEPs, OFAC)",
+                "Evaluación de la evaluación institucional de riesgos (¿está actualizada? ¿es consistente?)"
+              ]
+            },
+            {
+              "lineamiento": "Técnicas de auditoría",
+              "descripcion": "El auditor debe utilizar técnicas profesionales para recopilar evidencia suficiente y apropiada:",
+              "tecnicas": [
+                "Revisión documental: Manual PLD/FT, políticas, actas del CCC, registros de capacitación",
+                "Muestreo de expedientes: selección aleatoria y/o basada en riesgo de expedientes de clientes para verificar KYC",
+                "Pruebas de transacciones: verificar si el sistema de monitoreo detecta operaciones que debería detectar",
+                "Entrevistas: al Oficial de Cumplimiento, al personal del CCC, a personal de sucursales",
+                "Inspección física: verificar existencia y condición de los archivos y sistemas",
+                "Recálculo y validación: verificar que los reportes presentados ante la UIF son completos"
+              ]
+            },
+            {
+              "lineamiento": "Comunicación de resultados",
+              "descripcion": "Los resultados de la auditoría deben comunicarse formalmente por escrito. El borrador del informe debe compartirse con la administración de la entidad para que puedan presentar sus comentarios antes de la versión final. El informe final debe dirigirse al CCC y al Consejo de Administración.",
+              "confidencialidad": "El informe de auditoría PLD/FT es un documento interno de alta confidencialidad. No puede compartirse con terceros sin autorización expresa, excepto cuando lo solicite la CNBV en el ejercicio de sus facultades de supervisión."
+            },
+            {
+              "lineamiento": "Seguimiento de recomendaciones",
+              "descripcion": "La auditoría no termina con la emisión del informe. El auditor (interno especialmente) debe dar seguimiento a que las recomendaciones sean implementadas en los plazos comprometidos. La CNBV evalúa no solo los hallazgos sino el seguimiento dado a las recomendaciones de auditorías anteriores.",
+              "señal_de_alerta": "Si la CNBV detecta que los mismos hallazgos se repiten en auditorías sucesivas sin ser corregidos, esto es una señal de baja efectividad del programa y puede resultar en sanciones más severas."
+            }
+          ]
+        },
+        {
+          "tipo": "muestreo_auditoria",
+          "titulo": "El muestreo en la auditoría PLD/FT",
+          "descripcion": "Dada la imposibilidad práctica de revisar el 100% de los expedientes y transacciones de una entidad, el auditor utiliza técnicas de muestreo. El tipo y tamaño de la muestra deben ser suficientes para obtener conclusiones válidas.",
+          "tipos_muestreo": [
+            {
+              "tipo": "Muestreo aleatorio",
+              "descripcion": "Selección aleatoria de una muestra representativa. Permite inferir conclusiones sobre el universo total con un nivel de confianza estadístico.",
+              "cuando_usar": "Para evaluar la calidad general del proceso de KYC o la completitud de los expedientes"
+            },
+            {
+              "tipo": "Muestreo basado en riesgo",
+              "descripcion": "Selección de elementos de mayor riesgo: clientes de alto riesgo, PEPs, jurisdicciones de alto riesgo, productos más vulnerables.",
+              "cuando_usar": "Para evaluar si la DDR se aplica correctamente a los segmentos de mayor riesgo"
+            },
+            {
+              "tipo": "Muestreo dirigido",
+              "descripcion": "Selección de elementos específicos basada en el juicio del auditor: operaciones que debieron generar alerta pero no lo hicieron, clientes sin actualización de expediente en largo tiempo.",
+              "cuando_usar": "Para verificar si el sistema de monitoreo funciona en situaciones específicas de alto interés"
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "El principio del EBR (Enfoque Basado en Riesgos) se aplica también a la auditoría PLD/FT: los componentes del programa de mayor riesgo o con mayor historial de incumplimiento deben recibir mayor profundidad de revisión. El auditor que aplica el mismo nivel de profundidad a todos los componentes independientemente del riesgo no está aplicando el EBR en su metodología de auditoría."
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones de carácter general CNBV — capítulo de auditoría; GAFI — Recomendación 18; Normas Internacionales para el Ejercicio Profesional de la Auditoría Interna (IIA); Instituto Mexicano de Contadores Públicos — Normas de Auditoría; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 3
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "Supervisión de la CNBV — Objeto y alcance",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "La Supervisión de la CNBV en materia PLD/FT: objeto y alcance",
+      "cuerpo": [
+        {
+          "tipo": "definicion",
+          "titulo": "¿Qué es la supervisión en materia PLD/FT?",
+          "texto": "La supervisión en materia PLD/FT es el conjunto de acciones que realiza la CNBV para verificar que las entidades financieras sujetas a su regulación cumplen efectivamente con las disposiciones en materia de PLD/FT. La supervisión no se limita a verificar la existencia formal de las políticas y procedimientos — evalúa también su efectividad práctica."
+        },
+        {
+          "tipo": "objeto_supervision",
+          "titulo": "Objeto de la Supervisión PLD/FT",
+          "descripcion": "La supervisión PLD/FT de la CNBV tiene como objetivo verificar que las entidades financieras:",
+          "objetivos": [
+            "Cuenten con un programa PLD/FT completo y actualizado conforme a las disposiciones aplicables",
+            "Apliquen efectivamente las políticas de identificación y conocimiento de clientes (KYC)",
+            "Clasifiquen correctamente el riesgo de sus clientes y apliquen el nivel de diligencia correspondiente",
+            "Cuenten con sistemas de monitoreo transaccional efectivos y actualizados",
+            "Presenten los reportes ante la UIF en tiempo, forma y con el contenido requerido",
+            "Conserven la documentación por los plazos establecidos",
+            "Cuenten con la estructura interna requerida (Oficial de Cumplimiento, CCC)",
+            "Implementen programas de capacitación efectivos para todo su personal",
+            "Hayan realizado la evaluación institucional de riesgos (EBR)",
+            "Cuenten con auditoría interna y externa del programa PLD/FT"
+          ]
+        },
+        {
+          "tipo": "alcance_supervision",
+          "titulo": "Alcance de la Supervisión PLD/FT",
+          "descripcion": "El alcance de la supervisión puede variar en función del tipo de visita, el perfil de riesgo de la entidad y los hallazgos previos. La supervisión puede ser:",
+          "modalidades_alcance": [
+            {
+              "modalidad": "Supervisión integral",
+              "descripcion": "Evalúa todos los componentes del programa PLD/FT de la entidad. Es la modalidad más completa y típicamente corresponde a las visitas de inspección ordinarias."
+            },
+            {
+              "modalidad": "Supervisión temática",
+              "descripcion": "Se concentra en un aspecto específico del programa PLD/FT detectado como problemático: por ejemplo, solo el sistema de monitoreo, o solo la calidad de los expedientes de PEPs."
+            },
+            {
+              "modalidad": "Supervisión de seguimiento",
+              "descripcion": "Verifica que la entidad implementó las medidas correctivas comprometidas en visitas de inspección anteriores."
+            },
+            {
+              "modalidad": "Supervisión sectorial",
+              "descripcion": "La CNBV puede realizar supervisiones simultáneas en múltiples entidades del mismo sector para evaluar tendencias y riesgos sistémicos."
+            }
+          ]
+        },
+        {
+          "tipo": "ebr_en_supervision",
+          "titulo": "El EBR aplicado a la supervisión",
+          "texto": "La CNBV aplica el Enfoque Basado en Riesgos también en su función supervisora: las entidades con mayor riesgo inherente (por su tamaño, complejidad, cartera de clientes, productos o geografía) o con historial de incumplimientos previos reciben mayor intensidad de supervisión (visitas más frecuentes, alcance más amplio). Las entidades de menor riesgo o con historial de cumplimiento sólido pueden recibir supervisión menos intensa.",
+          "criterios_mayor_supervision": [
+            "Entidades con historial de sanciones o incumplimientos previos",
+            "Entidades de gran tamaño por su volumen de operaciones",
+            "Entidades con alta exposición a clientes de alto riesgo (PEPs, jurisdicciones riesgo)",
+            "Entidades con productos o servicios de alta vulnerabilidad PLD (cambio de divisas, transmisión de dinero)",
+            "Entidades con reportes UIF anómalos (muy pocos, de mala calidad, o con patrones inconsistentes)",
+            "Entidades recientemente autorizadas sin historial de cumplimiento"
+          ],
+          "fundamento": "GAFI — Recomendación 26 (Regulación y supervisión de instituciones financieras) — establece que la supervisión debe ser proporcional al riesgo"
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La CNBV evalúa el cumplimiento PLD/FT en dos dimensiones: (1) FORMAL: ¿existen las políticas, el manual, el Oficial de Cumplimiento, los registros de capacitación? (2) EFECTIVA: ¿funciona el programa en la práctica? ¿los reportes son de buena calidad? ¿el sistema de monitoreo detecta lo que debe? Esta dualidad formal/efectiva refleja las dos dimensiones de la evaluación del GAFI (TC y EF) aplicadas a nivel institucional."
+        }
+      ]
+    },
+    "fuente_detallada": "Ley de la CNBV Arts. 4 y 5; Disposiciones CNBV — capítulo de supervisión; GAFI — Recomendación 26 (Regulación y supervisión de IF); GAFI — Metodología de evaluación mutua 2013; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 4
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "Tipos de supervisión y tipos de visita",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "Tipos de supervisión y tipos de visita de la CNBV",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "La supervisión de la CNBV en materia PLD/FT se ejerce a través de diferentes modalidades, que van desde la revisión de información remota (sin visita) hasta inspecciones físicas en las instalaciones de la entidad. Cada modalidad tiene características, alcances y propósitos específicos."
+        },
+        {
+          "tipo": "tipos_supervision",
+          "titulo": "Los tipos de supervisión de la CNBV",
+          "tipos": [
+            {
+              "tipo": "Supervisión Extramuros (Off-site)",
+              "descripcion": "Revisión que realiza la CNBV desde sus propias instalaciones, sin visitar físicamente a la entidad. Se basa en información que la entidad envía periódicamente o que la CNBV obtiene de otros sistemas.",
+              "fuentes_informacion": [
+                "Reportes estadísticos periódicos que las entidades envían a la CNBV",
+                "Información sobre los reportes OR, OI, OIP presentados ante la UIF (que la CNBV puede cruzar con la UIF)",
+                "Informes de auditoría externa que las entidades deben remitir",
+                "Análisis de indicadores de riesgo: frecuencia y calidad de reportes, variaciones inusuales",
+                "Información pública sobre la entidad (estados financieros, prensa, etc.)"
+              ],
+              "ventajas": [
+                "Permite supervisión continua de múltiples entidades simultáneamente",
+                "Es menos onerosa en términos de recursos para la CNBV y la entidad",
+                "Puede identificar señales de alerta que justifiquen una visita de inspección"
+              ],
+              "limitaciones": [
+                "Limitada a la información disponible — puede no detectar problemas que no se reflejan en reportes",
+                "No permite verificar la realidad operativa de la entidad (cultura de cumplimiento, capacitación efectiva, calidad de expedientes)"
+              ]
+            },
+            {
+              "tipo": "Supervisión In Situ (Visita de Inspección)",
+              "descripcion": "Revisión que realiza la CNBV físicamente en las instalaciones de la entidad. Permite acceso directo a expedientes, sistemas, personal y documentación. Es la modalidad más completa y de mayor impacto.",
+              "subtipos": [
+                {
+                  "subtipo": "Visita Ordinaria",
+                  "descripcion": "Visita programada y notificada previamente a la entidad. Tiene alcance integral — evalúa todos los componentes del programa PLD/FT.",
+                  "periodicidad": "Generalmente anual o bienal, dependiendo del perfil de riesgo de la entidad",
+                  "notificacion": "La CNBV notifica formalmente el inicio de la visita con anticipación (generalmente varios días hábiles antes)"
+                },
+                {
+                  "subtipo": "Visita Especial",
+                  "descripcion": "Visita no programada (sorpresiva) o con enfoque en aspectos específicos del programa PLD/FT. Puede derivar de: alertas en supervisión extramuros, denuncias, hallazgos en visitas anteriores no corregidos, o investigaciones de la UIF/FGR.",
+                  "periodicidad": "Sin periodicidad fija — se activa cuando hay razones específicas",
+                  "notificacion": "Puede realizarse sin notificación previa (sorpresiva) o con notificación mínima"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tipo": "tabla_tipos_visita",
+          "titulo": "Comparativo: Visita Ordinaria vs. Visita Especial",
+          "columnas": ["Dimensión", "Visita Ordinaria", "Visita Especial"],
+          "filas": [
+            ["¿Cuándo se realiza?", "Según programa anual de supervisión de la CNBV", "Cuando hay motivos específicos: alertas, denuncias, incumplimientos previos"],
+            ["¿Es notificada?", "Sí — con anticipación formal", "Puede ser sorpresiva o con notificación mínima"],
+            ["Alcance", "Integral — todos los componentes del programa PLD/FT", "Puede ser focalizada en aspectos específicos"],
+            ["Duración típica", "Varias semanas (entidades grandes)", "Variable — desde días hasta semanas"],
+            ["¿Qué puede originar?", "Revisión de rutina, sin detonante específico", "Alerta extramuros, denuncia, incumplimiento previo, investigación UIF/FGR"],
+            ["Resultado típico", "Informe completo con calificación general del programa", "Informe focalizado + posible inicio de procedimiento sancionatorio"],
+            ["Frecuencia típica", "Anual o bienal", "Variable — según necesidades regulatorias"]
+          ]
+        },
+        {
+          "tipo": "aspectos_relevantes",
+          "titulo": "Aspectos relevantes sobre los tipos de visita",
+          "items": [
+            {
+              "aspecto": "La CNBV puede combinar ambos tipos",
+              "descripcion": "Una visita ordinaria puede convertirse en especial si durante su desarrollo se descubren hallazgos graves. La CNBV tiene facultades amplias para ampliar el alcance de una visita iniciada como ordinaria."
+            },
+            {
+              "aspecto": "Derechos de la entidad durante la visita",
+              "descripcion": "La entidad tiene derecho a ser notificada de los inspectores (quiénes son, acreditación), a presentar información adicional que aclare los hallazgos, y a tener acceso al informe preliminar antes de la versión final (garantía de audiencia)."
+            },
+            {
+              "aspecto": "Obligaciones de la entidad durante la visita",
+              "descripcion": "La entidad está obligada a facilitar el acceso de los inspectores a las instalaciones, sistemas y documentación, a proporcionar la información solicitada en los plazos que la CNBV establezca, y a no obstaculizar la visita. La obstrucción de una visita de inspección es una infracción grave sancionable."
+            },
+            {
+              "aspecto": "Confidencialidad de la visita",
+              "descripcion": "La entidad no está obligada a revelar públicamente que está siendo objeto de una visita de inspección. Sin embargo, puede tener obligaciones de divulgación a accionistas o a otras autoridades dependiendo de sus circunstancias específicas."
+            }
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "Para el examen CNBV, es importante recordar que la CNBV tiene FACULTADES AMPLIAS de supervisión que incluyen: revisar expedientes, transacciones, sistemas, entrevistar al personal, solicitar información adicional y — en casos graves — dictar medidas cautelares durante la misma visita. Las entidades no pueden restringir el alcance de la visita sin causa justificada."
+        }
+      ]
+    },
+    "fuente_detallada": "Ley de la CNBV Arts. 4, 5 y 6; LIC Art. 108 y siguientes; Disposiciones CNBV — capítulo de supervisión; GAFI — Recomendación 27 (Facultades de supervisores); Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 5
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "Procedimiento de visita de inspección",
+    "tipo": "explicacion",
+    "contenido": {
+      "titulo": "El procedimiento de visita de inspección PLD/FT de la CNBV: etapas y derechos",
+      "cuerpo": [
+        {
+          "tipo": "introduccion",
+          "texto": "El procedimiento de visita de inspección es el proceso formal mediante el cual la CNBV ejecuta su función supervisora en las instalaciones de la entidad financiera. Este procedimiento está regulado por la Ley de la CNBV y tiene etapas específicas que garantizan tanto la efectividad de la supervisión como los derechos de la entidad inspeccionada."
+        },
+        {
+          "tipo": "etapas_visita",
+          "titulo": "Etapas del procedimiento de visita de inspección PLD/FT",
+          "etapas": [
+            {
+              "numero": 1,
+              "nombre": "Designación del equipo inspector",
+              "descripcion": "La CNBV designa al equipo de inspectores que realizará la visita. El equipo generalmente está integrado por: un inspector responsable (quien coordina), inspectores especializados en PLD/FT, y en algunos casos, inspectores de riesgos tecnológicos (para revisar el sistema de monitoreo).",
+              "nota": "Los inspectores son servidores públicos de la CNBV con facultades legales para realizar la visita"
+            },
+            {
+              "numero": 2,
+              "nombre": "Notificación de inicio de visita",
+              "descripcion": "Para visitas ordinarias, la CNBV notifica formalmente a la entidad el inicio de la visita mediante un oficio firmado por el titular de la CNBV o por el funcionario competente. El oficio especifica: fecha de inicio, nombres de los inspectores, aspectos a revisar (en visitas ordinarias) y solicita cierta documentación de forma anticipada.",
+              "documentos_tipicos_solicitados": [
+                "Manual PLD/FT vigente",
+                "Organigrama del área de cumplimiento",
+                "Actas del CCC del último año",
+                "Informe de auditoría externa PLD/FT más reciente",
+                "Registros de capacitación del último año",
+                "Evaluación institucional de riesgos más reciente"
+              ]
+            },
+            {
+              "numero": 3,
+              "nombre": "Reunión de apertura (kick-off)",
+              "descripcion": "Al iniciar la visita, los inspectores se reúnen con el Oficial de Cumplimiento y otros directivos de la entidad. En esta reunión: se presentan y acreditan los inspectores, se confirma el alcance de la visita, se acuerda la logística (espacio de trabajo, acceso a sistemas), y se establece el punto de contacto de la entidad.",
+              "tip_practica": "La reunión de apertura es una oportunidad para la entidad de presentar el contexto de su programa PLD/FT antes de que comience la revisión"
+            },
+            {
+              "numero": 4,
+              "nombre": "Revisión documental",
+              "descripcion": "El equipo inspector revisa la documentación del programa PLD/FT. Esta es la etapa más extensa de la visita. Los inspectores analizan:",
+              "documentos_revisados": [
+                "Manual PLD/FT (vigente, actualización, contenido)",
+                "Políticas de identificación de clientes (PIC) y de conocimiento del cliente (PCC)",
+                "Actas del CCC (periodicidad, contenido, decisiones)",
+                "Expedientes de clientes — muestra seleccionada (completitud, actualización, clasificación de riesgo)",
+                "Registros de la aplicación de DDR para clientes de alto riesgo y PEPs",
+                "Documentación del sistema de monitoreo (reglas configuradas, alertas generadas y procesadas)",
+                "Reportes presentados ante la UIF (OR, OI, OIP — número, plazos, calidad)",
+                "Registros de capacitación del personal",
+                "Listas de verificación de personas bloqueadas y PEPs",
+                "Evaluación institucional de riesgos",
+                "Informes de auditoría interna y externa previos"
+              ]
+            },
+            {
+              "numero": 5,
+              "nombre": "Pruebas de efectividad y transacciones",
+              "descripcion": "Los inspectores realizan pruebas para verificar si el programa funciona en la práctica, más allá de la existencia de documentos:",
+              "pruebas_tipicas": [
+                "Verificar si el sistema de monitoreo genera alertas ante transacciones que debería detectar (pruebas de recorrido o 'walk-through')",
+                "Seleccionar transacciones específicas y rastrear su proceso desde la alerta hasta la decisión de reportar o no reportar",
+                "Verificar si los umbrales de reporte para OR están correctamente configurados en el sistema",
+                "Probar si el sistema consulta automáticamente las listas de personas bloqueadas",
+                "Verificar la calidad de los OI presentados: ¿tienen descripción completa, datos del cliente, monto, tipo de operación?"
+              ]
+            },
+            {
+              "numero": 6,
+              "nombre": "Entrevistas al personal",
+              "descripcion": "Los inspectores entrevistan a personal clave para evaluar el conocimiento y la cultura de cumplimiento:",
+              "personal_entrevistado": [
+                "Oficial de Cumplimiento — profundidad total del programa, procesos, criterios de decisión",
+                "Miembros del CCC — conocimiento de sus responsabilidades y del programa",
+                "Personal de sucursales (cajeros, ejecutivos) — conocimiento de señales de alerta, proceso de reporte interno",
+                "Personal de tecnología — funcionamiento del sistema de monitoreo",
+                "Alta dirección — comprensión del apetito de riesgo y la gobernanza del programa"
+              ],
+              "objetivo": "Verificar que el conocimiento sobre PLD/FT existe en toda la organización, no solo en papel"
+            },
+            {
+              "numero": 7,
+              "nombre": "Comunicación de hallazgos preliminares",
+              "descripcion": "Al concluir la revisión en sitio, el equipo inspector comunica informalmente (o en una reunión de cierre) los hallazgos preliminares a la dirección de la entidad. La entidad tiene oportunidad de presentar información adicional que aclare o corrija los hallazgos antes de la versión final del informe.",
+              "importancia": "Esta es la oportunidad de la entidad de presentar evidencia que los inspectores pueden no haber visto o de aclarar malentendidos"
+            },
+            {
+              "numero": 8,
+              "nombre": "Elaboración del Informe de Visita",
+              "descripcion": "El equipo inspector elabora el informe formal de la visita con: descripción de los hallazgos por componente del programa, calificación de cada componente (si aplica), observaciones que deben corregirse, y plazos para la corrección.",
+              "calificaciones_posibles": [
+                "Sin observaciones — el componente cumple con los requisitos",
+                "Observaciones menores — aspectos a mejorar sin impacto en la efectividad",
+                "Observaciones significativas — deficiencias que comprometen la efectividad del programa",
+                "Observaciones graves — incumplimientos que pueden resultar en procedimiento sancionatorio"
+              ]
+            },
+            {
+              "numero": 9,
+              "nombre": "Notificación del Informe y resolución",
+              "descripcion": "La CNBV notifica formalmente el informe de visita a la entidad. Si hay hallazgos que constituyen infracciones, la CNBV inicia el procedimiento sancionatorio formal.",
+              "procedimiento_sancionatorio": [
+                "Formulación de cargos — la CNBV notifica los presuntos incumplimientos con fundamento legal",
+                "Audiencia — la entidad presenta pruebas y argumentos de defensa (garantía constitucional de audiencia — Art. 14 CPEUM)",
+                "Resolución — la CNBV emite la resolución determinando si procede sanción y su monto",
+                "Recursos — la entidad puede impugnar mediante recurso de revisión o juicio de nulidad"
+              ]
+            },
+            {
+              "numero": 10,
+              "nombre": "Seguimiento post-visita",
+              "descripcion": "La entidad debe implementar un plan de acción para corregir todas las observaciones del informe. La CNBV da seguimiento extramuros o mediante visitas de seguimiento para verificar la implementación de las correcciones.",
+              "consecuencia_no_corrección": "Si en la siguiente visita se detectan los mismos hallazgos sin corregir, la CNBV puede calificar la situación como agravada y aplicar sanciones más severas"
+            }
+          ]
+        },
+        {
+          "tipo": "derechos_entidad",
+          "titulo": "Derechos de la entidad durante el procedimiento",
+          "items": [
+            "Verificar la identidad y acreditación de los inspectores antes de iniciar la visita",
+            "Conocer el alcance de la visita (los aspectos que serán revisados)",
+            "Presentar información adicional antes de la versión final del informe",
+            "Ser escuchada antes de que se impongan sanciones (garantía de audiencia constitucional)",
+            "Impugnar el informe y las sanciones mediante los recursos legales disponibles",
+            "Confidencialidad del proceso: la CNBV no puede revelar información obtenida en la visita a terceros (salvo obligaciones legales específicas)"
+          ]
+        },
+        {
+          "tipo": "dato_clave",
+          "texto": "La garantía de audiencia (Art. 14 CPEUM) es un derecho constitucional que protege a las entidades en el procedimiento sancionatorio: antes de que se imponga una sanción, la entidad debe tener la oportunidad de presentar su defensa. Una sanción impuesta sin respetar esta garantía puede ser anulada por el Poder Judicial. El Oficial de Cumplimiento debe conocer este derecho y ejercerlo cuando corresponda."
+        }
+      ]
+    },
+    "fuente_detallada": "Ley de la CNBV Arts. 4-6 y 25-27; LIC Arts. 107-115; Constitución Política de los EUM Art. 14 (garantía de audiencia); Disposiciones CNBV — capítulo de supervisión; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 6
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "Supervisión de la CNBV — Objeto y alcance",
+    "tipo": "diagrama",
+    "contenido": {
+      "titulo": "Diagrama: El proceso completo de supervisión PLD/FT de la CNBV",
+      "tipo_diagrama": "flujo_vertical",
+      "descripcion": "Desde la supervisión extramuros hasta el procedimiento sancionatorio",
+      "etapas": [
+        {
+          "etapa": "SUPERVISIÓN CONTINUA (Extramuros)",
+          "descripcion": "Análisis de reportes, estadísticas e indicadores de riesgo sin visita presencial",
+          "resultado": "Perfil de riesgo supervisor de la entidad"
+        },
+        {
+          "etapa": "PLANIFICACIÓN DE LA VISITA",
+          "descripcion": "Selección de entidades a visitar, designación del equipo, definición del alcance",
+          "resultado": "Plan de visita y solicitud de documentación anticipada"
+        },
+        {
+          "etapa": "VISITA DE INSPECCIÓN",
+          "subetapas": ["Notificación", "Reunión apertura", "Revisión documental", "Pruebas efectividad", "Entrevistas", "Hallazgos preliminares"],
+          "resultado": "Informe de visita con hallazgos y observaciones"
+        },
+        {
+          "etapa": "POST-VISITA",
+          "descripcion": "Notificación del informe → Plan de acción de la entidad → Seguimiento extramuros",
+          "bifurcacion": {
+            "si_sin_infracciones": "Seguimiento del plan de acción → Cierre",
+            "si_con_infracciones": "Procedimiento sancionatorio → Audiencia → Resolución → Recursos legales"
+          }
+        }
+      ]
+    },
+    "fuente_detallada": "Ley de la CNBV; LIC; Disposiciones CNBV; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 7
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "La auditoría PLD/FT — Concepto, tipos y fundamento",
+    "tipo": "mapa_conceptual",
+    "contenido": {
+      "titulo": "Mapa conceptual: Auditoría y Supervisión PLD/FT — Bloque 7 completo",
+      "nodo_central": "Auditoría y Supervisión PLD/FT",
+      "ramas": [
+        {
+          "concepto": "Tipos de auditoría",
+          "subnodos": [
+            "Interna — personal de la entidad, continua",
+            "Externa independiente — despacho externo, anual obligatoria",
+            "Tercera Línea de Defensa (Basilea 2014)",
+            "EBR aplicado: mayor profundidad en áreas de mayor riesgo"
+          ]
+        },
+        {
+          "concepto": "Informe de Auditoría",
+          "subnodos": [
+            "Estructura: portada, resumen ejecutivo, alcance, evaluación por componente, hallazgos, calificación, plan de acción",
+            "Hallazgo: Criterio → Condición → Causa → Efecto → Recomendación",
+            "Uso: CNBV puede solicitarlo en visitas de inspección",
+            "Calificaciones: Satisfactorio → Necesita mejoras menores → Significativas → Insatisfactorio"
+          ]
+        },
+        {
+          "concepto": "Lineamientos de auditoría",
+          "subnodos": [
+            "Independencia del auditor externo",
+            "Competencia y calificación",
+            "Planificación basada en riesgos",
+            "Alcance mínimo: manual, KYC, monitoreo, reportes, capacitación",
+            "Técnicas: revisión documental, muestreo, pruebas, entrevistas",
+            "Seguimiento de recomendaciones"
+          ]
+        },
+        {
+          "concepto": "Supervisión CNBV",
+          "subnodos": [
+            "Objeto: verificar cumplimiento formal Y efectividad",
+            "EBR: mayor supervisión a mayor riesgo",
+            "Modalidades: extramuros (continua) + in situ (visitas)"
+          ]
+        },
+        {
+          "concepto": "Tipos de visita",
+          "subnodos": [
+            "Ordinaria: programada, integral, notificada",
+            "Especial: focalizada o sorpresiva, por motivo específico",
+            "Alcance: integral / temático / seguimiento / sectorial"
+          ]
+        },
+        {
+          "concepto": "Procedimiento de visita (10 etapas)",
+          "subnodos": [
+            "1. Designación equipo inspector",
+            "2. Notificación formal",
+            "3. Reunión de apertura",
+            "4. Revisión documental",
+            "5. Pruebas de efectividad",
+            "6. Entrevistas al personal",
+            "7. Hallazgos preliminares",
+            "8. Informe de visita",
+            "9. Procedimiento sancionatorio (si aplica)",
+            "10. Seguimiento post-visita"
+          ]
+        },
+        {
+          "concepto": "Derechos de la entidad",
+          "subnodos": [
+            "Verificar identidad de inspectores",
+            "Presentar información adicional",
+            "Garantía de audiencia (Art. 14 CPEUM)",
+            "Impugnar sanciones (recurso de revisión / juicio de nulidad)"
+          ]
+        }
+      ]
+    },
+    "fuente_detallada": "Disposiciones CNBV; Ley de la CNBV; LIC; GAFI Rec. 18 y 26; Basilea 2014; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 8
+  },
+  {
+    "bloque": 7,
+    "tema": "Auditoría en Materia de PLD/FT",
+    "subtema": "Procedimiento de visita de inspección",
+    "tipo": "resumen",
+    "contenido": {
+      "titulo": "Puntos clave para el examen CNBV — Bloque 7",
+      "puntos_clave": [
+        "La auditoría PLD/FT es la Tercera Línea de Defensa en el modelo de gobernanza del riesgo (Basilea 2014). Evalúa independientemente si las dos primeras líneas (negocio y cumplimiento) funcionan correctamente.",
+        "Existen DOS tipos de auditoría PLD/FT: interna (personal de la entidad) y externa independiente (despacho externo). La externa independiente es OBLIGATORIA y debe realizarse AL MENOS UNA VEZ AL AÑO.",
+        "El informe de auditoría tiene una estructura formal con: portada, resumen ejecutivo, alcance, evaluación por componente, hallazgos, calificación y plan de acción. Los hallazgos se estructuran con Criterio-Condición-Causa-Efecto-Recomendación.",
+        "El alcance mínimo de la auditoría incluye: manual PLD/FT, Oficial de Cumplimiento, CCC, KYC (expedientes), sistema de monitoreo, reportes UIF, capacitación, conservación de documentos y evaluación de riesgos.",
+        "El auditor externo debe ser INDEPENDIENTE y CALIFICADO en PLD/FT. No puede prestar simultáneamente servicios significativos de asesoría a la entidad que audita.",
+        "La CNBV ejerce supervisión EXTRAMUROS (continua, sin visita, basada en reportes) e IN SITU (visitas de inspección ordinarias o especiales).",
+        "La visita ORDINARIA es programada, notificada e integral (evalúa todo el programa). La visita ESPECIAL puede ser sorpresiva, está motivada por hallazgos o alertas específicos, y puede ser focalizada en aspectos concretos.",
+        "El procedimiento de visita tiene 10 etapas: designación del equipo → notificación → apertura → revisión documental → pruebas → entrevistas → hallazgos preliminares → informe → sanción (si aplica) → seguimiento.",
+        "La entidad tiene derechos durante la visita: verificar identidad de inspectores, presentar información adicional y — en el procedimiento sancionatorio — la garantía de audiencia (Art. 14 CPEUM) antes de que se imponga sanción.",
+        "La CNBV aplica el EBR en su función supervisora: mayor intensidad de supervisión para entidades de mayor riesgo o con historial de incumplimientos.",
+        "Los mismos hallazgos que se repiten en visitas sucesivas sin ser corregidos agravan la calificación de la entidad y pueden resultar en sanciones más severas.",
+        "La CNBV evalúa tanto el cumplimiento FORMAL (¿existen las políticas?) como el EFECTIVO (¿el programa funciona en la práctica?). Esta dualidad refleja las dimensiones TC y EF de las evaluaciones GAFI."
+      ],
+      "tabla_comparativa_final": {
+        "titulo": "Resumen: Auditoría Interna vs. Externa vs. Supervisión CNBV",
+        "columnas": ["Dimensión", "Auditoría Interna", "Auditoría Externa", "Supervisión CNBV"],
+        "filas": [
+          ["¿Quién?", "Personal de la entidad", "Despacho externo independiente", "Inspectores de la CNBV (servidores públicos)"],
+          ["¿Cuándo?", "Según plan anual", "Al menos una vez al año", "Extramuros: continua; Visitas: según programa"],
+          ["¿Para quién?", "Consejo interno / Comité Auditoría", "CCC, Consejo, disponible para CNBV", "CNBV — función regulatoria"],
+          ["Independencia", "Relativa (empleado)", "Plena (externo)", "Plena (autoridad reguladora)"],
+          ["Consecuencias de hallazgos", "Plan de acción interno", "Plan de acción, CNBV lo considera", "Sanciones administrativas, inhabilitación"]
+        ]
+      },
+      "preguntas_tipicas_examen": [
+        "¿Cuál es la diferencia entre auditoría interna y auditoría externa en materia PLD/FT?",
+        "¿Con qué frecuencia debe realizarse la auditoría externa del programa PLD/FT?",
+        "¿Qué componentes debe cubrir como mínimo la auditoría del programa PLD/FT?",
+        "¿Cuál es la estructura de un hallazgo de auditoría?",
+        "¿Qué es la supervisión extramuros y cómo difiere de la visita de inspección?",
+        "¿Cuál es la diferencia entre una visita ordinaria y una visita especial de la CNBV?",
+        "¿Cuáles son las etapas del procedimiento de visita de inspección?",
+        "¿Qué derechos tiene la entidad durante una visita de inspección?",
+        "¿Qué es la garantía de audiencia y cuándo aplica en el contexto PLD/FT?",
+        "¿Cómo aplica el EBR en la función supervisora de la CNBV?"
+      ]
+    },
+    "fuente_detallada": "Disposiciones CNBV — capítulo de auditoría y supervisión; Ley de la CNBV Arts. 4-6; LIC Arts. 107-115; GAFI — Recomendaciones 18 y 26; Comité de Basilea 2014; CPEUM Art. 14; Guía PLD/FT CNBV 11ª ed., Bloque 7",
+    "orden": 9
+  }
+]

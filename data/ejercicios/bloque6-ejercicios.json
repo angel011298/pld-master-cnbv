@@ -1,0 +1,356 @@
+[
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: Actividades vulnerables y su fracción en el Art. 17 LFPIORPI",
+    "instrucciones": "Relaciona cada actividad vulnerable con la fracción correcta del Art. 17 de la LFPIORPI.",
+    "contenido": {
+      "columna_actividades": [
+        {"id": "A", "actividad": "Casino y centros de apuestas"},
+        {"id": "B", "actividad": "Compraventa de inmuebles e intermediación inmobiliaria"},
+        {"id": "C", "actividad": "Notarios en operaciones de compraventa de inmuebles y otorgamiento de fe pública"},
+        {"id": "D", "actividad": "Compraventa de vehículos terrestres, aéreos o marítimos"},
+        {"id": "E", "actividad": "Compraventa de metales y piedras preciosas (joyerías)"},
+        {"id": "F", "actividad": "Servicios profesionales de gestión y administración de recursos de clientes (abogados, contadores)"},
+        {"id": "G", "actividad": "Comercio exterior (agentes aduanales, importadores/exportadores)"},
+        {"id": "H", "actividad": "Notarios en constitución de personas morales y modificaciones societarias"},
+        {"id": "I", "actividad": "Traslado o custodia de dinero o valores"},
+        {"id": "J", "actividad": "Tarjetas de servicios, crédito o prepagadas no emitidas por entidades financieras"}
+      ],
+      "columna_fracciones": [
+        {"id": "I", "fraccion": "Fracción I"},
+        {"id": "II", "fraccion": "Fracción II"},
+        {"id": "IV", "fraccion": "Fracción IV"},
+        {"id": "V", "fraccion": "Fracción V"},
+        {"id": "VII", "fraccion": "Fracción VII"},
+        {"id": "VIII", "fraccion": "Fracción VIII"},
+        {"id": "X", "fraccion": "Fracción X"},
+        {"id": "XI", "fraccion": "Fracción XI"},
+        {"id": "XIV", "fraccion": "Fracción XIV"},
+        {"id": "XV", "fraccion": "Fracción XV"}
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "A": "I",
+        "B": "VII",
+        "C": "V",
+        "D": "VIII",
+        "E": "X",
+        "F": "XV",
+        "G": "XIV",
+        "H": "XI",
+        "I": "IV",
+        "J": "II"
+      },
+      "calificacion_maxima": 10,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 1: El Notario y la operación sospechosa",
+    "instrucciones": "Lee el caso y determina las obligaciones del notario conforme a la LFPIORPI.",
+    "contenido": {
+      "descripcion_caso": "El Notario Público Nº 47, Lic. Roberto Herrera, recibe en su despacho a la señora Valeria López, quien desea formalizar la compraventa de un inmueble residencial en la Ciudad de México. El precio pactado es de $4,500,000 pesos. La señora López indica que el pago será totalmente en efectivo ('por cuestiones de privacidad'). Al solicitar información, la señora López presenta una credencial de elector vigente pero no puede explicar con claridad el origen de los $4,500,000 en efectivo. Dice que son 'ahorros de toda la vida'. El notario detecta que la señora López es ama de casa sin actividad económica registrada.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿La operación de compraventa de $4,500,000 obliga al notario bajo la LFPIORPI? ¿Por qué?",
+          "respuesta_guia": "Sí. La compraventa de inmuebles es una Actividad Vulnerable conforme al Art. 17, fracción V LFPIORPI (notarios en operaciones inmobiliarias). El precio de $4,500,000 pesos supera ampliamente el umbral de identificación (8,025 veces el SMG, aproximadamente $820,000 pesos) y el umbral de aviso (16,000 veces el SMG, aproximadamente $1,640,000 pesos). Por lo tanto, el notario está OBLIGADO a: (1) identificar a la señora López, (2) solicitar información sobre el origen de los recursos, (3) presentar aviso al SAT dentro de los 30 días hábiles siguientes a la operación."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Puede el notario escriturar la operación si el pago es en efectivo?",
+          "respuesta_guia": "NO. El Art. 32 LFPIORPI prohíbe expresamente recibir como forma de pago moneda nacional o extranjera en efectivo en la compraventa de inmuebles por montos superiores a 8,025 veces el SMG (aproximadamente $820,000 pesos). Dado que el precio es $4,500,000, supera por mucho ese umbral. El notario no puede autorizar la escritura si el pago se realiza en efectivo. Debe informar a la señora López que el pago debe realizarse mediante instrumento financiero rastreable: transferencia electrónica, cheque nominativo de caja, etc. Si el cliente insiste en pagar en efectivo, el notario debe abstenerse de formalizar la operación."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿El notario debe presentar aviso aunque la operación NO se formalice (porque el cliente no acepta las restricciones)?",
+          "respuesta_guia": "Esta es una pregunta de interpretación importante. La obligación de aviso surge de la operación que se realice y alcance el umbral. Si el notario se abstiene de formalizar la operación (no firma la escritura), técnicamente no se realizó la operación. Sin embargo, el notario debe documentar la situación: que se acercó un cliente a solicitar la formalización de una compraventa de inmueble de $4,500,000 en efectivo y que se abstuvo por incumplir la LFPIORPI. Esta situación puede en sí misma ser una señal de alerta que el notario debería escalar o documentar para referencia futura. Algunos criterios del SAT indican que ante intentos de operaciones con señales de alerta claras, es recomendable al menos documentar la situación aunque no se concrete la operación."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Qué información debe incluir el aviso que presente el notario al SAT?",
+          "respuesta_guia": "El aviso ante el SAT (a través del portal PFPIORPI) debe incluir: (1) Datos del notario como sujeto obligado: nombre, RFC, número de notaría, domicilio. (2) Datos de identificación de la señora López: nombre completo, RFC, CURP, domicilio, número de identificación oficial. (3) Descripción de la operación: compraventa de inmueble, ubicación del bien, precio ($4,500,000 pesos). (4) Forma de pago: efectivo (que es lo que intentó la señora López). (5) Cualquier información disponible sobre el origen declarado de los fondos ('ahorros de toda la vida'). El plazo es dentro de los 30 días hábiles siguientes a la operación (o al intento de operación si se documenta como tal)."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 8,
+      "criterios": [
+        {"pregunta": 1, "puntos": 2, "criterio": "Identifica actividad vulnerable (Fr. V), supera umbral de aviso, menciona las 3 obligaciones del notario"},
+        {"pregunta": 2, "puntos": 2, "criterio": "Cita correctamente el Art. 32 LFPIORPI y la prohibición de efectivo por encima del umbral"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Analiza la situación con matiz correcto — documentar aunque no se concrete la operación"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Lista los elementos del aviso: datos notario, datos cliente, operación, forma de pago, plazo"}
+      ]
+    },
+    "dificultad": "dificil",
+    "tiempo_estimado": 20
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "tipo": "caso_practico",
+    "titulo": "Caso Práctico 2: La joyería y la compra en efectivo",
+    "instrucciones": "Aplica las obligaciones de la LFPIORPI a este caso del sector joyero.",
+    "contenido": {
+      "descripcion_caso": "Joyería Esplendor SA tiene una tienda en el Centro Histórico de la Ciudad de México. En dos días consecutivos se presentan los siguientes clientes: DÍA 1: Un señor llamado Arturo Méndez compra un reloj de lujo por $75,000 pesos en efectivo. Arturo no tiene identificación a la mano pero dice ser 'médico de profesión'. DÍA 2: Una señora, sin dar nombre, adquiere aretes de diamante por $60,000 pesos en efectivo. Dice que es un regalo. No presenta identificación. El gerente de la joyería no tiene claridad sobre sus obligaciones bajo la LFPIORPI.",
+      "preguntas": [
+        {
+          "numero": 1,
+          "pregunta": "¿La compraventa de metales y piedras preciosas (joyería) es actividad vulnerable? ¿En qué fracción?",
+          "respuesta_guia": "Sí. La compraventa de metales y piedras preciosas está establecida en el Art. 17, Fracción X de la LFPIORPI. También la Fracción XIII aplica para artículos de moda y joyería de lujo. Por tanto, Joyería Esplendor SA es sujeto obligado bajo la LFPIORPI."
+        },
+        {
+          "numero": 2,
+          "pregunta": "¿Las compras del Día 1 ($75,000 pesos) y Día 2 ($60,000 pesos) generan obligaciones de identificación y aviso?",
+          "respuesta_guia": "Hay que revisar los umbrales para la Fracción X. El umbral de identificación es de aproximadamente 205 veces el SMG (~$21,000 pesos aproximadamente) y el umbral de aviso es de 805 veces el SMG (~$82,000 pesos aproximadamente). DÍA 1 — $75,000 pesos: Supera el umbral de identificación (>$21,000) pero NO supera el umbral de aviso ($75,000 < $82,000). Obligación: Identificar al cliente (nombre, RFC, domicilio, ID oficial). NO es necesario presentar aviso por este monto individual. Sin embargo, si el cliente no presenta identificación, no debe realizarse la operación. DÍA 2 — $60,000 pesos: También supera el umbral de identificación pero no el de aviso. Misma obligación: identificar al cliente. Si no presenta ID, no debe venderse. IMPORTANTE: Ambas operaciones en días consecutivos podrían sumarse y superar el umbral de aviso acumulado, dependiendo del período que establezcan las Reglas de Carácter General para el cómputo de operaciones fraccionadas."
+        },
+        {
+          "numero": 3,
+          "pregunta": "¿Qué error grave cometería el gerente si realiza las ventas sin solicitar identificación?",
+          "respuesta_guia": "El gerente incurriría en incumplimiento de la obligación de identificación del Art. 18, fracción I LFPIORPI. Las consecuencias son: (1) Sanción administrativa del SAT por incumplimiento. (2) Las operaciones sin identificación de clientes son una señal de incumplimiento grave en una visita de verificación del SAT. (3) Si las operaciones resultaran estar vinculadas a LD/FT, el gerente y la empresa podrían enfrentar responsabilidad adicional por haber facilitado la operación sin los controles requeridos. (4) La falta de identificación hace imposible presentar el aviso correctamente si se supera el umbral."
+        },
+        {
+          "numero": 4,
+          "pregunta": "¿Puede la joyería aceptar el pago en efectivo en estas operaciones?",
+          "respuesta_guia": "Sí, para estos montos ($75,000 y $60,000 pesos) el pago en efectivo está permitido. El Art. 32 LFPIORPI restringe el efectivo en joyas y metales preciosos solo cuando la operación supera 805 veces el SMG (aproximadamente $82,000 pesos). Las dos operaciones son inferiores a ese umbral. Sin embargo, si una operación superara los $82,000 pesos, debería pagarse con instrumento financiero rastreable (transferencia, cheque nominativo) y no en efectivo."
+        }
+      ]
+    },
+    "solucion": {
+      "calificacion_maxima": 8,
+      "criterios": [
+        {"pregunta": 1, "puntos": 1, "criterio": "Identifica Fracción X (y/o XIII) del Art. 17 LFPIORPI"},
+        {"pregunta": 2, "puntos": 3, "criterio": "Distingue umbral de identificación vs. aviso, aplica correctamente a cada operación, menciona posible acumulación"},
+        {"pregunta": 3, "puntos": 2, "criterio": "Describe las consecuencias del incumplimiento: sanción SAT, responsabilidad adicional, imposibilidad de aviso"},
+        {"pregunta": 4, "puntos": 2, "criterio": "Responde correctamente que SÍ se puede en efectivo por debajo del umbral del Art. 32"}
+      ]
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 18
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "tipo": "completar",
+    "titulo": "Completa los espacios: LFPIORPI — datos esenciales",
+    "instrucciones": "Completa cada enunciado con el término, número, sigla, artículo o concepto correcto.",
+    "contenido": {
+      "oraciones": [
+        {
+          "id": 1,
+          "texto": "La LFPIORPI fue publicada en el DOF el _____ de octubre de _____ y entró en vigor el _____ de julio de _____.",
+          "espacios": ["17", "2012", "17", "2013"]
+        },
+        {
+          "id": 2,
+          "texto": "El objeto de la LFPIORPI es establecer medidas para _____ y _____ operaciones con recursos de procedencia ilícita en las actividades _____ (no financieras). La autoridad supervisora es el _____.",
+          "espacios": ["prevenir", "detectar", "vulnerables", "SAT"]
+        },
+        {
+          "id": 3,
+          "texto": "Los sujetos de actividades vulnerables presentan _____ al _____. Las entidades financieras presentan _____ directamente a la _____. Esta distinción es fundamental para el examen CNBV.",
+          "espacios": ["avisos", "SAT", "reportes", "UIF"]
+        },
+        {
+          "id": 4,
+          "texto": "Los avisos deben presentarse dentro de los _____ días _____ siguientes a la operación que supere el umbral. El sistema electrónico del SAT para presentar avisos se denomina _____.",
+          "espacios": ["30", "hábiles", "PFPIORPI"]
+        },
+        {
+          "id": 5,
+          "texto": "El Art. _____ de la LFPIORPI establece el catálogo de _____ actividades vulnerables. Las de mayor riesgo PLD son: casinos (Fr. ___), notarios en inmobiliario (Fr. ___), compraventa de inmuebles (Fr. ___) y servicios profesionales de gestión (Fr. ___).",
+          "espacios": ["17", "16", "I", "V", "VII", "XV"]
+        },
+        {
+          "id": 6,
+          "texto": "Las obligaciones de los sujetos de actividades vulnerables se establecen en el Art. _____ y son _____ en total. La más importante es la obligación de presentar _____.",
+          "espacios": ["18", "8", "avisos"]
+        },
+        {
+          "id": 7,
+          "texto": "El Art. _____ LFPIORPI restringe el pago en _____ para operaciones de alto valor. Para la compraventa de inmuebles, la restricción aplica cuando el precio supera _____ veces el SMG (~$820,000 pesos aproximadamente).",
+          "espacios": ["32", "efectivo", "8,025"]
+        },
+        {
+          "id": 8,
+          "texto": "Los documentos obtenidos bajo la LFPIORPI deben conservarse por un mínimo de _____ años (vs. _____ años en el sistema financiero). Esta diferencia de plazo es frecuentemente evaluada en el examen CNBV.",
+          "espacios": ["5", "10"]
+        },
+        {
+          "id": 9,
+          "texto": "Las entidades financieras y los sujetos de actividades vulnerables tienen estas SIMILITUDES: ambos deben _____ a sus clientes, identificar al _____ real, guardar _____ (no alertar al cliente sobre avisos o reportes) y abstenerse de operar con personas _____.",
+          "espacios": ["identificar", "propietario (o beneficiario controlador)", "reserva", "bloqueadas"]
+        },
+        {
+          "id": 10,
+          "texto": "Para las entidades financieras, la regulación _____ (CNBV) _____ sobre la LFPIORPI. La LFPIORPI tiene carácter _____ para las entidades financieras — solo aplica en lo no cubierto por su propia regulación.",
+          "espacios": ["sectorial", "prevalece", "supletorio"]
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas_correctas": {
+        "1": ["17", "2012", "17", "2013"],
+        "2": ["prevenir", "detectar", "vulnerables", "SAT"],
+        "3": ["avisos", "SAT", "reportes", "UIF"],
+        "4": ["30", "hábiles", "PFPIORPI"],
+        "5": ["17", "16", "I", "V", "VII", "XV"],
+        "6": ["18", "8", "avisos"],
+        "7": ["32", "efectivo", "8,025"],
+        "8": ["5", "10"],
+        "9": ["identificar", "propietario", "reserva", "bloqueadas"],
+        "10": ["sectorial", "prevalece", "supletorio"]
+      }
+    },
+    "dificultad": "facil",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "tipo": "crucigrama",
+    "titulo": "Crucigrama: LFPIORPI y actividades vulnerables",
+    "instrucciones": "Completa el crucigrama con términos clave de la LFPIORPI.",
+    "contenido": {
+      "palabras": [
+        {
+          "numero": 1,
+          "direccion": "horizontal",
+          "pista": "Término que describe los sectores no financieros regulados por la LFPIORPI: casinos, notarios, inmobiliarias, joyerías, etc.",
+          "respuesta": "VULNERABLES"
+        },
+        {
+          "numero": 2,
+          "direccion": "vertical",
+          "pista": "Tipo de comunicación que presentan los sujetos de actividades vulnerables ante el SAT (a diferencia de los 'reportes' del sistema financiero).",
+          "respuesta": "AVISOS"
+        },
+        {
+          "numero": 3,
+          "direccion": "horizontal",
+          "pista": "Autoridad que recibe los avisos de actividades vulnerables y realiza verificaciones de cumplimiento de la LFPIORPI. Siglas.",
+          "respuesta": "SAT"
+        },
+        {
+          "numero": 4,
+          "direccion": "vertical",
+          "pista": "Número de días hábiles que tienen los sujetos de actividades vulnerables para presentar sus avisos al SAT después de la operación.",
+          "respuesta": "TREINTA"
+        },
+        {
+          "numero": 5,
+          "direccion": "horizontal",
+          "pista": "Número de artículo de la LFPIORPI que establece el catálogo de actividades vulnerables.",
+          "respuesta": "DIECISIETE"
+        },
+        {
+          "numero": 6,
+          "direccion": "vertical",
+          "pista": "Artículo de la LFPIORPI que restringe el pago en efectivo en operaciones de alto valor (compraventa de inmuebles, vehículos, joyería).",
+          "respuesta": "TREINTAYDOS"
+        },
+        {
+          "numero": 7,
+          "direccion": "horizontal",
+          "pista": "Años mínimos que deben conservarse los documentos obtenidos bajo la LFPIORPI.",
+          "respuesta": "CINCO"
+        },
+        {
+          "numero": 8,
+          "direccion": "vertical",
+          "pista": "Fracción del Art. 17 que aplica a los notarios en operaciones de compraventa de inmuebles.",
+          "respuesta": "QUINTA"
+        },
+        {
+          "numero": 9,
+          "direccion": "horizontal",
+          "pista": "Número de obligaciones que establece el Art. 18 LFPIORPI para los sujetos de actividades vulnerables.",
+          "respuesta": "OCHO"
+        },
+        {
+          "numero": 10,
+          "direccion": "horizontal",
+          "pista": "La LFPIORPI tiene carácter _____ para las entidades financieras — solo aplica en lo no cubierto por su propia regulación sectorial.",
+          "respuesta": "SUPLETORIO"
+        }
+      ]
+    },
+    "solucion": {
+      "respuestas": {
+        "1H": "VULNERABLES",
+        "2V": "AVISOS",
+        "3H": "SAT",
+        "4V": "TREINTA",
+        "5H": "DIECISIETE",
+        "6V": "TREINTAYDOS",
+        "7H": "CINCO",
+        "8V": "QUINTA",
+        "9H": "OCHO",
+        "10H": "SUPLETORIO"
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 6,
+    "tema": "Nociones de la Ley FPIORPI",
+    "tipo": "relacionar",
+    "titulo": "Ejercicio de relacionar: LFPIORPI vs. sistema financiero — semejanzas y diferencias",
+    "instrucciones": "Clasifica cada elemento en la columna correcta: aplica solo a entidades financieras (CNBV), solo a actividades vulnerables (LFPIORPI/SAT), o a AMBOS sistemas.",
+    "contenido": {
+      "elementos": [
+        {"id": "1", "elemento": "Presentar reportes de Operación Relevante (OR) ante la UIF"},
+        {"id": "2", "elemento": "Identificar al cliente mediante documentos oficiales"},
+        {"id": "3", "elemento": "Conservar documentos por mínimo 5 años"},
+        {"id": "4", "elemento": "Presentar avisos al SAT en los 30 días hábiles siguientes"},
+        {"id": "5", "elemento": "Deber de reserva — no alertar al cliente sobre comunicaciones realizadas"},
+        {"id": "6", "elemento": "Designar obligatoriamente a un Oficial de Cumplimiento notificado al supervisor"},
+        {"id": "7", "elemento": "Identificar al propietario real (beneficiario controlador) en personas morales"},
+        {"id": "8", "elemento": "Contar con sistema automatizado de monitoreo transaccional"},
+        {"id": "9", "elemento": "Abstenerse de realizar operaciones con personas de la Lista de Personas Bloqueadas"},
+        {"id": "10", "elemento": "Conservar documentos por mínimo 10 años"},
+        {"id": "11", "elemento": "Restricción de pago en efectivo para operaciones de alto valor (Art. 32 LFPIORPI)"},
+        {"id": "12", "elemento": "Capacitar al personal en materia PLD/FT"}
+      ],
+      "columnas": [
+        "Solo entidades financieras (CNBV)",
+        "Solo actividades vulnerables (LFPIORPI/SAT)",
+        "AMBOS sistemas"
+      ]
+    },
+    "solucion": {
+      "clasificacion_correcta": {
+        "Solo entidades financieras (CNBV)": ["1", "6", "8", "10"],
+        "Solo actividades vulnerables (LFPIORPI/SAT)": ["3", "4", "11"],
+        "AMBOS sistemas": ["2", "5", "7", "9", "12"]
+      },
+      "explicaciones": {
+        "1": "OR es exclusivo del sistema financiero — los avisos de la LFPIORPI son distintos",
+        "2": "Ambos requieren identificar clientes — aunque con algunos detalles distintos",
+        "3": "5 años es el plazo LFPIORPI. El financiero es 10 años.",
+        "4": "Solo LFPIORPI presenta avisos al SAT en 30 días hábiles",
+        "5": "El deber de reserva aplica en ambos sistemas",
+        "6": "Solo el sistema financiero exige Oficial de Cumplimiento formalmente designado y notificado",
+        "7": "Ambos requieren identificar al propietario real en personas morales",
+        "8": "El sistema automatizado es exigible en entidades financieras por su volumen — no en actividades vulnerables",
+        "9": "Ambos deben abstenerse de operar con personas bloqueadas",
+        "10": "10 años es el plazo del sistema financiero. LFPIORPI exige solo 5.",
+        "11": "Las restricciones al efectivo del Art. 32 LFPIORPI son propias de ese régimen",
+        "12": "Ambos sistemas requieren capacitación, aunque con diferentes niveles de especificidad"
+      },
+      "calificacion_maxima": 12,
+      "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  }
+]
