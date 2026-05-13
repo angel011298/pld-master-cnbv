@@ -25,6 +25,7 @@ export default function ForoPage() {
   const [showComposer, setShowComposer] = React.useState(false)
   const [saving, setSaving] = React.useState(false)
   const [form, setForm] = React.useState({ title: "", content: "", tags: "" })
+  const [upvotingIds, setUpvotingIds] = React.useState<Set<string | number>>(new Set())
 
   const loadPosts = React.useCallback(async () => {
     setLoading(true)
@@ -49,6 +50,30 @@ export default function ForoPage() {
       .toLowerCase()
       .includes(query)
   })
+
+  const handleUpvote = async (postId: string | number) => {
+    if (upvotingIds.has(postId)) return
+    setUpvotingIds((prev) => new Set(prev).add(postId))
+    // Optimistic update
+    setPosts((prev) =>
+      prev.map((p) => (p.id === postId ? { ...p, upvotes: p.upvotes + 1 } : p))
+    )
+    try {
+      const res = await fetch(`/api/forum/${postId}/upvote`, { method: "POST" })
+      if (!res.ok) {
+        // Revert on failure
+        setPosts((prev) =>
+          prev.map((p) => (p.id === postId ? { ...p, upvotes: p.upvotes - 1 } : p))
+        )
+      }
+    } catch {
+      setPosts((prev) =>
+        prev.map((p) => (p.id === postId ? { ...p, upvotes: p.upvotes - 1 } : p))
+      )
+    } finally {
+      setUpvotingIds((prev) => { const s = new Set(prev); s.delete(postId); return s })
+    }
+  }
 
   const handleCreatePost = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -146,7 +171,12 @@ export default function ForoPage() {
         {filteredPosts.map((post) => (
           <div key={post.id} className="group flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-blue-300">
             <div className="flex min-w-[3rem] flex-col items-center gap-1">
-              <button className="rounded p-1 text-slate-400 transition-colors hover:bg-blue-50 hover:text-blue-600" aria-label="Votar publicación">
+              <button
+                onClick={() => handleUpvote(post.id)}
+                disabled={upvotingIds.has(post.id)}
+                aria-label="Votar publicación"
+                className="rounded p-1 text-slate-400 transition-colors hover:bg-blue-50 hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <ArrowBigUp className="h-7 w-7" />
               </button>
               <span className="font-black text-slate-700">{post.upvotes}</span>

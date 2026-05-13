@@ -132,7 +132,11 @@ export default function ModoEstudioFocus() {
       </div>
 
       <div className="relative flex w-full max-w-3xl flex-1 flex-col p-6">
-        <button className="fixed bottom-8 right-8 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-2xl transition-transform hover:scale-110">
+        <button
+          onClick={() => router.push("/chatbot")}
+          title="Preguntar al Chatbot IA"
+          className="fixed bottom-8 right-8 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-white shadow-2xl transition-transform hover:scale-110 hover:bg-emerald-600"
+        >
           <Bot className="h-6 w-6" />
         </button>
 

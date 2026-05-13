@@ -2,12 +2,12 @@
 
 import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowLeft, BookOpen, GraduationCap, MessageSquare, Target, Scale, AlertTriangle, FileText, Globe, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { cn } from "@/lib/utils"
 import { CNBV_SYLLABUS } from "@/lib/constants"
@@ -67,8 +67,9 @@ function EstudioContent() {
           <div className="grid gap-6 lg:grid-cols-3">
             {CNBV_SYLLABUS.map((mod, index) => {
               const isLocked = index > 0 && !isPremium;
-              return (
-                <Card key={mod.id} className="hover:shadow-lg transition-all flex flex-col border-slate-200">
+              const bloqueNum = index + 1;
+              const card = (
+                <Card key={mod.id} className={cn("hover:shadow-lg transition-all flex flex-col border-slate-200", !isLocked && "hover:border-blue-400")}>
                   <CardHeader className="bg-slate-50 rounded-t-xl border-b pb-4">
                     <CardTitle className="text-lg leading-tight text-slate-800">{mod.module}</CardTitle>
                     <CardDescription className="font-semibold text-blue-600 mt-1">
@@ -77,7 +78,6 @@ function EstudioContent() {
                   </CardHeader>
                   <CardContent className="pt-4 flex-1 flex flex-col">
                     <ul className="text-sm space-y-2 mb-6 text-slate-600 font-medium">
-                      {/* Muestra los primeros 4 temas como resumen */}
                       {mod.topics.slice(0, 4).map(t => (
                         <li key={t} className="flex items-start gap-2">
                           <span className="text-emerald-500 shrink-0">•</span> <span className="line-clamp-2">{t}</span>
@@ -90,16 +90,23 @@ function EstudioContent() {
                       )}
                     </ul>
                     <div className="mt-auto">
-                      <Button 
+                      <Button
                         disabled={isLocked}
-                        className={cn("w-full", isLocked ? "bg-slate-200 text-slate-500" : "bg-slate-900 text-white hover:bg-slate-800")}
+                        className={cn("w-full", isLocked ? "bg-slate-200 text-slate-500 cursor-not-allowed" : "bg-slate-900 text-white hover:bg-slate-800")}
                       >
-                        {isLocked ? "Premium Requerido" : "Iniciar Módulo"}
+                        {isLocked ? "🔒 Premium Requerido" : "Iniciar Módulo →"}
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
-              )
+              );
+              return isLocked ? (
+                <div key={mod.id}>{card}</div>
+              ) : (
+                <Link key={mod.id} href={`/estudio/bloque/${bloqueNum}`}>
+                  {card}
+                </Link>
+              );
             })}
           </div>
         </div>
