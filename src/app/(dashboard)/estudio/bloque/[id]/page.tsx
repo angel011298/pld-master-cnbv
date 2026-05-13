@@ -8,7 +8,7 @@ import confetti from "canvas-confetti";
 import {
   ArrowLeft, BookOpen, Scale, Map, Brain, Lightbulb, Gamepad2,
   GraduationCap, CheckCircle2, XCircle, ChevronDown, ChevronUp,
-  Clock, Trophy, Zap, RotateCcw, ArrowRight, Target, FileText,
+  Clock, Trophy, Zap, RotateCcw, ArrowRight, Target, FileText, ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -70,19 +70,338 @@ const DIFICULTAD_CLASS: Record<string, string> = {
   avanzado: "bg-red-100 text-red-700 border-red-200",
 };
 
-// ── Theory sub-components ─────────────────────────────────────────────────────
+// ── Theory rendering ─────────────────────────────────────────────────────────
 
-function StringList({ items, className }: { items: unknown; className?: string }) {
-  if (!Array.isArray(items) || items.length === 0) return null;
+/** Renders a single item from a list — handles both strings and objects */
+function SmartItem({ item }: { item: unknown }) {
+  if (typeof item === "string") {
+    return (
+      <li className="flex items-start gap-2 text-sm text-slate-700">
+        <span className="shrink-0 mt-1.5 h-1.5 w-1.5 rounded-full bg-blue-500" />
+        {item}
+      </li>
+    );
+  }
+  if (typeof item === "object" && item !== null) {
+    const obj = item as Record<string, unknown>;
+    const mainKey = ["nombre","instrumento","termino","titulo","evento","concepto","recomendacion","tipo_riesgo","modelo","paso","categoria","pilar","articulo","modalidad"].find((k) => typeof obj[k] === "string");
+    const descKey = ["descripcion","definicion","texto","detalle","contenido","explicacion","pena"].find((k) => typeof obj[k] === "string");
+    const tagKey  = ["fecha","fuente","riesgo","fundamento","importancia_examen","numero"].find((k) => obj[k] !== undefined);
+    return (
+      <li className="rounded-lg border border-slate-200 bg-white p-3">
+        {tagKey && <span className="inline-block mb-1 text-[10px] font-black text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase tracking-wider">{String(obj[tagKey])}</span>}
+        {mainKey && <p className="font-bold text-sm text-slate-900">{String(obj[mainKey])}</p>}
+        {descKey && <p className="text-sm text-slate-600 mt-1 leading-relaxed">{String(obj[descKey])}</p>}
+      </li>
+    );
+  }
+  return null;
+}
+
+/** Renders a single block from contenido.cuerpo[] */
+function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
+  const tipo   = block.tipo as string;
+  const titulo = typeof block.titulo === "string" ? block.titulo : undefined;
+  const texto  = typeof block.texto  === "string" ? block.texto  : undefined;
+
+  // ── Dato clave ──
+  if (tipo === "dato_clave" && texto) {
+    return (
+      <div className="rounded-lg bg-amber-50 border-l-4 border-amber-400 p-3">
+        <p className="text-[10px] font-black text-amber-700 uppercase tracking-wider mb-1">📌 Dato Clave</p>
+        <p className="text-sm text-slate-800 leading-relaxed">{texto}</p>
+      </div>
+    );
+  }
+
+  // ── Penas / sanciones ──
+  if (tipo === "penas" || tipo === "penas_ft") {
+    const sanciones = (block.sanciones as Record<string, unknown>[]) ?? [];
+    return (
+      <div>
+        {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+        <div className="space-y-2">
+          {sanciones.map((s, i) => (
+            <div key={i} className="rounded-lg border border-red-200 bg-red-50 p-3">
+              {!!s.modalidad && <p className="text-[10px] font-black text-red-700 uppercase tracking-wider">{String(s.modalidad)}</p>}
+              {!!s.pena      && <p className="text-sm font-bold text-red-900">{String(s.pena)}</p>}
+              {!!s.fundamento && <p className="text-xs text-red-600 mt-0.5">{String(s.fundamento)}</p>}
+              {!!s.descripcion && <p className="text-xs text-slate-600 mt-1">{String(s.descripcion)}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Hito (timeline) ──
+  if (tipo === "hito") {
+    const items = (block.items as Record<string, unknown>[]) ?? [];
+    return (
+      <div>
+        {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+        <div className="relative pl-5 border-l-2 border-blue-300 space-y-4 mt-1">
+          {items.map((item, i) => (
+            <div key={i} className="relative">
+              <div className="absolute -left-[21px] top-1 h-4 w-4 rounded-full bg-blue-500 border-2 border-white" />
+              {!!item.fecha      && <p className="text-[10px] font-black text-blue-600 uppercase tracking-wider">{String(item.fecha)}</p>}
+              {!!item.evento     && <p className="text-sm font-bold text-slate-800">{String(item.evento)}</p>}
+              {!!item.descripcion && <p className="text-sm text-slate-600 mt-0.5 leading-relaxed">{String(item.descripcion)}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Glosario ──
+  if (tipo === "glosario" || Array.isArray(block.terminos)) {
+    const terminos = (block.terminos as Record<string, unknown>[]) ?? [];
+    return (
+      <div className="space-y-2">
+        {titulo && <p className="text-sm font-bold text-slate-800 mb-1">{titulo}</p>}
+        {terminos.map((t, i) => (
+          <div key={i} className="rounded-lg border border-slate-200 bg-white p-3">
+            <div className="flex items-start gap-2 flex-wrap mb-1.5">
+              <span className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-black rounded">{String(t.termino ?? "")}</span>
+              {!!t.fuente && <span className="text-xs text-slate-400 italic">{String(t.fuente)}</span>}
+            </div>
+            <p className="text-sm text-slate-700 leading-relaxed">{String(t.definicion ?? "")}</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // ── Etapas ──
+  if (tipo === "etapas" || Array.isArray(block.etapas)) {
+    const etapas = (block.etapas as Record<string, unknown>[]) ?? [];
+    const CMAP: Record<string, string> = {
+      rojo:    "border-red-400 bg-red-50",
+      naranja: "border-orange-400 bg-orange-50",
+      verde:   "border-emerald-400 bg-emerald-50",
+      azul:    "border-blue-400 bg-blue-50",
+      amarillo:"border-yellow-400 bg-yellow-50",
+    };
+    return (
+      <div className="space-y-3">
+        {titulo && <p className="text-sm font-bold text-slate-800">{titulo}</p>}
+        {etapas.map((etapa, i) => (
+          <div key={i} className={cn("rounded-xl border-2 p-4", CMAP[etapa.color as string] ?? "border-slate-300 bg-slate-50")}>
+            <div className="flex items-center gap-2 mb-2">
+              {etapa.numero !== undefined && (
+                <span className="h-6 w-6 rounded-full bg-slate-800 text-white text-xs font-black flex items-center justify-center shrink-0">{String(etapa.numero)}</span>
+              )}
+              <p className="font-black text-sm text-slate-900">{String(etapa.nombre ?? "")}</p>
+            </div>
+            {!!etapa.descripcion && <p className="text-sm text-slate-700 mb-2">{String(etapa.descripcion)}</p>}
+            {Array.isArray(etapa.mecanismos_comunes) && (etapa.mecanismos_comunes as string[]).length > 0 && (
+              <div className="mb-2">
+                <p className="text-xs font-black text-slate-600 uppercase tracking-wider mb-1">Mecanismos comunes:</p>
+                <ul className="space-y-0.5">
+                  {(etapa.mecanismos_comunes as string[]).map((m, j) => (
+                    <li key={j} className="text-xs text-slate-600 flex gap-1"><span>•</span>{m}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {Array.isArray(etapa.senales_alerta) && (etapa.senales_alerta as string[]).length > 0 && (
+              <div className="rounded-lg bg-white/70 border border-orange-200 p-2">
+                <p className="text-xs font-black text-orange-700 uppercase tracking-wider mb-1">⚠ Señales de Alerta:</p>
+                <ul className="space-y-0.5">
+                  {(etapa.senales_alerta as string[]).map((s, j) => (
+                    <li key={j} className="text-xs text-orange-700 flex gap-1"><span>•</span>{s}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // ── Cuadro comparativo (table) ──
+  if (tipo === "cuadro_comparativo" || (Array.isArray(block.columnas) && Array.isArray(block.filas))) {
+    const columnas = (block.columnas as string[]) ?? [];
+    const filas    = (block.filas as unknown[][]) ?? [];
+    return (
+      <div>
+        {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+        <div className="overflow-x-auto rounded-lg border border-slate-200">
+          <table className="w-full border-collapse text-xs">
+            <thead>
+              <tr className="bg-slate-800 text-white">
+                {columnas.map((col, i) => <th key={i} className="px-3 py-2 text-left font-black">{col}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {filas.map((fila, i) => (
+                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
+                  {(Array.isArray(fila) ? fila : [fila]).map((cell, j) => (
+                    <td key={j} className="px-3 py-2 border-b border-slate-100 text-slate-700">{String(cell ?? "")}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Generic list: any recognised array field ──
+  const LIST_FIELDS = ["elementos","items","principios","pasos","hitos","modelos","categorias","condiciones","caracteristicas","obligaciones","riesgos","lecciones","contribuciones","documentos","fuentes"];
+  for (const field of LIST_FIELDS) {
+    const arr = block[field];
+    if (Array.isArray(arr) && arr.length > 0) {
+      return (
+        <div>
+          {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+          <ul className="space-y-2">
+            {arr.map((item, i) => <SmartItem key={i} item={item} />)}
+          </ul>
+        </div>
+      );
+    }
+  }
+
+  // ── Generic text (parrafo, introduccion, analogia, definicion_legal, concepto_clave, etc.) ──
+  const ejm     = typeof block.ejemplo  === "string" ? block.ejemplo  : undefined;
+  const formula = typeof block.formula  === "string" ? block.formula  : undefined;
   return (
-    <ul className={cn("space-y-1.5 mt-2", className)}>
-      {items.map((item, i) => (
-        <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
-          <span className="shrink-0 mt-1 h-1.5 w-1.5 rounded-full bg-blue-500" />
-          {String(item)}
-        </li>
+    <div className="space-y-2">
+      {titulo && (
+        <p className={cn("font-bold text-sm", tipo === "definicion_legal" ? "text-purple-800" : "text-slate-800")}>
+          {titulo}
+        </p>
+      )}
+      {texto && <p className="text-sm text-slate-700 leading-relaxed">{texto}</p>}
+      {formula && <div className="rounded bg-blue-50 border border-blue-200 px-3 py-2 font-mono text-sm text-blue-800">{formula}</div>}
+      {ejm && (
+        <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
+          <p className="text-[10px] font-black text-amber-700 uppercase mb-0.5">Ejemplo</p>
+          <p className="text-xs text-slate-700">{ejm}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Top-level tipo renderers ───────────────────────────────────────────────────
+
+function MapaConceptualRenderer({ c }: { c: Record<string, unknown> }) {
+  const nodoCentral = String(c.nodo_central ?? "");
+  const ramas = (c.ramas as Record<string, unknown>[]) ?? [];
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-center">
+        <div className="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-black text-sm shadow-md">{nodoCentral}</div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {ramas.map((rama, i) => (
+          <div key={i} className="rounded-xl border-2 border-teal-200 bg-teal-50 p-3">
+            <p className="text-sm font-black text-teal-800 mb-2">{String(rama.concepto ?? "")}</p>
+            <ul className="space-y-1">
+              {((rama.subnodos as string[]) ?? []).map((sub, j) => (
+                <li key={j} className="text-xs text-slate-700 flex items-start gap-1.5">
+                  <span className="text-teal-500 font-black shrink-0">→</span>{sub}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DiagramaRenderer({ c }: { c: Record<string, unknown> }) {
+  const desc   = typeof c.descripcion === "string" ? c.descripcion : undefined;
+  const nodos  = (c.nodos  as Record<string, unknown>[]) ?? [];
+  const flechas = (c.flechas as Record<string, unknown>[]) ?? [];
+  const CMAP: Record<string, string> = {
+    rojo:    "bg-red-100 border-red-400 text-red-900",
+    naranja: "bg-orange-100 border-orange-400 text-orange-900",
+    verde:   "bg-emerald-100 border-emerald-400 text-emerald-900",
+    azul:    "bg-blue-100 border-blue-400 text-blue-900",
+    gris:    "bg-slate-100 border-slate-400 text-slate-900",
+    amarillo:"bg-yellow-100 border-yellow-400 text-yellow-900",
+  };
+  return (
+    <div className="space-y-3">
+      {desc && <p className="text-xs text-slate-500 italic">{desc}</p>}
+      <div className="flex flex-wrap items-start gap-2">
+        {nodos.map((nodo, i) => {
+          const cc = CMAP[nodo.color as string] ?? "bg-slate-100 border-slate-400 text-slate-900";
+          const flecha = flechas.find((f) => f.de === nodo.id);
+          const hasNext = i < nodos.length - 1;
+          return (
+            <div key={i} className="flex items-center gap-1">
+              <div className={cn("rounded-xl border-2 p-3 min-w-[90px] max-w-[160px]", cc)}>
+                <p className="text-xs font-black leading-tight">{String(nodo.etiqueta ?? "")}</p>
+                {!!nodo.descripcion && <p className="text-[10px] mt-1 opacity-75 leading-snug">{String(nodo.descripcion)}</p>}
+                {Array.isArray(nodo.ejemplos) && (nodo.ejemplos as string[]).slice(0, 2).map((e, j) => (
+                  <p key={j} className="text-[9px] opacity-60 mt-0.5">• {e}</p>
+                ))}
+              </div>
+              {hasNext && (
+                <div className="flex flex-col items-center min-w-[28px]">
+                  <ChevronRight className="h-4 w-4 text-slate-400" />
+                  {!!flecha?.etiqueta && (
+                    <p className="text-[9px] text-slate-400 text-center max-w-[40px] leading-tight">{String(flecha.etiqueta)}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FundamentoLegalRenderer({ c }: { c: Record<string, unknown> }) {
+  const instrumentos = (c.instrumentos as Record<string, unknown>[]) ?? [];
+  return (
+    <div className="space-y-4">
+      {instrumentos.map((inst, i) => (
+        <div key={i} className="rounded-xl border-2 border-purple-200 overflow-hidden">
+          <div className="bg-purple-800 text-white px-4 py-2">
+            <p className="text-sm font-black">{String(inst.nombre ?? "")}</p>
+          </div>
+          <div className="p-3 space-y-2">
+            {((inst.articulos as Record<string, unknown>[]) ?? []).map((art, j) => (
+              <div key={j} className="rounded-lg bg-purple-50 border border-purple-100 p-3">
+                <p className="text-xs font-black text-purple-700 mb-1">{String(art.articulo ?? "")}</p>
+                <p className="text-sm text-slate-700 leading-relaxed">{String(art.contenido ?? art.texto ?? "")}</p>
+                {!!art.importancia_examen && (
+                  <p className="text-[10px] mt-1 text-purple-600 font-semibold">
+                    Importancia examen: {String(art.importancia_examen)}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
+  );
+}
+
+function ResumenRenderer({ c }: { c: Record<string, unknown> }) {
+  const puntos = (c.puntos_clave as string[]) ?? [];
+  return (
+    <div className="space-y-2">
+      {puntos.map((punto, i) => (
+        <div key={i} className="rounded-xl border-2 border-emerald-200 bg-emerald-50 p-4 flex gap-3">
+          <div className="shrink-0 h-6 w-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center mt-0.5">
+            {i + 1}
+          </div>
+          <p className="text-sm text-slate-800 leading-relaxed">{punto}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -91,6 +410,31 @@ function TheoryCard({ item }: { item: ContentItem }) {
   const meta = TIPO_META[item.tipo] ?? { label: item.tipo, badgeClass: "bg-slate-100 text-slate-700 border-slate-200", Icon: FileText };
   const { Icon } = meta;
   const c = item.contenido;
+
+  const renderContent = () => {
+    switch (item.tipo) {
+      case "mapa_conceptual":  return <MapaConceptualRenderer c={c} />;
+      case "diagrama":         return <DiagramaRenderer c={c} />;
+      case "fundamento_legal": return <FundamentoLegalRenderer c={c} />;
+      case "resumen":          return <ResumenRenderer c={c} />;
+      default: {
+        // explicacion and any other type: iterate cuerpo[]
+        const cuerpo = (c.cuerpo as Record<string, unknown>[]) ?? [];
+        if (cuerpo.length > 0) {
+          return (
+            <div className="space-y-4">
+              {cuerpo.map((block, i) => <CuerpoBlock key={i} block={block} />)}
+            </div>
+          );
+        }
+        // Fallback for unexpected structure
+        const fallbackText = typeof c.descripcion === "string" ? c.descripcion : typeof c.texto === "string" ? c.texto : null;
+        return fallbackText
+          ? <p className="text-sm text-slate-700 leading-relaxed">{fallbackText}</p>
+          : <p className="text-xs text-slate-400 italic">Sin contenido disponible</p>;
+      }
+    }
+  };
 
   return (
     <Card className="border border-slate-200 overflow-hidden">
@@ -123,77 +467,12 @@ function TheoryCard({ item }: { item: ContentItem }) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-4 border-t border-slate-100 pt-3 space-y-3">
-              {/* Descripción */}
-              {typeof c.descripcion === "string" && (
-                <p className="text-sm text-slate-700 leading-relaxed">{c.descripcion}</p>
-              )}
-
-              {/* Artículos legales */}
-              {Array.isArray(c.articulos) && c.articulos.length > 0 && (
-                <div className="space-y-2">
-                  {(c.articulos as Record<string, unknown>[]).map((art, i) => (
-                    <div key={i} className="rounded-lg border-l-4 border-purple-500 bg-purple-50 p-3">
-                      {typeof art.articulo === "string" && (
-                        <p className="text-xs font-black text-purple-700 uppercase tracking-wider mb-1">{art.articulo}</p>
-                      )}
-                      {typeof art.texto === "string" && (
-                        <p className="text-sm text-slate-700">{art.texto}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Nodos de mapa conceptual */}
-              {Array.isArray(c.nodos) && c.nodos.length > 0 && (
-                <div className="space-y-2">
-                  {(c.nodos as Record<string, unknown>[]).map((nodo, i) => (
-                    <div key={i} className="rounded-lg border border-teal-200 bg-teal-50 p-3">
-                      <p className="text-sm font-bold text-teal-800">{String(nodo.concepto ?? "")}</p>
-                      {Array.isArray(nodo.relacionado_con) && (
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {(nodo.relacionado_con as string[]).map((rel) => (
-                            <span key={rel} className="text-xs bg-white border border-teal-300 text-teal-700 rounded-md px-2 py-0.5 font-medium">
-                              → {rel}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Puntos clave */}
-              {Array.isArray(c.puntos_clave) && c.puntos_clave.length > 0 && (
-                <div>
-                  <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-1">Puntos Clave</p>
-                  <StringList items={c.puntos_clave} />
-                </div>
-              )}
-
-              {/* Ejemplos */}
-              {Array.isArray(c.ejemplos) && c.ejemplos.length > 0 && (
-                <div className="rounded-lg bg-amber-50 border border-amber-200 p-3">
-                  <p className="text-xs font-black text-amber-700 uppercase tracking-wider mb-1">Ejemplos</p>
-                  <StringList items={c.ejemplos} className="mt-0" />
-                </div>
-              )}
-
-              {/* Referencias */}
-              {Array.isArray(c.referencias) && c.referencias.length > 0 && (
-                <div>
-                  <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-1">Referencias</p>
-                  <StringList items={c.referencias} />
-                </div>
-              )}
-
-              {/* Fuente legal */}
+            <div className="px-4 pb-4 border-t border-slate-100 pt-3">
+              {renderContent()}
               {item.fuente_detallada && (
-                <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
+                <div className="flex items-center gap-2 mt-4 pt-3 border-t border-slate-100">
                   <Scale className="h-3.5 w-3.5 text-slate-400 shrink-0" />
-                  <p className="text-xs text-slate-500 font-medium">{item.fuente_detallada}</p>
+                  <p className="text-xs text-slate-500">{item.fuente_detallada}</p>
                 </div>
               )}
             </div>
