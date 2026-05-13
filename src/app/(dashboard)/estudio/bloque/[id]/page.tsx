@@ -72,7 +72,28 @@ const DIFICULTAD_CLASS: Record<string, string> = {
 
 // ── Theory rendering ─────────────────────────────────────────────────────────
 
-/** Renders a single item from a list — handles both strings and objects */
+// Exhaustive field-name lists so SmartItem recognises virtually every data shape
+const SMART_TITLE_KEYS = [
+  "nombre","instrumento","termino","titulo","evento","concepto","recomendacion",
+  "tipo_riesgo","modelo","paso","categoria","pilar","articulo","modalidad",
+  "campo","entidad","organo","accion","aspecto","componente","elemento",
+  "actividad","documento","principio","obligacion","tipologia","dimension",
+  "herramienta","sector","fraccion","naturaleza","organismo","funcion_principal",
+  "norma","criterio","indicador","medida","area","rol","fase","nivel",
+];
+const SMART_DESC_KEYS = [
+  "descripcion","definicion","texto","detalle","explicacion","pena",
+  "valor","funcion","resultado","efecto","importancia","relevancia",
+  "razon","nota","aplicacion_mexico","texto_oficial_parafraseado",
+  "fundamento_mexico","contenido","observacion","implicacion","resumen",
+];
+const SMART_TAG_KEYS = [
+  "fecha","fuente","riesgo","fundamento","importancia_examen","numero",
+  "año","regulador","marco_legal","autoridad","plazo","umbral_aviso",
+  "tipo","clasificacion","nivel_riesgo","grado",
+];
+
+/** Renders a single item from a list — handles strings, objects, and anything else generically */
 function SmartItem({ item }: { item: unknown }) {
   if (typeof item === "string") {
     return (
@@ -84,21 +105,115 @@ function SmartItem({ item }: { item: unknown }) {
   }
   if (typeof item === "object" && item !== null) {
     const obj = item as Record<string, unknown>;
-    const mainKey = ["nombre","instrumento","termino","titulo","evento","concepto","recomendacion","tipo_riesgo","modelo","paso","categoria","pilar","articulo","modalidad"].find((k) => typeof obj[k] === "string");
-    const descKey = ["descripcion","definicion","texto","detalle","contenido","explicacion","pena"].find((k) => typeof obj[k] === "string");
-    const tagKey  = ["fecha","fuente","riesgo","fundamento","importancia_examen","numero"].find((k) => obj[k] !== undefined);
-    return (
-      <li className="rounded-lg border border-slate-200 bg-white p-3">
-        {tagKey && <span className="inline-block mb-1 text-[10px] font-black text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase tracking-wider">{String(obj[tagKey])}</span>}
-        {mainKey && <p className="font-bold text-sm text-slate-900">{String(obj[mainKey])}</p>}
-        {descKey && <p className="text-sm text-slate-600 mt-1 leading-relaxed">{String(obj[descKey])}</p>}
-      </li>
+    const mainKey = SMART_TITLE_KEYS.find((k) => typeof obj[k] === "string");
+    const descKey = SMART_DESC_KEYS.find((k) => typeof obj[k] === "string" && k !== mainKey);
+    const tagKey  = SMART_TAG_KEYS.find((k) => obj[k] !== undefined && k !== mainKey && k !== descKey);
+
+    // If we found at least one meaningful key, render structured card
+    if (mainKey || descKey) {
+      return (
+        <li className="rounded-lg border border-slate-200 bg-white p-3">
+          {!!tagKey && (
+            <span className="inline-block mb-1 text-[10px] font-black text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded uppercase tracking-wider">
+              {String(obj[tagKey])}
+            </span>
+          )}
+          {!!mainKey && <p className="font-bold text-sm text-slate-900">{String(obj[mainKey])}</p>}
+          {!!descKey  && <p className="text-sm text-slate-600 mt-1 leading-relaxed">{String(obj[descKey])}</p>}
+          {/* Secondary fields */}
+          {Object.entries(obj)
+            .filter(([k, v]) =>
+              k !== mainKey && k !== descKey && k !== tagKey &&
+              k !== "tipo" && k !== "color" &&
+              (typeof v === "string" || typeof v === "number") && String(v).length < 200
+            )
+            .slice(0, 3)
+            .map(([k, v]) => (
+              <p key={k} className="text-xs text-slate-500 mt-0.5">
+                <span className="font-semibold capitalize">{k.replace(/_/g, " ")}:</span> {String(v)}
+              </p>
+            ))
+          }
+        </li>
+      );
+    }
+
+    // Fully generic fallback — render all string/number key-value pairs
+    const entries = Object.entries(obj).filter(
+      ([k, v]) => k !== "tipo" && k !== "color" && (typeof v === "string" || typeof v === "number")
     );
+    if (entries.length > 0) {
+      return (
+        <li className="rounded-lg border border-slate-200 bg-white p-3 space-y-1">
+          {entries.map(([k, v]) => (
+            <div key={k} className="flex gap-2 text-sm">
+              <span className="font-bold text-slate-700 shrink-0 capitalize min-w-[80px]">
+                {k.replace(/_/g, " ")}:
+              </span>
+              <span className="text-slate-600">{String(v)}</span>
+            </div>
+          ))}
+        </li>
+      );
+    }
   }
   return null;
 }
 
-/** Renders a single block from contenido.cuerpo[] */
+// Helper: render a columnas/filas table
+function ColFila({ columnas, filas, titulo }: {
+  columnas: string[];
+  filas: unknown[][];
+  titulo?: string;
+}) {
+  return (
+    <div>
+      {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+      <div className="overflow-x-auto rounded-lg border border-slate-200">
+        <table className="w-full border-collapse text-xs">
+          <thead>
+            <tr className="bg-slate-800 text-white">
+              {columnas.map((col, i) => <th key={i} className="px-3 py-2 text-left font-black">{col}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {filas.map((fila, i) => (
+              <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
+                {(Array.isArray(fila) ? fila : [fila]).map((cell, j) => (
+                  <td key={j} className="px-3 py-2 border-b border-slate-100 text-slate-700">{String(cell ?? "")}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+// All known array field names that contain list-renderable items
+const LIST_FIELDS = [
+  // original
+  "elementos","items","principios","pasos","hitos","modelos","categorias",
+  "condiciones","caracteristicas","obligaciones","riesgos","lecciones",
+  "contribuciones","documentos","fuentes",
+  // added from analysis
+  "elementos_clave","organismos","resoluciones","datos","listas","bloques",
+  "dimensiones","componentes","usos","tipologias_frecuentes","componentes_metodologia",
+  "diferencias","modalidades","datos_generales","funciones","funciones_pld",
+  "rol_pld","integrantes_principales","tipologias","amenazas_principales",
+  "sectores_mas_vulnerables","brechas","elementos_minimos","niveles",
+  "documentos_requeridos","grados","reportes","infracciones","objetivos",
+  "modalidades_alcance","criterios_mayor_supervision","tipos","secciones",
+  "lineamientos","tipos_muestreo","actividades","umbrales_restriccion","flujo",
+  "tratados","descripciones","dnfbps","funciones_uif","modelos_uif","recomendaciones",
+  "cuatro_elementos_cdd","momentos_aplicacion","dos_elementos","pasos_proceso",
+  "aspectos","actores","criterios","indicadores","medidas","mecanismos",
+  "instrumentos","normas","pilares","señales","señales_alerta","alertas",
+  "obligaciones_principales","restricciones","tipos_operacion","formas",
+];
+
+/** Renders a single block from contenido.cuerpo[] — handles 100+ block types */
 function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
   const tipo   = block.tipo as string;
   const titulo = typeof block.titulo === "string" ? block.titulo : undefined;
@@ -123,9 +238,9 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
         <div className="space-y-2">
           {sanciones.map((s, i) => (
             <div key={i} className="rounded-lg border border-red-200 bg-red-50 p-3">
-              {!!s.modalidad && <p className="text-[10px] font-black text-red-700 uppercase tracking-wider">{String(s.modalidad)}</p>}
-              {!!s.pena      && <p className="text-sm font-bold text-red-900">{String(s.pena)}</p>}
-              {!!s.fundamento && <p className="text-xs text-red-600 mt-0.5">{String(s.fundamento)}</p>}
+              {!!s.modalidad   && <p className="text-[10px] font-black text-red-700 uppercase tracking-wider">{String(s.modalidad)}</p>}
+              {!!s.pena        && <p className="text-sm font-bold text-red-900">{String(s.pena)}</p>}
+              {!!s.fundamento  && <p className="text-xs text-red-600 mt-0.5">{String(s.fundamento)}</p>}
               {!!s.descripcion && <p className="text-xs text-slate-600 mt-1">{String(s.descripcion)}</p>}
             </div>
           ))}
@@ -134,19 +249,31 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
     );
   }
 
-  // ── Hito (timeline) ──
-  if (tipo === "hito") {
-    const items = (block.items as Record<string, unknown>[]) ?? [];
+  // ── Hito / Evolución histórica (timeline) — hito type OR evolucion_historica ──
+  const timelineItems = (
+    tipo === "hito" ? (block.items as Record<string, unknown>[]) :
+    tipo === "evolucion_historica" ? (block.hitos as Record<string, unknown>[]) :
+    null
+  );
+  if (timelineItems) {
     return (
       <div>
-        {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+        {titulo && <p className="text-sm font-bold text-slate-800 mb-3">{titulo}</p>}
         <div className="relative pl-5 border-l-2 border-blue-300 space-y-4 mt-1">
-          {items.map((item, i) => (
+          {timelineItems.map((item, i) => (
             <div key={i} className="relative">
               <div className="absolute -left-[21px] top-1 h-4 w-4 rounded-full bg-blue-500 border-2 border-white" />
-              {!!item.fecha      && <p className="text-[10px] font-black text-blue-600 uppercase tracking-wider">{String(item.fecha)}</p>}
-              {!!item.evento     && <p className="text-sm font-bold text-slate-800">{String(item.evento)}</p>}
-              {!!item.descripcion && <p className="text-sm text-slate-600 mt-0.5 leading-relaxed">{String(item.descripcion)}</p>}
+              {!!(item.año ?? item.fecha) && (
+                <p className="text-[10px] font-black text-blue-600 uppercase tracking-wider">
+                  {String(item.año ?? item.fecha)}
+                </p>
+              )}
+              {!!(item.evento ?? item.nombre) && (
+                <p className="text-sm font-bold text-slate-800">{String(item.evento ?? item.nombre)}</p>
+              )}
+              {!!item.descripcion && (
+                <p className="text-sm text-slate-600 mt-0.5 leading-relaxed">{String(item.descripcion)}</p>
+              )}
             </div>
           ))}
         </div>
@@ -166,7 +293,7 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
               <span className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-black rounded">{String(t.termino ?? "")}</span>
               {!!t.fuente && <span className="text-xs text-slate-400 italic">{String(t.fuente)}</span>}
             </div>
-            <p className="text-sm text-slate-700 leading-relaxed">{String(t.definicion ?? "")}</p>
+            <p className="text-sm text-slate-700 leading-relaxed">{String(t.definicion ?? t.descripcion ?? "")}</p>
           </div>
         ))}
       </div>
@@ -190,9 +317,11 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
           <div key={i} className={cn("rounded-xl border-2 p-4", CMAP[etapa.color as string] ?? "border-slate-300 bg-slate-50")}>
             <div className="flex items-center gap-2 mb-2">
               {etapa.numero !== undefined && (
-                <span className="h-6 w-6 rounded-full bg-slate-800 text-white text-xs font-black flex items-center justify-center shrink-0">{String(etapa.numero)}</span>
+                <span className="h-6 w-6 rounded-full bg-slate-800 text-white text-xs font-black flex items-center justify-center shrink-0">
+                  {String(etapa.numero)}
+                </span>
               )}
-              <p className="font-black text-sm text-slate-900">{String(etapa.nombre ?? "")}</p>
+              <p className="font-black text-sm text-slate-900">{String(etapa.nombre ?? etapa.etapa ?? "")}</p>
             </div>
             {!!etapa.descripcion && <p className="text-sm text-slate-700 mb-2">{String(etapa.descripcion)}</p>}
             {Array.isArray(etapa.mecanismos_comunes) && (etapa.mecanismos_comunes as string[]).length > 0 && (
@@ -221,67 +350,123 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
     );
   }
 
-  // ── Cuadro comparativo (table) ──
-  if (tipo === "cuadro_comparativo" || (Array.isArray(block.columnas) && Array.isArray(block.filas))) {
+  // ── Tables (cuadro_comparativo, tabla, tabla_tipos_visita, diferencia_clave, etc.) ──
+  if (
+    tipo === "cuadro_comparativo" || tipo === "tabla" || tipo === "tabla_tipos_visita" ||
+    tipo === "diferencia_clave" || tipo === "tres_lineas_comparativo" ||
+    (Array.isArray(block.columnas) && Array.isArray(block.filas))
+  ) {
     const columnas = (block.columnas as string[]) ?? [];
     const filas    = (block.filas as unknown[][]) ?? [];
+    // Handle nested cuadro_comparativo inside diferencia_sistemas etc.
+    const nested = block.cuadro_comparativo as { columnas: string[]; filas: unknown[][] } | undefined;
+    if (nested?.columnas && nested?.filas) {
+      return (
+        <div className="space-y-3">
+          {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+          {texto && <p className="text-sm text-slate-700 mb-2">{texto}</p>}
+          <ColFila columnas={nested.columnas} filas={nested.filas as unknown[][]} />
+        </div>
+      );
+    }
+    return <ColFila columnas={columnas} filas={filas} titulo={titulo} />;
+  }
+
+  // ── datos_generales — campo/valor key:value pairs (high-fidelity table) ──
+  if (tipo === "datos_generales" && Array.isArray(block.items)) {
+    const rows = block.items as Record<string, unknown>[];
     return (
       <div>
         {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
-        <div className="overflow-x-auto rounded-lg border border-slate-200">
-          <table className="w-full border-collapse text-xs">
-            <thead>
-              <tr className="bg-slate-800 text-white">
-                {columnas.map((col, i) => <th key={i} className="px-3 py-2 text-left font-black">{col}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-              {filas.map((fila, i) => (
-                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
-                  {(Array.isArray(fila) ? fila : [fila]).map((cell, j) => (
-                    <td key={j} className="px-3 py-2 border-b border-slate-100 text-slate-700">{String(cell ?? "")}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="rounded-lg border border-slate-200 overflow-hidden">
+          {rows.map((row, i) => (
+            <div key={i} className={cn("flex gap-0 text-sm", i % 2 === 0 ? "bg-white" : "bg-slate-50")}>
+              <div className="min-w-[40%] max-w-[50%] px-3 py-2 font-bold text-slate-700 border-r border-slate-200">
+                {String(row.campo ?? row.nombre ?? row.concepto ?? "")}
+              </div>
+              <div className="flex-1 px-3 py-2 text-slate-600">
+                {String(row.valor ?? row.descripcion ?? row.texto ?? "")}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );
   }
 
-  // ── Generic list: any recognised array field ──
-  const LIST_FIELDS = ["elementos","items","principios","pasos","hitos","modelos","categorias","condiciones","caracteristicas","obligaciones","riesgos","lecciones","contribuciones","documentos","fuentes"];
+  // ── seccion — container with nested sub-blocks ──
+  if (tipo === "seccion" && Array.isArray(block.contenido)) {
+    const subBlocks = block.contenido as Record<string, unknown>[];
+    return (
+      <div className="rounded-xl border border-slate-200 bg-slate-50 overflow-hidden">
+        {titulo && (
+          <div className="bg-slate-700 text-white px-4 py-2">
+            <p className="text-sm font-black">{titulo}</p>
+          </div>
+        )}
+        <div className="p-4 space-y-4">
+          {subBlocks.map((sub, i) => (
+            <CuerpoBlock key={i} block={sub} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Generic list: iterate all known array field names ──
   for (const field of LIST_FIELDS) {
     const arr = block[field];
     if (Array.isArray(arr) && arr.length > 0) {
       return (
         <div>
           {titulo && <p className="text-sm font-bold text-slate-800 mb-2">{titulo}</p>}
+          {texto   && <p className="text-sm text-slate-600 mb-2">{texto}</p>}
           <ul className="space-y-2">
-            {arr.map((item, i) => <SmartItem key={i} item={item} />)}
+            {(arr as unknown[]).map((item, i) => <SmartItem key={i} item={item} />)}
           </ul>
         </div>
       );
     }
   }
 
-  // ── Generic text (parrafo, introduccion, analogia, definicion_legal, concepto_clave, etc.) ──
-  const ejm     = typeof block.ejemplo  === "string" ? block.ejemplo  : undefined;
-  const formula = typeof block.formula  === "string" ? block.formula  : undefined;
+  // ── Generic text fallback (parrafo, introduccion, analogia, definicion_legal, etc.) ──
+  const ejm      = typeof block.ejemplo   === "string" ? block.ejemplo   : undefined;
+  const formula  = typeof block.formula   === "string" ? block.formula   : undefined;
+  const antecede = typeof block.antecedente === "string" ? block.antecedente : undefined;
+  const fundamento = typeof block.fundamento === "string" ? block.fundamento : undefined;
+  const advertencia = typeof block.advertencia === "string" ? block.advertencia : undefined;
   return (
     <div className="space-y-2">
       {titulo && (
-        <p className={cn("font-bold text-sm", tipo === "definicion_legal" ? "text-purple-800" : "text-slate-800")}>
+        <p className={cn(
+          "font-bold text-sm",
+          tipo === "definicion_legal" || tipo === "definicion" ? "text-purple-800" : "text-slate-800"
+        )}>
           {titulo}
         </p>
       )}
-      {texto && <p className="text-sm text-slate-700 leading-relaxed">{texto}</p>}
-      {formula && <div className="rounded bg-blue-50 border border-blue-200 px-3 py-2 font-mono text-sm text-blue-800">{formula}</div>}
+      {texto     && <p className="text-sm text-slate-700 leading-relaxed">{texto}</p>}
+      {antecede  && <p className="text-sm text-slate-600 italic leading-relaxed">{antecede}</p>}
+      {fundamento && (
+        <p className="text-xs text-purple-700 font-semibold">
+          Fundamento: {fundamento}
+        </p>
+      )}
+      {formula && (
+        <div className="rounded bg-blue-50 border border-blue-200 px-3 py-2 font-mono text-sm text-blue-800">
+          {formula}
+        </div>
+      )}
       {ejm && (
         <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
           <p className="text-[10px] font-black text-amber-700 uppercase mb-0.5">Ejemplo</p>
           <p className="text-xs text-slate-700">{ejm}</p>
+        </div>
+      )}
+      {advertencia && (
+        <div className="rounded-lg bg-orange-50 border border-orange-200 px-3 py-2">
+          <p className="text-[10px] font-black text-orange-700 uppercase mb-0.5">⚠ Advertencia</p>
+          <p className="text-xs text-slate-700">{advertencia}</p>
         </div>
       )}
     </div>
@@ -391,16 +576,34 @@ function FundamentoLegalRenderer({ c }: { c: Record<string, unknown> }) {
 
 function ResumenRenderer({ c }: { c: Record<string, unknown> }) {
   const puntos = (c.puntos_clave as string[]) ?? [];
+  const preguntas = (c.preguntas_tipicas_examen as string[]) ?? [];
   return (
-    <div className="space-y-2">
-      {puntos.map((punto, i) => (
-        <div key={i} className="rounded-xl border-2 border-emerald-200 bg-emerald-50 p-4 flex gap-3">
-          <div className="shrink-0 h-6 w-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center mt-0.5">
-            {i + 1}
+    <div className="space-y-4">
+      <div className="space-y-2">
+        {puntos.map((punto, i) => (
+          <div key={i} className="rounded-xl border-2 border-emerald-200 bg-emerald-50 p-4 flex gap-3">
+            <div className="shrink-0 h-6 w-6 rounded-full bg-emerald-600 text-white text-xs font-black flex items-center justify-center mt-0.5">
+              {i + 1}
+            </div>
+            <p className="text-sm text-slate-800 leading-relaxed">{punto}</p>
           </div>
-          <p className="text-sm text-slate-800 leading-relaxed">{punto}</p>
+        ))}
+      </div>
+      {preguntas.length > 0 && (
+        <div>
+          <p className="text-xs font-black text-blue-700 uppercase tracking-wider mb-2">
+            🎯 Preguntas típicas del examen CENEVAL
+          </p>
+          <div className="space-y-2">
+            {preguntas.map((q, i) => (
+              <div key={i} className="rounded-lg bg-blue-50 border border-blue-200 px-4 py-3 flex gap-2">
+                <span className="text-blue-600 font-black text-sm shrink-0">Q{i + 1}.</span>
+                <p className="text-sm text-slate-800">{q}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 }
