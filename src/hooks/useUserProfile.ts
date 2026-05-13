@@ -57,7 +57,7 @@ export function useUserProfile() {
 
     const { data } = await sb
       .from("user_profiles")
-      .select("user_id, public_customer_id, full_name, total_xp, current_streak, exam_score_prediction, pass_probability, tier, exam_date, onboarding_completed")
+      .select("user_id, public_customer_id, full_name, total_xp, current_streak, exam_score_prediction, pass_probability, tier, plan, status, exam_target_date")
       .eq("user_id", user.id)
       .single();
 
@@ -95,8 +95,8 @@ export function useUserProfile() {
         tier,
         effectiveTier: isSuperAdmin ? "premium" : tier,
         isSuperAdmin,
-        examDate: data.exam_date ?? null,
-        onboardingCompleted: data.onboarding_completed ?? false,
+        examDate: data.exam_target_date ?? null,
+        onboardingCompleted: true,
         answeredQuestions,
         correctAnswers,
         lastStudyDates,
