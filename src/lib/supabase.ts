@@ -73,8 +73,8 @@ export function supabase() {
         persistSession: true,
         // Auto-refresh de tokens antes de que expiren
         autoRefreshToken: true,
-        // No detectar sesión en URL (usado en OAuth callbacks)
-        detectSessionInUrl: false,
+        // Detectar sesión en URL — necesario para OAuth (implicit flow con #access_token)
+        detectSessionInUrl: true,
         // Storage directo en localStorage para máxima persistencia
         storage: browserStorage,
         // Clave de almacenamiento estándar
