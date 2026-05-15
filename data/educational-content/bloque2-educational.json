@@ -747,12 +747,36 @@
                   "numero": 1,
                   "titulo": "Evaluación del riesgo y aplicación de un enfoque basado en riesgo",
                   "descripcion": "Los países deben identificar, evaluar y entender sus riesgos de LD/FT. Deben tomar medidas proporcionales al riesgo identificado. Las entidades financieras también deben hacer su propia evaluación de riesgos.",
-                  "importancia": "FUNDAMENTAL — es la base de todo el enfoque moderno PLD/FT"
+                  "importancia": "FUNDAMENTAL — es la base de todo el enfoque moderno PLD/FT",
+                  "texto_completo": "Los países deben identificar, evaluar y comprender los riesgos de LD/FT que les afectan. Deben designar una autoridad o mecanismo para coordinar las acciones destinadas a evaluar los riesgos y aplicar los recursos para garantizar que dichos riesgos sean mitigados eficazmente. Con base en dicha evaluación, los países deben aplicar un enfoque basado en riesgo para garantizar que las medidas preventivas contra el LD/FT sean proporcionales a los riesgos identificados.",
+                  "nota_interpretativa": "Los países deben identificar y evaluar sus riesgos de LD/FT a nivel nacional (ENR). Las entidades financieras también deben realizar su propia evaluación institucional. Las medidas preventivas deben ser proporcionales al nivel de riesgo identificado — esta es la esencia del EBR. Los países pueden eximir a ciertas entidades de bajo riesgo demostrado.",
+                  "explicacion_resumida": "El EBR es el principio central de toda la arquitectura PLD/FT moderna: no apliques los mismos controles para todos, sino controles proporcionales al riesgo. Un banco que atiende empresas de alto perfil necesita controles más robustos que una cooperativa local.",
+                  "elementos_clave": [
+                    "OBLIGACIÓN NACIONAL: el país (gobierno) debe evaluar sus riesgos nacionales → Evaluación Nacional de Riesgos (ENR)",
+                    "OBLIGACIÓN INSTITUCIONAL: las instituciones financieras y los sujetos de actividades vulnerables también deben evaluar sus riesgos propios",
+                    "EBR: controles proporcionales al riesgo — más rigurosos donde más riesgo, simplificados donde menos",
+                    "DOCUMENTAR: tanto la evaluación como las medidas adoptadas deben estar documentadas",
+                    "ACTUALIZAR: la evaluación debe revisarse periódicamente y cuando cambien las condiciones"
+                  ],
+                  "aplicacion_mexico": "La SHCP/UIF publica la ENR de México. Las disposiciones CNBV exigen que cada entidad realice su propia evaluación institucional de riesgo anual. El Oficial de Cumplimiento es responsable de coordinar y documentar este proceso.",
+                  "vital_examen": true
                 },
                 {
                   "numero": 2,
                   "titulo": "Cooperación y coordinación nacional",
-                  "descripcion": "Debe existir un mecanismo de coordinación entre todas las autoridades relevantes del país (reguladores, UIFs, policía, fiscalía, etc.)."
+                  "descripcion": "Debe existir un mecanismo de coordinación entre todas las autoridades relevantes del país (reguladores, UIFs, policía, fiscalía, etc.).",
+                  "texto_completo": "Los países deben contar con políticas nacionales PLD/FT que sean coherentes con los riesgos identificados. Deben existir mecanismos de coordinación y cooperación entre las autoridades competentes: reguladores, UIFs, fuerzas del orden, fiscalías. Estas políticas deben actualizarse regularmente.",
+                  "nota_interpretativa": "Los países deben tener políticas nacionales PLD/FT coherentes con sus riesgos identificados. Deben existir mecanismos de coordinación interinstitucional que aseguren que reguladores, UIFs, fuerzas del orden y fiscalías trabajen de manera coordinada y con información consistente.",
+                  "explicacion_resumida": "En México, el Comité Coordinador presidido por la SHCP (integra CNBV, UIF, FGR, SAT, CNSF, etc.) es el mecanismo de implementación. La coordinación evita duplicidades y vacíos regulatorios.",
+                  "elementos_clave": [
+                    "POLÍTICA NACIONAL coherente basada en la evaluación de riesgos",
+                    "MECANISMO DE COORDINACIÓN: un órgano o proceso que asegure que todas las autoridades relevantes trabajen en conjunto",
+                    "ACTUALIZACIÓN PERIÓDICA de la política nacional conforme evolucionan los riesgos",
+                    "PARTICIPACIÓN AMPLIA: reguladores financieros, UIFs, fiscalías, policías y otros"
+                  ],
+                  "aplicacion_mexico": "El Comité Coordinador para la Prevención y Combate del LD/FT (presidido por la SHCP) es el mecanismo de coordinación nacional de México. Integra a CNBV, CNSF, Consar, Banxico, SAT, UIF, FGR y otras autoridades.",
+                  "vital_examen": false,
+                  "importancia": "Media — El Comité Coordinador puede ser preguntado como ejemplo de implementación de la Rec. 2."
                 }
               ]
             },
@@ -762,12 +786,38 @@
                 {
                   "numero": 3,
                   "titulo": "Delito de lavado de dinero",
-                  "descripcion": "Los países deben tipificar el LD conforme a los Convenios de Viena y Palermo. El delito debe aplicarse a los delitos subyacentes más serios."
+                  "descripcion": "Los países deben tipificar el LD conforme a los Convenios de Viena y Palermo. El delito debe aplicarse a los delitos subyacentes más serios.",
+                  "texto_completo": "Los países deben tipificar el lavado de dinero sobre la base de la Convención de Viena y la Convención de Palermo. Los países deben aplicar el delito de LD a todos los delitos graves (no solo al narcotráfico). El LD debe aplicarse también cuando el delito previo se cometió en otro país.",
+                  "nota_interpretativa": "El delito de LD debe tipificarse conforme a las Convenciones de Viena (1988) y Palermo (2000). Debe aplicarse a la gama más amplia de delitos subyacentes. Debe incluir la conducta cuando el autor del LD también cometió el delito subyacente (autolavado).",
+                  "explicacion_resumida": "México cumple con CPF Art. 400 Bis (ORPI). El delito es autónomo: no requiere condena previa por el delito fuente. Incluye el autolavado.",
+                  "elementos_clave": [
+                    "BASE LEGAL: Convención de Viena (1988) y Convención de Palermo (2000)",
+                    "DELITO AUTÓNOMO: el LD puede perseguirse sin condena previa por el delito fuente",
+                    "DELITO FUENTE AMPLIO: todos los delitos graves, no solo el narcotráfico",
+                    "EXTRATERRITORIALIDAD: aplica aunque el delito previo ocurriera en otro país",
+                    "PERSONAS JURÍDICAS: los países deben poder sancionar también a empresas por LD (responsabilidad penal corporativa)"
+                  ],
+                  "aplicacion_mexico": "CPF Art. 400 Bis (ORPI) tipifica el LD en México. Es un delito autónomo. El delito fuente puede ser cualquier actividad ilícita. La Convención de Palermo amplió el delito fuente más allá del narcotráfico en 2003.",
+                  "vital_examen": false,
+                  "importancia": "MUY ALTA"
                 },
                 {
                   "numero": 4,
                   "titulo": "Decomiso y medidas provisionales",
-                  "descripcion": "Los países deben tener facultades para congelar, incautar y decomisar el producto e instrumentos del LD/FT y delitos subyacentes."
+                  "descripcion": "Los países deben tener facultades para congelar, incautar y decomisar el producto e instrumentos del LD/FT y delitos subyacentes.",
+                  "texto_completo": "Los países deben adoptar medidas similares a las de la Convención de Viena, la Convención de Palermo y el Convenio de Financiamiento del Terrorismo, incluidas medidas legislativas, para permitir a sus autoridades competentes congelar, incautar y decomisar: el producto e instrumentos del LD/FT y otros delitos; bienes de valor equivalente.",
+                  "nota_interpretativa": "Los países deben contar con poderes para congelar, incautar y decomisar el producto e instrumentos del LD/FT. Deben existir medidas provisionales (sin condena previa) para asegurar los bienes. El decomiso debe alcanzar también los bienes mezclados con fondos de origen legítimo.",
+                  "explicacion_resumida": "La Ley Nacional de Extinción de Dominio (2019) es la principal herramienta de México. No requiere condena penal — la carga de la prueba se invierte al titular del bien.",
+                  "elementos_clave": [
+                    "CONGELAMIENTO: medida temporal durante la investigación",
+                    "INCAUTACIÓN: aseguramiento de bienes con control judicial",
+                    "DECOMISO: confiscación definitiva del bien ilícito",
+                    "DECOMISO DE VALOR EQUIVALENTE: cuando el bien ya no existe, se puede decomisar un bien equivalente",
+                    "EXTINCIÓN DE DOMINIO: procedimiento civil sin condena penal previa (implementado en México)"
+                  ],
+                  "aplicacion_mexico": "Ley Nacional de Extinción de Dominio (2019) — permite decomisar bienes de origen ilícito sin condena penal previa. La carga de la prueba recae en el titular del bien (debe demostrar origen lícito).",
+                  "vital_examen": false,
+                  "importancia": "ALTA — La Extinción de Dominio es un tema frecuente en el examen."
                 }
               ]
             },
@@ -778,23 +828,70 @@
                   "numero": 5,
                   "titulo": "Delito de financiamiento del terrorismo",
                   "descripcion": "Los países deben tipificar el FT conforme al Convenio Internacional para la Represión de la FT de 1999.",
-                  "importancia": "Muy Alta"
+                  "importancia": "Muy Alta",
+                  "texto_completo": "Los países deben tipificar el financiamiento del terrorismo sobre la base del Convenio Internacional para la Represión de la Financiación del Terrorismo (1999). Los países deben tipificar no solo el financiamiento de actos terroristas, sino también el de organizaciones terroristas e individuos terroristas. El FT debe ser delito independientemente de que los fondos sean de origen lícito o ilícito.",
+                  "nota_interpretativa": "El FT debe tipificarse como delito autónomo, independientemente de que los fondos sean de origen lícito o ilícito. Debe cubrir el financiamiento a organizaciones terroristas y a actos terroristas individuales. La tentativa y la complicidad también deben ser punibles.",
+                  "explicacion_resumida": "México tipifica el FT en CPF Art. 139 Quáter con penas de 15 a 40 años — más severas que el LD. La clave: los fondos pueden ser lícitos. Lo que importa es el DESTINO, no el origen.",
+                  "elementos_clave": [
+                    "BASE LEGAL: Convenio FT de 1999 (ONU)",
+                    "FONDOS DE CUALQUIER ORIGEN: lícito o ilícito — esta es la diferencia clave con el LD",
+                    "TRES FORMAS DE FT tipificadas: financiar actos terroristas, financiar organizaciones terroristas, financiar individuos terroristas",
+                    "INTENTAR O CONSPIRAR: también es delito intentarlo o facilitar el FT",
+                    "PENAS PROPORCIONALES: las penas por FT deben ser proporcionales a la gravedad del delito"
+                  ],
+                  "aplicacion_mexico": "CPF Art. 139 Quáter tipifica el FT en México. Pena de 15 a 40 años de prisión. Los fondos pueden ser de origen lícito.",
+                  "vital_examen": true
                 },
                 {
                   "numero": 6,
                   "titulo": "Sanciones financieras dirigidas relacionadas con el terrorismo",
                   "descripcion": "Los países deben implementar el régimen de sanciones de la ONU (Res. 1267 y 1373): congelar activos de terroristas y organizaciones listadas sin previo aviso.",
-                  "importancia": "Muy Alta"
+                  "importancia": "Muy Alta",
+                  "texto_completo": "Los países deben implementar regímenes de sanciones financieras dirigidas para cumplir con las Resoluciones del Consejo de Seguridad de la ONU relativas a la prevención y supresión del terrorismo y el FT. Esto implica la congelación de fondos y otros activos de las personas y entidades designadas, y garantizar que ningún recurso sea puesto a su disposición.",
+                  "nota_interpretativa": "Los países deben implementar las sanciones financieras dirigidas (SFD) de la ONU sin demora (Res. 1267/Al-Qaeda/ISIS y Res. 1373/Terrorismo general). Las entidades deben congelar activos y prohibir transacciones de forma inmediata, sin aviso previo al listado.",
+                  "explicacion_resumida": "Las entidades deben consultar diariamente la Lista de Personas Bloqueadas de la UIF y las listas de la ONU. No hay discrecionalidad: si el cliente está en lista, se congela de inmediato sin importar el monto.",
+                  "elementos_clave": [
+                    "CONGELAMIENTO INMEDIATO: sin demora ni previo aviso al designado",
+                    "BASE LEGAL: Resoluciones CS ONU 1267 (Al-Qaeda/ISIS/Talibán) y 1373 (terrorismo en general)",
+                    "LISTA CONSOLIDADA: las entidades financieras deben consultar la Lista Consolidada de la ONU",
+                    "ALCANCE: aplica a cualquier fondo, activo o recurso económico",
+                    "OBLIGACIÓN DE LAS IF: revisar sus clientes contra estas listas regularmente"
+                  ],
+                  "aplicacion_mexico": "La SHCP/UIF emite la Lista de Personas Bloqueadas basada en estas listas internacionales. Las entidades financieras mexicanas deben consultar la lista ONU (Comité 1267/2253) y la Lista de Personas Bloqueadas antes de toda operación significativa.",
+                  "vital_examen": true
                 },
                 {
                   "numero": 7,
                   "titulo": "Sanciones financieras dirigidas relacionadas con la proliferación",
-                  "descripcion": "Los países deben implementar sanciones financieras contra quienes financien la proliferación de armas de destrucción masiva (Res. ONU 1540)."
+                  "descripcion": "Los países deben implementar sanciones financieras contra quienes financien la proliferación de armas de destrucción masiva (Res. ONU 1540).",
+                  "texto_completo": "Los países deben implementar sanciones financieras dirigidas para cumplir con las Resoluciones del CS de la ONU relativas a la prevención, supresión e interrupción de la proliferación de armas de destrucción masiva y su financiamiento. En particular, la Resolución 1540 y las específicas para Corea del Norte e Irán.",
+                  "nota_interpretativa": "Los países deben implementar SFD para la no proliferación de armas de destrucción masiva, conforme a las Resoluciones 1540, 1718 y 1737 del Consejo de Seguridad de la ONU. Similar en funcionamiento a la Rec. 6 pero aplicada a proliferación nuclear, biológica y química.",
+                  "explicacion_resumida": "Las entidades financieras incluyen a los sujetos de proliferación en los mismos sistemas de screening de listas que usan para terroristas. Es menos frecuente en México dado el perfil de riesgo del país.",
+                  "elementos_clave": [
+                    "TERCER PILAR: además de LD y FT, el GAFI desde 2012 incluye el financiamiento de la proliferación (FP)",
+                    "ARMAS DE DESTRUCCIÓN MASIVA: nuclear, química, biológica, radiológica",
+                    "RESOLUCIONES ONU ESPECÍFICAS: 1540 (2004), 1718 (Corea del Norte), 2231 (Irán)",
+                    "MISMO MECANISMO que Rec. 6: congelamiento de activos, sin previo aviso"
+                  ],
+                  "vital_examen": false,
+                  "importancia": "Media — Saber que existe y que es el tercer pilar del GAFI (LD + FT + FP)."
                 },
                 {
                   "numero": 8,
                   "titulo": "Organizaciones sin fines de lucro",
-                  "descripcion": "Los países deben asegurarse de que las ONGs no sean utilizadas para el FT. Enfoque basado en riesgo, sin sobre-regular el sector."
+                  "descripcion": "Los países deben asegurarse de que las ONGs no sean utilizadas para el FT. Enfoque basado en riesgo, sin sobre-regular el sector.",
+                  "texto_completo": "Los países deben revisar la adecuación de las leyes y reglamentos relativos a las organizaciones sin fines de lucro que el país ha identificado como vulnerables al uso indebido para el FT, y aplicar medidas enfocadas para proteger a ese sector.",
+                  "nota_interpretativa": "Los países deben revisar la adecuación de sus leyes y regulaciones para ONGs. Deben tener enfoque basado en riesgo: no sobre-regular el sector, sino focalizar en las organizaciones con perfil de riesgo de FT. Las restricciones deben ser proporcionales.",
+                  "explicacion_resumida": "Esta recomendación busca evitar que organizaciones de caridad o religiosas sean utilizadas como canal para financiar terrorismo. Las entidades deben aplicar DDR cuando una ONG opera en zonas de alto riesgo.",
+                  "elementos_clave": [
+                    "ENFOQUE BASADO EN RIESGO: no regular a todas las ONGs por igual — solo las que sean vulnerables",
+                    "RIESGO ESPECÍFICO: el sector de organizaciones sin fines de lucro puede ser infiltrado para canalizar fondos al FT",
+                    "MEDIDAS FOCALIZADAS: identificar qué tipos de ONGs son de mayor riesgo y aplicar controles proporcionales",
+                    "NO SOBRE-REGULAR: el GAFI expresamente advierte contra medidas que criminalicen innecesariamente al sector"
+                  ],
+                  "aplicacion_mexico": "Las ONGs que realizan transferencias al exterior están sujetas a mayor escrutinio. Las entidades financieras que tienen ONGs como clientes deben aplicar DDR si detectan operaciones hacia jurisdicciones o entidades de alto riesgo.",
+                  "vital_examen": false,
+                  "importancia": "Media"
                 }
               ]
             },
@@ -806,47 +903,144 @@
                   "numero": 10,
                   "titulo": "Debida diligencia del cliente (CDD / KYC)",
                   "descripcion": "Establece los 4 elementos del CDD: (1) identificar y verificar al cliente, (2) identificar y verificar al propietario beneficiario, (3) entender el propósito de la relación comercial, (4) monitoreo continuo. Aplica el EBR: mayor diligencia para mayor riesgo.",
-                  "importancia": "FUNDAMENTAL — la Rec. más citada en el examen CNBV"
+                  "importancia": "FUNDAMENTAL — la Rec. más citada en el examen CNBV",
+                  "texto_completo": "Las instituciones financieras deben tener prohibido mantener cuentas anónimas o cuentas con nombres ficticios. Deben aplicar medidas de debida diligencia del cliente (CDD) en las siguientes circunstancias: establecimiento de relaciones comerciales, transacciones ocasionales por encima de los umbrales, cuando hay sospechas de LD/FT, y cuando hay dudas sobre datos anteriormente obtenidos.",
+                  "nota_interpretativa": "CDD debe incluir 4 elementos obligatorios: (1) identificar y verificar al cliente, (2) identificar y verificar al beneficiario final/propietario real, (3) entender el propósito y naturaleza de la relación, (4) monitoreo continuo. Se aplica EBR: simplificada (bajo riesgo), estándar (medio), reforzada (alto). Debe aplicarse al inicio, durante cambios y al actualizar la relación.",
+                  "explicacion_resumida": "Esta es LA recomendación más citada en el examen CNBV. KYC no es solo pedir una credencial: es conocer quién es el cliente, qué hace, de dónde viene su dinero y monitorear que sus transacciones sean consistentes con ese perfil.",
+                  "elementos_clave": [
+                    {
+                      "elemento": "1. Identificar y verificar al cliente",
+                      "descripcion": "Obtener y verificar la identidad del cliente usando documentos, datos o información confiable de fuentes independientes.",
+                      "aplicacion": "Identificación oficial vigente, RFC, CURP, comprobante de domicilio"
+                    },
+                    {
+                      "elemento": "2. Identificar al propietario real y verificar su identidad",
+                      "descripcion": "Para personas morales: identificar quién controla o se beneficia en última instancia (persona física detrás de la estructura).",
+                      "aplicacion": "Umbral: 25% o más de las acciones, o control efectivo de la administración"
+                    },
+                    {
+                      "elemento": "3. Entender el propósito y la naturaleza de la relación comercial",
+                      "descripcion": "Saber para qué usará el cliente la cuenta o servicio, cuál es su actividad económica, el origen esperado de los fondos.",
+                      "aplicacion": "Perfil transaccional del cliente"
+                    },
+                    {
+                      "elemento": "4. Monitoreo continuo",
+                      "descripcion": "Vigilar la relación comercial de forma continua: verificar que las transacciones son consistentes con el perfil y actualizar la información del cliente.",
+                      "aplicacion": "Sistema de monitoreo transaccional; actualización periódica de expedientes"
+                    }
+                  ],
+                  "vital_examen": true
                 },
                 {
                   "numero": 11,
                   "titulo": "Mantenimiento de registros",
-                  "descripcion": "Las entidades deben conservar registros de transacciones y expedientes de identificación por al menos 5 años (en México 10 años por disposición nacional más estricta)."
+                  "descripcion": "Las entidades deben conservar registros de transacciones y expedientes de identificación por al menos 5 años (en México 10 años por disposición nacional más estricta).",
+                  "texto_completo": "Las instituciones financieras deben mantener por al menos cinco años: registros de todas las transacciones, tanto nacionales como internacionales; expedientes de identificación del cliente y de los propietarios reales; resultados del análisis realizado. Los registros deben ser suficientes para permitir la reconstrucción de transacciones individuales.",
+                  "nota_interpretativa": "Las entidades deben conservar registros de transacciones por al menos 5 años (GAFI). Las disposiciones nacionales pueden ser más estrictas — en México son 10 años. Los registros deben ser suficientes para reconstruir las transacciones individuales y estar disponibles para las autoridades dentro de los plazos establecidos.",
+                  "explicacion_resumida": "10 años en México (vs 5 del estándar GAFI mínimo). Los registros deben permitir reconstruir transacciones individuales. 'Si no está documentado, no ocurrió' es el principio que rige esta recomendación.",
+                  "elementos_clave": [
+                    "PLAZO MÍNIMO GAFI: 5 años",
+                    "PLAZO MEXICO: 10 años (más estricto que el GAFI — prevalece la norma local más rigurosa)",
+                    "QUÉ CONSERVAR: registros de transacciones + expedientes de identificación + análisis realizados",
+                    "PARA QUÉ: reconstruir transacciones e identificar a las partes involucradas",
+                    "ACCESO: los registros deben ser accesibles para las autoridades cuando los requieran"
+                  ],
+                  "aplicacion_mexico": "Disposiciones CNBV establecen conservación de 10 años desde la terminación de la relación comercial.",
+                  "vital_examen": false,
+                  "importancia": "ALTA — La diferencia de plazos (GAFI: 5 años; México: 10 años) es pregunta frecuente."
                 },
                 {
                   "numero": 12,
                   "titulo": "Personas Políticamente Expuestas (PEPs)",
                   "descripcion": "Las entidades deben aplicar medidas adicionales (DDR) para PEPs: identificar si el cliente es PEP, obtener aprobación de alta dirección, verificar origen de fondos, monitoreo intensificado.",
-                  "importancia": "Muy Alta"
+                  "importancia": "Muy Alta",
+                  "texto_completo": "Las instituciones financieras deben, en relación con las PEPs extranjeras (además de sus obligaciones normales de CDD): implementar sistemas de gestión del riesgo adecuados para determinar si el cliente es PEP; obtener la aprobación de la alta dirección antes de establecer o continuar relaciones con PEPs; adoptar medidas razonables para establecer el origen de la riqueza y de los fondos; realizar un monitoreo continuo intensificado de la relación.",
+                  "nota_interpretativa": "Los PEPs extranjeros siempre deben recibir DDR. Para PEPs domésticos y de organizaciones internacionales, los países deben exigir al menos medidas reforzadas basadas en riesgo. Se debe obtener aprobación de alta dirección, verificar el origen de fondos y el patrimonio, y realizar monitoreo continuo intensificado.",
+                  "explicacion_resumida": "PEP = persona con cargo público de alto nivel + sus familiares directos + colaboradores cercanos. El estatus se mantiene al menos 1 año después de dejar el cargo. PEP extranjero = DDR obligatoria siempre. PEP doméstico = DDR cuando el riesgo lo justifica.",
+                  "elementos_clave": [
+                    "DEFINICIÓN PEP: individuo que desempeña o ha desempeñado funciones públicas prominentes",
+                    "TIPOS: PEPs extranjeras (Rec. 12 específicamente), PEPs nacionales e internacionales (por extensión en las notas interpretativas)",
+                    "FAMILIARES Y COLABORADORES: también se consideran PEPs sus familiares directos y colaboradores cercanos",
+                    "4 OBLIGACIONES ESPECIALES: sistema de detección, aprobación de alta dirección, origen de riqueza, monitoreo intensificado",
+                    "POST-CARGO: el estatus PEP se mantiene después de dejar el cargo (mínimo 1-2 años)"
+                  ],
+                  "aplicacion_mexico": "Las disposiciones CNBV establecen que los PEPs se clasifican automáticamente como clientes de ALTO RIESGO y requieren DDR. La entidad debe tener un proceso para identificarlos al inicio de la relación y monitorearlos continuamente.",
+                  "vital_examen": true
                 },
                 {
                   "numero": 13,
                   "titulo": "Banca corresponsal",
-                  "descripcion": "Las instituciones deben aplicar DDR en relaciones de banca corresponsal: evaluar controles PLD del banco respondiente, no relacionarse con bancos pantalla (shell banks)."
+                  "descripcion": "Las instituciones deben aplicar DDR en relaciones de banca corresponsal: evaluar controles PLD del banco respondiente, no relacionarse con bancos pantalla (shell banks).",
+                  "texto_completo": "En relación con la banca corresponsal transfronteriza y otras relaciones similares, las instituciones financieras deben: recopilar información suficiente sobre la institución respondiente para entender plenamente sus negocios y actividades; evaluar los controles PLD/FT de la institución respondiente; obtener aprobación de la alta dirección; documentar las respectivas responsabilidades; y no establecer ni continuar relaciones de banca corresponsal con bancos pantalla.",
+                  "nota_interpretativa": "En banca corresponsal las entidades deben: evaluar los controles PLD/FT del banco respondiente, verificar que esté regulado y supervisado, obtener aprobación de alta dirección. PROHIBIDO relacionarse con bancos pantalla (shell banks) y con bancos que permiten cuentas corresponsales a bancos pantalla.",
+                  "explicacion_resumida": "La banca corresponsal es una relación de alto riesgo porque la entidad asume como propios los clientes del banco respondiente. Un banco pantalla (sin presencia física real) es siempre señal de alerta crítica.",
+                  "elementos_clave": [
+                    "DEBIDA DILIGENCIA AL BANCO RESPONDIENTE: evaluar su programa PLD/FT (CBDDQ del Grupo Wolfsberg)",
+                    "APROBACIÓN DE ALTA DIRECCIÓN: para inicio o continuación de la relación corresponsal",
+                    "DOCUMENTAR RESPONSABILIDADES: quién hace qué entre corresponsal y respondiente",
+                    "PROHIBICIÓN ABSOLUTA — BANCOS PANTALLA (Shell Banks): entidades sin presencia física real en ningún país",
+                    "NO HAY EXCEPCIÓN: la prohibición de operar con shell banks no admite excepciones"
+                  ],
+                  "aplicacion_mexico": "Los bancos mexicanos deben evaluar a sus correspondientes usando el cuestionario CBDDQ del Grupo Wolfsberg. La relación con un banco pantalla está PROHIBIDA.",
+                  "vital_examen": false,
+                  "importancia": "ALTA"
                 },
                 {
                   "numero": 15,
                   "titulo": "Nuevas tecnologías (incluye activos virtuales)",
                   "descripcion": "Las entidades y los países deben gestionar el riesgo de nuevas tecnologías y activos virtuales. Los proveedores de activos virtuales (VASPs) deben estar regulados.",
-                  "importancia": "Alta — relevante para FinTech"
+                  "importancia": "Alta — relevante para FinTech",
+                  "texto_completo": "Los países y las instituciones financieras deben identificar y evaluar los riesgos de LD/FT que puedan surgir de las nuevas tecnologías y los nuevos productos, negocios y prácticas, incluidos los mecanismos de entrega nuevos. Los proveedores de activos virtuales (VASPs) deben estar autorizados o registrados y sujetos a las obligaciones PLD/FT.",
+                  "nota_interpretativa": "Obligación de transmitir información del ordenante (nombre, cuenta, dirección, ID) y del beneficiario (nombre, cuenta) junto con las transferencias electrónicas. En transferencias por lotes, la información puede adjuntarse al archivo. Los intermediarios deben retener y transmitir la información recibida.",
+                  "explicacion_resumida": "La 'Regla de Viaje' asegura que el dinero siempre viaje con su historia: quién lo envió y a quién va. Permite rastrear transferencias sospechosas a través de múltiples instituciones intermediarias.",
+                  "elementos_clave": [
+                    "EVALUACIÓN DE RIESGO PREVIA al lanzar nuevos productos o tecnologías",
+                    "ACTIVOS VIRTUALES (criptomonedas): sujetos al régimen PLD/FT desde 2018 en el GAFI",
+                    "VASPs (Virtual Asset Service Providers): exchanges, custodios, proveedores de activos virtuales deben estar regulados",
+                    "REGLA DE VIAJE para activos virtuales: la Rec. 16 aplica también a transferencias de activos virtuales"
+                  ],
+                  "aplicacion_mexico": "Ley FinTech (2018) regula a las ITF que operen con activos virtuales. Solo las ITF autorizadas por Banxico pueden operar con activos virtuales. El umbral de reporte es de 645 UMAs.",
+                  "vital_examen": true
                 },
                 {
                   "numero": 16,
                   "titulo": "Transferencias electrónicas (Regla de Viaje)",
                   "descripcion": "Los datos del ordenante y del beneficiario deben acompañar a las transferencias electrónicas durante todo el proceso de transmisión. Fundamental para rastrear el origen y destino de fondos.",
-                  "importancia": "Muy Alta"
+                  "importancia": "Muy Alta",
+                  "texto_completo": "Los países deben garantizar que las instituciones financieras obtengan e incluyan información requerida y precisa del ordenante, así como información requerida del beneficiario, en las transferencias electrónicas y los mensajes relacionados, y que la información permanezca con la transferencia o el mensaje relacionado a lo largo de la cadena de pago.",
+                  "nota_interpretativa": "Las entidades deben reportar a la UIF cuando tienen sospecha o motivos razonables de que los fondos son producto de una actividad delictiva o se relacionan con el FT. El reporte debe ser confidencial (tipping-off prohibido). Las personas que reportan de buena fe tienen protección legal.",
+                  "explicacion_resumida": "El Reporte de Operación Inusual (OI en México) es la implementación de esta Rec. No requiere certeza — solo sospecha razonable. El deber de reserva protege tanto al reportante como a la entidad.",
+                  "aplicacion_mexico": "Disposiciones CNBV para transmisores de dinero; Regla de viaje aplica en todas las transferencias internacionales de fondos.",
+                  "vital_examen": false
                 },
                 {
                   "numero": 20,
                   "titulo": "Reporte de operaciones sospechosas (ROS)",
                   "descripcion": "Las entidades financieras deben reportar a la UIF cuando sospechen que fondos están relacionados con LD/FT. El reporte es obligatorio y confidencial.",
-                  "importancia": "FUNDAMENTAL"
+                  "importancia": "FUNDAMENTAL",
+                  "texto_completo": "Cuando una institución financiera sospeche, o tenga motivos razonables para sospechar, que los fondos son el producto de una actividad criminal o están relacionados con el FT, debe estar obligada por la ley, lo antes posible, a reportar sus sospechas a la UIF.",
+                  "nota_interpretativa": "Las SFD deben actualizarse cuando los países adoptan nuevas listas o contramedidas. Los países deben comunicar cambios a las entidades financieras sin demora. Las entidades deben congelar activos de las personas designadas de forma inmediata, sin notificación previa.",
+                  "explicacion_resumida": "La UIF en México emite y actualiza la Lista de Personas Bloqueadas. Las entidades deben revisar esta lista periódicamente (idealmente diariamente) y actuar de inmediato ante cualquier coincidencia.",
+                  "elementos_clave": [
+                    "OBLIGACIÓN LEGAL: reportar es obligatorio, no opcional",
+                    "UMBRAL: SOSPECHA (no certeza) — 'sospeche o tenga motivos razonables para sospechar'",
+                    "SIN UMBRAL DE MONTO: cualquier monto puede generar un reporte sospechoso",
+                    "PRONTITUD: 'lo antes posible' — en México: 60 días hábiles para OI",
+                    "DESTINATARIO: la UIF del país",
+                    "AMPLIACIÓN: aplica también si la institución intenta realizar una transacción (no solo cuando ya ocurrió)"
+                  ],
+                  "aplicacion_mexico": "Operación Inusual (OI) — reporte ante la UIF dentro de los 60 días hábiles desde el conocimiento.",
+                  "vital_examen": false
                 },
                 {
                   "numero": 21,
                   "titulo": "Tipping-off y confidencialidad",
                   "descripcion": "Las entidades y su personal NO deben revelar al cliente ni a terceros que se ha presentado un ROS. La buena fe en el reporte otorga protección legal.",
-                  "importancia": "Muy Alta — deber de reserva"
+                  "importancia": "Muy Alta — deber de reserva",
+                  "texto_completo": "Las instituciones financieras, sus directores, funcionarios y empleados deben: (a) estar protegidos por ley de la responsabilidad penal y civil por haber reportado de buena fe, incluso si no sabían con precisión cuál era la actividad ilícita subyacente; (b) estar legalmente prohibidos de revelar que un reporte de operación sospechosa u otra información relacionada está siendo reportado a la UIF.",
+                  "nota_interpretativa": "Los requerimientos de confidencialidad no deben impedir el intercambio de información entre entidades del mismo grupo financiero. Los grupos deben tener sistemas para compartir información relevante sobre clientes y transacciones sospechosas entre sus miembros.",
+                  "explicacion_resumida": "Un banco puede y debe compartir con su filial de seguros o casa de bolsa que un cliente es sospechoso. El secreto bancario no aplica dentro del mismo grupo financiero para fines PLD/FT.",
+                  "vital_examen": false
                 }
               ]
             },
@@ -861,12 +1055,35 @@
                 {
                   "numero": 24,
                   "titulo": "Transparencia de personas jurídicas",
-                  "descripcion": "Los países deben tener registros actualizados de quiénes son los beneficiarios finales de las empresas."
+                  "descripcion": "Los países deben tener registros actualizados de quiénes son los beneficiarios finales de las empresas.",
+                  "texto_completo": "Los países deben tomar medidas para prevenir el uso indebido de las personas jurídicas para el LD/FT. Los países deben garantizar que exista información adecuada, precisa y oportuna sobre el beneficiario final y el control de las personas jurídicas que pueda ser obtenida o accedida oportunamente por las autoridades competentes.",
+                  "nota_interpretativa": "Los países deben prevenir el uso indebido de personas jurídicas (empresas) para el LD/FT mediante acceso oportuno a información sobre el beneficiario real. La información debe ser precisa, actualizada y disponible para autoridades oportunamente. Deben registrarse los beneficiarios finales.",
+                  "explicacion_resumida": "Un beneficiario final es la persona física que en última instancia posee o controla a una empresa, aunque sea a través de muchas capas. Los países deben saber quién está detrás de cada empresa — combate a las empresas fantasma.",
+                  "elementos_clave": [
+                    "REGISTRO DE BENEFICIARIO FINAL: los países deben mantener registros accesibles sobre quién controla cada empresa",
+                    "INFORMACIÓN PRECISA Y ACTUALIZADA: los registros deben estar al día",
+                    "ACCESO DE AUTORIDADES: las autoridades deben poder obtener esta información rápidamente",
+                    "SOCIEDADES PANTALLA: el anonimato en la titularidad de empresas facilita el lavado de dinero"
+                  ],
+                  "vital_examen": false,
+                  "importancia": "ALTA"
                 },
                 {
                   "numero": 25,
                   "titulo": "Transparencia de fideicomisos",
-                  "descripcion": "Los fiduciarios deben mantener información del fideicomitente, fideicomisario y beneficiarios, accesible a las autoridades."
+                  "descripcion": "Los fiduciarios deben mantener información del fideicomitente, fideicomisario y beneficiarios, accesible a las autoridades.",
+                  "texto_completo": "Los países deben tomar medidas para prevenir el uso indebido de los fideicomisos para el LD/FT. Los países deben garantizar que los fiduciarios obtengan y mantengan información adecuada, precisa y actualizada sobre el fideicomiso, incluyendo el fideicomitente, el fiduciario y los fideicomisarios.",
+                  "nota_interpretativa": "Similar a la Rec. 24 pero para fideicomisos y otros vehículos jurídicos. Las autoridades deben tener acceso oportuno a información sobre el fideicomitente, fideicomisario, fiduciario y beneficiarios. Los prestadores de servicios fiduciarios deben estar regulados.",
+                  "explicacion_resumida": "En México los fideicomisos son muy comunes en operaciones inmobiliarias. La CNBV exige que las entidades que actúan como fiduciarias identifiquen y verifiquen a todas las partes del fideicomiso, incluyendo al fideicomisario real.",
+                  "elementos_clave": [
+                    "INFORMACIÓN DEL FIDEICOMISO: fideicomitente + fiduciario + fideicomisarios + beneficiarios",
+                    "OBLIGACIÓN DEL FIDUCIARIO: es responsable de mantener la información actualizada",
+                    "ACCESO PARA AUTORIDADES: deben poder obtener la información de los fideicomisos",
+                    "ALTO RIESGO: los fideicomisos son vehículos frecuentemente usados para ocultar el beneficiario real"
+                  ],
+                  "aplicacion_mexico": "Las disposiciones CNBV establecen que las entidades que actúen como fiduciarias deben identificar a todas las partes del fideicomiso y al propietario real. Los fideicomisos se clasifican como clientes de alto riesgo cuando hay opacidad.",
+                  "vital_examen": false,
+                  "importancia": "Alta"
                 }
               ]
             },
@@ -877,12 +1094,30 @@
                 {
                   "numero": 26,
                   "titulo": "Regulación y supervisión de instituciones financieras",
-                  "descripcion": "Los supervisores (como la CNBV) deben tener poderes de licenciamiento, supervisión y sanción."
+                  "descripcion": "Los supervisores (como la CNBV) deben tener poderes de licenciamiento, supervisión y sanción.",
+                  "texto_completo": "Los países deben garantizar que las instituciones financieras estén sujetas a regulación y supervisión PLD/FT adecuadas y apliquen efectivamente las Recomendaciones del GAFI. Las autoridades competentes deben tener poderes adecuados para supervisar o monitorear y garantizar el cumplimiento de los requisitos PLD/FT.",
+                  "nota_interpretativa": "Los países deben regular y supervisar a las instituciones financieras conforme a los estándares GAFI. El regulador debe tener poderes para: licenciar, supervisar, aplicar sanciones, denegar y revocar licencias. Debe existir supervisión basada en riesgo.",
+                  "explicacion_resumida": "En México la CNBV es el supervisor del sistema financiero en materia PLD/FT. Tiene poder para otorgar y revocar licencias, aplicar sanciones administrativas y referir casos a la FGR.",
+                  "elementos_clave": [
+                    "REGULACIÓN: las instituciones financieras deben estar sujetas a normas PLD/FT adecuadas",
+                    "SUPERVISIÓN EFECTIVA: no solo verificar la existencia formal — evaluar la efectividad",
+                    "PODERES DEL SUPERVISOR: acceso a información, potestad sancionatoria, facultad de revocar licencias",
+                    "EBR EN SUPERVISIÓN: recursos de supervisión concentrados en entidades de mayor riesgo"
+                  ],
+                  "aplicacion_mexico": "La CNBV es el supervisor PLD/FT para el sistema financiero mexicano. Tiene poderes de inspección, sanción y revocación de licencias.",
+                  "vital_examen": false,
+                  "importancia": "ALTA"
                 },
                 {
                   "numero": 29,
                   "titulo": "Unidades de Inteligencia Financiera (UIFs)",
-                  "descripcion": "Cada país debe tener una UIF como centro de recepción y análisis de reportes de operaciones sospechosas."
+                  "descripcion": "Cada país debe tener una UIF como centro de recepción y análisis de reportes de operaciones sospechosas.",
+                  "texto_completo": "Los países deben establecer una UIF que sirva como centro nacional de recepción y análisis de: reportes de operaciones sospechosas; otra información relevante para el LD, el FT y los delitos subyacentes. La UIF debe poder obtener información adicional de las instituciones financieras y diseminar información a las autoridades competentes.",
+                  "nota_interpretativa": "Los países deben establecer una UIF como centro nacional para recibir y analizar reportes de operaciones sospechosas (ROS/OI) y otra información financiera relevante. La UIF debe ser operacionalmente independiente y autónoma. Debe poder compartir información con sus homólogos.",
+                  "explicacion_resumida": "La UIF de México (SHCP) es la implementación de esta recomendación. Es modelo administrativo (no policial). Recibe OR, OI, OIP de entidades financieras + avisos LFPIORPI, analiza y transmite inteligencia a la FGR. Miembro del Grupo Egmont.",
+                  "aplicacion_mexico": "La UIF de México (dependencia de la SHCP) implementa la Rec. 29. Es miembro del Grupo Egmont.",
+                  "vital_examen": false,
+                  "importancia": "MUY ALTA"
                 }
               ]
             },
@@ -893,7 +1128,12 @@
                 {
                   "numero": 40,
                   "titulo": "Otras formas de cooperación internacional",
-                  "descripcion": "Las autoridades (incluyendo UIFs) deben compartir inteligencia con sus contrapartes de otros países de la forma más rápida posible."
+                  "descripcion": "Las autoridades (incluyendo UIFs) deben compartir inteligencia con sus contrapartes de otros países de la forma más rápida posible.",
+                  "texto_completo": "Los países deben garantizar que sus autoridades competentes puedan proporcionar la gama más amplia de cooperación internacional a sus contrapartes extranjeras. Esto incluye autoridades de aplicación de la ley, autoridades de supervisión y UIFs.",
+                  "nota_interpretativa": "Las autoridades competentes deben poder intercambiar información internacional de forma rápida, constructiva y eficaz con sus contrapartes para investigaciones PLD/FT. Cubre: UIFs (Grupo Egmont), supervisores financieros (IOSCO, BCBS), y autoridades de orden público (Interpol).",
+                  "explicacion_resumida": "La cooperación internacional es el último pilar del sistema global PLD/FT. El Grupo Egmont es el principal canal para intercambio UIF-UIF. Una UIF que no comparte información con sus homólogas crea vacíos que los lavadores explotan.",
+                  "vital_examen": false,
+                  "importancia": "Alta — El Grupo Egmont como mecanismo de cooperación entre UIFs."
                 }
               ]
             }

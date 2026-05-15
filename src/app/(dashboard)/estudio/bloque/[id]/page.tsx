@@ -421,12 +421,14 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
 
   // ── recomendacion — individual GAFI recommendation (gafi-educational.json) ──
   if (tipo === "recomendacion") {
-    const num  = block.numero !== undefined ? String(block.numero) : "";
-    const esF  = !!(block.es_fundamental);
-    const imp  = typeof block.importancia_examen === "string" ? block.importancia_examen : undefined;
+    const num      = block.numero !== undefined ? String(block.numero) : "";
+    const esF      = !!(block.es_fundamental) || !!(block.vital_examen);
+    const imp      = typeof block.importancia_examen  === "string" ? block.importancia_examen  : undefined;
     const texto_of = typeof block.texto_oficial_parafraseado === "string" ? block.texto_oficial_parafraseado : undefined;
-    const aplic    = typeof block.aplicacion_mexico         === "string" ? block.aplicacion_mexico         : undefined;
-    const funda    = typeof block.fundamento_mexico         === "string" ? block.fundamento_mexico         : undefined;
+    const notaInt  = typeof block.nota_interpretativa === "string" ? block.nota_interpretativa : undefined;
+    const explRes  = typeof block.explicacion_resumida === "string" ? block.explicacion_resumida : undefined;
+    const aplic    = typeof block.aplicacion_mexico    === "string" ? block.aplicacion_mexico    : undefined;
+    const funda    = typeof block.fundamento_mexico    === "string" ? block.fundamento_mexico    : undefined;
     const elems    = (block.elementos_clave as string[]) ?? [];
     const isVital  = esF || (typeof imp === "string" && imp.toLowerCase().includes("muy alta"));
     return (
@@ -434,22 +436,41 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
         <summary className="flex items-center justify-between px-4 py-3 bg-blue-50 cursor-pointer hover:bg-blue-100 transition-colors list-none">
           <div className="flex items-center gap-2 min-w-0">
             {num && (
-              <span className="shrink-0 h-6 w-6 rounded-full bg-blue-700 text-white text-xs font-black flex items-center justify-center">{num}</span>
+              <span className={cn(
+                "shrink-0 h-6 w-6 rounded-full text-white text-xs font-black flex items-center justify-center",
+                isVital ? "bg-amber-500" : "bg-blue-700"
+              )}>{num}</span>
             )}
-            <p className="text-sm font-bold text-slate-900 truncate">{titulo}</p>
+            <p className="text-sm font-bold text-slate-900 leading-tight">{titulo}</p>
             {isVital && (
-              <span className="shrink-0 text-[10px] font-black bg-amber-200 text-amber-800 px-1.5 py-0.5 rounded ml-1">⭐ VITAL</span>
+              <span className="shrink-0 text-[10px] font-black bg-amber-200 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded ml-1">⭐ VITAL</span>
             )}
           </div>
           <ChevronDown className="h-3.5 w-3.5 text-blue-500 shrink-0 ml-2 group-open:rotate-180 transition-transform" />
         </summary>
         <div className="px-4 py-3 bg-white space-y-3 border-t border-blue-100">
+          {/* Texto oficial */}
           {texto_of && (
             <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-wider mb-1">Texto oficial (parafraseo)</p>
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-wider mb-1">Texto de la Recomendación</p>
               <p className="text-sm text-slate-700 leading-relaxed">{texto_of}</p>
             </div>
           )}
+          {/* Nota interpretativa */}
+          {notaInt && (
+            <div className="rounded-lg bg-purple-50 border border-purple-200 p-3">
+              <p className="text-[10px] font-black text-purple-700 uppercase tracking-wider mb-1">📋 Nota Interpretativa</p>
+              <p className="text-sm text-slate-700 leading-relaxed">{notaInt}</p>
+            </div>
+          )}
+          {/* Explicación resumida */}
+          {explRes && (
+            <div className="rounded-lg bg-teal-50 border border-teal-200 p-3">
+              <p className="text-[10px] font-black text-teal-700 uppercase tracking-wider mb-1">💡 Explicación sencilla</p>
+              <p className="text-sm text-slate-700 leading-relaxed">{explRes}</p>
+            </div>
+          )}
+          {/* Elementos clave */}
           {elems.length > 0 && (
             <div>
               <p className="text-[10px] font-black text-blue-600 uppercase tracking-wider mb-1.5">Elementos clave</p>
@@ -462,19 +483,20 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
               </ul>
             </div>
           )}
+          {/* Aplicación México */}
           {aplic && (
             <div className="rounded-lg bg-green-50 border border-green-200 p-3">
               <p className="text-[10px] font-black text-green-700 uppercase tracking-wider mb-1">🇲🇽 Aplicación en México</p>
               <p className="text-sm text-slate-700 leading-relaxed">{aplic}</p>
             </div>
           )}
+          {/* Importancia examen */}
           {imp && (
             <div className={cn(
               "rounded-lg p-2.5 border",
               isVital ? "bg-amber-50 border-amber-200" : "bg-slate-50 border-slate-200"
             )}>
-              <p className="text-[10px] font-black uppercase tracking-wider mb-0.5"
-                 style={{ color: isVital ? "#92400e" : "#64748b" }}>
+              <p className={cn("text-[10px] font-black uppercase tracking-wider mb-0.5", isVital ? "text-amber-700" : "text-slate-500")}>
                 Importancia para el examen
               </p>
               <p className="text-xs text-slate-700">{imp}</p>
@@ -710,43 +732,107 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
     );
   }
 
-  // ── estructura — 40 Recomendaciones / numbered blocks with recomendaciones[] ──
+  // ── estructura — 40 Recomendaciones: collapsible per-rec accordion ──
   if (tipo === "estructura" && Array.isArray(block.bloques)) {
     const bloques = block.bloques as Record<string, unknown>[];
     const desc = typeof block.descripcion === "string" ? block.descripcion : undefined;
     return (
       <div className="space-y-3">
         {titulo && <p className="text-sm font-bold text-slate-800">{titulo}</p>}
-        {desc    && <p className="text-sm text-slate-600">{desc}</p>}
+        {desc    && <p className="text-sm text-slate-600 mb-1">{desc}</p>}
         {bloques.map((b, i) => {
           const recs = (b.recomendaciones ?? b.recomendaciones_destacadas) as Record<string, unknown>[] | undefined;
           return (
             <div key={i} className="rounded-xl border border-slate-200 overflow-hidden">
-              <div className="bg-slate-800 text-white px-4 py-2">
+              <div className="bg-slate-800 text-white px-4 py-2.5">
                 <p className="text-xs font-black">{String(b.bloque ?? "")}</p>
                 {!!b.descripcion && <p className="text-[11px] text-slate-300 mt-0.5">{String(b.descripcion)}</p>}
               </div>
-              {recs && recs.length > 0 && (
-                <div className="p-3 space-y-2">
-                  {recs.map((rec, j) => (
-                    <div key={j} className="rounded-lg bg-blue-50 border border-blue-100 p-2.5">
-                      <div className="flex items-start gap-2">
-                        {rec.numero !== undefined && (
-                          <span className="shrink-0 h-5 w-5 rounded-full bg-blue-600 text-white text-[10px] font-black flex items-center justify-center mt-0.5">
-                            {String(rec.numero)}
-                          </span>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          {!!rec.titulo && <p className="text-xs font-black text-slate-800">{String(rec.titulo)}</p>}
-                          {!!rec.descripcion && <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">{String(rec.descripcion)}</p>}
+              {recs && recs.length > 0 ? (
+                <div className="divide-y divide-slate-100">
+                  {recs.map((rec, j) => {
+                    const isVital = !!(rec.vital_examen) || (typeof rec.importancia === "string" && (rec.importancia as string).toLowerCase().includes("fundamental"));
+                    const elems = (rec.elementos_clave as string[]) ?? [];
+                    return (
+                      <details key={j} className="group">
+                        <summary className="flex items-center gap-2 px-4 py-2.5 cursor-pointer hover:bg-blue-50 transition-colors list-none">
+                          {rec.numero !== undefined && (
+                            <span className={cn(
+                              "shrink-0 h-6 w-6 rounded-full text-white text-[10px] font-black flex items-center justify-center",
+                              isVital ? "bg-amber-500" : "bg-blue-600"
+                            )}>
+                              {String(rec.numero)}
+                            </span>
+                          )}
+                          <p className="flex-1 text-sm font-bold text-slate-800 leading-tight">{String(rec.titulo ?? "")}</p>
+                          {isVital && (
+                            <span className="shrink-0 text-[10px] font-black bg-amber-100 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded">⭐ VITAL</span>
+                          )}
+                          <ChevronDown className="h-3.5 w-3.5 text-slate-400 shrink-0 group-open:rotate-180 transition-transform" />
+                        </summary>
+                        <div className="px-4 pb-4 pt-2 bg-white border-t border-slate-100 space-y-3">
+                          {/* Descripción / texto completo */}
+                          {!!(rec.texto_completo ?? rec.descripcion) && (
+                            <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+                              <p className="text-[10px] font-black text-slate-500 uppercase tracking-wider mb-1">Texto de la Recomendación</p>
+                              <p className="text-sm text-slate-700 leading-relaxed">{String(rec.texto_completo ?? rec.descripcion)}</p>
+                            </div>
+                          )}
+                          {/* Nota interpretativa */}
+                          {!!rec.nota_interpretativa && (
+                            <div className="rounded-lg bg-purple-50 border border-purple-200 p-3">
+                              <p className="text-[10px] font-black text-purple-700 uppercase tracking-wider mb-1">📋 Nota Interpretativa</p>
+                              <p className="text-sm text-slate-700 leading-relaxed">{String(rec.nota_interpretativa)}</p>
+                            </div>
+                          )}
+                          {/* Explicación resumida */}
+                          {!!rec.explicacion_resumida && (
+                            <div className="rounded-lg bg-teal-50 border border-teal-200 p-3">
+                              <p className="text-[10px] font-black text-teal-700 uppercase tracking-wider mb-1">💡 Explicación sencilla</p>
+                              <p className="text-sm text-slate-700 leading-relaxed">{String(rec.explicacion_resumida)}</p>
+                            </div>
+                          )}
+                          {/* Elementos clave */}
+                          {elems.length > 0 && (
+                            <div>
+                              <p className="text-[10px] font-black text-blue-600 uppercase tracking-wider mb-1.5">Elementos clave</p>
+                              <ul className="space-y-1">
+                                {elems.map((e, k) => (
+                                  <li key={k} className="flex items-start gap-2 text-sm text-slate-700">
+                                    <span className="text-blue-400 shrink-0 font-black mt-0.5">→</span>{e}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {/* Aplicación México */}
+                          {!!rec.aplicacion_mexico && (
+                            <div className="rounded-lg bg-green-50 border border-green-200 p-2.5">
+                              <p className="text-[10px] font-black text-green-700 uppercase tracking-wider mb-1">🇲🇽 Aplicación en México</p>
+                              <p className="text-sm text-slate-700">{String(rec.aplicacion_mexico)}</p>
+                            </div>
+                          )}
+                          {/* Importancia examen */}
                           {!!rec.importancia && (
-                            <p className="text-[10px] font-bold text-amber-700 mt-1">⭐ {String(rec.importancia)}</p>
+                            <div className={cn(
+                              "rounded-lg p-2 border text-xs",
+                              isVital ? "bg-amber-50 border-amber-200" : "bg-slate-50 border-slate-200"
+                            )}>
+                              <span className={cn("font-black uppercase tracking-wider mr-1", isVital ? "text-amber-700" : "text-slate-500")}>
+                                Importancia examen:
+                              </span>
+                              <span className="text-slate-700">{String(rec.importancia)}</span>
+                            </div>
                           )}
                         </div>
-                      </div>
-                    </div>
-                  ))}
+                      </details>
+                    );
+                  })}
                 </div>
+              ) : (
+                !!b.descripcion && (
+                  <p className="px-4 py-2.5 text-sm text-slate-600">{String(b.descripcion)}</p>
+                )
               )}
             </div>
           );
