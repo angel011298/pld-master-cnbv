@@ -61,6 +61,17 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  // Apple touch icon — esencial para el ícono en pantalla de inicio de iPhone/iPad
+  appleWebApp: {
+    capable: true,
+    title: "Certifik PLD",
+    statusBarStyle: "black-translucent",
+  },
+  // Iconos explícitos (refuerza lo que Next.js genera desde apple-icon.tsx)
+  icons: {
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({
