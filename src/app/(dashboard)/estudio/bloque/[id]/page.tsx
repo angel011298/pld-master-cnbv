@@ -898,6 +898,49 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
     );
   }
 
+  // ── grupo_recomendaciones — GAFI grouped recommendations (gafi-educational.json) ──
+  if (tipo === "grupo_recomendaciones" && Array.isArray(block.descripciones)) {
+    const descripciones = block.descripciones as Record<string, unknown>[];
+    return (
+      <div className="space-y-2">
+        {titulo && <p className="text-sm font-bold text-slate-800 mb-1">{titulo}</p>}
+        {descripciones.map((desc, i) => {
+          const isVital = typeof desc.importancia_examen === "string" &&
+            (desc.importancia_examen as string).toLowerCase().includes("alta");
+          return (
+            <div key={i} className={cn(
+              "rounded-lg border p-3",
+              isVital ? "border-amber-200 bg-amber-50" : "border-blue-100 bg-blue-50"
+            )}>
+              <div className="flex items-center gap-2 mb-1">
+                {desc.numero !== undefined && (
+                  <span className={cn(
+                    "shrink-0 h-5 w-5 rounded-full text-white text-[10px] font-black flex items-center justify-center",
+                    isVital ? "bg-amber-500" : "bg-blue-700"
+                  )}>{String(desc.numero)}</span>
+                )}
+                {!!desc.titulo && (
+                  <p className="text-sm font-bold text-slate-900">{String(desc.titulo)}</p>
+                )}
+                {isVital && (
+                  <span className="shrink-0 text-[10px] font-black bg-amber-200 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded ml-auto">⭐ VITAL</span>
+                )}
+              </div>
+              {!!desc.descripcion && (
+                <p className="text-xs text-slate-600 leading-relaxed ml-7">{String(desc.descripcion)}</p>
+              )}
+              {!!desc.importancia_examen && (
+                <p className={cn("text-[10px] mt-1 font-semibold ml-7", isVital ? "text-amber-700" : "text-slate-500")}>
+                  Importancia examen: {String(desc.importancia_examen)}
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   // ── Generic list: iterate all known array field names ──
   for (const field of LIST_FIELDS) {
     const arr = block[field];
@@ -1473,7 +1516,7 @@ function ResumenRenderer({ c }: { c: Record<string, unknown> }) {
 }
 
 function TheoryCard({ item }: { item: ContentItem }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const meta = TIPO_META[item.tipo] ?? { label: item.tipo, badgeClass: "bg-slate-100 text-slate-700 border-slate-200", Icon: FileText };
   const { Icon } = meta;
   const c = item.contenido;
@@ -2022,9 +2065,109 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   );
 }
 
+// Auto-layout algorithm: places crossword words on a grid using intersection search
+function autoLayoutCrossword(
+  palabras: { respuesta: string; direccion: "horizontal" | "vertical" }[]
+): Record<number, { fila: number; columna: number }> {
+  const norm = (s: string) => s.toUpperCase().replace(/\s+/g, "");
+  const grid: Record<string, { letter: string; horizontal: boolean }> = {};
+  const placed: Record<number, { row: number; col: number }> = {};
+
+  const getCells = (answer: string, row: number, col: number, horiz: boolean) =>
+    Array.from({ length: answer.length }, (_, i) => ({
+      r: row + (horiz ? 0 : i),
+      c: col + (horiz ? i : 0),
+      letter: answer[i],
+    }));
+
+  const canPlace = (answer: string, row: number, col: number, horiz: boolean): boolean => {
+    const beforeR = row - (horiz ? 0 : 1), beforeC = col - (horiz ? 1 : 0);
+    const afterR  = row + (horiz ? 0 : answer.length), afterC = col + (horiz ? answer.length : 0);
+    if (grid[`${beforeR},${beforeC}`] || grid[`${afterR},${afterC}`]) return false;
+    let intersections = 0;
+    for (const { r, c, letter } of getCells(answer, row, col, horiz)) {
+      const existing = grid[`${r},${c}`];
+      if (existing !== undefined) {
+        if (existing.letter !== letter) return false;
+        if (existing.horizontal === horiz) return false;
+        intersections++;
+      } else {
+        const sr1 = r + (horiz ? -1 : 0), sc1 = c + (horiz ? 0 : -1);
+        const sr2 = r + (horiz ? 1 : 0), sc2 = c + (horiz ? 0 : 1);
+        if (grid[`${sr1},${sc1}`] || grid[`${sr2},${sc2}`]) return false;
+      }
+    }
+    if (Object.keys(grid).length > 0 && intersections === 0) return false;
+    return true;
+  };
+
+  const doPlace = (idx: number, answer: string, row: number, col: number, horiz: boolean) => {
+    placed[idx] = { row, col };
+    for (const { r, c, letter } of getCells(answer, row, col, horiz)) {
+      if (!grid[`${r},${c}`]) grid[`${r},${c}`] = { letter, horizontal: horiz };
+    }
+  };
+
+  if (palabras.length === 0) return {};
+
+  // Place first word at origin
+  doPlace(0, norm(palabras[0].respuesta), 0, 0, palabras[0].direccion === "horizontal");
+
+  // Multi-pass intersection search for remaining words
+  for (let pass = 0; pass < 5; pass++) {
+    for (let wi = 0; wi < palabras.length; wi++) {
+      if (placed[wi] !== undefined) continue;
+      const w    = palabras[wi];
+      const ans  = norm(w.respuesta);
+      const horiz = w.direccion === "horizontal";
+      let done = false;
+      for (const piStr of Object.keys(placed)) {
+        if (done) break;
+        const pi = parseInt(piStr, 10);
+        const pp  = placed[pi];
+        const pw   = palabras[pi];
+        const pans  = norm(pw.respuesta);
+        const phoriz = pw.direccion === "horizontal";
+        if (phoriz === horiz) continue;
+        for (let i = 0; i < ans.length && !done; i++) {
+          for (let j = 0; j < pans.length && !done; j++) {
+            if (ans[i] !== pans[j]) continue;
+            const pr = pp.row + (phoriz ? 0 : j);
+            const pc = pp.col + (phoriz ? j : 0);
+            const nr = pr - (horiz ? 0 : i);
+            const nc = pc - (horiz ? i : 0);
+            if (canPlace(ans, nr, nc, horiz)) { doPlace(wi, ans, nr, nc, horiz); done = true; }
+          }
+        }
+      }
+    }
+  }
+
+  // Fallback: place any unpositioned words below the grid
+  const placedVals = Object.values(placed);
+  let nextRow = placedVals.length > 0
+    ? Math.max(...placedVals.map((p) => p.row)) + 3
+    : 2;
+  for (let i = 0; i < palabras.length; i++) {
+    if (placed[i] === undefined) { placed[i] = { row: nextRow, col: 0 }; nextRow += 2; }
+  }
+
+  // Normalize to 1-indexed
+  const allVals = Object.values(placed);
+  const minRow = Math.min(...allVals.map((p) => p.row));
+  const minCol = Math.min(...allVals.map((p) => p.col));
+  const result: Record<number, { fila: number; columna: number }> = {};
+  for (const idxStr of Object.keys(placed)) {
+    const idx = parseInt(idxStr, 10);
+    const pos = placed[idx];
+    result[idx] = { fila: pos.row - minRow + 1, columna: pos.col - minCol + 1 };
+  }
+  return result;
+}
+
 // — Crucigrama —
 function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
-  const palabras = (ejercicio.contenido.palabras ?? []) as {
+  const palabrasRaw = (ejercicio.contenido.palabras ?? []) as {
     numero: number;
     direccion: "horizontal" | "vertical";
     inicio?: { fila: number; columna: number };
@@ -2032,31 +2175,53 @@ function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
     pista: string;
     respuesta: string;
   }[];
-  const gridInfo = (ejercicio.contenido.cuadricula ?? { filas: 15, columnas: 15 }) as { filas: number; columnas: number };
-
-  // Detect whether position data is available (some bloques omit inicio entirely)
-  const hasPositions = palabras.length > 0 && palabras.some((p) => p.inicio != null);
+  // Use JSON positions when available, otherwise auto-compute them
+  const hasJsonPositions = palabrasRaw.length > 0 && palabrasRaw.some((p) => p.inicio != null);
+  const autoPositions: Record<number, { fila: number; columna: number }> = hasJsonPositions
+    ? {}
+    : autoLayoutCrossword(palabrasRaw);
+  const palabras = palabrasRaw.map((p, idx) => ({
+    ...p,
+    inicio: p.inicio ?? autoPositions[idx],
+  }));
+  // Compute grid dimensions from word extents (or use JSON cuadricula when available)
+  const gridInfo: { filas: number; columnas: number } = (() => {
+    if (hasJsonPositions) {
+      return (ejercicio.contenido.cuadricula ?? { filas: 15, columnas: 15 }) as { filas: number; columnas: number };
+    }
+    let maxRow = 1, maxCol = 1;
+    for (const p of palabras) {
+      if (!p.inicio) continue;
+      const len = p.respuesta.replace(/\s/g, "").length;
+      if (p.direccion === "horizontal") {
+        maxRow = Math.max(maxRow, p.inicio.fila);
+        maxCol = Math.max(maxCol, p.inicio.columna + len - 1);
+      } else {
+        maxRow = Math.max(maxRow, p.inicio.fila + len - 1);
+        maxCol = Math.max(maxCol, p.inicio.columna);
+      }
+    }
+    return { filas: maxRow + 1, columnas: maxCol + 1 };
+  })();
 
   const makeKey = (p: { numero: number; direccion: string }) =>
     `${p.numero}${p.direccion[0].toUpperCase()}`;
 
-  // Build cell map only when position data is available
+  // Build cell map from positions (always available after auto-layout)
   type CellInfo = { active: boolean; number?: number; hWord?: string; hIdx?: number; vWord?: string; vIdx?: number };
   const cellMap: Record<string, CellInfo> = {};
-  if (hasPositions) {
-    for (const p of palabras) {
-      if (!p.inicio) continue; // skip words without position
-      const key = makeKey(p);
-      const len = p.respuesta.replace(/\s/g, "").length;
-      for (let i = 0; i < len; i++) {
-        const r: number = p.inicio.fila - 1 + (p.direccion === "vertical" ? i : 0);
-        const c: number = p.inicio.columna - 1 + (p.direccion === "horizontal" ? i : 0);
-        const ck = `${r},${c}`;
-        if (!cellMap[ck]) cellMap[ck] = { active: true };
-        if (i === 0 && !cellMap[ck].number) cellMap[ck].number = p.numero;
-        if (p.direccion === "horizontal") { cellMap[ck].hWord = key; cellMap[ck].hIdx = i; }
-        else { cellMap[ck].vWord = key; cellMap[ck].vIdx = i; }
-      }
+  for (const p of palabras) {
+    if (!p.inicio) continue;
+    const key = makeKey(p);
+    const len = p.respuesta.replace(/\s/g, "").length;
+    for (let i = 0; i < len; i++) {
+      const r: number = p.inicio.fila - 1 + (p.direccion === "vertical" ? i : 0);
+      const c: number = p.inicio.columna - 1 + (p.direccion === "horizontal" ? i : 0);
+      const ck = `${r},${c}`;
+      if (!cellMap[ck]) cellMap[ck] = { active: true };
+      if (i === 0 && !cellMap[ck].number) cellMap[ck].number = p.numero;
+      if (p.direccion === "horizontal") { cellMap[ck].hWord = key; cellMap[ck].hIdx = i; }
+      else { cellMap[ck].vWord = key; cellMap[ck].vIdx = i; }
     }
   }
 
@@ -2160,77 +2325,6 @@ function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 
   const horizontales = palabras.filter((p) => p.direccion === "horizontal");
   const verticales   = palabras.filter((p) => p.direccion === "vertical");
-
-  // —— No-positions mode: text inputs per clue (bloques 2-7 that lack inicio coordinates) ——
-  if (!hasPositions) {
-    const renderTextClues = (list: typeof palabras, label: string, icon: string) =>
-      list.length > 0 ? (
-        <div key={label}>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-2">{icon} {label}</p>
-          <div className="space-y-3">
-            {list.map((p) => {
-              const key = makeKey(p);
-              const isCorrect = submitted && results[key] === true;
-              const isWrong   = submitted && results[key] === false;
-              return (
-                <div key={key} className={cn(
-                  "rounded-xl border-2 p-3 space-y-2 transition-colors",
-                  isCorrect ? "border-emerald-300 bg-emerald-50" :
-                  isWrong   ? "border-red-300 bg-red-50" :
-                  "border-slate-200 bg-white"
-                )}>
-                  <div className="flex items-start gap-2">
-                    <span className={cn(
-                      "shrink-0 h-6 w-6 rounded-lg flex items-center justify-center text-xs font-black",
-                      isCorrect ? "bg-emerald-500 text-white" :
-                      isWrong   ? "bg-red-500 text-white" :
-                      "bg-slate-200 text-slate-700"
-                    )}>{p.numero}</span>
-                    <p className="text-xs text-slate-600 leading-relaxed flex-1">{p.pista}</p>
-                    {isCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />}
-                  </div>
-                  <div className="flex items-center gap-2 ml-8">
-                    <input
-                      type="text"
-                      disabled={submitted}
-                      value={wordAnswers[key] ?? ""}
-                      onChange={(e) => setWordAnswers((prev) => ({ ...prev, [key]: e.target.value.toUpperCase() }))}
-                      placeholder={`${p.respuesta.length} letras…`}
-                      className={cn(
-                        "flex-1 border-2 rounded-lg px-3 py-1.5 text-sm font-bold uppercase outline-none transition-colors",
-                        isCorrect ? "border-emerald-400 bg-emerald-50 text-emerald-700" :
-                        isWrong   ? "border-red-400 bg-red-50 text-red-700" :
-                        "border-slate-300 bg-slate-50 focus:border-blue-400 focus:bg-white"
-                      )}
-                    />
-                    {isWrong && revealed && (
-                      <span className="text-xs font-bold text-red-600 shrink-0">✓ {p.respuesta}</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : null;
-
-    return (
-      <div className="space-y-4">
-        <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
-        <HintsDisplay hints={hints} shown={hintsShown} />
-        <div className="space-y-4">
-          {renderTextClues(horizontales, "Horizontales", "→")}
-          {renderTextClues(verticales, "Verticales", "↓")}
-        </div>
-        <ExerciseActions
-          hints={hints} hintsShown={hintsShown} onHint={() => setHintsShown(h => h + 1)}
-          onSubmit={handleSubmit} submitLabel="Verificar Crucigrama" submitDisabled={!allFilled}
-          submitted={submitted} localScore={localScore} revealed={revealed} onReveal={() => setRevealed(true)}
-        />
-        {submitted && <SolucionPanel solucion={ejercicio.solucion} />}
-      </div>
-    );
-  }
 
   const renderClueList = (list: typeof palabras) => (
     <div className="space-y-2">
