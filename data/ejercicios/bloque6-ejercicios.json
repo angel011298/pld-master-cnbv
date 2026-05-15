@@ -7,28 +7,88 @@
     "instrucciones": "Relaciona cada actividad vulnerable con la fracción correcta del Art. 17 de la LFPIORPI.",
     "contenido": {
       "columna_actividades": [
-        {"id": "A", "actividad": "Casino y centros de apuestas"},
-        {"id": "B", "actividad": "Compraventa de inmuebles e intermediación inmobiliaria"},
-        {"id": "C", "actividad": "Notarios en operaciones de compraventa de inmuebles y otorgamiento de fe pública"},
-        {"id": "D", "actividad": "Compraventa de vehículos terrestres, aéreos o marítimos"},
-        {"id": "E", "actividad": "Compraventa de metales y piedras preciosas (joyerías)"},
-        {"id": "F", "actividad": "Servicios profesionales de gestión y administración de recursos de clientes (abogados, contadores)"},
-        {"id": "G", "actividad": "Comercio exterior (agentes aduanales, importadores/exportadores)"},
-        {"id": "H", "actividad": "Notarios en constitución de personas morales y modificaciones societarias"},
-        {"id": "I", "actividad": "Traslado o custodia de dinero o valores"},
-        {"id": "J", "actividad": "Tarjetas de servicios, crédito o prepagadas no emitidas por entidades financieras"}
+        {
+          "id": "A",
+          "actividad": "Casino y centros de apuestas"
+        },
+        {
+          "id": "B",
+          "actividad": "Compraventa de inmuebles e intermediación inmobiliaria"
+        },
+        {
+          "id": "C",
+          "actividad": "Notarios en operaciones de compraventa de inmuebles y otorgamiento de fe pública"
+        },
+        {
+          "id": "D",
+          "actividad": "Compraventa de vehículos terrestres, aéreos o marítimos"
+        },
+        {
+          "id": "E",
+          "actividad": "Compraventa de metales y piedras preciosas (joyerías)"
+        },
+        {
+          "id": "F",
+          "actividad": "Servicios profesionales de gestión y administración de recursos de clientes (abogados, contadores)"
+        },
+        {
+          "id": "G",
+          "actividad": "Comercio exterior (agentes aduanales, importadores/exportadores)"
+        },
+        {
+          "id": "H",
+          "actividad": "Notarios en constitución de personas morales y modificaciones societarias"
+        },
+        {
+          "id": "I",
+          "actividad": "Traslado o custodia de dinero o valores"
+        },
+        {
+          "id": "J",
+          "actividad": "Tarjetas de servicios, crédito o prepagadas no emitidas por entidades financieras"
+        }
       ],
       "columna_fracciones": [
-        {"id": "I", "fraccion": "Fracción I"},
-        {"id": "II", "fraccion": "Fracción II"},
-        {"id": "IV", "fraccion": "Fracción IV"},
-        {"id": "V", "fraccion": "Fracción V"},
-        {"id": "VII", "fraccion": "Fracción VII"},
-        {"id": "VIII", "fraccion": "Fracción VIII"},
-        {"id": "X", "fraccion": "Fracción X"},
-        {"id": "XI", "fraccion": "Fracción XI"},
-        {"id": "XIV", "fraccion": "Fracción XIV"},
-        {"id": "XV", "fraccion": "Fracción XV"}
+        {
+          "id": "I",
+          "fraccion": "Fracción I"
+        },
+        {
+          "id": "II",
+          "fraccion": "Fracción II"
+        },
+        {
+          "id": "IV",
+          "fraccion": "Fracción IV"
+        },
+        {
+          "id": "V",
+          "fraccion": "Fracción V"
+        },
+        {
+          "id": "VII",
+          "fraccion": "Fracción VII"
+        },
+        {
+          "id": "VIII",
+          "fraccion": "Fracción VIII"
+        },
+        {
+          "id": "X",
+          "fraccion": "Fracción X"
+        },
+        {
+          "id": "XI",
+          "fraccion": "Fracción XI"
+        },
+        {
+          "id": "XIV",
+          "fraccion": "Fracción XIV"
+        },
+        {
+          "id": "XV",
+          "fraccion": "Fracción XV"
+        }
       ]
     },
     "solucion": {
@@ -84,10 +144,26 @@
     "solucion": {
       "calificacion_maxima": 8,
       "criterios": [
-        {"pregunta": 1, "puntos": 2, "criterio": "Identifica actividad vulnerable (Fr. V), supera umbral de aviso, menciona las 3 obligaciones del notario"},
-        {"pregunta": 2, "puntos": 2, "criterio": "Cita correctamente el Art. 32 LFPIORPI y la prohibición de efectivo por encima del umbral"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Analiza la situación con matiz correcto — documentar aunque no se concrete la operación"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Lista los elementos del aviso: datos notario, datos cliente, operación, forma de pago, plazo"}
+        {
+          "pregunta": 1,
+          "puntos": 2,
+          "criterio": "Identifica actividad vulnerable (Fr. V), supera umbral de aviso, menciona las 3 obligaciones del notario"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 2,
+          "criterio": "Cita correctamente el Art. 32 LFPIORPI y la prohibición de efectivo por encima del umbral"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Analiza la situación con matiz correcto — documentar aunque no se concrete la operación"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Lista los elementos del aviso: datos notario, datos cliente, operación, forma de pago, plazo"
+        }
       ]
     },
     "dificultad": "dificil",
@@ -127,10 +203,26 @@
     "solucion": {
       "calificacion_maxima": 8,
       "criterios": [
-        {"pregunta": 1, "puntos": 1, "criterio": "Identifica Fracción X (y/o XIII) del Art. 17 LFPIORPI"},
-        {"pregunta": 2, "puntos": 3, "criterio": "Distingue umbral de identificación vs. aviso, aplica correctamente a cada operación, menciona posible acumulación"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Describe las consecuencias del incumplimiento: sanción SAT, responsabilidad adicional, imposibilidad de aviso"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Responde correctamente que SÍ se puede en efectivo por debajo del umbral del Art. 32"}
+        {
+          "pregunta": 1,
+          "puntos": 1,
+          "criterio": "Identifica Fracción X (y/o XIII) del Art. 17 LFPIORPI"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 3,
+          "criterio": "Distingue umbral de identificación vs. aviso, aplica correctamente a cada operación, menciona posible acumulación"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Describe las consecuencias del incumplimiento: sanción SAT, responsabilidad adicional, imposibilidad de aviso"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Responde correctamente que SÍ se puede en efectivo por debajo del umbral del Art. 32"
+        }
       ]
     },
     "dificultad": "medio",
@@ -147,67 +239,159 @@
         {
           "id": 1,
           "texto": "La LFPIORPI fue publicada en el DOF el _____ de octubre de _____ y entró en vigor el _____ de julio de _____.",
-          "espacios": ["17", "2012", "17", "2013"]
+          "espacios": [
+            "17",
+            "2012",
+            "17",
+            "2013"
+          ]
         },
         {
           "id": 2,
           "texto": "El objeto de la LFPIORPI es establecer medidas para _____ y _____ operaciones con recursos de procedencia ilícita en las actividades _____ (no financieras). La autoridad supervisora es el _____.",
-          "espacios": ["prevenir", "detectar", "vulnerables", "SAT"]
+          "espacios": [
+            "prevenir",
+            "detectar",
+            "vulnerables",
+            "SAT"
+          ]
         },
         {
           "id": 3,
           "texto": "Los sujetos de actividades vulnerables presentan _____ al _____. Las entidades financieras presentan _____ directamente a la _____. Esta distinción es fundamental para el examen CNBV.",
-          "espacios": ["avisos", "SAT", "reportes", "UIF"]
+          "espacios": [
+            "avisos",
+            "SAT",
+            "reportes",
+            "UIF"
+          ]
         },
         {
           "id": 4,
           "texto": "Los avisos deben presentarse dentro de los _____ días _____ siguientes a la operación que supere el umbral. El sistema electrónico del SAT para presentar avisos se denomina _____.",
-          "espacios": ["30", "hábiles", "PFPIORPI"]
+          "espacios": [
+            "30",
+            "hábiles",
+            "PFPIORPI"
+          ]
         },
         {
           "id": 5,
           "texto": "El Art. _____ de la LFPIORPI establece el catálogo de _____ actividades vulnerables. Las de mayor riesgo PLD son: casinos (Fr. ___), notarios en inmobiliario (Fr. ___), compraventa de inmuebles (Fr. ___) y servicios profesionales de gestión (Fr. ___).",
-          "espacios": ["17", "16", "I", "V", "VII", "XV"]
+          "espacios": [
+            "17",
+            "16",
+            "I",
+            "V",
+            "VII",
+            "XV"
+          ]
         },
         {
           "id": 6,
           "texto": "Las obligaciones de los sujetos de actividades vulnerables se establecen en el Art. _____ y son _____ en total. La más importante es la obligación de presentar _____.",
-          "espacios": ["18", "8", "avisos"]
+          "espacios": [
+            "18",
+            "8",
+            "avisos"
+          ]
         },
         {
           "id": 7,
           "texto": "El Art. _____ LFPIORPI restringe el pago en _____ para operaciones de alto valor. Para la compraventa de inmuebles, la restricción aplica cuando el precio supera _____ veces el SMG (~$820,000 pesos aproximadamente).",
-          "espacios": ["32", "efectivo", "8,025"]
+          "espacios": [
+            "32",
+            "efectivo",
+            "8,025"
+          ]
         },
         {
           "id": 8,
           "texto": "Los documentos obtenidos bajo la LFPIORPI deben conservarse por un mínimo de _____ años (vs. _____ años en el sistema financiero). Esta diferencia de plazo es frecuentemente evaluada en el examen CNBV.",
-          "espacios": ["5", "10"]
+          "espacios": [
+            "5",
+            "10"
+          ]
         },
         {
           "id": 9,
           "texto": "Las entidades financieras y los sujetos de actividades vulnerables tienen estas SIMILITUDES: ambos deben _____ a sus clientes, identificar al _____ real, guardar _____ (no alertar al cliente sobre avisos o reportes) y abstenerse de operar con personas _____.",
-          "espacios": ["identificar", "propietario (o beneficiario controlador)", "reserva", "bloqueadas"]
+          "espacios": [
+            "identificar",
+            "propietario (o beneficiario controlador)",
+            "reserva",
+            "bloqueadas"
+          ]
         },
         {
           "id": 10,
           "texto": "Para las entidades financieras, la regulación _____ (CNBV) _____ sobre la LFPIORPI. La LFPIORPI tiene carácter _____ para las entidades financieras — solo aplica en lo no cubierto por su propia regulación.",
-          "espacios": ["sectorial", "prevalece", "supletorio"]
+          "espacios": [
+            "sectorial",
+            "prevalece",
+            "supletorio"
+          ]
         }
       ]
     },
     "solucion": {
       "respuestas_correctas": {
-        "1": ["17", "2012", "17", "2013"],
-        "2": ["prevenir", "detectar", "vulnerables", "SAT"],
-        "3": ["avisos", "SAT", "reportes", "UIF"],
-        "4": ["30", "hábiles", "PFPIORPI"],
-        "5": ["17", "16", "I", "V", "VII", "XV"],
-        "6": ["18", "8", "avisos"],
-        "7": ["32", "efectivo", "8,025"],
-        "8": ["5", "10"],
-        "9": ["identificar", "propietario", "reserva", "bloqueadas"],
-        "10": ["sectorial", "prevalece", "supletorio"]
+        "1": [
+          "17",
+          "2012",
+          "17",
+          "2013"
+        ],
+        "2": [
+          "prevenir",
+          "detectar",
+          "vulnerables",
+          "SAT"
+        ],
+        "3": [
+          "avisos",
+          "SAT",
+          "reportes",
+          "UIF"
+        ],
+        "4": [
+          "30",
+          "hábiles",
+          "PFPIORPI"
+        ],
+        "5": [
+          "17",
+          "16",
+          "I",
+          "V",
+          "VII",
+          "XV"
+        ],
+        "6": [
+          "18",
+          "8",
+          "avisos"
+        ],
+        "7": [
+          "32",
+          "efectivo",
+          "8,025"
+        ],
+        "8": [
+          "5",
+          "10"
+        ],
+        "9": [
+          "identificar",
+          "propietario",
+          "reserva",
+          "bloqueadas"
+        ],
+        "10": [
+          "sectorial",
+          "prevalece",
+          "supletorio"
+        ]
       }
     },
     "dificultad": "facil",
@@ -308,18 +492,54 @@
     "instrucciones": "Clasifica cada elemento en la columna correcta: aplica solo a entidades financieras (CNBV), solo a actividades vulnerables (LFPIORPI/SAT), o a AMBOS sistemas.",
     "contenido": {
       "elementos": [
-        {"id": "1", "elemento": "Presentar reportes de Operación Relevante (OR) ante la UIF"},
-        {"id": "2", "elemento": "Identificar al cliente mediante documentos oficiales"},
-        {"id": "3", "elemento": "Conservar documentos por mínimo 5 años"},
-        {"id": "4", "elemento": "Presentar avisos al SAT en los 30 días hábiles siguientes"},
-        {"id": "5", "elemento": "Deber de reserva — no alertar al cliente sobre comunicaciones realizadas"},
-        {"id": "6", "elemento": "Designar obligatoriamente a un Oficial de Cumplimiento notificado al supervisor"},
-        {"id": "7", "elemento": "Identificar al propietario real (beneficiario controlador) en personas morales"},
-        {"id": "8", "elemento": "Contar con sistema automatizado de monitoreo transaccional"},
-        {"id": "9", "elemento": "Abstenerse de realizar operaciones con personas de la Lista de Personas Bloqueadas"},
-        {"id": "10", "elemento": "Conservar documentos por mínimo 10 años"},
-        {"id": "11", "elemento": "Restricción de pago en efectivo para operaciones de alto valor (Art. 32 LFPIORPI)"},
-        {"id": "12", "elemento": "Capacitar al personal en materia PLD/FT"}
+        {
+          "id": "1",
+          "elemento": "Presentar reportes de Operación Relevante (OR) ante la UIF"
+        },
+        {
+          "id": "2",
+          "elemento": "Identificar al cliente mediante documentos oficiales"
+        },
+        {
+          "id": "3",
+          "elemento": "Conservar documentos por mínimo 5 años"
+        },
+        {
+          "id": "4",
+          "elemento": "Presentar avisos al SAT en los 30 días hábiles siguientes"
+        },
+        {
+          "id": "5",
+          "elemento": "Deber de reserva — no alertar al cliente sobre comunicaciones realizadas"
+        },
+        {
+          "id": "6",
+          "elemento": "Designar obligatoriamente a un Oficial de Cumplimiento notificado al supervisor"
+        },
+        {
+          "id": "7",
+          "elemento": "Identificar al propietario real (beneficiario controlador) en personas morales"
+        },
+        {
+          "id": "8",
+          "elemento": "Contar con sistema automatizado de monitoreo transaccional"
+        },
+        {
+          "id": "9",
+          "elemento": "Abstenerse de realizar operaciones con personas de la Lista de Personas Bloqueadas"
+        },
+        {
+          "id": "10",
+          "elemento": "Conservar documentos por mínimo 10 años"
+        },
+        {
+          "id": "11",
+          "elemento": "Restricción de pago en efectivo para operaciones de alto valor (Art. 32 LFPIORPI)"
+        },
+        {
+          "id": "12",
+          "elemento": "Capacitar al personal en materia PLD/FT"
+        }
       ],
       "columnas": [
         "Solo entidades financieras (CNBV)",
@@ -329,9 +549,24 @@
     },
     "solucion": {
       "clasificacion_correcta": {
-        "Solo entidades financieras (CNBV)": ["1", "6", "8", "10"],
-        "Solo actividades vulnerables (LFPIORPI/SAT)": ["3", "4", "11"],
-        "AMBOS sistemas": ["2", "5", "7", "9", "12"]
+        "Solo entidades financieras (CNBV)": [
+          "1",
+          "6",
+          "8",
+          "10"
+        ],
+        "Solo actividades vulnerables (LFPIORPI/SAT)": [
+          "3",
+          "4",
+          "11"
+        ],
+        "AMBOS sistemas": [
+          "2",
+          "5",
+          "7",
+          "9",
+          "12"
+        ]
       },
       "explicaciones": {
         "1": "OR es exclusivo del sistema financiero — los avisos de la LFPIORPI son distintos",
@@ -349,6 +584,132 @@
       },
       "calificacion_maxima": 12,
       "puntos_por_respuesta": 1
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
+  },
+  {
+    "bloque": 6,
+    "tema": "Reportes y Controles Internos",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras: Reportes obligatorios y controles PLD/FT",
+    "instrucciones": "Encuentra los 15 términos sobre los reportes obligatorios, controles internos y mecanismos de detección en el sistema PLD/FT mexicano.",
+    "contenido": {
+      "cuadricula": [
+        "A M A H F I S O E R O T I N O M I",
+        "Y U O I C K E E L A U S U N I E T",
+        "O J T E C U R U N U F Y H N R U R",
+        "K T T O A N M E V S I U A N T S A",
+        "D L N O M R E P P S O F E P O T E",
+        "D A K E O A O R L O S A E A U E L",
+        "E B E E I S T C E I R A I S M J E",
+        "T A E L A M S I A F M T B O B S H",
+        "E P K J T R A N Z T S I E U R S U",
+        "C A T T V O Y L N A I N E R A R E",
+        "T H O L I K V B E Z D B A N L J J",
+        "A E E G O N I I L G A O J R T S M",
+        "R E C H A Z O E T O N U A P T O L",
+        "L N E I A T G E D C Q O S R E O M",
+        "L N N O N R U I N S E U C F G D Z",
+        "L T Z R A T R E L A B F E S E I N",
+        "E T N A P U C O E R P M E O L B N"
+      ],
+      "palabras_ocultas": [
+        "TRANSFERENCIA",
+        "CONGELAMIENTO",
+        "AUTOMATIZADO",
+        "CUMPLIMIENTO",
+        "PREOCUPANTE",
+        "MONITOREO",
+        "BITACORA",
+        "EFECTIVO",
+        "DETECTAR",
+        "BLOQUEO",
+        "INUSUAL",
+        "REPORTE",
+        "RECHAZO",
+        "UMBRAL",
+        "ALERTA"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "TRANSFERENCIA": {
+          "fila": 13,
+          "columna": 15,
+          "direccion": "diagonal-ul"
+        },
+        "CONGELAMIENTO": {
+          "fila": 15,
+          "columna": 13,
+          "direccion": "diagonal-ul"
+        },
+        "AUTOMATIZADO": {
+          "fila": 1,
+          "columna": 1,
+          "direccion": "diagonal-dr"
+        },
+        "CUMPLIMIENTO": {
+          "fila": 2,
+          "columna": 5,
+          "direccion": "diagonal-dr"
+        },
+        "PREOCUPANTE": {
+          "fila": 17,
+          "columna": 11,
+          "direccion": "horizontal-inv"
+        },
+        "MONITOREO": {
+          "fila": 1,
+          "columna": 16,
+          "direccion": "horizontal-inv"
+        },
+        "BITACORA": {
+          "fila": 11,
+          "columna": 12,
+          "direccion": "diagonal-ul"
+        },
+        "EFECTIVO": {
+          "fila": 17,
+          "columna": 13,
+          "direccion": "diagonal-ul"
+        },
+        "DETECTAR": {
+          "fila": 6,
+          "columna": 1,
+          "direccion": "vertical"
+        },
+        "BLOQUEO": {
+          "fila": 11,
+          "columna": 8,
+          "direccion": "diagonal-dr"
+        },
+        "INUSUAL": {
+          "fila": 2,
+          "columna": 15,
+          "direccion": "horizontal-inv"
+        },
+        "REPORTE": {
+          "fila": 3,
+          "columna": 7,
+          "direccion": "diagonal-dr"
+        },
+        "RECHAZO": {
+          "fila": 13,
+          "columna": 1,
+          "direccion": "horizontal"
+        },
+        "UMBRAL": {
+          "fila": 6,
+          "columna": 15,
+          "direccion": "vertical"
+        },
+        "ALERTA": {
+          "fila": 16,
+          "columna": 10,
+          "direccion": "horizontal-inv"
+        }
+      }
     },
     "dificultad": "medio",
     "tiempo_estimado": 12

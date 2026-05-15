@@ -33,10 +33,26 @@
     "solucion": {
       "calificacion_maxima": 10,
       "criterios": [
-        {"pregunta": 1, "puntos": 3, "criterio": "Identifica PEP nacional, DDR obligatoria, autorización de alta dirección"},
-        {"pregunta": 2, "puntos": 2, "criterio": "Menciona documentación de origen de fondos, herencia, adverse media"},
-        {"pregunta": 3, "puntos": 3, "criterio": "Identifica OR y OI, plazos correctos, deber de reserva"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Identifica incumplimiento del Director y consecuencias"}
+        {
+          "pregunta": 1,
+          "puntos": 3,
+          "criterio": "Identifica PEP nacional, DDR obligatoria, autorización de alta dirección"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 2,
+          "criterio": "Menciona documentación de origen de fondos, herencia, adverse media"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 3,
+          "criterio": "Identifica OR y OI, plazos correctos, deber de reserva"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Identifica incumplimiento del Director y consecuencias"
+        }
       ]
     },
     "dificultad": "dificil",
@@ -76,10 +92,26 @@
     "solucion": {
       "calificacion_maxima": 8,
       "criterios": [
-        {"pregunta": 1, "puntos": 2, "criterio": "Identifica estructuración/pitufeo y explica el mecanismo correctamente"},
-        {"pregunta": 2, "puntos": 2, "criterio": "Describe reglas del sistema de monitoreo y tipo de alerta"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Distingue OR vs OI correctamente y aplica al caso"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Describe proceso del Oficial de Cumplimiento de forma completa"}
+        {
+          "pregunta": 1,
+          "puntos": 2,
+          "criterio": "Identifica estructuración/pitufeo y explica el mecanismo correctamente"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 2,
+          "criterio": "Describe reglas del sistema de monitoreo y tipo de alerta"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Distingue OR vs OI correctamente y aplica al caso"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Describe proceso del Oficial de Cumplimiento de forma completa"
+        }
       ]
     },
     "dificultad": "medio",
@@ -93,23 +125,68 @@
     "instrucciones": "Relaciona cada descripción de la columna derecha con el tipo de reporte correcto de la columna izquierda. Cada tipo de reporte puede usarse más de una vez.",
     "contenido": {
       "columna_tipos": [
-        {"id": "A", "concepto": "Operación Relevante (OR)"},
-        {"id": "B", "concepto": "Operación Inusual (OI)"},
-        {"id": "C", "concepto": "Operación Interna Preocupante (OIP)"},
-        {"id": "D", "concepto": "Reporte de Transferencias Internacionales"},
-        {"id": "E", "concepto": "Deber de Reserva (NO es un reporte, es una obligación)"}
+        {
+          "id": "A",
+          "concepto": "Operación Relevante (OR)"
+        },
+        {
+          "id": "B",
+          "concepto": "Operación Inusual (OI)"
+        },
+        {
+          "id": "C",
+          "concepto": "Operación Interna Preocupante (OIP)"
+        },
+        {
+          "id": "D",
+          "concepto": "Reporte de Transferencias Internacionales"
+        },
+        {
+          "id": "E",
+          "concepto": "Deber de Reserva (NO es un reporte, es una obligación)"
+        }
       ],
       "columna_situaciones": [
-        {"id": "1", "situacion": "Un cajero realiza retiros de su propia caja registradora al final del turno y los deposita en su cuenta personal"},
-        {"id": "2", "situacion": "Un cliente realiza un depósito en efectivo de $15,000 USD"},
-        {"id": "3", "situacion": "Un cliente de perfil bajo realiza de repente una transferencia de $500,000 pesos a una cuenta en Bahamas sin justificación aparente"},
-        {"id": "4", "situacion": "Una entidad presentó un reporte ante la UIF pero no puede decirle al cliente que fue reportado"},
-        {"id": "5", "situacion": "Un cliente envía $2,500 USD a un familiar en los Estados Unidos"},
-        {"id": "6", "situacion": "El sistema detecta que un ejecutivo de cuenta abrió 15 cuentas de clientes ficticios en el último mes"},
-        {"id": "7", "situacion": "Un cliente de negocios, cuyo perfil indica ventas mensuales de $100,000 pesos, comienza a depositar $800,000 pesos mensuales sin explicación"},
-        {"id": "8", "situacion": "El plazo para presentar este tipo de reporte es el día 17 del mes siguiente a la operación"},
-        {"id": "9", "situacion": "Este reporte se genera por sospecha, no por monto, y tiene un plazo de 60 días"},
-        {"id": "10", "situacion": "Busca detectar amenazas desde dentro de la propia entidad financiera"}
+        {
+          "id": "1",
+          "situacion": "Un cajero realiza retiros de su propia caja registradora al final del turno y los deposita en su cuenta personal"
+        },
+        {
+          "id": "2",
+          "situacion": "Un cliente realiza un depósito en efectivo de $15,000 USD"
+        },
+        {
+          "id": "3",
+          "situacion": "Un cliente de perfil bajo realiza de repente una transferencia de $500,000 pesos a una cuenta en Bahamas sin justificación aparente"
+        },
+        {
+          "id": "4",
+          "situacion": "Una entidad presentó un reporte ante la UIF pero no puede decirle al cliente que fue reportado"
+        },
+        {
+          "id": "5",
+          "situacion": "Un cliente envía $2,500 USD a un familiar en los Estados Unidos"
+        },
+        {
+          "id": "6",
+          "situacion": "El sistema detecta que un ejecutivo de cuenta abrió 15 cuentas de clientes ficticios en el último mes"
+        },
+        {
+          "id": "7",
+          "situacion": "Un cliente de negocios, cuyo perfil indica ventas mensuales de $100,000 pesos, comienza a depositar $800,000 pesos mensuales sin explicación"
+        },
+        {
+          "id": "8",
+          "situacion": "El plazo para presentar este tipo de reporte es el día 17 del mes siguiente a la operación"
+        },
+        {
+          "id": "9",
+          "situacion": "Este reporte se genera por sospecha, no por monto, y tiene un plazo de 60 días"
+        },
+        {
+          "id": "10",
+          "situacion": "Busca detectar amenazas desde dentro de la propia entidad financiera"
+        }
       ]
     },
     "solucion": {
@@ -229,67 +306,139 @@
         {
           "id": 1,
           "texto": "La distinción fundamental en el régimen PLD/FT es que _____ significa verificar quién es el cliente mediante documentos, mientras que _____ significa entender su actividad, perfil de riesgo y comportamiento transaccional esperado.",
-          "espacios": ["identificar", "conocer"]
+          "espacios": [
+            "identificar",
+            "conocer"
+          ]
         },
         {
           "id": 2,
           "texto": "El _____ es el parámetro de referencia que establece el comportamiento esperado de las operaciones de un cliente y es la base del _____ continuo de transacciones.",
-          "espacios": ["perfil transaccional", "monitoreo"]
+          "espacios": [
+            "perfil transaccional",
+            "monitoreo"
+          ]
         },
         {
           "id": 3,
           "texto": "Las Personas Políticamente Expuestas (PEPs) se clasifican automáticamente como clientes de riesgo _____ y requieren _____ _____ _____.",
-          "espacios": ["alto", "Debida Diligencia Reforzada"]
+          "espacios": [
+            "alto",
+            "Debida Diligencia Reforzada"
+          ]
         },
         {
           "id": 4,
           "texto": "El reporte de Operación _____ se genera por monto (umbral $7,500 USD en banca) y debe presentarse el día _____ del mes siguiente. El reporte de Operación _____ se genera por sospecha y tiene un plazo de _____ días.",
-          "espacios": ["Relevante", "17", "Inusual", "60"]
+          "espacios": [
+            "Relevante",
+            "17",
+            "Inusual",
+            "60"
+          ]
         },
         {
           "id": 5,
           "texto": "El _____ es el funcionario designado por el Consejo de Administración, notificado a la CNBV, responsable de coordinar el programa PLD/FT y presentar reportes ante la _____.",
-          "espacios": ["Oficial de Cumplimiento", "UIF"]
+          "espacios": [
+            "Oficial de Cumplimiento",
+            "UIF"
+          ]
         },
         {
           "id": 6,
           "texto": "El deber de _____ prohíbe informar al _____ que ha sido objeto de un reporte ante la UIF. Esta prohibición aplica a _____ los empleados que tengan conocimiento.",
-          "espacios": ["reserva", "cliente", "todos"]
+          "espacios": [
+            "reserva",
+            "cliente",
+            "todos"
+          ]
         },
         {
           "id": 7,
           "texto": "Los expedientes de identificación de clientes deben conservarse durante _____ años contados a partir de la _____ de la relación comercial.",
-          "espacios": ["10", "terminación"]
+          "espacios": [
+            "10",
+            "terminación"
+          ]
         },
         {
           "id": 8,
           "texto": "La _____ es el vehículo jurídico de alto riesgo PLD/FT en el que la entidad financiera actúa como _____. Debe identificar al fideicomitente, fiduciaria y _____.",
-          "espacios": ["fideicomiso", "fiduciaria", "fideicomisario"]
+          "espacios": [
+            "fideicomiso",
+            "fiduciaria",
+            "fideicomisario"
+          ]
         },
         {
           "id": 9,
           "texto": "Las SOFIPO pueden atender al _____ en general, mientras que las SOCAP solo operan con sus _____. Ambas están reguladas bajo la Ley de _____ y _____ _____.",
-          "espacios": ["público", "socios", "Ahorro", "Crédito Popular"]
+          "espacios": [
+            "público",
+            "socios",
+            "Ahorro",
+            "Crédito Popular"
+          ]
         },
         {
           "id": 10,
           "texto": "La Ley FinTech de 2018 creó dos nuevos tipos de entidades reguladas sujetas al régimen PLD/FT: las _____ (fondos de pago electrónico) y las _____ (financiamiento colectivo).",
-          "espacios": ["IFPE", "IFC"]
+          "espacios": [
+            "IFPE",
+            "IFC"
+          ]
         }
       ]
     },
     "solucion": {
       "respuestas_correctas": {
-        "1": ["identificar", "conocer"],
-        "2": ["perfil transaccional", "monitoreo"],
-        "3": ["alto", "Debida Diligencia Reforzada"],
-        "4": ["Relevante", "17", "Inusual", "60"],
-        "5": ["Oficial de Cumplimiento", "UIF"],
-        "6": ["reserva", "cliente", "todos"],
-        "7": ["10", "terminación"],
-        "8": ["fideicomiso", "fiduciaria", "fideicomisario"],
-        "9": ["público", "socios", "Ahorro", "Crédito Popular"],
-        "10": ["IFPE", "IFC"]
+        "1": [
+          "identificar",
+          "conocer"
+        ],
+        "2": [
+          "perfil transaccional",
+          "monitoreo"
+        ],
+        "3": [
+          "alto",
+          "Debida Diligencia Reforzada"
+        ],
+        "4": [
+          "Relevante",
+          "17",
+          "Inusual",
+          "60"
+        ],
+        "5": [
+          "Oficial de Cumplimiento",
+          "UIF"
+        ],
+        "6": [
+          "reserva",
+          "cliente",
+          "todos"
+        ],
+        "7": [
+          "10",
+          "terminación"
+        ],
+        "8": [
+          "fideicomiso",
+          "fiduciaria",
+          "fideicomisario"
+        ],
+        "9": [
+          "público",
+          "socios",
+          "Ahorro",
+          "Crédito Popular"
+        ],
+        "10": [
+          "IFPE",
+          "IFC"
+        ]
       }
     },
     "dificultad": "facil",
@@ -303,20 +452,56 @@
     "instrucciones": "Relaciona cada entidad financiera con su marco legal principal y su particularidad PLD más relevante.",
     "contenido": {
       "columna_entidades": [
-        {"id": "A", "entidad": "Banca Múltiple"},
-        {"id": "B", "entidad": "Casa de Bolsa"},
-        {"id": "C", "entidad": "SOCAP"},
-        {"id": "D", "entidad": "Casa de Cambio"},
-        {"id": "E", "entidad": "IFPE (FinTech)"},
-        {"id": "F", "entidad": "Transmisor de Dinero"}
+        {
+          "id": "A",
+          "entidad": "Banca Múltiple"
+        },
+        {
+          "id": "B",
+          "entidad": "Casa de Bolsa"
+        },
+        {
+          "id": "C",
+          "entidad": "SOCAP"
+        },
+        {
+          "id": "D",
+          "entidad": "Casa de Cambio"
+        },
+        {
+          "id": "E",
+          "entidad": "IFPE (FinTech)"
+        },
+        {
+          "id": "F",
+          "entidad": "Transmisor de Dinero"
+        }
       ],
       "columna_caracteristicas": [
-        {"id": "1", "caracteristica": "Aplica la Regla de Viaje del GAFI: debe transmitir datos del ordenante y beneficiario con cada transferencia. Regulada por LGOAAC Art. 82-H."},
-        {"id": "2", "caracteristica": "Maneja activos virtuales (criptomonedas) solo si tiene autorización de Banco de México. Sujeta a Ley FinTech Art. 58."},
-        {"id": "3", "caracteristica": "Opera bajo LIC Art. 115. Mayor volumen y diversidad de clientes. Umbral OR: $7,500 USD. Considerada de muy alto riesgo PLD."},
-        {"id": "4", "caracteristica": "Opera solo con sus socios (sector cerrado). Regulada por LRASCAP. Supervisada con apoyo de Federaciones."},
-        {"id": "5", "caracteristica": "Alto riesgo por manejo intensivo de divisas en efectivo. Tiene umbrales de reporte específicos para operaciones en dólares. Regulada por LGOAAC."},
-        {"id": "6", "caracteristica": "Sujeta a LMV Art. 212. Sus clientes son inversionistas. Debe elaborar perfil transaccional basado en perfil de inversión."}
+        {
+          "id": "1",
+          "caracteristica": "Aplica la Regla de Viaje del GAFI: debe transmitir datos del ordenante y beneficiario con cada transferencia. Regulada por LGOAAC Art. 82-H."
+        },
+        {
+          "id": "2",
+          "caracteristica": "Maneja activos virtuales (criptomonedas) solo si tiene autorización de Banco de México. Sujeta a Ley FinTech Art. 58."
+        },
+        {
+          "id": "3",
+          "caracteristica": "Opera bajo LIC Art. 115. Mayor volumen y diversidad de clientes. Umbral OR: $7,500 USD. Considerada de muy alto riesgo PLD."
+        },
+        {
+          "id": "4",
+          "caracteristica": "Opera solo con sus socios (sector cerrado). Regulada por LRASCAP. Supervisada con apoyo de Federaciones."
+        },
+        {
+          "id": "5",
+          "caracteristica": "Alto riesgo por manejo intensivo de divisas en efectivo. Tiene umbrales de reporte específicos para operaciones en dólares. Regulada por LGOAAC."
+        },
+        {
+          "id": "6",
+          "caracteristica": "Sujeta a LMV Art. 212. Sus clientes son inversionistas. Debe elaborar perfil transaccional basado en perfil de inversión."
+        }
       ]
     },
     "solucion": {
@@ -368,13 +553,155 @@
     "solucion": {
       "calificacion_maxima": 8,
       "criterios": [
-        {"pregunta": 1, "puntos": 2, "criterio": "Afirma correctamente que debe reportar y explica que es obligación legal"},
-        {"pregunta": 2, "puntos": 2, "criterio": "Identifica deber de reserva y alcance a todos incluyendo Director Comercial"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Menciona protección legal de buena fe — LFPIORPI Art. 19"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Describe escalamiento correcto al CCC/Consejo y posible OIP"}
+        {
+          "pregunta": 1,
+          "puntos": 2,
+          "criterio": "Afirma correctamente que debe reportar y explica que es obligación legal"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 2,
+          "criterio": "Identifica deber de reserva y alcance a todos incluyendo Director Comercial"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Menciona protección legal de buena fe — LFPIORPI Art. 19"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Describe escalamiento correcto al CCC/Consejo y posible OIP"
+        }
       ]
     },
     "dificultad": "dificil",
     "tiempo_estimado": 20
+  },
+  {
+    "bloque": 5,
+    "tema": "Conocimiento del Cliente (KYC/CDD) y Debida Diligencia",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras: Conocimiento del cliente y debida diligencia",
+    "instrucciones": "Localiza los 15 términos esenciales del proceso de conocimiento del cliente (KYC), debida diligencia y gestión del riesgo en instituciones financieras.",
+    "contenido": {
+      "cuadricula": [
+        "E I E L I S B I O M E T R I C O T",
+        "S P R O P I E T A R I O O E L V E",
+        "G O S I E T C I L S E Z N H E P O",
+        "A D I U R E F O R Z A D A R E C U",
+        "R J N R O G S E I R O U I R U A U",
+        "A O K N A L S S T P G F F E T I R",
+        "N D I S R I S K S H I I S H G C E",
+        "V J A M A N C R Y C L T S E E N T",
+        "M O I C Z L R I A Y I E A T I E N",
+        "O N D L I S I C F O D E E N Z G E",
+        "N G E S A F I I N E Z U S E P I I",
+        "I I N Z G O I A R S N B S I R L L",
+        "T D T A N N R L U R V E J D H I C",
+        "O E I S O I A N P R Z I B E V D E",
+        "R D D D O M I T I M U E L P R D U",
+        "E I A Z R P U A V O I A A X V I E",
+        "O F D P U J A O G S R S I E D I K"
+      ],
+      "palabras_ocultas": [
+        "SIMPLIFICADA",
+        "CUESTIONARIO",
+        "VERIFICACION",
+        "BENEFICIARIO",
+        "PROPIETARIO",
+        "EXPEDIENTE",
+        "DILIGENCIA",
+        "BIOMETRICO",
+        "IDENTIDAD",
+        "MONITOREO",
+        "FIDEDIGNO",
+        "REFORZADA",
+        "CLIENTE",
+        "PERFIL",
+        "RIESGO"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "SIMPLIFICADA": {
+          "fila": 17,
+          "columna": 12,
+          "direccion": "diagonal-ul"
+        },
+        "CUESTIONARIO": {
+          "fila": 4,
+          "columna": 16,
+          "direccion": "diagonal-dl"
+        },
+        "VERIFICACION": {
+          "fila": 2,
+          "columna": 16,
+          "direccion": "diagonal-dl"
+        },
+        "BENEFICIARIO": {
+          "fila": 14,
+          "columna": 13,
+          "direccion": "diagonal-ul"
+        },
+        "PROPIETARIO": {
+          "fila": 2,
+          "columna": 2,
+          "direccion": "horizontal"
+        },
+        "EXPEDIENTE": {
+          "fila": 17,
+          "columna": 14,
+          "direccion": "vertical-inv"
+        },
+        "DILIGENCIA": {
+          "fila": 14,
+          "columna": 16,
+          "direccion": "vertical-inv"
+        },
+        "BIOMETRICO": {
+          "fila": 1,
+          "columna": 7,
+          "direccion": "horizontal"
+        },
+        "IDENTIDAD": {
+          "fila": 9,
+          "columna": 3,
+          "direccion": "vertical"
+        },
+        "MONITOREO": {
+          "fila": 9,
+          "columna": 1,
+          "direccion": "vertical"
+        },
+        "FIDEDIGNO": {
+          "fila": 17,
+          "columna": 2,
+          "direccion": "vertical-inv"
+        },
+        "REFORZADA": {
+          "fila": 4,
+          "columna": 5,
+          "direccion": "horizontal"
+        },
+        "CLIENTE": {
+          "fila": 13,
+          "columna": 17,
+          "direccion": "vertical-inv"
+        },
+        "PERFIL": {
+          "fila": 3,
+          "columna": 16,
+          "direccion": "diagonal-dl"
+        },
+        "RIESGO": {
+          "fila": 5,
+          "columna": 10,
+          "direccion": "horizontal-inv"
+        }
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
   }
 ]

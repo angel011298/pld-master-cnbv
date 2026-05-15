@@ -33,10 +33,26 @@
     "solucion": {
       "calificacion_maxima": 10,
       "criterios": [
-        {"pregunta": 1, "puntos": 3, "criterio": "Escribe correctamente los 5 elementos del hallazgo con contenido relevante y específico"},
-        {"pregunta": 2, "puntos": 3, "criterio": "Identifica correctamente el hallazgo #3 como el más grave y justifica con al menos 3 razones"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Concluye que no es suficiente y explica por qué (verificación, evaluación, evidencia)"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Elige la calificación correcta con justificación coherente"}
+        {
+          "pregunta": 1,
+          "puntos": 3,
+          "criterio": "Escribe correctamente los 5 elementos del hallazgo con contenido relevante y específico"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 3,
+          "criterio": "Identifica correctamente el hallazgo #3 como el más grave y justifica con al menos 3 razones"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Concluye que no es suficiente y explica por qué (verificación, evaluación, evidencia)"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Elige la calificación correcta con justificación coherente"
+        }
       ]
     },
     "dificultad": "dificil",
@@ -76,10 +92,26 @@
     "solucion": {
       "calificacion_maxima": 8,
       "criterios": [
-        {"pregunta": 1, "puntos": 2, "criterio": "Afirma que NO puede negarse y describe correctamente las consecuencias de la obstrucción"},
-        {"pregunta": 2, "puntos": 2, "criterio": "Lista las primeras acciones correctas en orden lógico, incluyendo verificar credenciales y facilitar acceso"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Menciona al menos 4 derechos correctos, incluyendo la garantía de audiencia"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Identifica al menos 3 razones plausibles por las que se inicia una visita especial"}
+        {
+          "pregunta": 1,
+          "puntos": 2,
+          "criterio": "Afirma que NO puede negarse y describe correctamente las consecuencias de la obstrucción"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 2,
+          "criterio": "Lista las primeras acciones correctas en orden lógico, incluyendo verificar credenciales y facilitar acceso"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Menciona al menos 4 derechos correctos, incluyendo la garantía de audiencia"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Identifica al menos 3 razones plausibles por las que se inicia una visita especial"
+        }
       ]
     },
     "dificultad": "medio",
@@ -94,32 +126,103 @@
     "contenido": {
       "instruccion_adicional": "Primero ordena las etapas del 1 al 10, luego relaciónalas con la descripción que corresponde.",
       "etapas_desordenadas": [
-        {"id": "A", "etapa": "Comunicación de hallazgos preliminares"},
-        {"id": "B", "etapa": "Reunión de apertura (kick-off)"},
-        {"id": "C", "etapa": "Elaboración del Informe de Visita"},
-        {"id": "D", "etapa": "Designación del equipo inspector"},
-        {"id": "E", "etapa": "Pruebas de efectividad y transacciones"},
-        {"id": "F", "etapa": "Seguimiento post-visita"},
-        {"id": "G", "etapa": "Notificación de inicio de visita"},
-        {"id": "H", "etapa": "Entrevistas al personal"},
-        {"id": "I", "etapa": "Notificación del Informe y procedimiento sancionatorio (si aplica)"},
-        {"id": "J", "etapa": "Revisión documental"}
+        {
+          "id": "A",
+          "etapa": "Comunicación de hallazgos preliminares"
+        },
+        {
+          "id": "B",
+          "etapa": "Reunión de apertura (kick-off)"
+        },
+        {
+          "id": "C",
+          "etapa": "Elaboración del Informe de Visita"
+        },
+        {
+          "id": "D",
+          "etapa": "Designación del equipo inspector"
+        },
+        {
+          "id": "E",
+          "etapa": "Pruebas de efectividad y transacciones"
+        },
+        {
+          "id": "F",
+          "etapa": "Seguimiento post-visita"
+        },
+        {
+          "id": "G",
+          "etapa": "Notificación de inicio de visita"
+        },
+        {
+          "id": "H",
+          "etapa": "Entrevistas al personal"
+        },
+        {
+          "id": "I",
+          "etapa": "Notificación del Informe y procedimiento sancionatorio (si aplica)"
+        },
+        {
+          "id": "J",
+          "etapa": "Revisión documental"
+        }
       ],
       "descripciones": [
-        {"id": "1", "descripcion": "Los inspectores se presentan con el Oficial de Cumplimiento, se acreditan y acuerdan logística de la visita: espacio de trabajo, acceso a sistemas, contacto de la entidad."},
-        {"id": "2", "descripcion": "La CNBV designa los inspectores que realizarán la visita, incluyendo al responsable del equipo y especialistas según el alcance previsto."},
-        {"id": "3", "descripcion": "El equipo revisa: Manual PLD/FT, actas del CCC, expedientes de clientes (muestra), registros de capacitación, reportes ante la UIF, informe de auditoría externa."},
-        {"id": "4", "descripcion": "La CNBV comunica formalmente a la entidad el inicio de la visita con el oficio firmado, la identificación de los inspectores y la solicitud de documentación anticipada."},
-        {"id": "5", "descripcion": "Los inspectores verifican si el sistema de monitoreo detecta las operaciones que debería, siguiendo el recorrido de una alerta desde su generación hasta la decisión de reportar."},
-        {"id": "6", "descripcion": "Se verifica que la entidad implementó las correcciones comprometidas. Los mismos hallazgos no corregidos agravan la posición de la entidad en la siguiente visita."},
-        {"id": "7", "descripcion": "El equipo inspector conversa con el Oficial de Cumplimiento, miembros del CCC, personal de sucursales y alta dirección para evaluar el conocimiento y la cultura de cumplimiento."},
-        {"id": "8", "descripcion": "Al finalizar la revisión, los inspectores informan informalmente a la dirección de la entidad los aspectos encontrados, dando oportunidad de presentar información adicional."},
-        {"id": "9", "descripcion": "La CNBV emite el informe formal con hallazgos por componente. Si hay infracciones, inicia el proceso con formulación de cargos → audiencia → resolución → recursos."},
-        {"id": "10", "descripcion": "El equipo inspector redacta el documento formal con los hallazgos de la revisión, las calificaciones por componente y las observaciones a corregir con plazos."}
+        {
+          "id": "1",
+          "descripcion": "Los inspectores se presentan con el Oficial de Cumplimiento, se acreditan y acuerdan logística de la visita: espacio de trabajo, acceso a sistemas, contacto de la entidad."
+        },
+        {
+          "id": "2",
+          "descripcion": "La CNBV designa los inspectores que realizarán la visita, incluyendo al responsable del equipo y especialistas según el alcance previsto."
+        },
+        {
+          "id": "3",
+          "descripcion": "El equipo revisa: Manual PLD/FT, actas del CCC, expedientes de clientes (muestra), registros de capacitación, reportes ante la UIF, informe de auditoría externa."
+        },
+        {
+          "id": "4",
+          "descripcion": "La CNBV comunica formalmente a la entidad el inicio de la visita con el oficio firmado, la identificación de los inspectores y la solicitud de documentación anticipada."
+        },
+        {
+          "id": "5",
+          "descripcion": "Los inspectores verifican si el sistema de monitoreo detecta las operaciones que debería, siguiendo el recorrido de una alerta desde su generación hasta la decisión de reportar."
+        },
+        {
+          "id": "6",
+          "descripcion": "Se verifica que la entidad implementó las correcciones comprometidas. Los mismos hallazgos no corregidos agravan la posición de la entidad en la siguiente visita."
+        },
+        {
+          "id": "7",
+          "descripcion": "El equipo inspector conversa con el Oficial de Cumplimiento, miembros del CCC, personal de sucursales y alta dirección para evaluar el conocimiento y la cultura de cumplimiento."
+        },
+        {
+          "id": "8",
+          "descripcion": "Al finalizar la revisión, los inspectores informan informalmente a la dirección de la entidad los aspectos encontrados, dando oportunidad de presentar información adicional."
+        },
+        {
+          "id": "9",
+          "descripcion": "La CNBV emite el informe formal con hallazgos por componente. Si hay infracciones, inicia el proceso con formulación de cargos → audiencia → resolución → recursos."
+        },
+        {
+          "id": "10",
+          "descripcion": "El equipo inspector redacta el documento formal con los hallazgos de la revisión, las calificaciones por componente y las observaciones a corregir con plazos."
+        }
       ]
     },
     "solucion": {
-      "orden_correcto": ["D", "G", "B", "J", "E", "H", "A", "C", "I", "F"],
+      "orden_correcto": [
+        "D",
+        "G",
+        "B",
+        "J",
+        "E",
+        "H",
+        "A",
+        "C",
+        "I",
+        "F"
+      ],
       "relacion_etapa_descripcion": {
         "A": "8",
         "B": "1",
@@ -149,67 +252,155 @@
         {
           "id": 1,
           "texto": "La auditoría PLD/FT es la _____ Línea de Defensa en el modelo de gobernanza del riesgo del Comité de Basilea 2014. La primera línea es el _____ (negocio) y la segunda es la función de _____.",
-          "espacios": ["Tercera", "personal", "cumplimiento"]
+          "espacios": [
+            "Tercera",
+            "personal",
+            "cumplimiento"
+          ]
         },
         {
           "id": 2,
           "texto": "La auditoría _____ independiente es OBLIGATORIA y debe realizarse al menos _____ vez al año. La auditoría _____ es realizada por personal de la propia entidad.",
-          "espacios": ["externa", "una", "interna"]
+          "espacios": [
+            "externa",
+            "una",
+            "interna"
+          ]
         },
         {
           "id": 3,
           "texto": "Un hallazgo de auditoría se estructura con cinco elementos: _____ (qué dice la norma), _____ (qué encontró el auditor), _____ (por qué existe la diferencia), _____ (cuál es el impacto) y _____ (qué debe hacer la entidad).",
-          "espacios": ["Criterio", "Condición", "Causa", "Efecto", "Recomendación"]
+          "espacios": [
+            "Criterio",
+            "Condición",
+            "Causa",
+            "Efecto",
+            "Recomendación"
+          ]
         },
         {
           "id": 4,
           "texto": "La CNBV ejerce supervisión _____ (análisis de reportes desde sus instalaciones, sin visita presencial) y supervisión _____ (visitas de inspección físicas en las instalaciones de la entidad).",
-          "espacios": ["extramuros (off-site)", "in situ"]
+          "espacios": [
+            "extramuros (off-site)",
+            "in situ"
+          ]
         },
         {
           "id": 5,
           "texto": "La visita de inspección _____ es programada y notificada previamente; tiene alcance _____. La visita de inspección _____ puede ser sorpresiva o focalizada en aspectos específicos; se activa por motivos específicos como alertas o denuncias.",
-          "espacios": ["ordinaria", "integral", "especial"]
+          "espacios": [
+            "ordinaria",
+            "integral",
+            "especial"
+          ]
         },
         {
           "id": 6,
           "texto": "La CNBV aplica el _____ en su función supervisora: las entidades con mayor _____ inherente o con historial de incumplimientos reciben mayor _____ de supervisión.",
-          "espacios": ["EBR (Enfoque Basado en Riesgos)", "riesgo", "intensidad"]
+          "espacios": [
+            "EBR (Enfoque Basado en Riesgos)",
+            "riesgo",
+            "intensidad"
+          ]
         },
         {
           "id": 7,
           "texto": "Durante el procedimiento sancionatorio, la entidad tiene derecho a la garantía de _____, establecida en el artículo _____ de la Constitución Política de los Estados Unidos Mexicanos. Esto significa que antes de que se imponga una sanción, la entidad puede presentar su _____.",
-          "espacios": ["audiencia", "14", "defensa"]
+          "espacios": [
+            "audiencia",
+            "14",
+            "defensa"
+          ]
         },
         {
           "id": 8,
           "texto": "El informe de visita puede calificar el programa PLD/FT en cuatro niveles: _____ (el programa es efectivo y cumple todos los requisitos), _____ (hay áreas de mejora pero el programa es funcional), _____ (hay deficiencias que comprometen la efectividad) e _____ (fallas graves con riesgo regulatorio significativo).",
-          "espacios": ["Satisfactorio", "Necesita mejoras menores", "Necesita mejoras significativas", "Insatisfactorio"]
+          "espacios": [
+            "Satisfactorio",
+            "Necesita mejoras menores",
+            "Necesita mejoras significativas",
+            "Insatisfactorio"
+          ]
         },
         {
           "id": 9,
           "texto": "El alcance mínimo de la auditoría PLD/FT incluye revisar al menos estos componentes: Manual PLD/FT, _____ de Cumplimiento, CCC, identificación de _____ (expedientes), sistema de _____ transaccional, reportes ante la _____ y programa de capacitación.",
-          "espacios": ["Oficial", "clientes", "monitoreo", "UIF"]
+          "espacios": [
+            "Oficial",
+            "clientes",
+            "monitoreo",
+            "UIF"
+          ]
         },
         {
           "id": 10,
           "texto": "La CNBV evalúa el cumplimiento PLD/FT en dos dimensiones: cumplimiento _____ (¿existen las políticas y documentos?) y cumplimiento _____ (¿el programa funciona en la práctica?). Esta dualidad refleja las dimensiones _____ y _____ de las evaluaciones mutuas del GAFI.",
-          "espacios": ["formal", "efectivo", "TC (Cumplimiento Técnico)", "EF (Efectividad)"]
+          "espacios": [
+            "formal",
+            "efectivo",
+            "TC (Cumplimiento Técnico)",
+            "EF (Efectividad)"
+          ]
         }
       ]
     },
     "solucion": {
       "respuestas_correctas": {
-        "1": ["Tercera", "personal", "cumplimiento"],
-        "2": ["externa", "una", "interna"],
-        "3": ["Criterio", "Condición", "Causa", "Efecto", "Recomendación"],
-        "4": ["extramuros", "in situ"],
-        "5": ["ordinaria", "integral", "especial"],
-        "6": ["EBR", "riesgo", "intensidad"],
-        "7": ["audiencia", "14", "defensa"],
-        "8": ["Satisfactorio", "Necesita mejoras menores", "Necesita mejoras significativas", "Insatisfactorio"],
-        "9": ["Oficial", "clientes", "monitoreo", "UIF"],
-        "10": ["formal", "efectivo", "TC", "EF"]
+        "1": [
+          "Tercera",
+          "personal",
+          "cumplimiento"
+        ],
+        "2": [
+          "externa",
+          "una",
+          "interna"
+        ],
+        "3": [
+          "Criterio",
+          "Condición",
+          "Causa",
+          "Efecto",
+          "Recomendación"
+        ],
+        "4": [
+          "extramuros",
+          "in situ"
+        ],
+        "5": [
+          "ordinaria",
+          "integral",
+          "especial"
+        ],
+        "6": [
+          "EBR",
+          "riesgo",
+          "intensidad"
+        ],
+        "7": [
+          "audiencia",
+          "14",
+          "defensa"
+        ],
+        "8": [
+          "Satisfactorio",
+          "Necesita mejoras menores",
+          "Necesita mejoras significativas",
+          "Insatisfactorio"
+        ],
+        "9": [
+          "Oficial",
+          "clientes",
+          "monitoreo",
+          "UIF"
+        ],
+        "10": [
+          "formal",
+          "efectivo",
+          "TC",
+          "EF"
+        ]
       }
     },
     "dificultad": "facil",
@@ -310,16 +501,46 @@
     "instrucciones": "Clasifica cada afirmación en la columna correcta: aplica solo a la auditoría interna, solo a la auditoría externa, solo a la supervisión de la CNBV, o a más de una.",
     "contenido": {
       "afirmaciones": [
-        {"id": "1", "afirmacion": "Es realizada por personal empleado de la propia entidad financiera"},
-        {"id": "2", "afirmacion": "Es obligatoria y debe realizarse al menos una vez al año según las disposiciones CNBV"},
-        {"id": "3", "afirmacion": "Sus hallazgos pueden resultar en sanciones administrativas, multas e inhabilitación"},
-        {"id": "4", "afirmacion": "Es la Tercera Línea de Defensa en el modelo de Basilea 2014"},
-        {"id": "5", "afirmacion": "Los inspectores son servidores públicos con facultades legales para acceder a instalaciones"},
-        {"id": "6", "afirmacion": "Evalúa todos los componentes del programa PLD/FT mediante revisión documental, pruebas y entrevistas"},
-        {"id": "7", "afirmacion": "Los resultados se comunican en un informe al CCC y al Consejo de Administración"},
-        {"id": "8", "afirmacion": "Puede realizarse de forma sorpresiva (sin notificación previa) en casos específicos"},
-        {"id": "9", "afirmacion": "El auditor debe ser independiente y no tener vínculos de interés con la entidad evaluada"},
-        {"id": "10", "afirmacion": "La entidad tiene garantía de audiencia antes de que se impongan consecuencias formales"}
+        {
+          "id": "1",
+          "afirmacion": "Es realizada por personal empleado de la propia entidad financiera"
+        },
+        {
+          "id": "2",
+          "afirmacion": "Es obligatoria y debe realizarse al menos una vez al año según las disposiciones CNBV"
+        },
+        {
+          "id": "3",
+          "afirmacion": "Sus hallazgos pueden resultar en sanciones administrativas, multas e inhabilitación"
+        },
+        {
+          "id": "4",
+          "afirmacion": "Es la Tercera Línea de Defensa en el modelo de Basilea 2014"
+        },
+        {
+          "id": "5",
+          "afirmacion": "Los inspectores son servidores públicos con facultades legales para acceder a instalaciones"
+        },
+        {
+          "id": "6",
+          "afirmacion": "Evalúa todos los componentes del programa PLD/FT mediante revisión documental, pruebas y entrevistas"
+        },
+        {
+          "id": "7",
+          "afirmacion": "Los resultados se comunican en un informe al CCC y al Consejo de Administración"
+        },
+        {
+          "id": "8",
+          "afirmacion": "Puede realizarse de forma sorpresiva (sin notificación previa) en casos específicos"
+        },
+        {
+          "id": "9",
+          "afirmacion": "El auditor debe ser independiente y no tener vínculos de interés con la entidad evaluada"
+        },
+        {
+          "id": "10",
+          "afirmacion": "La entidad tiene garantía de audiencia antes de que se impongan consecuencias formales"
+        }
       ],
       "columnas": [
         "Solo auditoría interna",
@@ -331,13 +552,30 @@
     },
     "solucion": {
       "clasificacion_correcta": {
-        "Solo auditoría interna": ["1"],
-        "Solo auditoría externa independiente": ["2"],
-        "Solo supervisión CNBV": ["3", "5", "8"],
-        "Auditoría interna Y externa (ambas)": ["4", "7"],
-        "Todas las anteriores": ["6"],
-        "Externa y supervisión CNBV": ["9"],
-        "Solo supervisión CNBV (procedimiento sancionatorio)": ["10"]
+        "Solo auditoría interna": [
+          "1"
+        ],
+        "Solo auditoría externa independiente": [
+          "2"
+        ],
+        "Solo supervisión CNBV": [
+          "3",
+          "5",
+          "8"
+        ],
+        "Auditoría interna Y externa (ambas)": [
+          "4",
+          "7"
+        ],
+        "Todas las anteriores": [
+          "6"
+        ],
+        "Externa y supervisión CNBV": [
+          "9"
+        ],
+        "Solo supervisión CNBV (procedimiento sancionatorio)": [
+          "10"
+        ]
       },
       "respuestas_exactas": {
         "1": "Solo auditoría interna",
@@ -356,5 +594,131 @@
     },
     "dificultad": "medio",
     "tiempo_estimado": 10
+  },
+  {
+    "bloque": 7,
+    "tema": "Personas Políticamente Expuestas (PEP) y Tipologías Avanzadas",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras: PEPs, tipologías avanzadas y financiamiento al terrorismo",
+    "instrucciones": "Localiza los 15 términos sobre personas políticamente expuestas, tipologías avanzadas de lavado de dinero y financiamiento al terrorismo.",
+    "contenido": {
+      "cuadricula": [
+        "I P A R A I S O L A F E E K I T R",
+        "S E N O I C N A S I A O U S S O O",
+        "O F F S H O R E D M L L E E D F R",
+        "R Y S G R R T E T A N I R A A C F",
+        "L Z T N E R I R V S E B R M A U I",
+        "T O U S O C T E A X M O I V O B N",
+        "P L H T O I T N P O B L T I R I A",
+        "S R H M N M C U N A I R O F U S N",
+        "N Z I E L L E A L A R E S L U H C",
+        "E S A A T S T O R S S T N R A E I",
+        "O T T S T S C L L E I A E T E J A",
+        "L N I O E S P Z M T F C N L G S M",
+        "O E N R I Q U E C I M I E N T O I",
+        "S I P E O C I T I L O P L E L R E",
+        "I R A T E S T A F E R R O O L U N",
+        "T E N O I C P U R R O C D S R S T",
+        "B B U A T S I N O I C C A J O P O"
+      ],
+      "palabras_ocultas": [
+        "ENRIQUECIMIENTO",
+        "FINANCIAMIENTO",
+        "PRESTANOMBRES",
+        "PROLIFERACION",
+        "FIDEICOMISO",
+        "COLABORADOR",
+        "ACCIONISTA",
+        "CORRUPCION",
+        "TESTAFERRO",
+        "SANCIONES",
+        "POLITICO",
+        "EXPUESTO",
+        "FAMILIAR",
+        "OFFSHORE",
+        "PARAISO"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "ENRIQUECIMIENTO": {
+          "fila": 13,
+          "columna": 2,
+          "direccion": "horizontal"
+        },
+        "FINANCIAMIENTO": {
+          "fila": 4,
+          "columna": 17,
+          "direccion": "vertical"
+        },
+        "PRESTANOMBRES": {
+          "fila": 14,
+          "columna": 3,
+          "direccion": "diagonal-ur"
+        },
+        "PROLIFERACION": {
+          "fila": 17,
+          "columna": 16,
+          "direccion": "diagonal-ul"
+        },
+        "FIDEICOMISO": {
+          "fila": 1,
+          "columna": 11,
+          "direccion": "diagonal-dl"
+        },
+        "COLABORADOR": {
+          "fila": 11,
+          "columna": 7,
+          "direccion": "diagonal-ur"
+        },
+        "ACCIONISTA": {
+          "fila": 17,
+          "columna": 13,
+          "direccion": "horizontal-inv"
+        },
+        "CORRUPCION": {
+          "fila": 16,
+          "columna": 12,
+          "direccion": "horizontal-inv"
+        },
+        "TESTAFERRO": {
+          "fila": 15,
+          "columna": 4,
+          "direccion": "horizontal"
+        },
+        "SANCIONES": {
+          "fila": 2,
+          "columna": 9,
+          "direccion": "horizontal-inv"
+        },
+        "POLITICO": {
+          "fila": 14,
+          "columna": 12,
+          "direccion": "horizontal-inv"
+        },
+        "EXPUESTO": {
+          "fila": 5,
+          "columna": 11,
+          "direccion": "diagonal-dl"
+        },
+        "FAMILIAR": {
+          "fila": 3,
+          "columna": 16,
+          "direccion": "diagonal-dl"
+        },
+        "OFFSHORE": {
+          "fila": 3,
+          "columna": 1,
+          "direccion": "horizontal"
+        },
+        "PARAISO": {
+          "fila": 1,
+          "columna": 2,
+          "direccion": "horizontal"
+        }
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
   }
 ]

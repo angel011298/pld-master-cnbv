@@ -7,24 +7,72 @@
     "instrucciones": "Relaciona cada organismo de la columna izquierda con la descripción que mejor lo caracteriza en la columna derecha. Cada organismo tiene una sola respuesta correcta.",
     "contenido": {
       "columna_organismos": [
-        {"id": "A", "organismo": "GAFI (FATF)"},
-        {"id": "B", "organismo": "Grupo Egmont"},
-        {"id": "C", "organismo": "Comité de Basilea"},
-        {"id": "D", "organismo": "Grupo Wolfsberg"},
-        {"id": "E", "organismo": "Fondo Monetario Internacional (FMI)"},
-        {"id": "F", "organismo": "Organización de las Naciones Unidas (ONU)"},
-        {"id": "G", "organismo": "Banco Mundial (BM)"},
-        {"id": "H", "organismo": "GAFILAT"}
+        {
+          "id": "A",
+          "organismo": "GAFI (FATF)"
+        },
+        {
+          "id": "B",
+          "organismo": "Grupo Egmont"
+        },
+        {
+          "id": "C",
+          "organismo": "Comité de Basilea"
+        },
+        {
+          "id": "D",
+          "organismo": "Grupo Wolfsberg"
+        },
+        {
+          "id": "E",
+          "organismo": "Fondo Monetario Internacional (FMI)"
+        },
+        {
+          "id": "F",
+          "organismo": "Organización de las Naciones Unidas (ONU)"
+        },
+        {
+          "id": "G",
+          "organismo": "Banco Mundial (BM)"
+        },
+        {
+          "id": "H",
+          "organismo": "GAFILAT"
+        }
       ],
       "columna_descripciones": [
-        {"id": "1", "descripcion": "Red de 168 Unidades de Inteligencia Financiera que facilita el intercambio de inteligencia entre UIFs. La UIF de México (SHCP) es miembro."},
-        {"id": "2", "descripcion": "Organismo intergubernamental que establece el estándar PLD/FT global mediante sus 40 Recomendaciones. Fundado en 1989 por el G-7. Sede en París."},
-        {"id": "3", "descripcion": "Provee el marco jurídico universal del PLD/FT a través de Convenciones (Viena 1988, Palermo 2000, Convenio FT 1999) y Resoluciones vinculantes del Consejo de Seguridad."},
-        {"id": "4", "descripcion": "Asociación de 13 bancos privados globales (Citigroup, HSBC, JP Morgan, etc.) que emite principios de mejores prácticas para banca privada y corresponsal. No es gubernamental."},
-        {"id": "5", "descripcion": "Organismo regional tipo GAFI para América Latina. Realiza evaluaciones mutuas regionales. México es miembro además de serlo del organismo global."},
-        {"id": "6", "descripcion": "Presta asistencia técnica y financiamiento a países en desarrollo para implementar regímenes PLD/FT. También realiza evaluaciones de la estabilidad financiera (FSAP) integrando el PLD/FT."},
-        {"id": "7", "descripcion": "Integra el PLD/FT en sus análisis de estabilidad macroeconómica. Estima que el lavado de dinero representa el 2-5% del PIB mundial. Observador del GAFI."},
-        {"id": "8", "descripcion": "Foro de gobernadores de bancos centrales del G-10. Establece estándares de supervisión bancaria y gestión del riesgo LD/FT (Documento CDD 2001, Gestión de Riesgos 2014). Sede en Basilea, Suiza."}
+        {
+          "id": "1",
+          "descripcion": "Red de 168 Unidades de Inteligencia Financiera que facilita el intercambio de inteligencia entre UIFs. La UIF de México (SHCP) es miembro."
+        },
+        {
+          "id": "2",
+          "descripcion": "Organismo intergubernamental que establece el estándar PLD/FT global mediante sus 40 Recomendaciones. Fundado en 1989 por el G-7. Sede en París."
+        },
+        {
+          "id": "3",
+          "descripcion": "Provee el marco jurídico universal del PLD/FT a través de Convenciones (Viena 1988, Palermo 2000, Convenio FT 1999) y Resoluciones vinculantes del Consejo de Seguridad."
+        },
+        {
+          "id": "4",
+          "descripcion": "Asociación de 13 bancos privados globales (Citigroup, HSBC, JP Morgan, etc.) que emite principios de mejores prácticas para banca privada y corresponsal. No es gubernamental."
+        },
+        {
+          "id": "5",
+          "descripcion": "Organismo regional tipo GAFI para América Latina. Realiza evaluaciones mutuas regionales. México es miembro además de serlo del organismo global."
+        },
+        {
+          "id": "6",
+          "descripcion": "Presta asistencia técnica y financiamiento a países en desarrollo para implementar regímenes PLD/FT. También realiza evaluaciones de la estabilidad financiera (FSAP) integrando el PLD/FT."
+        },
+        {
+          "id": "7",
+          "descripcion": "Integra el PLD/FT en sus análisis de estabilidad macroeconómica. Estima que el lavado de dinero representa el 2-5% del PIB mundial. Observador del GAFI."
+        },
+        {
+          "id": "8",
+          "descripcion": "Foro de gobernadores de bancos centrales del G-10. Establece estándares de supervisión bancaria y gestión del riesgo LD/FT (Documento CDD 2001, Gestión de Riesgos 2014). Sede en Basilea, Suiza."
+        }
       ]
     },
     "solucion": {
@@ -52,24 +100,72 @@
     "instrucciones": "Relaciona cada instrumento internacional con su contribución específica al combate del LD/FT.",
     "contenido": {
       "columna_instrumentos": [
-        {"id": "A", "instrumento": "Convención de Viena (ONU, 1988)"},
-        {"id": "B", "instrumento": "Convención de Palermo (ONU, 2000)"},
-        {"id": "C", "instrumento": "Convenio Internacional para la Represión del FT (ONU, 1999)"},
-        {"id": "D", "instrumento": "Resolución 1267 (CS ONU, 1999)"},
-        {"id": "E", "instrumento": "Resolución 1373 (CS ONU, 2001)"},
-        {"id": "F", "instrumento": "40 Recomendaciones GAFI (2012)"},
-        {"id": "G", "instrumento": "Convención de Mérida / UNCAC (ONU, 2003)"},
-        {"id": "H", "instrumento": "Documento CDD del Comité de Basilea (2001)"}
+        {
+          "id": "A",
+          "instrumento": "Convención de Viena (ONU, 1988)"
+        },
+        {
+          "id": "B",
+          "instrumento": "Convención de Palermo (ONU, 2000)"
+        },
+        {
+          "id": "C",
+          "instrumento": "Convenio Internacional para la Represión del FT (ONU, 1999)"
+        },
+        {
+          "id": "D",
+          "instrumento": "Resolución 1267 (CS ONU, 1999)"
+        },
+        {
+          "id": "E",
+          "instrumento": "Resolución 1373 (CS ONU, 2001)"
+        },
+        {
+          "id": "F",
+          "instrumento": "40 Recomendaciones GAFI (2012)"
+        },
+        {
+          "id": "G",
+          "instrumento": "Convención de Mérida / UNCAC (ONU, 2003)"
+        },
+        {
+          "id": "H",
+          "instrumento": "Documento CDD del Comité de Basilea (2001)"
+        }
       ],
       "columna_contribuciones": [
-        {"id": "1", "contribucion": "Crea lista de terroristas y organizaciones cuyos activos deben ser congelados por todas las entidades financieras. Aprobada antes del 11/09."},
-        {"id": "2", "contribucion": "El estándar técnico global de KYC y debida diligencia para bancos. Define los 4 elementos del CDD: identificar, verificar propietario beneficiario, entender propósito y monitorear."},
-        {"id": "3", "contribucion": "Primer tratado que tipificó el LD como delito autónomo, vinculado al narcotráfico. Origen directo del Art. 400 Bis del CPF mexicano. México la ratificó en 1990."},
-        {"id": "4", "contribucion": "Obliga a TODOS los estados miembros a tipificar el FT, congelar activos de terroristas y cooperar internacionalmente. Aprobada 28 días después del 11/09/2001."},
-        {"id": "5", "contribucion": "El estándar internacional completo: 40 medidas que todos los países deben implementar para combatir LD, FT y financiamiento de la proliferación. Fusiona las anteriores 40 + 9 Especiales."},
-        {"id": "6", "contribucion": "Aborda la corrupción como delito fuente del LD. Establece mecanismos de recuperación de activos provenientes de corrupción. Especialmente relevante para PEPs."},
-        {"id": "7", "contribucion": "Amplía el delito fuente del LD más allá del narcotráfico. Cualquier delito grave puede ser delito fuente. Define el crimen organizado transnacional."},
-        {"id": "8", "contribucion": "Primer tratado específico sobre FT. Establece que los fondos del FT pueden ser de origen lícito o ilícito. Base del Art. 139 Quáter del CPF mexicano."}
+        {
+          "id": "1",
+          "contribucion": "Crea lista de terroristas y organizaciones cuyos activos deben ser congelados por todas las entidades financieras. Aprobada antes del 11/09."
+        },
+        {
+          "id": "2",
+          "contribucion": "El estándar técnico global de KYC y debida diligencia para bancos. Define los 4 elementos del CDD: identificar, verificar propietario beneficiario, entender propósito y monitorear."
+        },
+        {
+          "id": "3",
+          "contribucion": "Primer tratado que tipificó el LD como delito autónomo, vinculado al narcotráfico. Origen directo del Art. 400 Bis del CPF mexicano. México la ratificó en 1990."
+        },
+        {
+          "id": "4",
+          "contribucion": "Obliga a TODOS los estados miembros a tipificar el FT, congelar activos de terroristas y cooperar internacionalmente. Aprobada 28 días después del 11/09/2001."
+        },
+        {
+          "id": "5",
+          "contribucion": "El estándar internacional completo: 40 medidas que todos los países deben implementar para combatir LD, FT y financiamiento de la proliferación. Fusiona las anteriores 40 + 9 Especiales."
+        },
+        {
+          "id": "6",
+          "contribucion": "Aborda la corrupción como delito fuente del LD. Establece mecanismos de recuperación de activos provenientes de corrupción. Especialmente relevante para PEPs."
+        },
+        {
+          "id": "7",
+          "contribucion": "Amplía el delito fuente del LD más allá del narcotráfico. Cualquier delito grave puede ser delito fuente. Define el crimen organizado transnacional."
+        },
+        {
+          "id": "8",
+          "contribucion": "Primer tratado específico sobre FT. Establece que los fondos del FT pueden ser de origen lícito o ilícito. Base del Art. 139 Quáter del CPF mexicano."
+        }
       ]
     },
     "solucion": {
@@ -100,67 +196,135 @@
         {
           "id": 1,
           "texto": "El GAFI fue fundado en el año _____ por el grupo de países conocido como _____. Su sede se encuentra en _____, Francia.",
-          "espacios": ["1989", "G-7", "París"]
+          "espacios": [
+            "1989",
+            "G-7",
+            "París"
+          ]
         },
         {
           "id": 2,
           "texto": "México se convirtió en miembro pleno del GAFI en el año _____. El organismo regional tipo GAFI para América Latina se denomina _____.",
-          "espacios": ["2000", "GAFILAT"]
+          "espacios": [
+            "2000",
+            "GAFILAT"
+          ]
         },
         {
           "id": 3,
           "texto": "La Convención de _____ de 1988 fue el primer instrumento internacional en tipificar el lavado de dinero como delito autónomo. México la ratificó en _____.",
-          "espacios": ["Viena", "1990"]
+          "espacios": [
+            "Viena",
+            "1990"
+          ]
         },
         {
           "id": 4,
           "texto": "La Resolución _____ del Consejo de Seguridad de la ONU crea la lista de terroristas cuyos activos deben ser congelados. La Resolución _____, aprobada tras el 11 de septiembre de 2001, obliga a todos los países a tipificar el FT.",
-          "espacios": ["1267", "1373"]
+          "espacios": [
+            "1267",
+            "1373"
+          ]
         },
         {
           "id": 5,
           "texto": "El Grupo _____ es una red de _____ Unidades de Inteligencia Financiera (UIFs) de todo el mundo que facilita el intercambio de inteligencia financiera entre los países miembros.",
-          "espacios": ["Egmont", "168"]
+          "espacios": [
+            "Egmont",
+            "168"
+          ]
         },
         {
           "id": 6,
           "texto": "El Grupo _____ es una asociación del _____ privado compuesta por _____ de los bancos privados más importantes del mundo. Sus documentos NO son regulación obligatoria.",
-          "espacios": ["Wolfsberg", "sector", "13"]
+          "espacios": [
+            "Wolfsberg",
+            "sector",
+            "13"
+          ]
         },
         {
           "id": 7,
           "texto": "El GAFI evalúa a los países en dos dimensiones: _____ _____ (mide si existen las leyes) y _____ (mide si el régimen funciona en la práctica).",
-          "espacios": ["Cumplimiento Técnico", "Efectividad"]
+          "espacios": [
+            "Cumplimiento Técnico",
+            "Efectividad"
+          ]
         },
         {
           "id": 8,
           "texto": "En la evaluación GAFI, la dimensión más importante es la _____, ya que un país puede tener excelentes leyes que no se apliquen en la práctica.",
-          "espacios": ["Efectividad"]
+          "espacios": [
+            "Efectividad"
+          ]
         },
         {
           "id": 9,
           "texto": "Las listas del GAFI de jurisdicciones con deficiencias se denominan popularmente 'Lista _____' (deficiencias graves y no cooperantes) y 'Lista _____' (en proceso de mejora bajo monitoreo).",
-          "espacios": ["Negra", "Gris"]
+          "espacios": [
+            "Negra",
+            "Gris"
+          ]
         },
         {
           "id": 10,
           "texto": "La _____ de _____ del Comité de Basilea (2001) estableció los 4 elementos del proceso de debida diligencia con el cliente: (1) _____ y verificar al cliente, (2) identificar al _____ beneficiario, (3) entender el _____ de la relación, y (4) monitoreo _____.",
-          "espacios": ["Guía CDD", "Basilea", "identificar", "propietario", "propósito", "continuo"]
+          "espacios": [
+            "Guía CDD",
+            "Basilea",
+            "identificar",
+            "propietario",
+            "propósito",
+            "continuo"
+          ]
         }
       ]
     },
     "solucion": {
       "respuestas_correctas": {
-        "1": ["1989", "G-7", "París"],
-        "2": ["2000", "GAFILAT"],
-        "3": ["Viena", "1990"],
-        "4": ["1267", "1373"],
-        "5": ["Egmont", "168"],
-        "6": ["Wolfsberg", "sector", "13"],
-        "7": ["Cumplimiento Técnico", "Efectividad"],
-        "8": ["Efectividad"],
-        "9": ["Negra", "Gris"],
-        "10": ["identificar", "propietario", "propósito", "continuo"]
+        "1": [
+          "1989",
+          "G-7",
+          "París"
+        ],
+        "2": [
+          "2000",
+          "GAFILAT"
+        ],
+        "3": [
+          "Viena",
+          "1990"
+        ],
+        "4": [
+          "1267",
+          "1373"
+        ],
+        "5": [
+          "Egmont",
+          "168"
+        ],
+        "6": [
+          "Wolfsberg",
+          "sector",
+          "13"
+        ],
+        "7": [
+          "Cumplimiento Técnico",
+          "Efectividad"
+        ],
+        "8": [
+          "Efectividad"
+        ],
+        "9": [
+          "Negra",
+          "Gris"
+        ],
+        "10": [
+          "identificar",
+          "propietario",
+          "propósito",
+          "continuo"
+        ]
       }
     },
     "dificultad": "facil",
@@ -292,11 +456,31 @@
     "solucion": {
       "calificacion_maxima": 10,
       "criterios": [
-        {"pregunta": 1, "puntos": 2, "criterio": "Define banca corresponsal y explica correctamente los riesgos PLD"},
-        {"pregunta": 2, "puntos": 2, "criterio": "Identifica el CBDDQ del Grupo Wolfsberg y las implicaciones del silencio de CBL"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Describe las consecuencias de la lista gris y medidas a aplicar"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Describe el proceso correcto del Oficial de Cumplimiento ante presión"},
-        {"pregunta": 5, "puntos": 2, "criterio": "Identifica la Recomendación 16 (Regla de Viaje) y obligaciones de BFM"}
+        {
+          "pregunta": 1,
+          "puntos": 2,
+          "criterio": "Define banca corresponsal y explica correctamente los riesgos PLD"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 2,
+          "criterio": "Identifica el CBDDQ del Grupo Wolfsberg y las implicaciones del silencio de CBL"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Describe las consecuencias de la lista gris y medidas a aplicar"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Describe el proceso correcto del Oficial de Cumplimiento ante presión"
+        },
+        {
+          "pregunta": 5,
+          "puntos": 2,
+          "criterio": "Identifica la Recomendación 16 (Regla de Viaje) y obligaciones de BFM"
+        }
       ]
     },
     "dificultad": "dificil",
@@ -338,21 +522,195 @@
     },
     "solucion": {
       "ubicaciones": {
-        "GAFI": {"fila": 1, "columna": 1, "direccion": "horizontal"},
-        "PARIS": {"fila": 1, "columna": 5, "direccion": "horizontal"},
-        "EGMONT": {"fila": 1, "columna": 10, "direccion": "horizontal"},
-        "BASILEA": {"fila": 2, "columna": 2, "direccion": "horizontal"},
-        "VIENA": {"fila": 2, "columna": 10, "direccion": "horizontal"},
-        "WOLFSBERG": {"fila": 3, "columna": 4, "direccion": "horizontal"},
-        "PALERMO": {"fila": 4, "columna": 5, "direccion": "horizontal"},
-        "GAFILAT": {"fila": 6, "columna": 1, "direccion": "vertical"},
-        "EFECTIVIDAD": {"fila": 6, "columna": 2, "direccion": "horizontal"},
-        "ONU": {"fila": 7, "columna": 5, "direccion": "horizontal"},
-        "UIF": {"fila": 7, "columna": 6, "direccion": "vertical"},
-        "TC": {"fila": 1, "columna": 15, "direccion": "vertical"}
+        "GAFI": {
+          "fila": 1,
+          "columna": 1,
+          "direccion": "horizontal"
+        },
+        "PARIS": {
+          "fila": 1,
+          "columna": 5,
+          "direccion": "horizontal"
+        },
+        "EGMONT": {
+          "fila": 1,
+          "columna": 10,
+          "direccion": "horizontal"
+        },
+        "BASILEA": {
+          "fila": 2,
+          "columna": 2,
+          "direccion": "horizontal"
+        },
+        "VIENA": {
+          "fila": 2,
+          "columna": 10,
+          "direccion": "horizontal"
+        },
+        "WOLFSBERG": {
+          "fila": 3,
+          "columna": 4,
+          "direccion": "horizontal"
+        },
+        "PALERMO": {
+          "fila": 4,
+          "columna": 5,
+          "direccion": "horizontal"
+        },
+        "GAFILAT": {
+          "fila": 6,
+          "columna": 1,
+          "direccion": "vertical"
+        },
+        "EFECTIVIDAD": {
+          "fila": 6,
+          "columna": 2,
+          "direccion": "horizontal"
+        },
+        "ONU": {
+          "fila": 7,
+          "columna": 5,
+          "direccion": "horizontal"
+        },
+        "UIF": {
+          "fila": 7,
+          "columna": 6,
+          "direccion": "vertical"
+        },
+        "TC": {
+          "fila": 1,
+          "columna": 15,
+          "direccion": "vertical"
+        }
       }
     },
     "dificultad": "facil",
     "tiempo_estimado": 8
+  },
+  {
+    "bloque": 2,
+    "tema": "Organismos y Foros Internacionales que Participan en PLD y FT",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras avanzada: Organismos y estándares internacionales",
+    "instrucciones": "Localiza los 15 términos internacionales de prevención de lavado de dinero y financiamiento al terrorismo. Las palabras pueden ir en cualquier dirección.",
+    "contenido": {
+      "cuadricula": [
+        "Z G E F J T K O I O R I K O S S F",
+        "N U E K B L U T A N E I V C P A F",
+        "N L E T E S N Y B N E S E I I E R",
+        "D T A S N Z P S O N E F L C N S E",
+        "P N O E S S K I O N E J N N C L C",
+        "K G A F I E C I Y C U E M O U E O",
+        "S K T B G A C B T R G U R A G N M",
+        "U I L M U N A I I I T R P A I O E",
+        "Z U O L E S V S L E E E A G R I N",
+        "B N A V I I D E Z S H M L R A C D",
+        "T V N L D I T S P G A J E E U U A",
+        "E O E A C N I O Y A K E R B D L C",
+        "C A D C I N N L B F L L M S R O I",
+        "N U I A T S D B E I U T O F T S O",
+        "V O A R A N A S T L E E O L U E N",
+        "N T L L N E O N R A V I E O A R E",
+        "N E I Y E H E T S T D L A W H U S"
+      ],
+      "palabras_ocultas": [
+        "RECOMENDACIONES",
+        "CORRESPONSAL",
+        "JURISDICCION",
+        "INTELIGENCIA",
+        "EFECTIVIDAD",
+        "EVALUACION",
+        "CONVENCION",
+        "RESOLUCION",
+        "WOLFSBERG",
+        "BASILEA",
+        "GAFILAT",
+        "PALERMO",
+        "EGMONT",
+        "VIENA",
+        "GAFI"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "RECOMENDACIONES": {
+          "fila": 3,
+          "columna": 17,
+          "direccion": "vertical"
+        },
+        "CORRESPONSAL": {
+          "fila": 5,
+          "columna": 15,
+          "direccion": "diagonal-dl"
+        },
+        "JURISDICCION": {
+          "fila": 5,
+          "columna": 12,
+          "direccion": "diagonal-dl"
+        },
+        "INTELIGENCIA": {
+          "fila": 13,
+          "columna": 5,
+          "direccion": "diagonal-ur"
+        },
+        "EFECTIVIDAD": {
+          "fila": 3,
+          "columna": 13,
+          "direccion": "diagonal-dl"
+        },
+        "EVALUACION": {
+          "fila": 12,
+          "columna": 1,
+          "direccion": "diagonal-ur"
+        },
+        "CONVENCION": {
+          "fila": 13,
+          "columna": 1,
+          "direccion": "diagonal-ur"
+        },
+        "RESOLUCION": {
+          "fila": 16,
+          "columna": 16,
+          "direccion": "vertical-inv"
+        },
+        "WOLFSBERG": {
+          "fila": 17,
+          "columna": 14,
+          "direccion": "vertical-inv"
+        },
+        "BASILEA": {
+          "fila": 7,
+          "columna": 8,
+          "direccion": "diagonal-dl"
+        },
+        "GAFILAT": {
+          "fila": 11,
+          "columna": 10,
+          "direccion": "vertical"
+        },
+        "PALERMO": {
+          "fila": 8,
+          "columna": 13,
+          "direccion": "vertical"
+        },
+        "EGMONT": {
+          "fila": 6,
+          "columna": 6,
+          "direccion": "diagonal-dl"
+        },
+        "VIENA": {
+          "fila": 2,
+          "columna": 13,
+          "direccion": "horizontal-inv"
+        },
+        "GAFI": {
+          "fila": 6,
+          "columna": 2,
+          "direccion": "horizontal"
+        }
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
   }
 ]

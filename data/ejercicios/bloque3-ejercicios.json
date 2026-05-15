@@ -33,10 +33,26 @@
     "solucion": {
       "calificacion_maxima": 10,
       "criterios": [
-        {"pregunta": 1, "puntos": 2, "criterio": "Clasifica correctamente los factores de riesgo por las 4 categorías (cliente, producto, canal, geografía)"},
-        {"pregunta": 2, "puntos": 3, "criterio": "Explica el impacto de cada debilidad en el riesgo residual con razonamiento correcto"},
-        {"pregunta": 3, "puntos": 2, "criterio": "Identifica la 3ª línea como detectora y describe la función de las 3 líneas correctamente"},
-        {"pregunta": 4, "puntos": 3, "criterio": "Propone acciones concretas, priorizadas y con plazos razonables"}
+        {
+          "pregunta": 1,
+          "puntos": 2,
+          "criterio": "Clasifica correctamente los factores de riesgo por las 4 categorías (cliente, producto, canal, geografía)"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 3,
+          "criterio": "Explica el impacto de cada debilidad en el riesgo residual con razonamiento correcto"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 2,
+          "criterio": "Identifica la 3ª línea como detectora y describe la función de las 3 líneas correctamente"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 3,
+          "criterio": "Propone acciones concretas, priorizadas y con plazos razonables"
+        }
       ]
     },
     "dificultad": "dificil",
@@ -54,17 +70,29 @@
         {
           "id": "A",
           "situacion": "Un cliente deposita $9,800 pesos en efectivo el lunes. El martes deposita $9,500. El miércoles $9,900. El jueves $9,700. El viernes $9,600. Los cajeros lo conocen y dicen que 'siempre viene y es muy amable'. Su cuenta es de nómina con salario declarado de $15,000 pesos mensuales.",
-          "preguntas": ["¿Es señal de alerta?", "¿Qué tipo?", "¿Qué debes hacer?"]
+          "preguntas": [
+            "¿Es señal de alerta?",
+            "¿Qué tipo?",
+            "¿Qué debes hacer?"
+          ]
         },
         {
           "id": "B",
           "situacion": "Una señora de edad avanzada acude a retirar $200,000 pesos en efectivo. Cuando el cajero le pregunta el motivo, dice que va a 'dárselo a su hijo' y no sabe más. La cuenta tiene historial normal de pensión IMSS de $8,000 pesos mensuales. El saldo actual es $210,000 pesos, producto de un depósito único de hace 3 días.",
-          "preguntas": ["¿Es señal de alerta?", "¿Qué tipo?", "¿Qué debes hacer?"]
+          "preguntas": [
+            "¿Es señal de alerta?",
+            "¿Qué tipo?",
+            "¿Qué debes hacer?"
+          ]
         },
         {
           "id": "C",
           "situacion": "Una empresa de importación/exportación con historial de 2 años en el banco recibe una transferencia internacional de $1,500,000 USD desde una cuenta en las Islas Caimán. El representante dice que es 'pago por una mercancía'. No se tienen registros de exportaciones previas de ese monto a esa jurisdicción.",
-          "preguntas": ["¿Es señal de alerta?", "¿Qué tipo?", "¿Qué debes hacer?"]
+          "preguntas": [
+            "¿Es señal de alerta?",
+            "¿Qué tipo?",
+            "¿Qué debes hacer?"
+          ]
         }
       ],
       "respuestas_guia": [
@@ -85,9 +113,21 @@
     "solucion": {
       "calificacion_maxima": 9,
       "criterios": [
-        {"situacion": "A", "puntos": 3, "criterio": "Identifica señal de alerta (estructuración), la clasifica correctamente y describe el proceso de reporte interno"},
-        {"situacion": "B", "puntos": 3, "criterio": "Identifica señal de alerta, la clasifica y describe acción correcta (escalar, no rechazar directamente, OI posible)"},
-        {"situacion": "C", "puntos": 3, "criterio": "Identifica señal de alerta, menciona reporte de transferencia + OI posible y el proceso de documentación justificativa"}
+        {
+          "situacion": "A",
+          "puntos": 3,
+          "criterio": "Identifica señal de alerta (estructuración), la clasifica correctamente y describe el proceso de reporte interno"
+        },
+        {
+          "situacion": "B",
+          "puntos": 3,
+          "criterio": "Identifica señal de alerta, la clasifica y describe acción correcta (escalar, no rechazar directamente, OI posible)"
+        },
+        {
+          "situacion": "C",
+          "puntos": 3,
+          "criterio": "Identifica señal de alerta, menciona reporte de transferencia + OI posible y el proceso de documentación justificativa"
+        }
       ]
     },
     "dificultad": "medio",
@@ -101,28 +141,88 @@
     "instrucciones": "Relaciona cada concepto de la columna izquierda con su descripción correcta.",
     "contenido": {
       "columna_conceptos": [
-        {"id": "A", "concepto": "Riesgo Inherente"},
-        {"id": "B", "concepto": "Riesgo Residual"},
-        {"id": "C", "concepto": "Amenaza"},
-        {"id": "D", "concepto": "Vulnerabilidad"},
-        {"id": "E", "concepto": "Debida Diligencia Simplificada (DDS)"},
-        {"id": "F", "concepto": "Debida Diligencia Reforzada (DDR)"},
-        {"id": "G", "concepto": "Apetito de Riesgo"},
-        {"id": "H", "concepto": "Evaluación Nacional de Riesgos (ENR)"},
-        {"id": "I", "concepto": "Primera Línea de Defensa"},
-        {"id": "J", "concepto": "Tercera Línea de Defensa"}
+        {
+          "id": "A",
+          "concepto": "Riesgo Inherente"
+        },
+        {
+          "id": "B",
+          "concepto": "Riesgo Residual"
+        },
+        {
+          "id": "C",
+          "concepto": "Amenaza"
+        },
+        {
+          "id": "D",
+          "concepto": "Vulnerabilidad"
+        },
+        {
+          "id": "E",
+          "concepto": "Debida Diligencia Simplificada (DDS)"
+        },
+        {
+          "id": "F",
+          "concepto": "Debida Diligencia Reforzada (DDR)"
+        },
+        {
+          "id": "G",
+          "concepto": "Apetito de Riesgo"
+        },
+        {
+          "id": "H",
+          "concepto": "Evaluación Nacional de Riesgos (ENR)"
+        },
+        {
+          "id": "I",
+          "concepto": "Primera Línea de Defensa"
+        },
+        {
+          "id": "J",
+          "concepto": "Tercera Línea de Defensa"
+        }
       ],
       "columna_definiciones": [
-        {"id": "1", "definicion": "Proceso mediante el cual un país evalúa sus riesgos de LD/FT a nivel nacional. Obligatorio según GAFI Recomendación 1."},
-        {"id": "2", "definicion": "Medidas adicionales e intensificadas de debida diligencia aplicables a clientes de alto riesgo (PEPs, jurisdicciones de alto riesgo, estructuras complejas)."},
-        {"id": "3", "definicion": "Nivel de riesgo que la Alta Dirección y el Consejo de Administración de la entidad están dispuestos a aceptar en el desarrollo del negocio."},
-        {"id": "4", "definicion": "El nivel de riesgo de LD/FT que QUEDA después de aplicar los controles y medidas de mitigación implementados por la entidad."},
-        {"id": "5", "definicion": "Características internas de la entidad (productos, clientes, canales, geografía) que la hacen susceptible de ser utilizada para LD/FT."},
-        {"id": "6", "definicion": "El personal de negocio en contacto directo con el cliente (cajeros, ejecutivos de cuenta). Son los primeros en detectar señales de alerta."},
-        {"id": "7", "definicion": "Cualquier persona, grupo u actividad con el potencial de causar daño a través del LD/FT. Son factores externos a la entidad."},
-        {"id": "8", "definicion": "El nivel de riesgo de LD/FT que existe ANTES de considerar los controles implementados. Es el riesgo 'bruto' o 'natural' de la actividad."},
-        {"id": "9", "definicion": "Medidas de debida diligencia menos intensivas que las estándar, aplicables documentadamente a clientes y productos de riesgo bajo. No significa ausencia de controles."},
-        {"id": "10", "definicion": "Auditoría interna y externa independiente. Evalúan de forma objetiva si las dos primeras líneas de defensa funcionan correctamente."}
+        {
+          "id": "1",
+          "definicion": "Proceso mediante el cual un país evalúa sus riesgos de LD/FT a nivel nacional. Obligatorio según GAFI Recomendación 1."
+        },
+        {
+          "id": "2",
+          "definicion": "Medidas adicionales e intensificadas de debida diligencia aplicables a clientes de alto riesgo (PEPs, jurisdicciones de alto riesgo, estructuras complejas)."
+        },
+        {
+          "id": "3",
+          "definicion": "Nivel de riesgo que la Alta Dirección y el Consejo de Administración de la entidad están dispuestos a aceptar en el desarrollo del negocio."
+        },
+        {
+          "id": "4",
+          "definicion": "El nivel de riesgo de LD/FT que QUEDA después de aplicar los controles y medidas de mitigación implementados por la entidad."
+        },
+        {
+          "id": "5",
+          "definicion": "Características internas de la entidad (productos, clientes, canales, geografía) que la hacen susceptible de ser utilizada para LD/FT."
+        },
+        {
+          "id": "6",
+          "definicion": "El personal de negocio en contacto directo con el cliente (cajeros, ejecutivos de cuenta). Son los primeros en detectar señales de alerta."
+        },
+        {
+          "id": "7",
+          "definicion": "Cualquier persona, grupo u actividad con el potencial de causar daño a través del LD/FT. Son factores externos a la entidad."
+        },
+        {
+          "id": "8",
+          "definicion": "El nivel de riesgo de LD/FT que existe ANTES de considerar los controles implementados. Es el riesgo 'bruto' o 'natural' de la actividad."
+        },
+        {
+          "id": "9",
+          "definicion": "Medidas de debida diligencia menos intensivas que las estándar, aplicables documentadamente a clientes y productos de riesgo bajo. No significa ausencia de controles."
+        },
+        {
+          "id": "10",
+          "definicion": "Auditoría interna y externa independiente. Evalúan de forma objetiva si las dos primeras líneas de defensa funcionan correctamente."
+        }
       ]
     },
     "solucion": {
@@ -155,67 +255,153 @@
         {
           "id": 1,
           "texto": "El riesgo PLD/FT se define como la función de tres variables: _____ (factores externos a la entidad), _____ (características internas que la hacen susceptible) e _____ (el daño potencial si el riesgo se materializa).",
-          "espacios": ["amenaza", "vulnerabilidad", "impacto"]
+          "espacios": [
+            "amenaza",
+            "vulnerabilidad",
+            "impacto"
+          ]
         },
         {
           "id": 2,
           "texto": "El riesgo _____ es el nivel de riesgo antes de considerar los controles. El riesgo _____ es el que queda después de aplicar los controles. El objetivo del programa PLD/FT es reducir el segundo al nivel del _____ de riesgo establecido por la Alta Dirección.",
-          "espacios": ["inherente", "residual", "apetito"]
+          "espacios": [
+            "inherente",
+            "residual",
+            "apetito"
+          ]
         },
         {
           "id": 3,
           "texto": "El Enfoque _____ en Riesgos (EBR) establece que los controles deben ser _____ al riesgo: se simplifican para clientes de _____ riesgo y se intensifican para clientes de _____ riesgo.",
-          "espacios": ["Basado", "proporcionales", "bajo", "alto"]
+          "espacios": [
+            "Basado",
+            "proporcionales",
+            "bajo",
+            "alto"
+          ]
         },
         {
           "id": 4,
           "texto": "La Guía del GAFI sobre el EBR para el Sector Bancario fue publicada en _____. Identifica cuatro categorías de factores de riesgo: tipo de _____, tipo de _____, canal de _____ y riesgo _____.",
-          "espacios": ["2014", "cliente", "producto", "distribución", "geográfico"]
+          "espacios": [
+            "2014",
+            "cliente",
+            "producto",
+            "distribución",
+            "geográfico"
+          ]
         },
         {
           "id": 5,
           "texto": "El documento del Comité de _____ de 2014 establece que el riesgo LD/FT debe gestionarse como parte del riesgo _____ bancario. Formaliza el modelo de las _____ Líneas de Defensa.",
-          "espacios": ["Basilea", "operativo", "Tres"]
+          "espacios": [
+            "Basilea",
+            "operativo",
+            "Tres"
+          ]
         },
         {
           "id": 6,
           "texto": "En el modelo de las Tres Líneas de Defensa: la _____ línea es el personal de negocio que detecta señales de alerta, la _____ línea es la función de cumplimiento que diseña controles, y la _____ línea es la auditoría que evalúa independientemente.",
-          "espacios": ["primera", "segunda", "tercera"]
+          "espacios": [
+            "primera",
+            "segunda",
+            "tercera"
+          ]
         },
         {
           "id": 7,
           "texto": "Según el Comité de Basilea 2014, el responsable _____ del programa PLD/FT es el _____ de Administración, no solo el Oficial de Cumplimiento.",
-          "espacios": ["último", "Consejo"]
+          "espacios": [
+            "último",
+            "Consejo"
+          ]
         },
         {
           "id": 8,
           "texto": "La Debida Diligencia _____ (DDS) puede aplicarse cuando el riesgo del cliente es objetivamente _____. Sin embargo, se suspende automáticamente cuando existe cualquier _____ de alerta, independientemente del perfil general del cliente.",
-          "espacios": ["Simplificada", "bajo", "señal"]
+          "espacios": [
+            "Simplificada",
+            "bajo",
+            "señal"
+          ]
         },
         {
           "id": 9,
           "texto": "La _____ Nacional de _____ (ENR) es el proceso mediante el cual el _____ evalúa sus riesgos de LD/FT a nivel nacional. Las entidades financieras deben conocerla y usarla como insumo para su propia evaluación.",
-          "espacios": ["Evaluación", "Riesgos", "país (gobierno)"]
+          "espacios": [
+            "Evaluación",
+            "Riesgos",
+            "país (gobierno)"
+          ]
         },
         {
           "id": 10,
           "texto": "En grupos financieros, cuando hay diferencias entre el estándar PLD/FT del grupo y el del país local, siempre aplica el _____ más _____. Si el país local tiene requisitos más altos que el grupo, aplica el del _____. Si el grupo tiene requisitos más altos que el país, aplica el del _____.",
-          "espacios": ["estándar", "estricto", "país local", "grupo"]
+          "espacios": [
+            "estándar",
+            "estricto",
+            "país local",
+            "grupo"
+          ]
         }
       ]
     },
     "solucion": {
       "respuestas_correctas": {
-        "1": ["amenaza", "vulnerabilidad", "impacto"],
-        "2": ["inherente", "residual", "apetito"],
-        "3": ["Basado", "proporcionales", "bajo", "alto"],
-        "4": ["2014", "cliente", "producto", "distribución", "geográfico"],
-        "5": ["Basilea", "operativo", "Tres"],
-        "6": ["primera", "segunda", "tercera"],
-        "7": ["último", "Consejo"],
-        "8": ["Simplificada", "bajo", "señal"],
-        "9": ["Evaluación", "Riesgos", "país"],
-        "10": ["estándar", "estricto", "país local", "grupo"]
+        "1": [
+          "amenaza",
+          "vulnerabilidad",
+          "impacto"
+        ],
+        "2": [
+          "inherente",
+          "residual",
+          "apetito"
+        ],
+        "3": [
+          "Basado",
+          "proporcionales",
+          "bajo",
+          "alto"
+        ],
+        "4": [
+          "2014",
+          "cliente",
+          "producto",
+          "distribución",
+          "geográfico"
+        ],
+        "5": [
+          "Basilea",
+          "operativo",
+          "Tres"
+        ],
+        "6": [
+          "primera",
+          "segunda",
+          "tercera"
+        ],
+        "7": [
+          "último",
+          "Consejo"
+        ],
+        "8": [
+          "Simplificada",
+          "bajo",
+          "señal"
+        ],
+        "9": [
+          "Evaluación",
+          "Riesgos",
+          "país"
+        ],
+        "10": [
+          "estándar",
+          "estricto",
+          "país local",
+          "grupo"
+        ]
       }
     },
     "dificultad": "facil",
@@ -316,20 +502,56 @@
     "instrucciones": "Relaciona cada señal de alerta con la tipología de LD/FT que más probablemente describe.",
     "contenido": {
       "columna_senales": [
-        {"id": "A", "senal": "Cliente que deposita diariamente cantidades en efectivo de $9,200-9,800 pesos durante varias semanas consecutivas, sin relación con sus ingresos declarados"},
-        {"id": "B", "senal": "Empresa de importación que factura bienes a un precio 40% inferior al precio de mercado internacional documentado"},
-        {"id": "C", "senal": "Cuenta que recibe transferencias de 15 distintas fuentes en 3 días y luego transfiere todo el saldo a una cuenta en el extranjero"},
-        {"id": "D", "senal": "Persona física sin ingresos aparentes adquiere un inmueble de $5 millones de pesos pagando al contado sin financiamiento bancario"},
-        {"id": "E", "senal": "Negocio de estacionamiento en una colonia residencial declara ingresos mensuales de $2.5 millones de pesos, equivalentes a cobrar 24 horas al día con el estacionamiento lleno"},
-        {"id": "F", "senal": "ONG recibe donaciones de múltiples personas en México y transfiere mensualmente $300,000 pesos a una organización en un país del Medio Oriente listado por la ONU"}
+        {
+          "id": "A",
+          "senal": "Cliente que deposita diariamente cantidades en efectivo de $9,200-9,800 pesos durante varias semanas consecutivas, sin relación con sus ingresos declarados"
+        },
+        {
+          "id": "B",
+          "senal": "Empresa de importación que factura bienes a un precio 40% inferior al precio de mercado internacional documentado"
+        },
+        {
+          "id": "C",
+          "senal": "Cuenta que recibe transferencias de 15 distintas fuentes en 3 días y luego transfiere todo el saldo a una cuenta en el extranjero"
+        },
+        {
+          "id": "D",
+          "senal": "Persona física sin ingresos aparentes adquiere un inmueble de $5 millones de pesos pagando al contado sin financiamiento bancario"
+        },
+        {
+          "id": "E",
+          "senal": "Negocio de estacionamiento en una colonia residencial declara ingresos mensuales de $2.5 millones de pesos, equivalentes a cobrar 24 horas al día con el estacionamiento lleno"
+        },
+        {
+          "id": "F",
+          "senal": "ONG recibe donaciones de múltiples personas en México y transfiere mensualmente $300,000 pesos a una organización en un país del Medio Oriente listado por la ONU"
+        }
       ],
       "columna_tipologias": [
-        {"id": "1", "tipologia": "Empresa fachada (negocio de alto efectivo con ingresos desproporcionados — mezcla de fondos ilícitos con ingresos declarados)"},
-        {"id": "2", "tipologia": "Facturación falsa en comercio exterior (sub-facturación de importaciones para introducir valor ilícito al país)"},
-        {"id": "3", "tipologia": "Estructuración o pitufeo — depósitos fraccionados para evadir umbrales de reporte"},
-        {"id": "4", "tipologia": "Cuenta de tránsito o pass-through — recibe y transfiere fondos sin retención, para ocultar el origen"},
-        {"id": "5", "tipologia": "Financiamiento al Terrorismo a través de ONG — fondos de origen lícito destinados a organización terrorista"},
-        {"id": "6", "tipologia": "Integración mediante bienes raíces — compra de inmuebles con recursos ilícitos sin justificar el origen del capital"}
+        {
+          "id": "1",
+          "tipologia": "Empresa fachada (negocio de alto efectivo con ingresos desproporcionados — mezcla de fondos ilícitos con ingresos declarados)"
+        },
+        {
+          "id": "2",
+          "tipologia": "Facturación falsa en comercio exterior (sub-facturación de importaciones para introducir valor ilícito al país)"
+        },
+        {
+          "id": "3",
+          "tipologia": "Estructuración o pitufeo — depósitos fraccionados para evadir umbrales de reporte"
+        },
+        {
+          "id": "4",
+          "tipologia": "Cuenta de tránsito o pass-through — recibe y transfiere fondos sin retención, para ocultar el origen"
+        },
+        {
+          "id": "5",
+          "tipologia": "Financiamiento al Terrorismo a través de ONG — fondos de origen lícito destinados a organización terrorista"
+        },
+        {
+          "id": "6",
+          "tipologia": "Integración mediante bienes raíces — compra de inmuebles con recursos ilícitos sin justificar el origen del capital"
+        }
       ]
     },
     "solucion": {
@@ -346,5 +568,131 @@
     },
     "dificultad": "medio",
     "tiempo_estimado": 8
+  },
+  {
+    "bloque": 3,
+    "tema": "Marco Legal en México",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras: Marco legal mexicano PLD/FT",
+    "instrucciones": "Encuentra los 15 términos del marco legal mexicano para la prevención e identificación de operaciones con recursos de procedencia ilícita.",
+    "contenido": {
+      "cuadricula": [
+        "A E U O S U L N E G G E B A S E U",
+        "L A C A S A R S S N A E I P C N Y",
+        "I T A O L I N Y O O S Z N L O O T",
+        "L I I R R J M I R L T O L A N I S",
+        "N E S P N R C O Z S I I M V D C Z",
+        "O E R S I A E A C S E B S A U N I",
+        "T B T Y G F E D I I U C O D C A E",
+        "A D U I L R I V O F E I O O T S E",
+        "R K L S L I R C R R E D N G A U O",
+        "I B E C U E N T A H A B I E N T E",
+        "O Z A A P E O S M C F L A F E T I",
+        "R E G U L A C I O N I N F A L U L",
+        "R T S S L E K F N L N O F E Z G J",
+        "E S L M I E E L E R N L N K J L D",
+        "J S J B E V I L L F P I O R P I U",
+        "L S E C N A I L P M O C U S N I U",
+        "E S R E P O R T E C O N T A B L E"
+      ],
+      "palabras_ocultas": [
+        "CUENTAHABIENTE",
+        "TIPIFICACION",
+        "FIDEICOMISO",
+        "SUPERVISION",
+        "OBLIGACION",
+        "REGULACION",
+        "COMPLIANCE",
+        "LFPIORPI",
+        "CORREDOR",
+        "CONTABLE",
+        "CONDUCTA",
+        "REPORTE",
+        "NOTARIO",
+        "SANCION",
+        "LAVADO"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "CUENTAHABIENTE": {
+          "fila": 10,
+          "columna": 4,
+          "direccion": "horizontal"
+        },
+        "TIPIFICACION": {
+          "fila": 3,
+          "columna": 2,
+          "direccion": "diagonal-dr"
+        },
+        "FIDEICOMISO": {
+          "fila": 11,
+          "columna": 14,
+          "direccion": "diagonal-ul"
+        },
+        "SUPERVISION": {
+          "fila": 13,
+          "columna": 3,
+          "direccion": "diagonal-ur"
+        },
+        "OBLIGACION": {
+          "fila": 11,
+          "columna": 1,
+          "direccion": "diagonal-ur"
+        },
+        "REGULACION": {
+          "fila": 12,
+          "columna": 1,
+          "direccion": "horizontal"
+        },
+        "COMPLIANCE": {
+          "fila": 16,
+          "columna": 12,
+          "direccion": "horizontal-inv"
+        },
+        "LFPIORPI": {
+          "fila": 15,
+          "columna": 9,
+          "direccion": "horizontal"
+        },
+        "CORREDOR": {
+          "fila": 2,
+          "columna": 3,
+          "direccion": "diagonal-dr"
+        },
+        "CONTABLE": {
+          "fila": 17,
+          "columna": 10,
+          "direccion": "horizontal"
+        },
+        "CONDUCTA": {
+          "fila": 2,
+          "columna": 15,
+          "direccion": "vertical"
+        },
+        "REPORTE": {
+          "fila": 17,
+          "columna": 3,
+          "direccion": "horizontal"
+        },
+        "NOTARIO": {
+          "fila": 5,
+          "columna": 1,
+          "direccion": "vertical"
+        },
+        "SANCION": {
+          "fila": 8,
+          "columna": 16,
+          "direccion": "vertical-inv"
+        },
+        "LAVADO": {
+          "fila": 3,
+          "columna": 14,
+          "direccion": "vertical"
+        }
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
   }
 ]

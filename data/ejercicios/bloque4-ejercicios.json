@@ -7,24 +7,72 @@
     "instrucciones": "Relaciona cada autoridad con la función que le corresponde en el sistema PLD/FT mexicano. Algunas funciones pueden no corresponderse con ninguna de las autoridades listadas.",
     "contenido": {
       "columna_autoridades": [
-        {"id": "A", "autoridad": "UIF (Unidad de Inteligencia Financiera — SHCP)"},
-        {"id": "B", "autoridad": "CNBV (Comisión Nacional Bancaria y de Valores)"},
-        {"id": "C", "autoridad": "SAT (Servicio de Administración Tributaria)"},
-        {"id": "D", "autoridad": "FGR (Fiscalía General de la República)"},
-        {"id": "E", "autoridad": "Banco de México (BANXICO)"},
-        {"id": "F", "autoridad": "SAE (Servicio de Administración y Enajenación de Bienes)"},
-        {"id": "G", "autoridad": "PJF (Poder Judicial Federal)"},
-        {"id": "H", "autoridad": "CNSF (Comisión Nacional de Seguros y Fianzas)"}
+        {
+          "id": "A",
+          "autoridad": "UIF (Unidad de Inteligencia Financiera — SHCP)"
+        },
+        {
+          "id": "B",
+          "autoridad": "CNBV (Comisión Nacional Bancaria y de Valores)"
+        },
+        {
+          "id": "C",
+          "autoridad": "SAT (Servicio de Administración Tributaria)"
+        },
+        {
+          "id": "D",
+          "autoridad": "FGR (Fiscalía General de la República)"
+        },
+        {
+          "id": "E",
+          "autoridad": "Banco de México (BANXICO)"
+        },
+        {
+          "id": "F",
+          "autoridad": "SAE (Servicio de Administración y Enajenación de Bienes)"
+        },
+        {
+          "id": "G",
+          "autoridad": "PJF (Poder Judicial Federal)"
+        },
+        {
+          "id": "H",
+          "autoridad": "CNSF (Comisión Nacional de Seguros y Fianzas)"
+        }
       ],
       "columna_funciones": [
-        {"id": "1", "funcion": "Emite la Lista de Personas Bloqueadas cuyos activos deben ser congelados por las entidades financieras"},
-        {"id": "2", "funcion": "Realiza visitas de inspección a bancos, casas de bolsa, SOCAP, casas de cambio y transmisores de dinero para verificar el cumplimiento PLD/FT"},
-        {"id": "3", "funcion": "Emite sentencias penales por lavado de dinero, ordena el decomiso de bienes y resuelve los juicios de extinción de dominio"},
-        {"id": "4", "funcion": "Regula y supervisa el cumplimiento de las obligaciones PLD/FT de las actividades vulnerables no financieras establecidas en la LFPIORPI (notarios, inmobiliarias, joyeros, etc.)"},
-        {"id": "5", "funcion": "Administra los bienes asegurados o decomisados en procedimientos penales o de extinción de dominio"},
-        {"id": "6", "funcion": "Autoriza a las Instituciones de Tecnología Financiera para operar con activos virtuales y regula las operaciones con dólares en efectivo"},
-        {"id": "7", "funcion": "Investiga penalmente los delitos de lavado de dinero (ORPI) y financiamiento al terrorismo. Ejerce la acción penal ante los tribunales federales"},
-        {"id": "8", "funcion": "Regula y supervisa el cumplimiento PLD/FT de las instituciones de seguros y fianzas"}
+        {
+          "id": "1",
+          "funcion": "Emite la Lista de Personas Bloqueadas cuyos activos deben ser congelados por las entidades financieras"
+        },
+        {
+          "id": "2",
+          "funcion": "Realiza visitas de inspección a bancos, casas de bolsa, SOCAP, casas de cambio y transmisores de dinero para verificar el cumplimiento PLD/FT"
+        },
+        {
+          "id": "3",
+          "funcion": "Emite sentencias penales por lavado de dinero, ordena el decomiso de bienes y resuelve los juicios de extinción de dominio"
+        },
+        {
+          "id": "4",
+          "funcion": "Regula y supervisa el cumplimiento de las obligaciones PLD/FT de las actividades vulnerables no financieras establecidas en la LFPIORPI (notarios, inmobiliarias, joyeros, etc.)"
+        },
+        {
+          "id": "5",
+          "funcion": "Administra los bienes asegurados o decomisados en procedimientos penales o de extinción de dominio"
+        },
+        {
+          "id": "6",
+          "funcion": "Autoriza a las Instituciones de Tecnología Financiera para operar con activos virtuales y regula las operaciones con dólares en efectivo"
+        },
+        {
+          "id": "7",
+          "funcion": "Investiga penalmente los delitos de lavado de dinero (ORPI) y financiamiento al terrorismo. Ejerce la acción penal ante los tribunales federales"
+        },
+        {
+          "id": "8",
+          "funcion": "Regula y supervisa el cumplimiento PLD/FT de las instituciones de seguros y fianzas"
+        }
       ]
     },
     "solucion": {
@@ -78,10 +126,26 @@
     "solucion": {
       "calificacion_maxima": 10,
       "criterios": [
-        {"pregunta": 1, "puntos": 2, "criterio": "Identifica PEP nacional, familiares PEP, DDR y monitoreo intensificado"},
-        {"pregunta": 2, "puntos": 3, "criterio": "Identifica al menos 4 señales de alerta con clasificación correcta"},
-        {"pregunta": 3, "puntos": 3, "criterio": "Menciona OR, transferencia internacional, OI, plazos correctos, deber de reserva"},
-        {"pregunta": 4, "puntos": 2, "criterio": "Menciona FGR, medidas cautelares, extinción de dominio y carga de la prueba invertida"}
+        {
+          "pregunta": 1,
+          "puntos": 2,
+          "criterio": "Identifica PEP nacional, familiares PEP, DDR y monitoreo intensificado"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 3,
+          "criterio": "Identifica al menos 4 señales de alerta con clasificación correcta"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 3,
+          "criterio": "Menciona OR, transferencia internacional, OI, plazos correctos, deber de reserva"
+        },
+        {
+          "pregunta": 4,
+          "puntos": 2,
+          "criterio": "Menciona FGR, medidas cautelares, extinción de dominio y carga de la prueba invertida"
+        }
       ]
     },
     "dificultad": "dificil",
@@ -116,9 +180,21 @@
     "solucion": {
       "calificacion_maxima": 9,
       "criterios": [
-        {"pregunta": 1, "puntos": 3, "criterio": "Clasifica correctamente los 6 hallazgos con justificación, identificando el #5 como el más grave"},
-        {"pregunta": 2, "puntos": 3, "criterio": "Menciona multas, medidas correctivas, posible inhabilitación, y la gravedad especial por los reportes no presentados"},
-        {"pregunta": 3, "puntos": 3, "criterio": "Describe acciones inmediatas: CCC/Consejo, revisar alertas, OI tardío si aplica, plan de acción, notificación CNBV"}
+        {
+          "pregunta": 1,
+          "puntos": 3,
+          "criterio": "Clasifica correctamente los 6 hallazgos con justificación, identificando el #5 como el más grave"
+        },
+        {
+          "pregunta": 2,
+          "puntos": 3,
+          "criterio": "Menciona multas, medidas correctivas, posible inhabilitación, y la gravedad especial por los reportes no presentados"
+        },
+        {
+          "pregunta": 3,
+          "puntos": 3,
+          "criterio": "Describe acciones inmediatas: CCC/Consejo, revisar alertas, OI tardío si aplica, plan de acción, notificación CNBV"
+        }
       ]
     },
     "dificultad": "dificil",
@@ -135,67 +211,151 @@
         {
           "id": 1,
           "texto": "En el sistema PLD/FT mexicano, las autoridades se clasifican en tres categorías: _____ (emiten normas), _____ (verifican el cumplimiento) y de _____ y _____ (recopilan inteligencia y persiguen penalmente).",
-          "espacios": ["reguladoras", "supervisoras", "detección", "combate"]
+          "espacios": [
+            "reguladoras",
+            "supervisoras",
+            "detección",
+            "combate"
+          ]
         },
         {
           "id": 2,
           "texto": "La _____ regula y supervisa a las entidades financieras del sistema financiero mexicano. El _____ regula y supervisa las actividades vulnerables no financieras establecidas en la LFPIORPI.",
-          "espacios": ["CNBV", "SAT"]
+          "espacios": [
+            "CNBV",
+            "SAT"
+          ]
         },
         {
           "id": 3,
           "texto": "La UIF (Unidad de Inteligencia Financiera) depende de la _____. Su modelo es de tipo _____ (no policial ni judicial). Es miembro del Grupo _____, que es la red mundial de UIFs.",
-          "espacios": ["SHCP", "administrativo", "Egmont"]
+          "espacios": [
+            "SHCP",
+            "administrativo",
+            "Egmont"
+          ]
         },
         {
           "id": 4,
           "texto": "El flujo de información PLD/FT en México sigue esta cadena: Entidad financiera → _____ (recibe reportes y analiza) → _____ (investiga penalmente) → _____ (juzga y condena).",
-          "espacios": ["UIF", "FGR", "PJF"]
+          "espacios": [
+            "UIF",
+            "FGR",
+            "PJF"
+          ]
         },
         {
           "id": 5,
           "texto": "La CNBV realiza tres tipos de supervisión: extramuros (revisión de _____ sin visita presencial), visita de inspección _____ (programada e integral) y visita de inspección _____ (no programada o focalizada).",
-          "espacios": ["reportes", "ordinaria", "especial"]
+          "espacios": [
+            "reportes",
+            "ordinaria",
+            "especial"
+          ]
         },
         {
           "id": 6,
           "texto": "Las _____ son modus operandi completos de LD/FT documentados. La _____ (México) publica tipologías basadas en casos reales nacionales. El _____ publica tipologías sectoriales internacionales.",
-          "espacios": ["tipologías", "UIF", "GAFI"]
+          "espacios": [
+            "tipologías",
+            "UIF",
+            "GAFI"
+          ]
         },
         {
           "id": 7,
           "texto": "La _____ es uno de los principales delitos fuente del lavado de dinero en México. Los recursos obtenidos por funcionarios corruptos necesitan ser _____ para poder utilizarse libremente. Los _____ (PEPs) reciben Debida Diligencia Reforzada precisamente por este riesgo.",
-          "espacios": ["corrupción", "lavados", "Personas Políticamente Expuestas"]
+          "espacios": [
+            "corrupción",
+            "lavados",
+            "Personas Políticamente Expuestas"
+          ]
         },
         {
           "id": 8,
           "texto": "La Ley Nacional de _____ de _____ (2019) permite al Estado confiscar bienes vinculados a delitos graves SIN necesidad de _____ penal previa. La carga de la prueba se _____ al titular del bien.",
-          "espacios": ["Extinción", "Dominio", "condena", "invierte"]
+          "espacios": [
+            "Extinción",
+            "Dominio",
+            "condena",
+            "invierte"
+          ]
         },
         {
           "id": 9,
           "texto": "La Evaluación Nacional de _____ (ENR) de México identifica como principales amenazas: el _____ (muy alto riesgo), la _____ (alto riesgo), la extorsión y secuestro (alto riesgo) y el robo de _____ o 'huachicol' (alto riesgo emergente).",
-          "espacios": ["Riesgos", "narcotráfico", "corrupción", "hidrocarburos"]
+          "espacios": [
+            "Riesgos",
+            "narcotráfico",
+            "corrupción",
+            "hidrocarburos"
+          ]
         },
         {
           "id": 10,
           "texto": "La evaluación _____ de riesgos analiza todo el negocio de la entidad (macro). La asignación del grado de riesgo a _____ individuales (micro) aplica los criterios de esa evaluación a cada relación comercial concreta. En grupos financieros siempre prevalece el estándar más _____.",
-          "espacios": ["institucional", "clientes", "estricto"]
+          "espacios": [
+            "institucional",
+            "clientes",
+            "estricto"
+          ]
         }
       ]
     },
     "solucion": {
       "respuestas_correctas": {
-        "1": ["reguladoras", "supervisoras", "detección", "combate"],
-        "2": ["CNBV", "SAT"],
-        "3": ["SHCP", "administrativo", "Egmont"],
-        "4": ["UIF", "FGR", "PJF"],
-        "5": ["reportes", "ordinaria", "especial"],
-        "6": ["tipologías", "UIF", "GAFI"],
-        "7": ["corrupción", "lavados", "Personas Políticamente Expuestas (PEPs)"],
-        "8": ["Extinción", "Dominio", "condena", "invierte"],
-        "9": ["Riesgos", "narcotráfico", "corrupción", "hidrocarburos"],
-        "10": ["institucional", "clientes", "estricto"]
+        "1": [
+          "reguladoras",
+          "supervisoras",
+          "detección",
+          "combate"
+        ],
+        "2": [
+          "CNBV",
+          "SAT"
+        ],
+        "3": [
+          "SHCP",
+          "administrativo",
+          "Egmont"
+        ],
+        "4": [
+          "UIF",
+          "FGR",
+          "PJF"
+        ],
+        "5": [
+          "reportes",
+          "ordinaria",
+          "especial"
+        ],
+        "6": [
+          "tipologías",
+          "UIF",
+          "GAFI"
+        ],
+        "7": [
+          "corrupción",
+          "lavados",
+          "Personas Políticamente Expuestas (PEPs)"
+        ],
+        "8": [
+          "Extinción",
+          "Dominio",
+          "condena",
+          "invierte"
+        ],
+        "9": [
+          "Riesgos",
+          "narcotráfico",
+          "corrupción",
+          "hidrocarburos"
+        ],
+        "10": [
+          "institucional",
+          "clientes",
+          "estricto"
+        ]
       }
     },
     "dificultad": "facil",
@@ -296,24 +456,72 @@
     "instrucciones": "Relaciona cada tipología de LD/FT con la señal de alerta o característica que mejor la describe.",
     "contenido": {
       "columna_tipologias": [
-        {"id": "A", "tipologia": "Empresa fachada con giro de alto efectivo"},
-        {"id": "B", "tipologia": "Estructuración por múltiples depositantes"},
-        {"id": "C", "tipologia": "Triangulación con paraíso fiscal"},
-        {"id": "D", "tipologia": "Cuenta de tránsito o pass-through"},
-        {"id": "E", "tipologia": "Sub-facturación en comercio exterior"},
-        {"id": "F", "tipologia": "Financiamiento al terrorismo vía ONG"},
-        {"id": "G", "tipologia": "Uso de testaferros en bienes raíces"},
-        {"id": "H", "tipologia": "Uso de remesas para estratificación"}
+        {
+          "id": "A",
+          "tipologia": "Empresa fachada con giro de alto efectivo"
+        },
+        {
+          "id": "B",
+          "tipologia": "Estructuración por múltiples depositantes"
+        },
+        {
+          "id": "C",
+          "tipologia": "Triangulación con paraíso fiscal"
+        },
+        {
+          "id": "D",
+          "tipologia": "Cuenta de tránsito o pass-through"
+        },
+        {
+          "id": "E",
+          "tipologia": "Sub-facturación en comercio exterior"
+        },
+        {
+          "id": "F",
+          "tipologia": "Financiamiento al terrorismo vía ONG"
+        },
+        {
+          "id": "G",
+          "tipologia": "Uso de testaferros en bienes raíces"
+        },
+        {
+          "id": "H",
+          "tipologia": "Uso de remesas para estratificación"
+        }
       ],
       "columna_caracteristicas": [
-        {"id": "1", "caracteristica": "ONG registrada legalmente en México que transfiere mensualmente fondos a una organización en el extranjero sin actividades verificables en ese país. Los donantes son personas con ingresos lícitos."},
-        {"id": "2", "caracteristica": "Empresa de estacionamiento que declara ingresos de $3 millones mensuales en una zona residencial donde la capacidad física no justifica ese volumen."},
-        {"id": "3", "caracteristica": "Recursos que viajan desde México a una empresa en las Islas Caimán y regresan como 'inversión extranjera' sin respaldo de actividad comercial real."},
-        {"id": "4", "caracteristica": "Persona física sin ingresos aparentes figura como comprador de un inmueble de $8 millones, mientras la escritura no muestra financiamiento bancario."},
-        {"id": "5", "caracteristica": "Múltiples personas distintas realizan depósitos en efectivo de $9,000-9,800 pesos en la misma cuenta en el mismo día."},
-        {"id": "6", "caracteristica": "Empresa de importación factura bienes a un precio 35% inferior al precio de mercado internacional documentado."},
-        {"id": "7", "caracteristica": "Cuenta bancaria que recibe 20 transferencias de distintos orígenes en 3 días y transfiere el saldo completo al extranjero sin retención."},
-        {"id": "8", "caracteristica": "Emisión de múltiples remesas de $4,000-5,000 pesos desde distintos estados hacia el mismo beneficiario en dos semanas, acumulando $120,000 pesos."}
+        {
+          "id": "1",
+          "caracteristica": "ONG registrada legalmente en México que transfiere mensualmente fondos a una organización en el extranjero sin actividades verificables en ese país. Los donantes son personas con ingresos lícitos."
+        },
+        {
+          "id": "2",
+          "caracteristica": "Empresa de estacionamiento que declara ingresos de $3 millones mensuales en una zona residencial donde la capacidad física no justifica ese volumen."
+        },
+        {
+          "id": "3",
+          "caracteristica": "Recursos que viajan desde México a una empresa en las Islas Caimán y regresan como 'inversión extranjera' sin respaldo de actividad comercial real."
+        },
+        {
+          "id": "4",
+          "caracteristica": "Persona física sin ingresos aparentes figura como comprador de un inmueble de $8 millones, mientras la escritura no muestra financiamiento bancario."
+        },
+        {
+          "id": "5",
+          "caracteristica": "Múltiples personas distintas realizan depósitos en efectivo de $9,000-9,800 pesos en la misma cuenta en el mismo día."
+        },
+        {
+          "id": "6",
+          "caracteristica": "Empresa de importación factura bienes a un precio 35% inferior al precio de mercado internacional documentado."
+        },
+        {
+          "id": "7",
+          "caracteristica": "Cuenta bancaria que recibe 20 transferencias de distintos orígenes en 3 días y transfiere el saldo completo al extranjero sin retención."
+        },
+        {
+          "id": "8",
+          "caracteristica": "Emisión de múltiples remesas de $4,000-5,000 pesos desde distintos estados hacia el mismo beneficiario en dos semanas, acumulando $120,000 pesos."
+        }
       ]
     },
     "solucion": {
@@ -332,5 +540,131 @@
     },
     "dificultad": "medio",
     "tiempo_estimado": 10
+  },
+  {
+    "bloque": 4,
+    "tema": "Sujetos Obligados, Instituciones Financieras y Actividades Vulnerables",
+    "tipo": "sopa_letras",
+    "titulo": "Sopa de letras: Sujetos obligados y entidades financieras",
+    "instrucciones": "Encuentra los 15 términos sobre sujetos obligados, instituciones del sistema financiero mexicano y entidades supervisadas por la CNBV.",
+    "contenido": {
+      "cuadricula": [
+        "F E D A D I R O T U A P R K B S R",
+        "N M T H L O A A A F N U V N I H O",
+        "Y O K T A U D S A O R I S L T C A",
+        "J B I U R S O C E M S C L E N R O",
+        "A F P S J A T B S G O S L A O L U",
+        "I E I R I O N U O N U A B D L A P",
+        "R P A S R V A S T B E R A A R G K",
+        "A T I A C F R R M N H D A O I C A",
+        "I N J E M A O E T I N T D D I E L",
+        "C E L T G L L I P E S A I G O I R",
+        "U O L I A D D I R U N O V O O R R",
+        "D E O D T A D R Z E S E R S I E A",
+        "I U O M D A A S C A R E S A U J L",
+        "F R K Z O S S A E I C S O F I P O",
+        "A M S S U F M R E O L I R S L R U",
+        "L C A S E L O S U I I U O H U M T",
+        "R I T S A R I S S B R S O N O N L"
+      ],
+      "palabras_ocultas": [
+        "FISCALIZACION",
+        "ALMACENADORA",
+        "CONTROLADORA",
+        "ASEGURADORA",
+        "ARRENDADORA",
+        "TRANSMISORA",
+        "SUPERVISION",
+        "FIDUCIARIA",
+        "AUTORIDAD",
+        "FACTORAJE",
+        "BURSATIL",
+        "ENTIDAD",
+        "SOFIPO",
+        "SOFOM",
+        "BANCO"
+      ]
+    },
+    "solucion": {
+      "ubicaciones": {
+        "FISCALIZACION": {
+          "fila": 5,
+          "columna": 2,
+          "direccion": "diagonal-dr"
+        },
+        "ALMACENADORA": {
+          "fila": 17,
+          "columna": 5,
+          "direccion": "diagonal-ur"
+        },
+        "CONTROLADORA": {
+          "fila": 4,
+          "columna": 12,
+          "direccion": "diagonal-dl"
+        },
+        "ASEGURADORA": {
+          "fila": 2,
+          "columna": 7,
+          "direccion": "diagonal-dr"
+        },
+        "ARRENDADORA": {
+          "fila": 13,
+          "columna": 7,
+          "direccion": "diagonal-ur"
+        },
+        "TRANSMISORA": {
+          "fila": 3,
+          "columna": 4,
+          "direccion": "diagonal-dr"
+        },
+        "SUPERVISION": {
+          "fila": 12,
+          "columna": 11,
+          "direccion": "diagonal-ul"
+        },
+        "FIDUCIARIA": {
+          "fila": 14,
+          "columna": 1,
+          "direccion": "vertical-inv"
+        },
+        "AUTORIDAD": {
+          "fila": 1,
+          "columna": 11,
+          "direccion": "horizontal-inv"
+        },
+        "FACTORAJE": {
+          "fila": 2,
+          "columna": 10,
+          "direccion": "diagonal-dl"
+        },
+        "BURSATIL": {
+          "fila": 17,
+          "columna": 10,
+          "direccion": "diagonal-ul"
+        },
+        "ENTIDAD": {
+          "fila": 7,
+          "columna": 11,
+          "direccion": "diagonal-dl"
+        },
+        "SOFIPO": {
+          "fila": 14,
+          "columna": 12,
+          "direccion": "horizontal"
+        },
+        "SOFOM": {
+          "fila": 17,
+          "columna": 8,
+          "direccion": "diagonal-ul"
+        },
+        "BANCO": {
+          "fila": 6,
+          "columna": 13,
+          "direccion": "diagonal-ur"
+        }
+      }
+    },
+    "dificultad": "medio",
+    "tiempo_estimado": 12
   }
 ]

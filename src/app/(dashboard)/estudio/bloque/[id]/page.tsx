@@ -2499,10 +2499,24 @@ function SopaLetrasExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 
   const foundWords = Object.keys(foundCells);
 
+  // Human-readable direction labels in Spanish
+  const dirLabel: Record<string, string> = {
+    "horizontal":     "→ horizontal",
+    "horizontal-inv": "← horizontal (invertida)",
+    "vertical":       "↓ vertical",
+    "vertical-inv":   "↑ vertical (invertida)",
+    "diagonal":       "↘ diagonal",
+    "diagonal-dr":    "↘ diagonal",
+    "diagonal-dl":    "↙ diagonal",
+    "diagonal-ur":    "↗ diagonal",
+    "diagonal-ul":    "↖ diagonal",
+  };
+
   const hints: string[] = palabrasOcultas.map((word) => {
     const loc = ubicaciones[word];
     if (!loc) return `Busca: "${word}"`;
-    return `"${word}" → fila ${loc.fila}, columna ${loc.columna} (${loc.direccion})`;
+    const dir = dirLabel[loc.direccion] ?? loc.direccion;
+    return `"${word}" — fila ${loc.fila}, columna ${loc.columna} (${dir})`;
   });
 
   // Compute cells along a straight line (H, V, or diagonal)
@@ -2569,6 +2583,19 @@ function SopaLetrasExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
     setDragEnd(null);
   };
 
+  // Direction → [dr, dc] deltas — supports all 8 directions
+  const dirDelta: Record<string, [number, number]> = {
+    "horizontal":     [ 0,  1],
+    "horizontal-inv": [ 0, -1],
+    "vertical":       [ 1,  0],
+    "vertical-inv":   [-1,  0],
+    "diagonal":       [ 1,  1],  // legacy alias for diagonal-dr
+    "diagonal-dr":    [ 1,  1],
+    "diagonal-dl":    [ 1, -1],
+    "diagonal-ur":    [-1,  1],
+    "diagonal-ul":    [-1, -1],
+  };
+
   // After submission: reveal unfound word cells (amber)
   const revealedCells: Record<string, string> = {}; // cellKey → word
   if (submitted) {
@@ -2576,9 +2603,10 @@ function SopaLetrasExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
       if (foundCells[word]) continue;
       const loc = ubicaciones[word];
       if (!loc) continue;
+      const [dr, dc] = dirDelta[loc.direccion] ?? [0, 1];
       for (let i = 0; i < word.length; i++) {
-        const r = loc.fila - 1 + (loc.direccion === "vertical" ? i : loc.direccion === "diagonal" ? i : 0);
-        const c = loc.columna - 1 + (loc.direccion === "horizontal" ? i : loc.direccion === "diagonal" ? i : 0);
+        const r = loc.fila   - 1 + dr * i;
+        const c = loc.columna - 1 + dc * i;
         revealedCells[`${r},${c}`] = word;
       }
     }
