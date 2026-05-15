@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -9,6 +9,7 @@ import {
   ArrowLeft, BookOpen, Scale, Map, Brain, Lightbulb, Gamepad2,
   GraduationCap, CheckCircle2, XCircle, ChevronDown, ChevronUp,
   Clock, Trophy, Zap, RotateCcw, ArrowRight, Target, FileText, ChevronRight,
+  Eye,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -1556,46 +1557,108 @@ interface ExerciseWrapperProps {
   onScore: (score: number) => void;
 }
 
+// Shared: hint display
+function HintsDisplay({ hints, shown }: { hints: string[]; shown: number }) {
+  if (shown === 0) return null;
+  return (
+    <div className="space-y-2">
+      {hints.slice(0, shown).map((hint, i) => (
+        <div key={i} className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+          <Lightbulb className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+          <p className="text-xs text-amber-800">{hint}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Shared: hint + reveal buttons row
+function ExerciseActions({
+  hints, hintsShown, onHint, onSubmit, submitLabel, submitDisabled, submitted,
+  localScore, revealed, onReveal,
+}: {
+  hints: string[]; hintsShown: number; onHint: () => void;
+  onSubmit?: () => void; submitLabel?: string; submitDisabled?: boolean;
+  submitted: boolean; localScore: number | null; revealed: boolean; onReveal: () => void;
+}) {
+  return (
+    <div className="space-y-2">
+      <div className="flex gap-2">
+        {hintsShown < hints.length && (
+          <Button
+            type="button" variant="outline" size="sm"
+            onClick={onHint}
+            className="shrink-0 border-amber-300 text-amber-700 hover:bg-amber-50 text-xs"
+          >
+            <Lightbulb className="h-3.5 w-3.5 mr-1" /> Dame una Pista
+          </Button>
+        )}
+        {!submitted && onSubmit && (
+          <Button onClick={onSubmit} disabled={submitDisabled}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold">
+            {submitLabel ?? "Verificar"}
+          </Button>
+        )}
+      </div>
+      {submitted && localScore !== null && localScore < 100 && !revealed && (
+        <Button variant="outline" onClick={onReveal}
+          className="w-full border-red-300 text-red-700 hover:bg-red-50 font-bold text-sm">
+          <Eye className="h-4 w-4 mr-2" /> Revelar Respuesta
+        </Button>
+      )}
+    </div>
+  );
+}
+
 // — Verdadero o Falso —
 function VerdaderoFalsoExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const afirmaciones = (ejercicio.contenido.afirmaciones ?? []) as {
-    numero: number;
-    texto: string;
-    respuesta_correcta: boolean;
+    numero: number; texto: string; respuesta_correcta: boolean;
   }[];
 
   const [answers, setAnswers] = useState<Record<number, boolean | null>>(
     Object.fromEntries(afirmaciones.map((a) => [a.numero, null]))
   );
   const [submitted, setSubmitted] = useState(false);
+  const [localScore, setLocalScore] = useState<number | null>(null);
+  const [hintsShown, setHintsShown] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+
+  const normaAplicable = ejercicio.solucion.norma_aplicable as string | undefined;
+  const explicacion = ejercicio.solucion.explicacion as string | undefined;
+  const vCount = afirmaciones.filter((a) => a.respuesta_correcta).length;
+  const hints: string[] = [
+    normaAplicable ? `Norma aplicable: ${normaAplicable}` : null,
+    `De estas ${afirmaciones.length} afirmaciones, ${vCount} son VERDADERAS y ${afirmaciones.length - vCount} son FALSAS.`,
+    explicacion ? `Contexto: ${explicacion.slice(0, 150)}` : null,
+  ].filter(Boolean) as string[];
 
   const allAnswered = Object.values(answers).every((v) => v !== null);
 
   const handleSubmit = () => {
     if (!allAnswered) return;
-    setSubmitted(true);
     const correct = afirmaciones.filter((a) => answers[a.numero] === a.respuesta_correcta).length;
-    onScore(Math.round((correct / afirmaciones.length) * 100));
+    const s = Math.round((correct / afirmaciones.length) * 100);
+    setLocalScore(s);
+    setSubmitted(true);
+    onScore(s);
   };
 
   return (
     <div className="space-y-3">
       <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+      <HintsDisplay hints={hints} shown={hintsShown} />
       {afirmaciones.map((aff) => {
         const chosen = answers[aff.numero];
         const isCorrect = submitted && chosen === aff.respuesta_correcta;
         const isWrong = submitted && chosen !== null && chosen !== aff.respuesta_correcta;
-
         return (
-          <div
-            key={aff.numero}
-            className={cn(
-              "flex items-start gap-3 p-3 rounded-xl border-2 transition-colors",
-              submitted
-                ? isCorrect ? "border-emerald-300 bg-emerald-50" : isWrong ? "border-red-300 bg-red-50" : "border-slate-200 bg-slate-50"
-                : "border-slate-200 bg-white"
-            )}
-          >
+          <div key={aff.numero} className={cn(
+            "flex items-start gap-3 p-3 rounded-xl border-2 transition-colors",
+            submitted
+              ? isCorrect ? "border-emerald-300 bg-emerald-50" : isWrong ? "border-red-300 bg-red-50" : "border-slate-200 bg-slate-50"
+              : "border-slate-200 bg-white"
+          )}>
             <span className="shrink-0 w-5 h-5 rounded-full bg-slate-700 text-white text-xs font-black flex items-center justify-center mt-0.5">
               {aff.numero}
             </span>
@@ -1607,9 +1670,7 @@ function VerdaderoFalsoExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
                 const showGreen = submitted && val === aff.respuesta_correcta;
                 const showRed = submitted && isSelected && val !== aff.respuesta_correcta;
                 return (
-                  <button
-                    key={label}
-                    disabled={submitted}
+                  <button key={label} disabled={submitted}
                     onClick={() => setAnswers((prev) => ({ ...prev, [aff.numero]: val }))}
                     className={cn(
                       "w-8 h-8 rounded-lg text-sm font-black transition-all border-2",
@@ -1618,27 +1679,37 @@ function VerdaderoFalsoExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
                       isSelected ? "bg-blue-600 text-white border-blue-700" :
                       "bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200 hover:border-slate-300"
                     )}
-                  >
-                    {label}
-                  </button>
+                  >{label}</button>
                 );
               })}
+              {submitted && (
+                <span className="w-6 flex items-center justify-center">
+                  {isCorrect ? <CheckCircle2 className="h-5 w-5 text-emerald-500" /> : isWrong ? <XCircle className="h-5 w-5 text-red-500" /> : null}
+                </span>
+              )}
             </div>
           </div>
         );
       })}
-      {!submitted && (
-        <Button
-          onClick={handleSubmit}
-          disabled={!allAnswered}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
-        >
-          Verificar Respuestas
-        </Button>
+      {revealed && (
+        <div className="bg-slate-900 rounded-xl p-4 space-y-2">
+          <p className="text-xs font-black text-slate-300 uppercase tracking-wider mb-1">Respuestas Correctas</p>
+          {afirmaciones.map((a) => (
+            <div key={a.numero} className="flex items-center gap-2 text-sm">
+              <span className={cn("shrink-0 font-black px-2 py-0.5 rounded text-xs",
+                a.respuesta_correcta ? "bg-emerald-500 text-white" : "bg-red-500 text-white"
+              )}>{a.respuesta_correcta ? "V" : "F"}</span>
+              <span className="text-slate-300 text-xs">{a.texto.slice(0, 80)}{a.texto.length > 80 ? "…" : ""}</span>
+            </div>
+          ))}
+        </div>
       )}
-      {submitted && (
-        <SolucionPanel solucion={ejercicio.solucion} />
-      )}
+      <ExerciseActions
+        hints={hints} hintsShown={hintsShown} onHint={() => setHintsShown(h => h + 1)}
+        onSubmit={handleSubmit} submitLabel="Verificar Respuestas" submitDisabled={!allAnswered}
+        submitted={submitted} localScore={localScore} revealed={revealed} onReveal={() => setRevealed(true)}
+      />
+      {submitted && <SolucionPanel solucion={ejercicio.solucion} />}
     </div>
   );
 }
@@ -1646,9 +1717,7 @@ function VerdaderoFalsoExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 // — Completar —
 function CompletarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const oraciones = (ejercicio.contenido.oraciones ?? []) as {
-    id: number;
-    texto: string;
-    espacios: string[];
+    id: number; texto: string; espacios: string[];
   }[];
 
   const [answers, setAnswers] = useState<Record<number, string[]>>(
@@ -1656,10 +1725,17 @@ function CompletarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   );
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState<Record<number, boolean[]>>({});
+  const [localScore, setLocalScore] = useState<number | null>(null);
+  const [hintsShown, setHintsShown] = useState(0);
+  const [revealed, setRevealed] = useState(false);
 
   const totalBlanks = oraciones.reduce((acc, o) => acc + o.espacios.length, 0);
   const allFilled = oraciones.every((o) =>
     (answers[o.id] ?? []).every((a) => a.trim() !== "")
+  );
+
+  const hints: string[] = oraciones.map((o) =>
+    `Oración ${o.id}: las respuestas empiezan con "${o.espacios.map((e) => e[0]).join('", "')}"`
   );
 
   const handleInput = (sentenceId: number, blankIdx: number, value: string) => {
@@ -1684,38 +1760,32 @@ function CompletarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
       resultMap[oracion.id] = booleans;
     }
     setResults(resultMap);
+    const s = Math.round((correct / totalBlanks) * 100);
+    setLocalScore(s);
     setSubmitted(true);
-    onScore(Math.round((correct / totalBlanks) * 100));
+    onScore(s);
   };
 
   return (
     <div className="space-y-4">
       <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+      <HintsDisplay hints={hints} shown={hintsShown} />
       {oraciones.map((oracion) => {
         const parts = oracion.texto.split("_____");
         const userAnswers = answers[oracion.id] ?? [];
         const booleans = results[oracion.id] ?? [];
-
         return (
-          <div
-            key={oracion.id}
-            className="p-4 rounded-xl border-2 border-slate-200 bg-white space-y-2"
-          >
+          <div key={oracion.id} className="p-4 rounded-xl border-2 border-slate-200 bg-white space-y-2">
             <p className="text-sm text-slate-800 leading-loose font-medium">
               {parts.map((part, i) => (
                 <span key={i}>
                   {part}
                   {i < oracion.espacios.length && (
-                    <input
-                      disabled={submitted}
-                      value={userAnswers[i] ?? ""}
+                    <input disabled={submitted} value={userAnswers[i] ?? ""}
                       onChange={(e) => handleInput(oracion.id, i, e.target.value)}
                       className={cn(
                         "inline-block border-b-2 bg-transparent text-center text-sm font-bold outline-none mx-1 px-1 min-w-[70px] max-w-[150px]",
-                        submitted
-                          ? booleans[i]
-                            ? "border-emerald-400 text-emerald-700"
-                            : "border-red-400 text-red-700"
+                        submitted ? booleans[i] ? "border-emerald-400 text-emerald-700" : "border-red-400 text-red-700"
                           : "border-blue-400 text-blue-800 focus:border-blue-600"
                       )}
                       placeholder="___"
@@ -1727,28 +1797,31 @@ function CompletarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
             {submitted && (
               <div className="flex flex-wrap gap-2 mt-2">
                 {oracion.espacios.map((esp, i) => (
-                  <span
-                    key={i}
-                    className={cn(
-                      "text-xs font-bold px-2 py-0.5 rounded border",
-                      booleans[i]
-                        ? "bg-emerald-100 border-emerald-300 text-emerald-700"
-                        : "bg-red-50 border-red-300 text-red-700"
-                    )}
-                  >
-                    {i + 1}. {esp}
-                  </span>
+                  <span key={i} className={cn(
+                    "text-xs font-bold px-2 py-0.5 rounded border",
+                    booleans[i] ? "bg-emerald-100 border-emerald-300 text-emerald-700" : "bg-red-50 border-red-300 text-red-700"
+                  )}>{i + 1}. {esp}</span>
                 ))}
               </div>
             )}
           </div>
         );
       })}
-      {!submitted && (
-        <Button onClick={handleSubmit} disabled={!allFilled} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold">
-          Verificar Respuestas
-        </Button>
+      {revealed && (
+        <div className="bg-slate-900 rounded-xl p-4 space-y-2">
+          <p className="text-xs font-black text-slate-300 uppercase tracking-wider mb-1">Todas las respuestas</p>
+          {oraciones.map((o) => (
+            <div key={o.id} className="text-xs text-slate-300">
+              <span className="font-bold text-slate-100">Oración {o.id}:</span>{" "}{o.espacios.join(" · ")}
+            </div>
+          ))}
+        </div>
       )}
+      <ExerciseActions
+        hints={hints} hintsShown={hintsShown} onHint={() => setHintsShown(h => h + 1)}
+        onSubmit={handleSubmit} submitLabel="Verificar Respuestas" submitDisabled={!allFilled}
+        submitted={submitted} localScore={localScore} revealed={revealed} onReveal={() => setRevealed(true)}
+      />
       {submitted && <SolucionPanel solucion={ejercicio.solucion} />}
     </div>
   );
@@ -1763,6 +1836,16 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const [selectedA, setSelectedA] = useState<string | null>(null);
   const [matches, setMatches] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [localScore, setLocalScore] = useState<number | null>(null);
+  const [hintsShown, setHintsShown] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+
+  // Hints: reveal one correct pair per hint click
+  const hints: string[] = columnaA.map((a) => {
+    const defId = respuestasCorrectas[a.id];
+    const def = columnaB.find((b) => b.id === defId);
+    return `"${a.concepto}" → "${(def?.definicion ?? "").slice(0, 60)}…"`;
+  });
 
   const handleSelectA = (id: string) => {
     if (submitted) return;
@@ -1777,21 +1860,23 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 
   const handleSubmit = () => {
     if (Object.keys(matches).length < columnaA.length) return;
-    setSubmitted(true);
     const correct = columnaA.filter((a) => matches[a.id] === respuestasCorrectas[a.id]).length;
-    onScore(Math.round((correct / columnaA.length) * 100));
+    const s = Math.round((correct / columnaA.length) * 100);
+    setLocalScore(s);
+    setSubmitted(true);
+    onScore(s);
   };
 
   return (
     <div className="space-y-4">
       <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+      <HintsDisplay hints={hints} shown={hintsShown} />
       {selectedA !== null && (
         <div className="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 rounded-lg px-3 py-2">
           ✦ Seleccionaste: <span className="text-blue-800">{columnaA.find((a) => a.id === selectedA)?.concepto}</span> — ahora haz clic en la definición correcta
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {/* Column A */}
         <div className="space-y-2">
           <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Conceptos</p>
           {columnaA.map((item) => {
@@ -1799,12 +1884,8 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
             const isSelected = selectedA === item.id;
             const isCorrect = submitted && respuestasCorrectas[item.id] === matchedB;
             const isWrong   = submitted && !!matchedB && respuestasCorrectas[item.id] !== matchedB;
-
             return (
-              <button
-                key={item.id}
-                onClick={() => handleSelectA(item.id)}
-                disabled={submitted}
+              <button key={item.id} onClick={() => handleSelectA(item.id)} disabled={submitted}
                 className={cn(
                   "w-full text-left px-3 py-2.5 rounded-xl border-2 text-sm font-semibold transition-all",
                   isCorrect ? "border-emerald-400 bg-emerald-50 text-emerald-800" :
@@ -1816,9 +1897,7 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
               >
                 <span className="flex items-center justify-between gap-2">
                   {item.concepto}
-                  {matchedB && !submitted && (
-                    <span className="text-[10px] font-black text-slate-500 shrink-0">vinculado</span>
-                  )}
+                  {matchedB && !submitted && <span className="text-[10px] font-black text-slate-500 shrink-0">vinculado</span>}
                   {isCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />}
                   {isWrong   && <XCircle className="h-4 w-4 text-red-500 shrink-0" />}
                 </span>
@@ -1826,24 +1905,16 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
             );
           })}
         </div>
-
-        {/* Column B */}
         <div className="space-y-2">
           <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Definiciones</p>
           {columnaB.map((item) => {
             const isLinked = Object.values(matches).includes(item.id);
             const canClick = selectedA !== null && !submitted;
-            const correctConceptId = Object.keys(respuestasCorrectas).find(
-              (cId) => respuestasCorrectas[cId] === item.id
-            );
+            const correctConceptId = Object.keys(respuestasCorrectas).find((cId) => respuestasCorrectas[cId] === item.id);
             const isMatchedCorrectly = submitted && correctConceptId !== undefined && matches[correctConceptId] === item.id;
             const isMatchedWrong     = submitted && isLinked && !isMatchedCorrectly;
-
             return (
-              <button
-                key={item.id}
-                onClick={() => handleSelectB(item.id)}
-                disabled={!canClick}
+              <button key={item.id} onClick={() => handleSelectB(item.id)} disabled={!canClick}
                 className={cn(
                   "w-full text-left px-3 py-2.5 rounded-xl border-2 text-sm transition-all",
                   isMatchedCorrectly ? "border-emerald-400 bg-emerald-50 text-emerald-800" :
@@ -1852,23 +1923,11 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
                   canClick           ? "border-dashed border-blue-400 bg-blue-50 text-slate-800 hover:bg-blue-100 cursor-pointer" :
                   "border-slate-200 bg-slate-50 text-slate-600"
                 )}
-              >
-                {item.definicion}
-              </button>
+              >{item.definicion}</button>
             );
           })}
         </div>
       </div>
-
-      {!submitted && (
-        <Button
-          onClick={handleSubmit}
-          disabled={Object.keys(matches).length < columnaA.length}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
-        >
-          Verificar Relaciones
-        </Button>
-      )}
       {submitted && (
         <div className="space-y-2">
           <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Relaciones correctas:</p>
@@ -1887,6 +1946,12 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
           <SolucionPanel solucion={ejercicio.solucion} />
         </div>
       )}
+      <ExerciseActions
+        hints={hints} hintsShown={hintsShown} onHint={() => setHintsShown(h => h + 1)}
+        onSubmit={handleSubmit} submitLabel="Verificar Relaciones"
+        submitDisabled={Object.keys(matches).length < columnaA.length}
+        submitted={submitted} localScore={localScore} revealed={revealed} onReveal={() => setRevealed(true)}
+      />
     </div>
   );
 }
@@ -1896,118 +1961,273 @@ function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const palabras = (ejercicio.contenido.palabras ?? []) as {
     numero: number;
     direccion: "horizontal" | "vertical";
+    inicio: { fila: number; columna: number };
+    longitud: number;
     pista: string;
     respuesta: string;
-    longitud: number;
   }[];
+  const gridInfo = (ejercicio.contenido.cuadricula ?? { filas: 15, columnas: 15 }) as { filas: number; columnas: number };
 
   const makeKey = (p: { numero: number; direccion: string }) =>
     `${p.numero}${p.direccion[0].toUpperCase()}`;
 
-  const [answers, setAnswers] = useState<Record<string, string>>(
+  // Build cell map: cellKey → info about which words pass through it
+  type CellInfo = { active: boolean; number?: number; hWord?: string; hIdx?: number; vWord?: string; vIdx?: number };
+  const cellMap: Record<string, CellInfo> = {};
+  for (const p of palabras) {
+    const key = makeKey(p);
+    const len = p.respuesta.replace(/\s/g, "").length;
+    for (let i = 0; i < len; i++) {
+      const r = p.inicio.fila - 1 + (p.direccion === "vertical" ? i : 0);
+      const c = p.inicio.columna - 1 + (p.direccion === "horizontal" ? i : 0);
+      const ck = `${r},${c}`;
+      if (!cellMap[ck]) cellMap[ck] = { active: true };
+      if (i === 0 && !cellMap[ck].number) cellMap[ck].number = p.numero;
+      if (p.direccion === "horizontal") { cellMap[ck].hWord = key; cellMap[ck].hIdx = i; }
+      else { cellMap[ck].vWord = key; cellMap[ck].vIdx = i; }
+    }
+  }
+
+  const [wordAnswers, setWordAnswers] = useState<Record<string, string>>(
     Object.fromEntries(palabras.map((p) => [makeKey(p), ""]))
   );
+  const [selectedWordKey, setSelectedWordKey] = useState<string | null>(null);
+  const [cursorInWord, setCursorInWord] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState<Record<string, boolean>>({});
+  const [localScore, setLocalScore] = useState<number | null>(null);
+  const [hintsShown, setHintsShown] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
 
-  const horizontales = palabras.filter((p) => p.direccion === "horizontal");
-  const verticales   = palabras.filter((p) => p.direccion === "vertical");
-  const allFilled = palabras.every((p) => answers[makeKey(p)]?.trim());
+  const hints: string[] = palabras.map(
+    (p) => `${p.numero}-${p.direccion === "horizontal" ? "Horizontal" : "Vertical"} (${p.respuesta.length} letras): primera letra es "${p.respuesta[0]}"`
+  );
+
+  const allFilled = palabras.every((p) => (wordAnswers[makeKey(p)] ?? "").replace(/\s/g, "").length > 0);
+
+  const handleCellClick = (ri: number, ci: number) => {
+    if (submitted) return;
+    const info = cellMap[`${ri},${ci}`];
+    if (!info?.active) return;
+    if (info.hWord && info.vWord) {
+      const next = selectedWordKey === info.hWord ? info.vWord : info.hWord;
+      setSelectedWordKey(next);
+      const p = palabras.find((pw) => makeKey(pw) === next)!;
+      const idx = p.direccion === "horizontal" ? ci - (p.inicio.columna - 1) : ri - (p.inicio.fila - 1);
+      setCursorInWord(Math.max(0, idx));
+    } else {
+      const wKey = info.hWord ?? info.vWord ?? null;
+      setSelectedWordKey(wKey);
+      if (wKey) {
+        const p = palabras.find((pw) => makeKey(pw) === wKey)!;
+        const idx = p.direccion === "horizontal" ? ci - (p.inicio.columna - 1) : ri - (p.inicio.fila - 1);
+        setCursorInWord(Math.max(0, idx));
+      }
+    }
+    hiddenInputRef.current?.focus();
+  };
+
+  const handleClueClick = (key: string) => {
+    if (submitted) return;
+    setSelectedWordKey(key);
+    setCursorInWord(0);
+    hiddenInputRef.current?.focus();
+  };
+
+  const getCellLetter = (ri: number, ci: number): string => {
+    const info = cellMap[`${ri},${ci}`];
+    if (!info?.active) return "";
+    if (info.hWord !== undefined && info.hIdx !== undefined) {
+      const l = (wordAnswers[info.hWord] ?? "")[info.hIdx];
+      if (l && l.trim()) return l;
+    }
+    if (info.vWord !== undefined && info.vIdx !== undefined) {
+      const l = (wordAnswers[info.vWord] ?? "")[info.vIdx];
+      if (l && l.trim()) return l;
+    }
+    return "";
+  };
+
+  const isCellInSelected = (ri: number, ci: number): boolean => {
+    if (!selectedWordKey) return false;
+    const info = cellMap[`${ri},${ci}`];
+    return info?.hWord === selectedWordKey || info?.vWord === selectedWordKey;
+  };
+
+  const isCursorCell = (ri: number, ci: number): boolean => {
+    if (!selectedWordKey || submitted) return false;
+    const p = palabras.find((pw) => makeKey(pw) === selectedWordKey);
+    if (!p) return false;
+    const tr = p.inicio.fila - 1 + (p.direccion === "vertical" ? cursorInWord : 0);
+    const tc = p.inicio.columna - 1 + (p.direccion === "horizontal" ? cursorInWord : 0);
+    return tr === ri && tc === ci;
+  };
 
   const handleSubmit = () => {
     const res: Record<string, boolean> = {};
     let correct = 0;
     for (const p of palabras) {
       const key = makeKey(p);
-      const isOk =
-        (answers[key] ?? "").trim().toUpperCase().replace(/\s+/g, "") ===
+      const isOk = (wordAnswers[key] ?? "").trim().toUpperCase().replace(/\s+/g, "") ===
         p.respuesta.toUpperCase().replace(/\s+/g, "");
       res[key] = isOk;
       if (isOk) correct++;
     }
     setResults(res);
+    const s = Math.round((correct / palabras.length) * 100);
+    setLocalScore(s);
     setSubmitted(true);
-    onScore(Math.round((correct / palabras.length) * 100));
+    setSelectedWordKey(null);
+    onScore(s);
   };
 
+  const horizontales = palabras.filter((p) => p.direccion === "horizontal");
+  const verticales   = palabras.filter((p) => p.direccion === "vertical");
+
   const renderClueList = (list: typeof palabras) => (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {list.map((p) => {
         const key = makeKey(p);
+        const isActive  = selectedWordKey === key;
         const isCorrect = submitted && results[key];
-        const isWrong   = submitted && !results[key];
+        const isWrong   = submitted && results[key] === false;
         return (
-          <div
-            key={key}
+          <button key={key} onClick={() => handleClueClick(key)} disabled={submitted}
             className={cn(
-              "flex items-start gap-3 p-3 rounded-xl border-2 transition-colors",
+              "w-full text-left flex items-start gap-2 p-2.5 rounded-xl border-2 transition-colors",
               isCorrect ? "border-emerald-300 bg-emerald-50" :
               isWrong   ? "border-red-300 bg-red-50" :
-              "border-slate-200 bg-white"
+              isActive  ? "border-blue-400 bg-blue-50" :
+              "border-slate-200 bg-white hover:border-blue-200 hover:bg-blue-50"
             )}
           >
             <span className={cn(
-              "shrink-0 h-7 w-7 rounded-lg flex items-center justify-center text-xs font-black",
+              "shrink-0 h-6 w-6 rounded-lg flex items-center justify-center text-xs font-black",
               isCorrect ? "bg-emerald-500 text-white" :
               isWrong   ? "bg-red-500 text-white" :
+              isActive  ? "bg-blue-600 text-white" :
               "bg-slate-200 text-slate-700"
-            )}>
-              {p.numero}
-            </span>
+            )}>{p.numero}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-slate-500 leading-snug mb-1">{p.pista}</p>
-              <div className="flex items-center gap-2">
-                <input
-                  disabled={submitted}
-                  value={answers[key] ?? ""}
-                  onChange={(e) =>
-                    setAnswers((prev) => ({ ...prev, [key]: e.target.value.toUpperCase() }))
-                  }
-                  maxLength={(p.longitud ?? 20) + 5}
-                  className={cn(
-                    "flex-1 border-b-2 bg-transparent text-sm font-bold uppercase outline-none px-1 py-0.5 transition-colors",
-                    isCorrect ? "border-emerald-400 text-emerald-700" :
-                    isWrong   ? "border-red-400 text-red-700" :
-                    "border-blue-400 text-blue-800 focus:border-blue-600"
-                  )}
-                  placeholder={p.longitud ? `${p.longitud} letras` : "Escribe aquí"}
-                />
-                {isCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />}
-                {isWrong && (
-                  <span className="text-xs font-bold text-red-600 shrink-0">{p.respuesta}</span>
-                )}
-              </div>
+              <p className="text-xs text-slate-500 leading-snug">{p.pista}</p>
+              {isWrong && revealed && (
+                <p className="text-xs font-bold text-red-600 mt-0.5">✓ {p.respuesta}</p>
+              )}
             </div>
-          </div>
+            {isCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />}
+          </button>
         );
       })}
     </div>
   );
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
-      {horizontales.length > 0 && (
-        <div>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-3">→ Horizontales</p>
-          {renderClueList(horizontales)}
+      <HintsDisplay hints={hints} shown={hintsShown} />
+
+      {/* Hidden keyboard capture */}
+      <input ref={hiddenInputRef} className="opacity-0 absolute w-0 h-0 pointer-events-none" readOnly aria-hidden
+        onKeyDown={(e) => {
+          if (!selectedWordKey || submitted) return;
+          const p = palabras.find((pw) => makeKey(pw) === selectedWordKey);
+          if (!p) return;
+          const len = p.respuesta.replace(/\s/g, "").length;
+          if (e.key === "Backspace") {
+            e.preventDefault();
+            const cur = (wordAnswers[selectedWordKey] ?? "").padEnd(len, " ");
+            const pos = Math.max(0, cursorInWord > 0 ? cursorInWord - 1 : 0);
+            const updated = cur.slice(0, pos) + " " + cur.slice(pos + 1);
+            setWordAnswers((prev) => ({ ...prev, [selectedWordKey]: updated }));
+            setCursorInWord(pos);
+          } else if (e.key.length === 1 && /[a-zA-ZáéíóúüñÁÉÍÓÚÜÑ]/.test(e.key)) {
+            e.preventDefault();
+            const letter = e.key.toUpperCase();
+            const cur = (wordAnswers[selectedWordKey] ?? "").padEnd(len, " ");
+            const updated = cur.slice(0, cursorInWord) + letter + cur.slice(cursorInWord + 1);
+            setWordAnswers((prev) => ({ ...prev, [selectedWordKey]: updated }));
+            if (cursorInWord < len - 1) setCursorInWord((c) => c + 1);
+          } else if (e.key === "Tab") {
+            e.preventDefault();
+            const keys = palabras.map(makeKey);
+            const idx = keys.indexOf(selectedWordKey);
+            const next = keys[(idx + 1) % keys.length];
+            setSelectedWordKey(next);
+            setCursorInWord(0);
+          }
+        }}
+      />
+
+      <div className="flex flex-col lg:flex-row gap-4">
+        {/* Visual crossword grid */}
+        <div className="flex-shrink-0">
+          <p className="text-xs font-black text-slate-400 uppercase tracking-wider mb-2 text-center">
+            {selectedWordKey ? `Escribiendo: ${selectedWordKey}` : "Clic en celda o pista para escribir"}
+          </p>
+          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-100 p-2">
+            <table className="border-collapse mx-auto">
+              <tbody>
+                {Array.from({ length: gridInfo.filas }, (_, ri) => (
+                  <tr key={ri}>
+                    {Array.from({ length: gridInfo.columnas }, (_, ci) => {
+                      const info = cellMap[`${ri},${ci}`];
+                      if (!info?.active) {
+                        return <td key={ci} className="w-7 h-7 bg-slate-800 border border-slate-700" />;
+                      }
+                      const letter = getCellLetter(ri, ci);
+                      const inSel  = isCellInSelected(ri, ci);
+                      const isCurs = isCursorCell(ri, ci);
+                      const wKey   = info.hWord || info.vWord;
+                      const isGreen = submitted && wKey && results[wKey] === true;
+                      const isRed   = submitted && wKey && results[wKey] === false;
+                      return (
+                        <td key={ci} onClick={() => handleCellClick(ri, ci)}
+                          className={cn(
+                            "w-7 h-7 border text-center text-xs font-black relative cursor-pointer select-none transition-colors",
+                            isGreen ? "bg-emerald-100 border-emerald-400 text-emerald-800" :
+                            isRed   ? "bg-red-100 border-red-400 text-red-800" :
+                            isCurs  ? "bg-blue-500 border-blue-600 text-white" :
+                            inSel   ? "bg-blue-100 border-blue-300 text-blue-800" :
+                            "bg-white border-slate-300 text-slate-800 hover:bg-blue-50"
+                          )}
+                        >
+                          {info.number && !letter && (
+                            <span className="absolute top-0 left-0.5 text-[7px] font-black text-slate-500 leading-none">{info.number}</span>
+                          )}
+                          <span>{letter}</span>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      )}
-      {verticales.length > 0 && (
-        <div>
-          <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-3">↓ Verticales</p>
-          {renderClueList(verticales)}
+
+        {/* Clue lists */}
+        <div className="flex-1 space-y-4 min-w-0 max-h-96 overflow-y-auto pr-1">
+          {horizontales.length > 0 && (
+            <div>
+              <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-2">→ Horizontales</p>
+              {renderClueList(horizontales)}
+            </div>
+          )}
+          {verticales.length > 0 && (
+            <div>
+              <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-2">↓ Verticales</p>
+              {renderClueList(verticales)}
+            </div>
+          )}
         </div>
-      )}
-      {!submitted && (
-        <Button
-          onClick={handleSubmit}
-          disabled={!allFilled}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
-        >
-          Verificar Crucigrama
-        </Button>
-      )}
+      </div>
+
+      <ExerciseActions
+        hints={hints} hintsShown={hintsShown} onHint={() => setHintsShown(h => h + 1)}
+        onSubmit={handleSubmit} submitLabel="Verificar Crucigrama" submitDisabled={!allFilled}
+        submitted={submitted} localScore={localScore} revealed={revealed} onReveal={() => setRevealed(true)}
+      />
       {submitted && <SolucionPanel solucion={ejercicio.solucion} />}
     </div>
   );
@@ -2018,211 +2238,355 @@ function SopaLetrasExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const cuadricula = (ejercicio.contenido.cuadricula ?? []) as string[];
   const palabrasOcultas = (ejercicio.contenido.palabras_ocultas ?? []) as string[];
   const ubicaciones = (ejercicio.solucion.ubicaciones ?? {}) as Record<
-    string,
-    { fila: number; columna: number; direccion: string }
+    string, { fila: number; columna: number; direccion: string }
   >;
 
   const grid = cuadricula.map((row) => row.split(" ").filter(Boolean));
 
-  const [found, setFound] = useState<Set<string>>(new Set());
-  const [submitted, setSubmitted] = useState(false);
+  // Drag state: use refs for handler accuracy, state for visual
+  const isDraggingRef = useRef(false);
+  const dragStartRef  = useRef<{ r: number; c: number } | null>(null);
+  const dragEndRef    = useRef<{ r: number; c: number } | null>(null);
+  const [dragStart, setDragStart] = useState<{ r: number; c: number } | null>(null);
+  const [dragEnd,   setDragEnd]   = useState<{ r: number; c: number } | null>(null);
 
-  const toggleWord = (word: string) => {
-    if (submitted) return;
-    setFound((prev) => {
-      const next = new Set(prev);
-      if (next.has(word)) next.delete(word);
-      else next.add(word);
-      return next;
-    });
-  };
+  // Found words: word → cell keys array
+  const [foundCells, setFoundCells] = useState<Record<string, string[]>>({});
+  const [submitted, setSubmitted]   = useState(false);
+  const [localScore, setLocalScore] = useState<number | null>(null);
+  const [hintsShown, setHintsShown] = useState(0);
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    onScore(Math.round((found.size / Math.max(palabrasOcultas.length, 1)) * 100));
-  };
+  const foundWords = Object.keys(foundCells);
 
-  // Compute highlighted cells for each found/revealed word
-  const getWordCells = (word: string): Set<string> => {
+  const hints: string[] = palabrasOcultas.map((word) => {
     const loc = ubicaciones[word];
-    if (!loc) return new Set();
-    const cells = new Set<string>();
-    const len = word.replace(/\s/g, "").length;
-    for (let i = 0; i < len; i++) {
-      let r = loc.fila - 1;
-      let c = loc.columna - 1;
-      if (loc.direccion === "horizontal") c += i;
-      else if (loc.direccion === "vertical") r += i;
-      else if (loc.direccion === "diagonal") { r += i; c += i; }
-      cells.add(`${r},${c}`);
-    }
+    if (!loc) return `Busca: "${word}"`;
+    return `"${word}" → fila ${loc.fila}, columna ${loc.columna} (${loc.direccion})`;
+  });
+
+  // Compute cells along a straight line (H, V, or diagonal)
+  const getLineCells = (s: { r: number; c: number }, e: { r: number; c: number }) => {
+    const dr = e.r - s.r, dc = e.c - s.c;
+    const adr = Math.abs(dr), adc = Math.abs(dc);
+    if (dr !== 0 && dc !== 0 && adr !== adc) return [];
+    const sr = dr === 0 ? 0 : dr > 0 ? 1 : -1;
+    const sc = dc === 0 ? 0 : dc > 0 ? 1 : -1;
+    const steps = Math.max(adr, adc);
+    const cells: { r: number; c: number }[] = [];
+    for (let i = 0; i <= steps; i++) cells.push({ r: s.r + sr * i, c: s.c + sc * i });
     return cells;
   };
 
-  const allHighlighted = submitted
-    ? new Set(
-        palabrasOcultas.flatMap((w) => Array.from(getWordCells(w)))
-      )
-    : new Set<string>();
+  // Current drag selection cells (for visual highlight while dragging)
+  const selectionCells: Set<string> = (() => {
+    if (!dragStart || !dragEnd) return new Set();
+    return new Set(getLineCells(dragStart, dragEnd).map(({ r, c }) => `${r},${c}`));
+  })();
+
+  const checkAndMarkWord = (cells: { r: number; c: number }[]) => {
+    if (cells.length < 2) return;
+    const letters = cells.map(({ r, c }) => grid[r]?.[c] ?? "").join("");
+    const lettersRev = [...letters].reverse().join("");
+    for (const word of palabrasOcultas) {
+      if (foundCells[word]) continue; // already found
+      if (word === letters || word === lettersRev) {
+        const usedCells = word === lettersRev ? [...cells].reverse() : cells;
+        setFoundCells((prev) => ({
+          ...prev,
+          [word]: usedCells.map(({ r, c }) => `${r},${c}`),
+        }));
+        return;
+      }
+    }
+  };
+
+  const handleCellMouseDown = (r: number, c: number) => {
+    if (submitted) return;
+    isDraggingRef.current = true;
+    dragStartRef.current = { r, c };
+    dragEndRef.current   = { r, c };
+    setDragStart({ r, c });
+    setDragEnd({ r, c });
+  };
+
+  const handleCellMouseEnter = (r: number, c: number) => {
+    if (!isDraggingRef.current || submitted) return;
+    dragEndRef.current = { r, c };
+    setDragEnd({ r, c });
+  };
+
+  const handleMouseUp = () => {
+    if (!isDraggingRef.current) return;
+    isDraggingRef.current = false;
+    if (dragStartRef.current && dragEndRef.current) {
+      const cells = getLineCells(dragStartRef.current, dragEndRef.current);
+      checkAndMarkWord(cells);
+    }
+    dragStartRef.current = null;
+    dragEndRef.current   = null;
+    setDragStart(null);
+    setDragEnd(null);
+  };
+
+  // After submission: reveal unfound word cells (amber)
+  const revealedCells: Record<string, string> = {}; // cellKey → word
+  if (submitted) {
+    for (const word of palabrasOcultas) {
+      if (foundCells[word]) continue;
+      const loc = ubicaciones[word];
+      if (!loc) continue;
+      for (let i = 0; i < word.length; i++) {
+        const r = loc.fila - 1 + (loc.direccion === "vertical" ? i : loc.direccion === "diagonal" ? i : 0);
+        const c = loc.columna - 1 + (loc.direccion === "horizontal" ? i : loc.direccion === "diagonal" ? i : 0);
+        revealedCells[`${r},${c}`] = word;
+      }
+    }
+  }
+
+  // All found cells map: cellKey → color class
+  const allFoundCellKeys = new Set(Object.values(foundCells).flat());
+
+  const handleSubmit = () => {
+    const s = Math.round((foundWords.length / Math.max(palabrasOcultas.length, 1)) * 100);
+    setLocalScore(s);
+    setSubmitted(true);
+    onScore(s);
+  };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
       <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+      <HintsDisplay hints={hints} shown={hintsShown} />
 
-      {/* Grid */}
-      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-3">
-        <table className="border-collapse mx-auto">
-          <tbody>
-            {grid.map((row, ri) => (
-              <tr key={ri}>
-                {row.map((letter, ci) => {
-                  const cellKey = `${ri},${ci}`;
-                  const isHighlighted = submitted && allHighlighted.has(cellKey);
-                  return (
-                    <td
-                      key={ci}
-                      className={cn(
-                        "w-7 h-7 text-center text-xs font-black border border-slate-200 select-none",
-                        isHighlighted
-                          ? "bg-emerald-200 text-emerald-800 border-emerald-300"
-                          : "text-slate-700"
-                      )}
-                    >
-                      {letter}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Word list */}
-      <div>
-        <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-2">
-          Palabras a encontrar — haz clic cuando la localices en la sopa
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {palabrasOcultas.map((word) => {
-            const isFound = found.has(word);
-            return (
-              <button
-                key={word}
-                onClick={() => toggleWord(word)}
-                disabled={submitted}
-                className={cn(
-                  "px-3 py-1.5 rounded-lg text-sm font-bold border-2 transition-all",
-                  submitted
-                    ? isFound
-                      ? "bg-emerald-100 border-emerald-400 text-emerald-800 line-through"
-                      : "bg-red-50 border-red-300 text-red-600"
-                    : isFound
-                      ? "bg-emerald-100 border-emerald-400 text-emerald-800 line-through"
-                      : "bg-white border-slate-300 text-slate-700 hover:border-blue-400 hover:bg-blue-50"
-                )}
-              >
-                {word}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {!submitted && (
-        <Button
-          onClick={handleSubmit}
-          disabled={found.size === 0}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
-        >
-          Finalizar Búsqueda ({found.size}/{palabrasOcultas.length} encontradas)
-        </Button>
-      )}
-      {submitted && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-1">
-          <p className="text-xs font-black text-amber-700 uppercase tracking-wider">Resultado</p>
-          <p className="text-sm text-slate-800">
-            Encontraste <strong>{found.size}</strong> de <strong>{palabrasOcultas.length}</strong> palabras.
-            Las celdas resaltadas en verde muestran la ubicación de todas las palabras.
+      <div className="flex flex-col lg:flex-row gap-4 items-start">
+        {/* Interactive grid */}
+        <div className="flex-shrink-0">
+          <p className="text-xs font-black text-slate-400 uppercase tracking-wider mb-2 text-center">
+            Arrastra el mouse para marcar palabras
           </p>
+          <div className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-2">
+            <table className="border-collapse mx-auto select-none">
+              <tbody>
+                {grid.map((row, ri) => (
+                  <tr key={ri}>
+                    {row.map((letter, ci) => {
+                      const ck = `${ri},${ci}`;
+                      const isFound     = allFoundCellKeys.has(ck);
+                      const isRevealed  = submitted && ck in revealedCells && !isFound;
+                      const isSelecting = selectionCells.has(ck);
+                      return (
+                        <td key={ci}
+                          onMouseDown={() => handleCellMouseDown(ri, ci)}
+                          onMouseEnter={() => handleCellMouseEnter(ri, ci)}
+                          className={cn(
+                            "w-7 h-7 text-center text-xs font-black border border-slate-200 cursor-crosshair transition-colors",
+                            isFound      ? "bg-emerald-200 text-emerald-900 border-emerald-400" :
+                            isRevealed   ? "bg-amber-200 text-amber-900 border-amber-400" :
+                            isSelecting  ? "bg-blue-200 text-blue-900 border-blue-400" :
+                            "text-slate-700 hover:bg-slate-100"
+                          )}
+                        >{letter}</td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      )}
+
+        {/* Word list */}
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-2">
+            Palabras ({foundWords.length}/{palabrasOcultas.length} encontradas)
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {palabrasOcultas.map((word) => {
+              const isFound  = !!foundCells[word];
+              const isMissed = submitted && !isFound;
+              return (
+                <span key={word} className={cn(
+                  "px-3 py-1.5 rounded-lg text-sm font-bold border-2 transition-all",
+                  isFound  ? "bg-emerald-100 border-emerald-400 text-emerald-800 line-through" :
+                  isMissed ? "bg-amber-50 border-amber-300 text-amber-700" :
+                  "bg-white border-slate-300 text-slate-700"
+                )}>{word}</span>
+              );
+            })}
+          </div>
+          {submitted && (
+            <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3">
+              <p className="text-xs text-amber-800">
+                Encontraste <strong>{foundWords.length}</strong> de <strong>{palabrasOcultas.length}</strong> palabras.
+                {foundWords.length < palabrasOcultas.length && " Las palabras en naranja no fueron encontradas — sus celdas aparecen resaltadas en el tablero."}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <ExerciseActions
+        hints={hints} hintsShown={hintsShown} onHint={() => setHintsShown(h => h + 1)}
+        onSubmit={handleSubmit} submitLabel={`Finalizar (${foundWords.length}/${palabrasOcultas.length})`}
+        submitDisabled={foundWords.length === 0}
+        submitted={submitted} localScore={localScore} revealed={false} onReveal={() => {}}
+      />
     </div>
   );
 }
 
 // — Caso Práctico —
 function CasoPracticoExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
-  const caso    = (ejercicio.contenido.caso    as string) ?? "";
-  const pregunta = (ejercicio.contenido.pregunta as string) ?? "";
-  const opciones = (ejercicio.contenido.opciones ?? []) as {
-    letra: string;
-    texto: string;
-    es_correcta?: boolean;
+  const descripcionCaso = (ejercicio.contenido.descripcion_caso as string) ?? "";
+  const preguntas = (ejercicio.contenido.preguntas ?? []) as {
+    numero: number; pregunta: string; respuesta_guia: string;
   }[];
-  const respuestaCorrecta = (ejercicio.solucion.respuesta_correcta as string) ?? "";
+  const criterios = (ejercicio.solucion.criterios ?? []) as {
+    pregunta: number; puntos: number; criterio: string;
+  }[];
 
-  const [chosen, setChosen] = useState<string | null>(null);
+  const [answers, setAnswers] = useState<Record<number, string>>(
+    Object.fromEntries(preguntas.map((p) => [p.numero, ""]))
+  );
   const [submitted, setSubmitted] = useState(false);
+  const [selfRating, setSelfRating] = useState<Record<number, "correct" | "partial" | "wrong">>({});
+  const [hintsShown, setHintsShown] = useState(0);
+  const [scored, setScored] = useState(false);
+
+  const totalPuntos = criterios.reduce((s, c) => s + c.puntos, 0) || preguntas.length;
+  const allAnswered = preguntas.every((p) => (answers[p.numero] ?? "").trim().length > 5);
+  const allRated = submitted && Object.keys(selfRating).length === preguntas.length;
+
+  const hints: string[] = preguntas.map((p) => {
+    const words = p.respuesta_guia.split(" ").slice(0, 8).join(" ");
+    return `Pregunta ${p.numero}: concepto clave — "${words}…"`;
+  });
 
   const handleSubmit = () => {
-    if (!chosen) return;
+    if (!allAnswered) return;
     setSubmitted(true);
-    onScore(chosen === respuestaCorrecta ? 100 : 0);
+  };
+
+  const handleSelfRate = (num: number, rating: "correct" | "partial" | "wrong") => {
+    const next = { ...selfRating, [num]: rating };
+    setSelfRating(next);
+    if (Object.keys(next).length === preguntas.length && !scored) {
+      setScored(true);
+      let pts = 0;
+      preguntas.forEach((p) => {
+        const c = criterios.find((cr) => cr.pregunta === p.numero);
+        const w = c?.puntos ?? 1;
+        if (next[p.numero] === "correct") pts += w;
+        else if (next[p.numero] === "partial") pts += w * 0.5;
+      });
+      onScore(Math.round((pts / totalPuntos) * 100));
+    }
   };
 
   return (
     <div className="space-y-4">
-      {/* Case */}
-      {caso && (
+      <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+      <HintsDisplay hints={hints} shown={hintsShown} />
+
+      {/* Case description */}
+      {descripcionCaso && (
         <div className="rounded-xl border-l-4 border-blue-500 bg-blue-50 p-4">
-          <p className="text-xs font-black text-blue-700 uppercase tracking-wider mb-1">Caso Práctico</p>
-          <p className="text-sm text-slate-800 leading-relaxed">{caso}</p>
+          <p className="text-xs font-black text-blue-700 uppercase tracking-wider mb-2">Caso Práctico</p>
+          <p className="text-sm text-slate-800 leading-relaxed">{descripcionCaso}</p>
         </div>
       )}
-      {/* Question */}
-      <p className="text-sm font-bold text-slate-900">{pregunta}</p>
-      {/* Options */}
-      <div className="space-y-2">
-        {opciones.map((op) => {
-          const isChosen  = chosen === op.letra;
-          const showGreen = submitted && op.letra === respuestaCorrecta;
-          const showRed   = submitted && isChosen && op.letra !== respuestaCorrecta;
 
+      {/* Questions */}
+      <div className="space-y-4">
+        {preguntas.map((p) => {
+          const rated = selfRating[p.numero];
+          const criterio = criterios.find((c) => c.pregunta === p.numero);
           return (
-            <button
-              key={op.letra}
-              disabled={submitted}
-              onClick={() => setChosen(op.letra)}
-              className={cn(
-                "w-full text-left flex items-start gap-3 px-4 py-3 rounded-xl border-2 text-sm font-medium transition-all",
-                showGreen ? "border-emerald-400 bg-emerald-50 text-emerald-800" :
-                showRed   ? "border-red-400 bg-red-50 text-red-800" :
-                isChosen  ? "border-blue-500 bg-blue-50 text-blue-800 shadow-sm" :
-                "border-slate-200 bg-white text-slate-800 hover:border-blue-300 hover:bg-blue-50"
+            <div key={p.numero} className={cn(
+              "rounded-xl border-2 p-4 space-y-3 transition-colors",
+              submitted
+                ? rated === "correct" ? "border-emerald-300 bg-emerald-50"
+                : rated === "partial" ? "border-yellow-300 bg-yellow-50"
+                : rated === "wrong"   ? "border-red-300 bg-red-50"
+                : "border-blue-200 bg-blue-50"
+                : "border-slate-200 bg-white"
+            )}>
+              <div className="flex items-start gap-2">
+                <span className="shrink-0 w-6 h-6 rounded-lg bg-blue-600 text-white text-xs font-black flex items-center justify-center">{p.numero}</span>
+                <p className="text-sm font-bold text-slate-900 leading-relaxed">{p.pregunta}</p>
+              </div>
+              <textarea disabled={submitted} value={answers[p.numero] ?? ""}
+                onChange={(e) => setAnswers((prev) => ({ ...prev, [p.numero]: e.target.value }))}
+                placeholder="Escribe tu respuesta aquí..."
+                rows={3}
+                className={cn(
+                  "w-full text-sm text-slate-800 rounded-lg border-2 p-3 resize-none outline-none transition-colors",
+                  submitted ? "bg-slate-50 border-slate-200" : "border-blue-200 focus:border-blue-500 bg-white"
+                )}
+              />
+              {criterio && (
+                <p className="text-xs text-slate-500 italic">
+                  Criterio ({criterio.puntos} pt{criterio.puntos !== 1 ? "s" : ""}): {criterio.criterio}
+                </p>
               )}
-            >
-              <span className={cn(
-                "shrink-0 font-black h-6 w-6 rounded-lg flex items-center justify-center text-xs",
-                showGreen ? "bg-emerald-500 text-white" :
-                showRed   ? "bg-red-500 text-white" :
-                isChosen  ? "bg-blue-600 text-white" :
-                "bg-slate-200 text-slate-700"
-              )}>
-                {op.letra}
-              </span>
-              {op.texto}
-            </button>
+              {submitted && (
+                <div className="rounded-lg bg-white border border-blue-200 p-3 space-y-2">
+                  <p className="text-xs font-black text-blue-700 uppercase tracking-wider">Respuesta Guía</p>
+                  <p className="text-sm text-slate-700 leading-relaxed">{p.respuesta_guia}</p>
+                  {!rated && (
+                    <div className="space-y-1 pt-1 border-t border-slate-100">
+                      <p className="text-xs font-bold text-slate-600">¿Cómo estuvo tu respuesta?</p>
+                      <div className="flex gap-2">
+                        {(["correct","partial","wrong"] as const).map((r) => (
+                          <button key={r} onClick={() => handleSelfRate(p.numero, r)}
+                            className={cn(
+                              "flex-1 px-2 py-1.5 rounded-lg text-xs font-bold border-2 transition-all",
+                              r === "correct" ? "border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100" :
+                              r === "partial"  ? "border-yellow-300 bg-yellow-50 text-yellow-700 hover:bg-yellow-100" :
+                              "border-red-300 bg-red-50 text-red-700 hover:bg-red-100"
+                            )}
+                          >
+                            {r === "correct" ? "✓ Correcta" : r === "partial" ? "~ Parcial" : "✗ Incorrecta"}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {rated && (
+                    <p className={cn("text-xs font-bold pt-1",
+                      rated === "correct" ? "text-emerald-600" : rated === "partial" ? "text-yellow-600" : "text-red-600"
+                    )}>
+                      {rated === "correct" ? "✓ Marcada como correcta" : rated === "partial" ? "~ Marcada como parcial" : "✗ Marcada como incorrecta"}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
           );
         })}
       </div>
 
       {!submitted && (
-        <Button onClick={handleSubmit} disabled={!chosen} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold">
-          Confirmar Respuesta
+        <div className="flex gap-2">
+          {hintsShown < hints.length && (
+            <Button type="button" variant="outline" size="sm" onClick={() => setHintsShown(h => h + 1)}
+              className="shrink-0 border-amber-300 text-amber-700 hover:bg-amber-50 text-xs">
+              <Lightbulb className="h-3.5 w-3.5 mr-1" /> Dame una Pista
+            </Button>
+          )}
+          <Button onClick={handleSubmit} disabled={!allAnswered}
+            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold">
+            Ver Respuestas Guía
+          </Button>
+        </div>
+      )}
+      {submitted && hintsShown < hints.length && (
+        <Button type="button" variant="outline" size="sm" onClick={() => setHintsShown(h => h + 1)}
+          className="border-amber-300 text-amber-700 hover:bg-amber-50 text-xs">
+          <Lightbulb className="h-3.5 w-3.5 mr-1" /> Dame una Pista
         </Button>
       )}
-      {submitted && <SolucionPanel solucion={ejercicio.solucion} />}
+      {allRated && <SolucionPanel solucion={ejercicio.solucion} />}
     </div>
   );
 }
