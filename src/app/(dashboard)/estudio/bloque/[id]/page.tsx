@@ -1829,9 +1829,46 @@ function CompletarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 
 // — Relacionar —
 function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
-  const columnaA = (ejercicio.contenido.columna_conceptos ?? []) as { id: string; concepto: string }[];
-  const columnaB = (ejercicio.contenido.columna_definiciones ?? []) as { id: string; definicion: string }[];
-  const respuestasCorrectas = (ejercicio.solucion.respuestas_correctas ?? {}) as Record<string, string>;
+  // Generic: extract first two non-empty arrays from contenido.
+  // Handles any column naming: columna_conceptos/definiciones, columna_organismos/descripciones,
+  // columna_autoridades/funciones, columna_senales/tipologias, columna_instrumentos/contribuciones,
+  // elementos/columnas (classification style), afirmaciones/columnas, etapas_desordenadas/descripciones, etc.
+  const contenidoArrays = (Object.values(ejercicio.contenido) as unknown[]).filter(
+    (v): v is unknown[] => Array.isArray(v) && (v as unknown[]).length > 0
+  );
+  const columnaARaw = (contenidoArrays[0] ?? []) as unknown[];
+  const columnaBRaw = (contenidoArrays[1] ?? []) as unknown[];
+
+  // Extract display text from an item — handles both object items and plain strings
+  const getItemText = (item: unknown): string => {
+    if (typeof item === "string") return item;
+    if (typeof item !== "object" || item === null) return String(item ?? "");
+    const obj = item as Record<string, unknown>;
+    for (const [k, v] of Object.entries(obj)) {
+      if (k !== "id" && typeof v === "string") return v;
+    }
+    return String(obj.id ?? "");
+  };
+
+  const columnaA = columnaARaw.map((item, i) => {
+    const obj = (typeof item === "object" && item !== null) ? item as Record<string, unknown> : {};
+    return { id: String(obj.id ?? i), text: getItemText(item) };
+  });
+  const columnaB = columnaBRaw.map((item, i) => {
+    const obj = (typeof item === "object" && item !== null) ? item as Record<string, unknown> : {};
+    // For string-array columns (classification), generate letter IDs: A, B, C...
+    const id = typeof item === "string"
+      ? String.fromCharCode(65 + i)
+      : String(obj.id ?? i);
+    return { id, text: getItemText(item) };
+  });
+  // Support multiple solucion key names for different exercise variants
+  const respuestasCorrectas = (
+    ejercicio.solucion.respuestas_correctas ??
+    ejercicio.solucion.relacion_etapa_descripcion ??
+    ejercicio.solucion.clasificacion_correcta ??
+    {}
+  ) as Record<string, string>;
 
   const [selectedA, setSelectedA] = useState<string | null>(null);
   const [matches, setMatches] = useState<Record<string, string>>({});
@@ -1844,7 +1881,7 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const hints: string[] = columnaA.map((a) => {
     const defId = respuestasCorrectas[a.id];
     const def = columnaB.find((b) => b.id === defId);
-    return `"${a.concepto}" → "${(def?.definicion ?? "").slice(0, 60)}…"`;
+    return `"${a.text.slice(0, 35)}" → "${(def?.text ?? "").slice(0, 60)}…"`;
   });
 
   const handleSelectA = (id: string) => {
@@ -1867,18 +1904,22 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
     onScore(s);
   };
 
+  if (columnaA.length === 0) {
+    return <p className="text-sm text-slate-500 italic p-4">No hay datos de relación disponibles para este ejercicio.</p>;
+  }
+
   return (
     <div className="space-y-4">
       <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
       <HintsDisplay hints={hints} shown={hintsShown} />
       {selectedA !== null && (
         <div className="text-xs font-bold text-blue-600 bg-blue-50 border border-blue-200 rounded-lg px-3 py-2">
-          ✦ Seleccionaste: <span className="text-blue-800">{columnaA.find((a) => a.id === selectedA)?.concepto}</span> — ahora haz clic en la definición correcta
+          ✦ Seleccionaste: <span className="text-blue-800">{columnaA.find((a) => a.id === selectedA)?.text}</span> — ahora haz clic en la opción correcta de la derecha
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <div className="space-y-2">
-          <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Conceptos</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Columna A</p>
           {columnaA.map((item) => {
             const matchedB = matches[item.id];
             const isSelected = selectedA === item.id;
@@ -1896,7 +1937,10 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
                 )}
               >
                 <span className="flex items-center justify-between gap-2">
-                  {item.concepto}
+                  <span className="flex items-center gap-2 min-w-0">
+                    <span className="shrink-0 w-6 h-6 rounded-lg bg-slate-200 text-slate-700 text-xs font-black flex items-center justify-center">{item.id}</span>
+                    <span className="truncate">{item.text}</span>
+                  </span>
                   {matchedB && !submitted && <span className="text-[10px] font-black text-slate-500 shrink-0">vinculado</span>}
                   {isCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />}
                   {isWrong   && <XCircle className="h-4 w-4 text-red-500 shrink-0" />}
@@ -1906,7 +1950,7 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
           })}
         </div>
         <div className="space-y-2">
-          <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Definiciones</p>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Columna B</p>
           {columnaB.map((item) => {
             const isLinked = Object.values(matches).includes(item.id);
             const canClick = selectedA !== null && !submitted;
@@ -1923,7 +1967,12 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
                   canClick           ? "border-dashed border-blue-400 bg-blue-50 text-slate-800 hover:bg-blue-100 cursor-pointer" :
                   "border-slate-200 bg-slate-50 text-slate-600"
                 )}
-              >{item.definicion}</button>
+              >
+                <span className="flex items-center gap-2">
+                  <span className="shrink-0 w-6 h-6 rounded-lg bg-slate-100 text-slate-500 text-xs font-black flex items-center justify-center">{item.id}</span>
+                  {item.text}
+                </span>
+              </button>
             );
           })}
         </div>
@@ -1935,15 +1984,32 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
             const defId = respuestasCorrectas[concept.id];
             const def   = columnaB.find((b) => b.id === defId);
             return (
-              <div key={concept.id} className="flex items-center gap-2 text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                <span className="font-bold">{concept.concepto}</span>
-                <ArrowRight className="h-3 w-3 text-emerald-500 shrink-0" />
-                <span>{def?.definicion}</span>
+              <div key={concept.id} className="flex items-start gap-2 text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+                <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                <span className="font-bold shrink-0">{concept.id}. {concept.text.slice(0, 50)}</span>
+                <ArrowRight className="h-3 w-3 text-emerald-500 shrink-0 mt-1" />
+                <span className="text-emerald-700">{def?.text}</span>
               </div>
             );
           })}
           <SolucionPanel solucion={ejercicio.solucion} />
+        </div>
+      )}
+      {revealed && !submitted && (
+        <div className="bg-slate-900 rounded-xl p-4 space-y-2">
+          <p className="text-xs font-black text-slate-300 uppercase tracking-wider mb-1">Respuestas Correctas</p>
+          {columnaA.map((a) => {
+            const defId = respuestasCorrectas[a.id];
+            const def = columnaB.find((b) => b.id === defId);
+            return (
+              <div key={a.id} className="text-xs text-slate-300 flex items-start gap-2">
+                <span className="font-bold text-slate-100 shrink-0">{a.id}.</span>
+                <span className="shrink-0">{a.text.slice(0, 30)}</span>
+                <ArrowRight className="h-3 w-3 text-slate-400 shrink-0 mt-0.5" />
+                <span>{def?.text.slice(0, 60)}</span>
+              </div>
+            );
+          })}
         </div>
       )}
       <ExerciseActions
@@ -1961,30 +2027,36 @@ function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const palabras = (ejercicio.contenido.palabras ?? []) as {
     numero: number;
     direccion: "horizontal" | "vertical";
-    inicio: { fila: number; columna: number };
-    longitud: number;
+    inicio?: { fila: number; columna: number };
+    longitud?: number;
     pista: string;
     respuesta: string;
   }[];
   const gridInfo = (ejercicio.contenido.cuadricula ?? { filas: 15, columnas: 15 }) as { filas: number; columnas: number };
 
+  // Detect whether position data is available (some bloques omit inicio entirely)
+  const hasPositions = palabras.length > 0 && palabras.some((p) => p.inicio != null);
+
   const makeKey = (p: { numero: number; direccion: string }) =>
     `${p.numero}${p.direccion[0].toUpperCase()}`;
 
-  // Build cell map: cellKey → info about which words pass through it
+  // Build cell map only when position data is available
   type CellInfo = { active: boolean; number?: number; hWord?: string; hIdx?: number; vWord?: string; vIdx?: number };
   const cellMap: Record<string, CellInfo> = {};
-  for (const p of palabras) {
-    const key = makeKey(p);
-    const len = p.respuesta.replace(/\s/g, "").length;
-    for (let i = 0; i < len; i++) {
-      const r = p.inicio.fila - 1 + (p.direccion === "vertical" ? i : 0);
-      const c = p.inicio.columna - 1 + (p.direccion === "horizontal" ? i : 0);
-      const ck = `${r},${c}`;
-      if (!cellMap[ck]) cellMap[ck] = { active: true };
-      if (i === 0 && !cellMap[ck].number) cellMap[ck].number = p.numero;
-      if (p.direccion === "horizontal") { cellMap[ck].hWord = key; cellMap[ck].hIdx = i; }
-      else { cellMap[ck].vWord = key; cellMap[ck].vIdx = i; }
+  if (hasPositions) {
+    for (const p of palabras) {
+      if (!p.inicio) continue; // skip words without position
+      const key = makeKey(p);
+      const len = p.respuesta.replace(/\s/g, "").length;
+      for (let i = 0; i < len; i++) {
+        const r: number = p.inicio.fila - 1 + (p.direccion === "vertical" ? i : 0);
+        const c: number = p.inicio.columna - 1 + (p.direccion === "horizontal" ? i : 0);
+        const ck = `${r},${c}`;
+        if (!cellMap[ck]) cellMap[ck] = { active: true };
+        if (i === 0 && !cellMap[ck].number) cellMap[ck].number = p.numero;
+        if (p.direccion === "horizontal") { cellMap[ck].hWord = key; cellMap[ck].hIdx = i; }
+        else { cellMap[ck].vWord = key; cellMap[ck].vIdx = i; }
+      }
     }
   }
 
@@ -2013,16 +2085,20 @@ function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
     if (info.hWord && info.vWord) {
       const next = selectedWordKey === info.hWord ? info.vWord : info.hWord;
       setSelectedWordKey(next);
-      const p = palabras.find((pw) => makeKey(pw) === next)!;
-      const idx = p.direccion === "horizontal" ? ci - (p.inicio.columna - 1) : ri - (p.inicio.fila - 1);
-      setCursorInWord(Math.max(0, idx));
+      const p = palabras.find((pw) => makeKey(pw) === next);
+      if (p?.inicio) {
+        const idx = p.direccion === "horizontal" ? ci - (p.inicio.columna - 1) : ri - (p.inicio.fila - 1);
+        setCursorInWord(Math.max(0, idx));
+      }
     } else {
       const wKey = info.hWord ?? info.vWord ?? null;
       setSelectedWordKey(wKey);
       if (wKey) {
-        const p = palabras.find((pw) => makeKey(pw) === wKey)!;
-        const idx = p.direccion === "horizontal" ? ci - (p.inicio.columna - 1) : ri - (p.inicio.fila - 1);
-        setCursorInWord(Math.max(0, idx));
+        const p = palabras.find((pw) => makeKey(pw) === wKey);
+        if (p?.inicio) {
+          const idx = p.direccion === "horizontal" ? ci - (p.inicio.columna - 1) : ri - (p.inicio.fila - 1);
+          setCursorInWord(Math.max(0, idx));
+        }
       }
     }
     hiddenInputRef.current?.focus();
@@ -2058,7 +2134,7 @@ function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const isCursorCell = (ri: number, ci: number): boolean => {
     if (!selectedWordKey || submitted) return false;
     const p = palabras.find((pw) => makeKey(pw) === selectedWordKey);
-    if (!p) return false;
+    if (!p || !p.inicio) return false;
     const tr = p.inicio.fila - 1 + (p.direccion === "vertical" ? cursorInWord : 0);
     const tc = p.inicio.columna - 1 + (p.direccion === "horizontal" ? cursorInWord : 0);
     return tr === ri && tc === ci;
@@ -2084,6 +2160,77 @@ function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 
   const horizontales = palabras.filter((p) => p.direccion === "horizontal");
   const verticales   = palabras.filter((p) => p.direccion === "vertical");
+
+  // —— No-positions mode: text inputs per clue (bloques 2-7 that lack inicio coordinates) ——
+  if (!hasPositions) {
+    const renderTextClues = (list: typeof palabras, label: string, icon: string) =>
+      list.length > 0 ? (
+        <div key={label}>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-2">{icon} {label}</p>
+          <div className="space-y-3">
+            {list.map((p) => {
+              const key = makeKey(p);
+              const isCorrect = submitted && results[key] === true;
+              const isWrong   = submitted && results[key] === false;
+              return (
+                <div key={key} className={cn(
+                  "rounded-xl border-2 p-3 space-y-2 transition-colors",
+                  isCorrect ? "border-emerald-300 bg-emerald-50" :
+                  isWrong   ? "border-red-300 bg-red-50" :
+                  "border-slate-200 bg-white"
+                )}>
+                  <div className="flex items-start gap-2">
+                    <span className={cn(
+                      "shrink-0 h-6 w-6 rounded-lg flex items-center justify-center text-xs font-black",
+                      isCorrect ? "bg-emerald-500 text-white" :
+                      isWrong   ? "bg-red-500 text-white" :
+                      "bg-slate-200 text-slate-700"
+                    )}>{p.numero}</span>
+                    <p className="text-xs text-slate-600 leading-relaxed flex-1">{p.pista}</p>
+                    {isCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />}
+                  </div>
+                  <div className="flex items-center gap-2 ml-8">
+                    <input
+                      type="text"
+                      disabled={submitted}
+                      value={wordAnswers[key] ?? ""}
+                      onChange={(e) => setWordAnswers((prev) => ({ ...prev, [key]: e.target.value.toUpperCase() }))}
+                      placeholder={`${p.respuesta.length} letras…`}
+                      className={cn(
+                        "flex-1 border-2 rounded-lg px-3 py-1.5 text-sm font-bold uppercase outline-none transition-colors",
+                        isCorrect ? "border-emerald-400 bg-emerald-50 text-emerald-700" :
+                        isWrong   ? "border-red-400 bg-red-50 text-red-700" :
+                        "border-slate-300 bg-slate-50 focus:border-blue-400 focus:bg-white"
+                      )}
+                    />
+                    {isWrong && revealed && (
+                      <span className="text-xs font-bold text-red-600 shrink-0">✓ {p.respuesta}</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : null;
+
+    return (
+      <div className="space-y-4">
+        <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+        <HintsDisplay hints={hints} shown={hintsShown} />
+        <div className="space-y-4">
+          {renderTextClues(horizontales, "Horizontales", "→")}
+          {renderTextClues(verticales, "Verticales", "↓")}
+        </div>
+        <ExerciseActions
+          hints={hints} hintsShown={hintsShown} onHint={() => setHintsShown(h => h + 1)}
+          onSubmit={handleSubmit} submitLabel="Verificar Crucigrama" submitDisabled={!allFilled}
+          submitted={submitted} localScore={localScore} revealed={revealed} onReveal={() => setRevealed(true)}
+        />
+        {submitted && <SolucionPanel solucion={ejercicio.solucion} />}
+      </div>
+    );
+  }
 
   const renderClueList = (list: typeof palabras) => (
     <div className="space-y-2">
@@ -2438,12 +2585,38 @@ function SopaLetrasExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 // — Caso Práctico —
 function CasoPracticoExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const descripcionCaso = (ejercicio.contenido.descripcion_caso as string) ?? "";
-  const preguntas = (ejercicio.contenido.preguntas ?? []) as {
-    numero: number; pregunta: string; respuesta_guia: string;
+
+  // Normalize questions: handles both preguntas[] and situaciones[] schemas
+  const rawPreguntas = (ejercicio.contenido.preguntas ?? []) as {
+    numero?: number; pregunta: string; respuesta_guia: string;
   }[];
-  const criterios = (ejercicio.solucion.criterios ?? []) as {
-    pregunta: number; puntos: number; criterio: string;
+  const rawSituaciones = (ejercicio.contenido.situaciones ?? []) as {
+    id: string; situacion: string;
   }[];
+  const rawRespuestasGuia = (ejercicio.contenido.respuestas_guia ?? []) as {
+    id: string; respuesta: string;
+  }[];
+
+  const preguntas: { numero: number; pregunta: string; respuesta_guia: string }[] =
+    rawPreguntas.length > 0
+      ? rawPreguntas.map((p, i) => ({
+          numero: p.numero ?? i + 1,
+          pregunta: p.pregunta,
+          respuesta_guia: p.respuesta_guia,
+        }))
+      : rawSituaciones.map((s, i) => ({
+          numero: i + 1,
+          pregunta: s.situacion,
+          respuesta_guia: rawRespuestasGuia.find((r) => r.id === s.id)?.respuesta ?? "",
+        }));
+
+  // Normalize criterios: handles both {pregunta, puntos, criterio} and {situacion, puntos, criterio}
+  const rawCriterios = (ejercicio.solucion.criterios ?? []) as Record<string, unknown>[];
+  const criterios = rawCriterios.map((c, i) => ({
+    pregunta: Number(c.pregunta ?? i + 1),
+    puntos: Number(c.puntos ?? 1),
+    criterio: String(c.criterio ?? ""),
+  }));
 
   const [answers, setAnswers] = useState<Record<number, string>>(
     Object.fromEntries(preguntas.map((p) => [p.numero, ""]))
