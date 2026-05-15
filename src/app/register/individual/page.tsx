@@ -17,8 +17,7 @@ export default function RegisterIndividual() {
       const { error } = await supabase().auth.signInWithOAuth({
         provider: 'google',
         options: {
-          // CORRECCIÓN: Al registrarse, va al dashboard con funciones limitadas (módulo 1)
-          redirectTo: `${window.location.origin}/dashboard`, 
+          redirectTo: `${window.location.origin}/auth/callback?next=/dashboard`,
         }
       })
       if (error) throw error

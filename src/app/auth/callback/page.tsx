@@ -7,6 +7,20 @@ import { supabase } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
+/**
+ * /auth/callback — Punto de entrada único para todos los flujos OAuth (Google, etc.)
+ *
+ * Flujo PKCE (activo):
+ *   Google redirige a /auth/callback?code=XXX[&next=/ruta]
+ *   1. Leemos el `code` del query string
+ *   2. Llamamos exchangeCodeForSession(code) — intercambia el code + code_verifier
+ *      almacenado en localStorage por un access_token + refresh_token reales
+ *   3. La sesión queda persistida en localStorage con autoRefreshToken activo
+ *   4. Redirigimos al usuario a la ruta `next` (o /dashboard por defecto)
+ *
+ * Si por cualquier razón no hay `code` (URL mal formada, reintento), simplemente
+ * intentamos getSession() como fallback antes de mostrar error.
+ */
 function CallbackInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -14,16 +28,25 @@ function CallbackInner() {
   useEffect(() => {
     const run = async () => {
       const sb = supabase();
-
-      // Implicit flow: el access_token viene en el hash (#access_token=...).
-      // Supabase con detectSessionInUrl=true lo procesa automáticamente al inicializar.
-      // Esperamos un microtick para que se complete y luego verificamos.
-      await new Promise((r) => setTimeout(r, 100));
-
-      const { data: { session } } = await sb.auth.getSession();
-
       const next = searchParams?.get("next") || "/dashboard";
 
+      // ── PKCE: intercambiar el code por tokens ──────────────────────────
+      const code = searchParams?.get("code");
+      if (code) {
+        const { error } = await sb.auth.exchangeCodeForSession(code);
+        if (error) {
+          console.error("[auth/callback] exchangeCodeForSession error:", error.message);
+          router.replace(`/?error=auth_failed`);
+          return;
+        }
+        // Sesión establecida correctamente → redirigir
+        router.replace(next);
+        return;
+      }
+
+      // ── Fallback: verificar si ya hay sesión activa (ej. re-visita) ────
+      await new Promise((r) => setTimeout(r, 120));
+      const { data: { session } } = await sb.auth.getSession();
       if (session) {
         router.replace(next);
       } else {
@@ -31,10 +54,9 @@ function CallbackInner() {
       }
     };
 
-    run().catch(() => {
-      router.replace("/?error=auth_failed");
-    });
-  }, [router, searchParams]);
+    run().catch(() => router.replace("/?error=auth_failed"));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50">

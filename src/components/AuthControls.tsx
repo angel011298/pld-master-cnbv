@@ -22,7 +22,9 @@ export function AuthControls() {
     setLoading(true);
     try {
       const sb = supabase();
-      const redirectTo = typeof window !== "undefined" ? window.location.origin : undefined;
+      const redirectTo = typeof window !== "undefined"
+        ? `${window.location.origin}/auth/callback?next=/dashboard`
+        : undefined;
       await sb.auth.signInWithOAuth({
         provider: "google",
         options: { redirectTo },

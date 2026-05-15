@@ -73,14 +73,18 @@ export function supabase() {
         persistSession: true,
         // Auto-refresh de tokens antes de que expiren
         autoRefreshToken: true,
-        // Detectar sesión en URL — necesario para OAuth (implicit flow con #access_token)
-        detectSessionInUrl: true,
+        // PKCE maneja el code en la query string — el callback lo intercambia
+        // explícitamente con exchangeCodeForSession(), no con hash detection
+        detectSessionInUrl: false,
         // Storage directo en localStorage para máxima persistencia
         storage: browserStorage,
         // Clave de almacenamiento estándar
         storageKey: "certifik-pld-session",
-        // Flujo implícito para mayor compatibilidad
-        flowType: "implicit",
+        // PKCE: flujo recomendado por Supabase para Next.js. Más robusto que
+        // implicit: los tokens nunca van en el hash (#), van como ?code= en la
+        // query, se intercambian explícitamente en /auth/callback, y el
+        // refresh_token se almacena correctamente en localStorage.
+        flowType: "pkce",
       },
     });
   }

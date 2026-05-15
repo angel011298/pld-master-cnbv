@@ -247,7 +247,7 @@ export default function LandingPage() {
     setGoogleLoading(true);
     const { error } = await supabase().auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/dashboard` },
+      options: { redirectTo: `${window.location.origin}/auth/callback?next=/dashboard` },
     });
     if (error) {
       alert("Error iniciando sesión con Google: " + error.message);
