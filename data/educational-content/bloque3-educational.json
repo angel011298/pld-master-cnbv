@@ -477,11 +477,31 @@
           "tipo": "tres_lineas_comparativo",
           "titulo": "Las Tres Líneas de Defensa — resumen comparativo",
           "tabla": {
-            "columnas": ["Línea", "¿Quiénes?", "Función principal", "Herramienta clave"],
+            "columnas": [
+              "Línea",
+              "¿Quiénes?",
+              "Función principal",
+              "Herramienta clave"
+            ],
             "filas": [
-              ["1ª — Negocios", "Ejecutivos de cuenta, cajeros, gerentes de área", "Detectar y gestionar el riesgo en operaciones diarias", "Capacitación, señales de alerta, reporte interno"],
-              ["2ª — Cumplimiento", "Oficial de Cumplimiento, CCC, gestión de riesgos", "Diseñar y supervisar el marco de control PLD/FT", "Manual PLD/FT, monitoreo transaccional, reportes UIF"],
-              ["3ª — Auditoría", "Auditoría interna y externa independiente", "Evaluar independientemente si las dos primeras líneas funcionan", "Informe de auditoría anual PLD/FT"]
+              [
+                "1ª — Negocios",
+                "Ejecutivos de cuenta, cajeros, gerentes de área",
+                "Detectar y gestionar el riesgo en operaciones diarias",
+                "Capacitación, señales de alerta, reporte interno"
+              ],
+              [
+                "2ª — Cumplimiento",
+                "Oficial de Cumplimiento, CCC, gestión de riesgos",
+                "Diseñar y supervisar el marco de control PLD/FT",
+                "Manual PLD/FT, monitoreo transaccional, reportes UIF"
+              ],
+              [
+                "3ª — Auditoría",
+                "Auditoría interna y externa independiente",
+                "Evaluar independientemente si las dos primeras líneas funcionan",
+                "Informe de auditoría anual PLD/FT"
+              ]
             ]
           }
         },
@@ -770,25 +790,49 @@
         {
           "numero": 1,
           "nombre": "Primera Línea de Defensa — Negocio",
-          "actores": ["Cajeros", "Ejecutivos de cuenta", "Gerentes de sucursal", "Personal de operaciones"],
+          "actores": [
+            "Cajeros",
+            "Ejecutivos de cuenta",
+            "Gerentes de sucursal",
+            "Personal de operaciones"
+          ],
           "funcion": "Detectar señales de alerta en contacto directo con el cliente. Reportar internamente.",
-          "herramientas": ["Capacitación anual PLD/FT", "Manual de señales de alerta", "Sistema de reporte interno"],
+          "herramientas": [
+            "Capacitación anual PLD/FT",
+            "Manual de señales de alerta",
+            "Sistema de reporte interno"
+          ],
           "responsabilidad": "OPERATIVA — gestionar el riesgo en el día a día"
         },
         {
           "numero": 2,
           "nombre": "Segunda Línea de Defensa — Cumplimiento",
-          "actores": ["Oficial de Cumplimiento", "CCC", "Área de Gestión de Riesgos", "Área Jurídica"],
+          "actores": [
+            "Oficial de Cumplimiento",
+            "CCC",
+            "Área de Gestión de Riesgos",
+            "Área Jurídica"
+          ],
           "funcion": "Diseñar el marco de control. Supervisar la 1ª línea. Analizar alertas. Reportar a la UIF.",
-          "herramientas": ["Manual PLD/FT", "Sistema de monitoreo transaccional", "Conexión con UIF (SUAdeO)"],
+          "herramientas": [
+            "Manual PLD/FT",
+            "Sistema de monitoreo transaccional",
+            "Conexión con UIF (SUAdeO)"
+          ],
           "responsabilidad": "DE CONTROL — diseñar y supervisar los controles"
         },
         {
           "numero": 3,
           "nombre": "Tercera Línea de Defensa — Auditoría",
-          "actores": ["Auditoría Interna", "Auditor Externo Independiente"],
+          "actores": [
+            "Auditoría Interna",
+            "Auditor Externo Independiente"
+          ],
           "funcion": "Evaluar de forma independiente si las dos primeras líneas funcionan correctamente.",
-          "herramientas": ["Informe de auditoría PLD/FT anual", "Recomendaciones al Consejo y CCC"],
+          "herramientas": [
+            "Informe de auditoría PLD/FT anual",
+            "Recomendaciones al Consejo y CCC"
+          ],
           "responsabilidad": "DE ASEGURAMIENTO — verificar la efectividad del sistema"
         }
       ],
@@ -891,16 +935,46 @@
         "GAFI 2014 = perspectiva de cumplimiento normativo. Basilea 2014 = perspectiva de gestión prudencial del riesgo. Ambos son complementarios y referenciados en el examen CNBV."
       ],
       "preguntas_tipicas_examen": [
-        "¿Cuál es la fórmula del riesgo PLD/FT y qué significa cada componente?",
-        "¿Cuál es la diferencia entre riesgo inherente y riesgo residual?",
-        "¿Qué es la Debida Diligencia Simplificada y cuándo puede aplicarse?",
-        "¿Cuáles son las Tres Líneas de Defensa según el Comité de Basilea 2014?",
-        "¿Cuál es la función de cada línea de defensa en la gestión del riesgo PLD/FT?",
-        "¿Quién es el responsable último del programa PLD/FT según el Comité de Basilea?",
-        "¿Qué es la Evaluación Nacional de Riesgos y quién la realiza?",
-        "¿Cuál es la diferencia de enfoque entre la Guía del GAFI (2014) y el documento del Comité de Basilea (2014)?",
-        "¿Qué es una señal de alerta y cómo debe procesarse en una entidad financiera?",
-        "¿Qué principio aplica en grupos financieros cuando hay diferencias entre el estándar del grupo y el del país local?"
+        {
+          "pregunta": "¿Cuál es la fórmula del riesgo PLD/FT y qué significa cada componente?",
+          "respuesta": "Riesgo = Amenaza × Vulnerabilidad × Impacto. Amenaza: factor externo que puede explotar una debilidad (ej. clientes de alto riesgo, tipologías presentes en el sector). Vulnerabilidad: debilidad interna de la entidad que facilita la materialización del riesgo (ej. controles KYC débiles, personal sin capacitación). Impacto: daño potencial si el riesgo se materializa (reputacional, legal, operativo, financiero)."
+        },
+        {
+          "pregunta": "¿Cuál es la diferencia entre riesgo inherente y riesgo residual?",
+          "respuesta": "Riesgo Inherente: nivel de exposición al LD/FT ANTES de aplicar cualquier control (el riesgo bruto propio del negocio y su entorno). Riesgo Residual: nivel de riesgo que QUEDA después de implementar los controles de mitigación. El objetivo del programa PLD/FT es llevar el riesgo residual dentro del apetito de riesgo aprobado por el Consejo de Administración."
+        },
+        {
+          "pregunta": "¿Qué es la Debida Diligencia Simplificada y cuándo puede aplicarse?",
+          "respuesta": "La Debida Diligencia Simplificada (DDS) permite aplicar controles KYC reducidos cuando el riesgo es bajo y está debidamente documentado (ej. personas físicas con bajo volumen y tipo de operaciones predecible, entidades gubernamentales). Importante: la DDS se suspende INMEDIATAMENTE ante cualquier señal de alerta — no es una exención permanente sino una calibración del nivel de control."
+        },
+        {
+          "pregunta": "¿Cuáles son las Tres Líneas de Defensa según el Comité de Basilea 2014?",
+          "respuesta": "1ª Línea — Unidades de negocio: detectan y gestionan riesgos en operaciones diarias, son el primer filtro. 2ª Línea — Cumplimiento/UNE: diseña políticas, monitorea el cumplimiento y presenta reportes a la UIF. 3ª Línea — Auditoría interna: evalúa independientemente la efectividad de todo el programa PLD/FT. El Consejo de Administración supervisa las tres líneas como responsable último."
+        },
+        {
+          "pregunta": "¿Cuál es la función de cada línea de defensa en la gestión del riesgo PLD/FT?",
+          "respuesta": "1ª Línea (Negocio): identifica, acepta y gestiona el riesgo en el día a día — ejecutivos de cuenta, cajeros, operadores. 2ª Línea (Oficial de Cumplimiento/UNE): establece estándares, diseña controles, monitorea su aplicación, investiga operaciones inusuales y reporta a la UIF. 3ª Línea (Auditoría): revisa y valida de forma independiente que las dos primeras líneas funcionen correctamente, reporta al Consejo."
+        },
+        {
+          "pregunta": "¿Quién es el responsable último del programa PLD/FT según el Comité de Basilea?",
+          "respuesta": "El Consejo de Administración (o equivalente) según el documento del Comité de Basilea de 2014. El Consejo aprueba el apetito de riesgo, las políticas institucionales PLD/FT y supervisa el modelo de tres líneas. Esta responsabilidad NO puede delegarse completamente al Oficial de Cumplimiento — el Oficial ejecuta, pero el Consejo es el responsable último."
+        },
+        {
+          "pregunta": "¿Qué es la Evaluación Nacional de Riesgos y quién la realiza?",
+          "respuesta": "La ENR es un análisis exhaustivo del nivel de riesgo LD/FT de todo el país, requerida por la Recomendación 1 del GAFI. En México la coordina la SHCP con participación de la UIF, reguladores y otras autoridades. Las entidades financieras deben conocer la ENR de su país y usarla como insumo para su propia autoevaluación institucional de riesgos."
+        },
+        {
+          "pregunta": "¿Cuál es la diferencia de enfoque entre la Guía del GAFI (2014) y el documento del Comité de Basilea (2014)?",
+          "respuesta": "Guía del GAFI para el Sector Bancario (2014): perspectiva de cumplimiento normativo — cómo implementar el Enfoque Basado en Riesgos de las 40 Recomendaciones en bancos, con énfasis en los factores de riesgo (cliente, producto, canal, geografía). Comité de Basilea (2014): perspectiva de gestión prudencial del riesgo — integra el riesgo LD/FT al marco de riesgo operativo bancario y formaliza el modelo de Tres Líneas de Defensa. Ambos documentos son complementarios y referenciados en el examen CNBV."
+        },
+        {
+          "pregunta": "¿Qué es una señal de alerta y cómo debe procesarse en una entidad financiera?",
+          "respuesta": "Una señal de alerta es un indicio de posible actividad ilícita — NO es prueba de delito. Proceso de atención: (1) El personal de primera línea detecta la señal y la reporta internamente al Oficial de Cumplimiento. (2) El Oficial investiga la operación y analiza el contexto del cliente. (3) Si no se logra justificar la operación, el Oficial presenta un Reporte de Operación Inusual (ROI) a la UIF. Reportar internamente es obligatorio para todo el personal; el reporte a la UIF es decisión exclusiva del Oficial de Cumplimiento."
+        },
+        {
+          "pregunta": "¿Qué principio aplica en grupos financieros cuando hay diferencias entre el estándar del grupo y el del país local?",
+          "respuesta": "Siempre aplica el estándar más estricto: el del grupo financiero o el del país local, el que sea mayor (principio de máximos). Este principio garantiza que el grupo aplique las mejores prácticas PLD/FT en todas sus jurisdicciones. Si el estándar local es más permisivo que el del grupo, la entidad filial aplica el del grupo. Si la legislación local prohíbe aplicar el estándar del grupo (ej. por restricciones de privacidad), el grupo debe notificarlo al regulador del país de origen."
+        }
       ]
     },
     "fuente_detallada": "GAFI — Recomendación 1 y Guía EBR Sector Bancario 2014; Comité de Supervisión Bancaria de Basilea — Gestión Adecuada de Riesgos BC/FT 2014; Guía PLD/FT CNBV 11ª ed., Bloque 3",

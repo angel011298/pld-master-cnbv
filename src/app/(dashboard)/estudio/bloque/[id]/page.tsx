@@ -238,10 +238,35 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
         <div className="space-y-2">
           {sanciones.map((s, i) => (
             <div key={i} className="rounded-lg border border-red-200 bg-red-50 p-3">
-              {!!s.modalidad   && <p className="text-[10px] font-black text-red-700 uppercase tracking-wider">{String(s.modalidad)}</p>}
-              {!!s.pena        && <p className="text-sm font-bold text-red-900">{String(s.pena)}</p>}
-              {!!s.fundamento  && <p className="text-xs text-red-600 mt-0.5">{String(s.fundamento)}</p>}
+              {/* supuesto (penas_ft) or modalidad (penas) as header label */}
+              {!!(s.supuesto ?? s.modalidad) && (
+                <p className="text-[10px] font-black text-red-700 uppercase tracking-wider mb-1">
+                  {String(s.supuesto ?? s.modalidad)}
+                </p>
+              )}
+              {/* pena_privativa (penas_ft) or pena (penas) as main text */}
+              {!!s.pena_privativa && (
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-[10px] font-bold text-red-600 uppercase tracking-wider shrink-0">Privativa:</span>
+                  <p className="text-sm font-black text-red-900">{String(s.pena_privativa)}</p>
+                </div>
+              )}
+              {!!s.pena && <p className="text-sm font-bold text-red-900">{String(s.pena)}</p>}
+              {/* multa */}
+              {!!s.multa && (
+                <div className="flex items-baseline gap-2 mt-1">
+                  <span className="text-[10px] font-bold text-orange-600 uppercase tracking-wider shrink-0">Multa:</span>
+                  <p className="text-xs text-orange-900">{String(s.multa)}</p>
+                </div>
+              )}
+              {!!s.fundamento  && <p className="text-xs text-red-600 mt-1">{String(s.fundamento)}</p>}
               {!!s.descripcion && <p className="text-xs text-slate-600 mt-1">{String(s.descripcion)}</p>}
+              {/* nota contextual */}
+              {!!s.nota && (
+                <div className="mt-2 rounded bg-amber-50 border border-amber-200 px-2 py-1.5">
+                  <p className="text-xs text-amber-800 leading-snug">{String(s.nota)}</p>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -394,6 +419,88 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
     );
   }
 
+  // ── estructura — 40 Recomendaciones / numbered blocks with recomendaciones[] ──
+  if (tipo === "estructura" && Array.isArray(block.bloques)) {
+    const bloques = block.bloques as Record<string, unknown>[];
+    const desc = typeof block.descripcion === "string" ? block.descripcion : undefined;
+    return (
+      <div className="space-y-3">
+        {titulo && <p className="text-sm font-bold text-slate-800">{titulo}</p>}
+        {desc    && <p className="text-sm text-slate-600">{desc}</p>}
+        {bloques.map((b, i) => {
+          const recs = (b.recomendaciones ?? b.recomendaciones_destacadas) as Record<string, unknown>[] | undefined;
+          return (
+            <div key={i} className="rounded-xl border border-slate-200 overflow-hidden">
+              <div className="bg-slate-800 text-white px-4 py-2">
+                <p className="text-xs font-black">{String(b.bloque ?? "")}</p>
+                {!!b.descripcion && <p className="text-[11px] text-slate-300 mt-0.5">{String(b.descripcion)}</p>}
+              </div>
+              {recs && recs.length > 0 && (
+                <div className="p-3 space-y-2">
+                  {recs.map((rec, j) => (
+                    <div key={j} className="rounded-lg bg-blue-50 border border-blue-100 p-2.5">
+                      <div className="flex items-start gap-2">
+                        {rec.numero !== undefined && (
+                          <span className="shrink-0 h-5 w-5 rounded-full bg-blue-600 text-white text-[10px] font-black flex items-center justify-center mt-0.5">
+                            {String(rec.numero)}
+                          </span>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          {!!rec.titulo && <p className="text-xs font-black text-slate-800">{String(rec.titulo)}</p>}
+                          {!!rec.descripcion && <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">{String(rec.descripcion)}</p>}
+                          {!!rec.importancia && (
+                            <p className="text-[10px] font-bold text-amber-700 mt-1">⭐ {String(rec.importancia)}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  // ── categorias_senales — accordion list of alert signal categories ──
+  if (tipo === "categorias_senales" && Array.isArray(block.categorias)) {
+    const categorias = block.categorias as Record<string, unknown>[];
+    return (
+      <div className="space-y-2">
+        {titulo && <p className="text-sm font-bold text-slate-800 mb-1">{titulo}</p>}
+        {categorias.map((cat, i) => {
+          const senales = (cat.senales as string[]) ?? [];
+          return (
+            <details key={i} className="group rounded-xl border border-orange-200 overflow-hidden">
+              <summary className="flex items-center justify-between px-4 py-3 bg-orange-50 cursor-pointer hover:bg-orange-100 transition-colors list-none">
+                <div className="flex items-center gap-2">
+                  <span className="text-orange-600 font-black text-sm shrink-0">⚠</span>
+                  <p className="text-sm font-bold text-orange-900">{String(cat.categoria ?? "")}</p>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="text-[10px] font-black text-orange-600 bg-orange-200 px-1.5 py-0.5 rounded-full">
+                    {senales.length} señales
+                  </span>
+                  <ChevronDown className="h-3.5 w-3.5 text-orange-500 group-open:rotate-180 transition-transform" />
+                </div>
+              </summary>
+              <ul className="px-4 py-3 space-y-2 bg-white">
+                {senales.map((senal, j) => (
+                  <li key={j} className="flex items-start gap-2 text-sm text-slate-700">
+                    <span className="shrink-0 mt-1.5 h-1.5 w-1.5 rounded-full bg-orange-400" />
+                    {senal}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          );
+        })}
+      </div>
+    );
+  }
+
   // ── seccion — container with nested sub-blocks ──
   if (tipo === "seccion" && Array.isArray(block.contenido)) {
     const subBlocks = block.contenido as Record<string, unknown>[];
@@ -476,6 +583,61 @@ function CuerpoBlock({ block }: { block: Record<string, unknown> }) {
 // ── Top-level tipo renderers ───────────────────────────────────────────────────
 
 function MapaConceptualRenderer({ c }: { c: Record<string, unknown> }) {
+  // ── Venn diagram ──
+  if (c.tipo === "venn") {
+    const left  = c.circulo_izquierdo as { titulo: string; items: string[] } | undefined;
+    const inter = c.interseccion      as { titulo: string; items: string[] } | undefined;
+    const right = c.circulo_derecho   as { titulo: string; items: string[] } | undefined;
+    const desc  = typeof c.descripcion === "string" ? c.descripcion : undefined;
+    return (
+      <div className="space-y-3">
+        {desc && <p className="text-xs text-slate-500 italic text-center">{desc}</p>}
+        <div className="grid grid-cols-3 gap-2">
+          {/* Left circle */}
+          <div className="rounded-xl border-2 border-blue-300 bg-blue-50 p-3">
+            <p className="text-xs font-black text-blue-800 text-center mb-2 pb-2 border-b border-blue-200">
+              {left?.titulo ?? ""}
+            </p>
+            <ul className="space-y-1.5">
+              {(left?.items ?? []).map((item, i) => (
+                <li key={i} className="text-xs text-slate-700 flex items-start gap-1.5">
+                  <span className="text-blue-400 shrink-0">•</span>{item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Intersection */}
+          <div className="rounded-xl border-2 border-purple-300 bg-purple-50 p-3">
+            <p className="text-xs font-black text-purple-800 text-center mb-2 pb-2 border-b border-purple-200">
+              {inter?.titulo ?? ""}
+            </p>
+            <ul className="space-y-1.5">
+              {(inter?.items ?? []).map((item, i) => (
+                <li key={i} className="text-xs text-slate-700 flex items-start gap-1.5">
+                  <span className="text-purple-400 font-bold shrink-0">∩</span>{item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Right circle */}
+          <div className="rounded-xl border-2 border-red-300 bg-red-50 p-3">
+            <p className="text-xs font-black text-red-800 text-center mb-2 pb-2 border-b border-red-200">
+              {right?.titulo ?? ""}
+            </p>
+            <ul className="space-y-1.5">
+              {(right?.items ?? []).map((item, i) => (
+                <li key={i} className="text-xs text-slate-700 flex items-start gap-1.5">
+                  <span className="text-red-400 shrink-0">•</span>{item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Radial / hub-and-spoke (default) ──
   const nodoCentral = String(c.nodo_central ?? "");
   const ramas = (c.ramas as Record<string, unknown>[]) ?? [];
   return (
@@ -502,7 +664,179 @@ function MapaConceptualRenderer({ c }: { c: Record<string, unknown> }) {
 }
 
 function DiagramaRenderer({ c }: { c: Record<string, unknown> }) {
-  const desc   = typeof c.descripcion === "string" ? c.descripcion : undefined;
+  const desc      = typeof c.descripcion === "string" ? c.descripcion : undefined;
+  const tipoDiag  = c.tipo_diagrama as string | undefined;
+
+  // ── Ciclo (EBR) — numbered steps in a cycle ──
+  if (tipoDiag === "ciclo" && Array.isArray(c.etapas)) {
+    const etapas = c.etapas as Record<string, unknown>[];
+    const nota   = typeof c.nota === "string" ? c.nota : undefined;
+    const STEP_COLORS = [
+      "border-blue-400 bg-blue-50 text-blue-900",
+      "border-emerald-400 bg-emerald-50 text-emerald-900",
+      "border-purple-400 bg-purple-50 text-purple-900",
+      "border-amber-400 bg-amber-50 text-amber-900",
+      "border-red-400 bg-red-50 text-red-900",
+    ];
+    return (
+      <div className="space-y-3">
+        {desc && <p className="text-xs text-slate-500 italic">{desc}</p>}
+        <div className="space-y-2">
+          {etapas.map((etapa, i) => {
+            const cc = STEP_COLORS[i % STEP_COLORS.length];
+            return (
+              <div key={i} className={cn("rounded-xl border-2 p-3", cc)}>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <div className="h-6 w-6 rounded-full bg-slate-800 text-white text-xs font-black flex items-center justify-center shrink-0">
+                    {String(etapa.etapa ?? i + 1)}
+                  </div>
+                  <p className="font-black text-sm">{String(etapa.nombre ?? "")}</p>
+                  {i < etapas.length - 1 && (
+                    <ChevronRight className="h-3.5 w-3.5 text-slate-400 ml-auto shrink-0" />
+                  )}
+                </div>
+                {!!etapa.descripcion && <p className="text-xs opacity-80 leading-relaxed ml-8">{String(etapa.descripcion)}</p>}
+                {!!etapa.herramienta && (
+                  <p className="text-[10px] font-bold mt-1 ml-8 opacity-70">
+                    🛠 {String(etapa.herramienta)}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        {nota && (
+          <div className="rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
+            <p className="text-xs text-amber-800">{nota}</p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Capas horizontales (Tres Líneas de Defensa) ──
+  if (tipoDiag === "capas_horizontales" && Array.isArray(c.capas)) {
+    const capas   = c.capas as Record<string, unknown>[];
+    const gobierno = c.gobierno as Record<string, unknown> | undefined;
+    const LAYER_COLORS = [
+      "border-blue-400 bg-blue-50",
+      "border-purple-400 bg-purple-50",
+      "border-emerald-400 bg-emerald-50",
+    ];
+    const RESP_COLORS: Record<string, string> = {
+      "OPERATIVA":  "bg-blue-100 text-blue-800",
+      "SUPERVISIÓN":"bg-purple-100 text-purple-800",
+      "ASEGURAMIENTO":"bg-emerald-100 text-emerald-800",
+    };
+    return (
+      <div className="space-y-2">
+        {desc && <p className="text-xs text-slate-500 italic mb-1">{desc}</p>}
+        {capas.map((capa, i) => {
+          const cc  = LAYER_COLORS[i % LAYER_COLORS.length];
+          const resp = String(capa.responsabilidad ?? "");
+          const actores   = (capa.actores   as string[]) ?? [];
+          const herramientas = (capa.herramientas as string[]) ?? [];
+          return (
+            <div key={i} className={cn("rounded-xl border-2 p-3", cc)}>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="h-6 w-6 rounded-full bg-slate-800 text-white text-xs font-black flex items-center justify-center shrink-0">
+                    {String(capa.numero ?? i + 1)}
+                  </div>
+                  <p className="font-black text-sm text-slate-900">{String(capa.nombre ?? "")}</p>
+                </div>
+                {resp && (
+                  <span className={cn("text-[10px] font-black px-1.5 py-0.5 rounded shrink-0", RESP_COLORS[resp] ?? "bg-slate-100 text-slate-700")}>
+                    {resp}
+                  </span>
+                )}
+              </div>
+              {!!capa.funcion && (
+                <p className="text-xs text-slate-700 leading-relaxed mb-2 ml-8">{String(capa.funcion)}</p>
+              )}
+              {actores.length > 0 && (
+                <div className="ml-8 flex flex-wrap gap-1">
+                  {actores.map((a, j) => (
+                    <span key={j} className="text-[10px] font-semibold bg-white/70 border border-slate-300 rounded px-1.5 py-0.5 text-slate-700">{a}</span>
+                  ))}
+                </div>
+              )}
+              {herramientas.length > 0 && (
+                <div className="ml-8 mt-1.5 flex flex-wrap gap-1">
+                  {herramientas.slice(0, 4).map((h, j) => (
+                    <span key={j} className="text-[9px] text-slate-500 italic">{j > 0 ? "· " : ""}{h}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {/* Gobierno corporativo (oversight) */}
+        {gobierno && (
+          <div className="rounded-xl border-2 border-slate-400 bg-slate-800 p-3 text-white">
+            <p className="text-xs font-black uppercase tracking-wider mb-1">
+              {String(gobierno.nombre ?? "Gobierno Corporativo")}
+            </p>
+            {!!gobierno.responsabilidad && (
+              <p className="text-xs text-slate-300">{String(gobierno.responsabilidad)}</p>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Flujo vertical (Evaluación Mutua GAFI) — dimensiones + proceso ──
+  if (tipoDiag === "flujo_vertical") {
+    const dimensiones  = (c.dimensiones  as Record<string, unknown>[]) ?? [];
+    const proceso      = (c.proceso_evaluacion as string[]) ?? [];
+    return (
+      <div className="space-y-4">
+        {desc && <p className="text-xs text-slate-500 italic">{desc}</p>}
+        {dimensiones.length > 0 && (
+          <div className="space-y-2">
+            <p className="text-xs font-black text-slate-600 uppercase tracking-wider">Dimensiones de evaluación</p>
+            {dimensiones.map((dim, i) => {
+              const calificaciones = (dim.calificaciones as string[]) ?? [];
+              return (
+                <div key={i} className="rounded-xl border border-purple-200 bg-purple-50 p-3">
+                  <p className="text-sm font-black text-purple-900 mb-1">{String(dim.nombre ?? "")}</p>
+                  {!!dim.pregunta && <p className="text-xs text-slate-600 mb-2 italic">{String(dim.pregunta)}</p>}
+                  {calificaciones.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {calificaciones.map((cal, j) => (
+                        <span key={j} className="text-[10px] font-bold bg-purple-200 text-purple-800 px-2 py-0.5 rounded-full">{cal}</span>
+                      ))}
+                    </div>
+                  )}
+                  {!!dim.ejemplo && (
+                    <p className="text-[10px] text-slate-500 mt-1.5 italic">Ej. {String(dim.ejemplo)}</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {proceso.length > 0 && (
+          <div>
+            <p className="text-xs font-black text-slate-600 uppercase tracking-wider mb-2">Proceso de evaluación</p>
+            <div className="relative pl-5 border-l-2 border-blue-300 space-y-3">
+              {proceso.map((paso, i) => (
+                <div key={i} className="relative">
+                  <div className="absolute -left-[21px] top-1 h-4 w-4 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center">
+                    <span className="text-[8px] text-white font-black">{i + 1}</span>
+                  </div>
+                  <p className="text-sm text-slate-700">{paso}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── Default: nodos + flechas (flow diagram) ──
   const nodos  = (c.nodos  as Record<string, unknown>[]) ?? [];
   const flechas = (c.flechas as Record<string, unknown>[]) ?? [];
   const CMAP: Record<string, string> = {
@@ -574,9 +908,45 @@ function FundamentoLegalRenderer({ c }: { c: Record<string, unknown> }) {
   );
 }
 
+/** A single exam Q&A — collapsible to reveal the answer */
+function PreguntaAccordion({ pregunta, respuesta, index }: { pregunta: string; respuesta?: string; index: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-lg border border-blue-200 overflow-hidden">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-start gap-3 px-4 py-3 bg-blue-50 hover:bg-blue-100 transition-colors text-left"
+      >
+        <span className="text-blue-600 font-black text-sm shrink-0 mt-0.5">Q{index + 1}.</span>
+        <p className="flex-1 text-sm text-slate-800 leading-snug">{pregunta}</p>
+        {respuesta && (
+          open
+            ? <ChevronUp className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+            : <ChevronDown className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
+        )}
+      </button>
+      {open && respuesta && (
+        <div className="px-4 py-3 bg-white border-t border-blue-100">
+          <div className="flex items-start gap-2">
+            <span className="text-emerald-500 font-black text-sm shrink-0">✓</span>
+            <p className="text-sm text-slate-700 leading-relaxed">{respuesta}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ResumenRenderer({ c }: { c: Record<string, unknown> }) {
   const puntos = (c.puntos_clave as string[]) ?? [];
-  const preguntas = (c.preguntas_tipicas_examen as string[]) ?? [];
+  // Support both old string[] and new {pregunta, respuesta}[] formats
+  const rawPreguntas = (c.preguntas_tipicas_examen ?? []) as (string | { pregunta: string; respuesta?: string })[];
+  const preguntas = rawPreguntas.map((item) =>
+    typeof item === "string"
+      ? { pregunta: item, respuesta: undefined }
+      : item
+  );
+
   return (
     <div className="space-y-4">
       <div className="space-y-2">
@@ -592,14 +962,16 @@ function ResumenRenderer({ c }: { c: Record<string, unknown> }) {
       {preguntas.length > 0 && (
         <div>
           <p className="text-xs font-black text-blue-700 uppercase tracking-wider mb-2">
-            🎯 Preguntas típicas del examen CENEVAL
+            🎯 Preguntas típicas del examen CENEVAL — haz clic para ver la respuesta
           </p>
           <div className="space-y-2">
-            {preguntas.map((q, i) => (
-              <div key={i} className="rounded-lg bg-blue-50 border border-blue-200 px-4 py-3 flex gap-2">
-                <span className="text-blue-600 font-black text-sm shrink-0">Q{i + 1}.</span>
-                <p className="text-sm text-slate-800">{q}</p>
-              </div>
+            {preguntas.map((item, i) => (
+              <PreguntaAccordion
+                key={i}
+                index={i}
+                pregunta={item.pregunta}
+                respuesta={item.respuesta}
+              />
             ))}
           </div>
         </div>

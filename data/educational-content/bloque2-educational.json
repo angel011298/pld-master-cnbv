@@ -68,12 +68,30 @@
         {
           "tipo": "datos_generales",
           "items": [
-            {"campo": "Nombre completo", "valor": "Comité de Supervisión Bancaria de Basilea (Basel Committee on Banking Supervision — BCBS)"},
-            {"campo": "Creado en", "valor": "1974, por los gobernadores de los bancos centrales del G-10"},
-            {"campo": "Sede", "valor": "Banco de Pagos Internacionales (BIS) en Basilea, Suiza"},
-            {"campo": "Naturaleza", "valor": "Foro de cooperación — sus documentos NO son tratados vinculantes, pero se convierten en estándares globales adoptados por los países"},
-            {"campo": "Composición", "valor": "45 instituciones (bancos centrales y autoridades supervisoras) de 28 jurisdicciones"},
-            {"campo": "Relación con México", "valor": "México participa a través del Banco de México y la CNBV"}
+            {
+              "campo": "Nombre completo",
+              "valor": "Comité de Supervisión Bancaria de Basilea (Basel Committee on Banking Supervision — BCBS)"
+            },
+            {
+              "campo": "Creado en",
+              "valor": "1974, por los gobernadores de los bancos centrales del G-10"
+            },
+            {
+              "campo": "Sede",
+              "valor": "Banco de Pagos Internacionales (BIS) en Basilea, Suiza"
+            },
+            {
+              "campo": "Naturaleza",
+              "valor": "Foro de cooperación — sus documentos NO son tratados vinculantes, pero se convierten en estándares globales adoptados por los países"
+            },
+            {
+              "campo": "Composición",
+              "valor": "45 instituciones (bancos centrales y autoridades supervisoras) de 28 jurisdicciones"
+            },
+            {
+              "campo": "Relación con México",
+              "valor": "México participa a través del Banco de México y la CNBV"
+            }
           ]
         },
         {
@@ -254,12 +272,30 @@
         {
           "tipo": "datos_generales",
           "items": [
-            {"campo": "Nombre completo", "valor": "Grupo Egmont de Unidades de Inteligencia Financiera (Egmont Group of Financial Intelligence Units)"},
-            {"campo": "Fundado", "valor": "1995, en el Palacio Egmont-Arenberg en Bruselas, Bélgica"},
-            {"campo": "Naturaleza", "valor": "Foro internacional de Unidades de Inteligencia Financiera (UIFs)"},
-            {"campo": "Membresía", "valor": "168 UIFs de países de todo el mundo (al 2023)"},
-            {"campo": "Secretaría", "valor": "Toronto, Canadá"},
-            {"campo": "México", "valor": "La UIF de México (Unidad de Inteligencia Financiera de la SHCP) es miembro del Grupo Egmont"}
+            {
+              "campo": "Nombre completo",
+              "valor": "Grupo Egmont de Unidades de Inteligencia Financiera (Egmont Group of Financial Intelligence Units)"
+            },
+            {
+              "campo": "Fundado",
+              "valor": "1995, en el Palacio Egmont-Arenberg en Bruselas, Bélgica"
+            },
+            {
+              "campo": "Naturaleza",
+              "valor": "Foro internacional de Unidades de Inteligencia Financiera (UIFs)"
+            },
+            {
+              "campo": "Membresía",
+              "valor": "168 UIFs de países de todo el mundo (al 2023)"
+            },
+            {
+              "campo": "Secretaría",
+              "valor": "Toronto, Canadá"
+            },
+            {
+              "campo": "México",
+              "valor": "La UIF de México (Unidad de Inteligencia Financiera de la SHCP) es miembro del Grupo Egmont"
+            }
           ]
         },
         {
@@ -337,11 +373,26 @@
         {
           "tipo": "datos_generales",
           "items": [
-            {"campo": "Nombre completo", "valor": "Grupo Wolfsberg (Wolfsberg Group)"},
-            {"campo": "Fundado", "valor": "2000, en el Castillo Wolfsberg, Suiza"},
-            {"campo": "Naturaleza", "valor": "Asociación de bancos privados globales (sector privado, no gubernamental)"},
-            {"campo": "Membresía", "valor": "13 de los bancos privados más importantes del mundo: Banco Santander, Bank of America, Barclays, Citigroup, Credit Suisse, Deutsche Bank, Goldman Sachs, HSBC, JP Morgan Chase, MUFG, Société Générale, Standard Chartered, UBS"},
-            {"campo": "Objetivo", "valor": "Desarrollar estándares y guías de mejores prácticas para el cumplimiento AML/CFT en la banca privada y banca corresponsal"}
+            {
+              "campo": "Nombre completo",
+              "valor": "Grupo Wolfsberg (Wolfsberg Group)"
+            },
+            {
+              "campo": "Fundado",
+              "valor": "2000, en el Castillo Wolfsberg, Suiza"
+            },
+            {
+              "campo": "Naturaleza",
+              "valor": "Asociación de bancos privados globales (sector privado, no gubernamental)"
+            },
+            {
+              "campo": "Membresía",
+              "valor": "13 de los bancos privados más importantes del mundo: Banco Santander, Bank of America, Barclays, Citigroup, Credit Suisse, Deutsche Bank, Goldman Sachs, HSBC, JP Morgan Chase, MUFG, Société Générale, Standard Chartered, UBS"
+            },
+            {
+              "campo": "Objetivo",
+              "valor": "Desarrollar estándares y guías de mejores prácticas para el cumplimiento AML/CFT en la banca privada y banca corresponsal"
+            }
           ]
         },
         {
@@ -409,9 +460,18 @@
           "tipo": "banco_mundial",
           "titulo": "El Banco Mundial (BM) en PLD/FT",
           "datos": [
-            {"campo": "Sede", "valor": "Washington D.C., EUA"},
-            {"campo": "Composición", "valor": "189 países miembros"},
-            {"campo": "Rol principal en PLD/FT", "valor": "Asistencia técnica y financiamiento para que países en desarrollo implementen regímenes PLD/FT efectivos"}
+            {
+              "campo": "Sede",
+              "valor": "Washington D.C., EUA"
+            },
+            {
+              "campo": "Composición",
+              "valor": "189 países miembros"
+            },
+            {
+              "campo": "Rol principal en PLD/FT",
+              "valor": "Asistencia técnica y financiamiento para que países en desarrollo implementen regímenes PLD/FT efectivos"
+            }
           ],
           "contribuciones": [
             "Realiza evaluaciones del régimen PLD/FT de países (a veces en conjunto con el FMI)",
@@ -425,9 +485,18 @@
           "tipo": "fmi",
           "titulo": "El Fondo Monetario Internacional (FMI) en PLD/FT",
           "datos": [
-            {"campo": "Sede", "valor": "Washington D.C., EUA"},
-            {"campo": "Composición", "valor": "190 países miembros"},
-            {"campo": "Rol principal en PLD/FT", "valor": "Supervisión de la estabilidad del sistema financiero internacional e integración del PLD/FT en la vigilancia macroeconómica"}
+            {
+              "campo": "Sede",
+              "valor": "Washington D.C., EUA"
+            },
+            {
+              "campo": "Composición",
+              "valor": "190 países miembros"
+            },
+            {
+              "campo": "Rol principal en PLD/FT",
+              "valor": "Supervisión de la estabilidad del sistema financiero internacional e integración del PLD/FT en la vigilancia macroeconómica"
+            }
           ],
           "contribuciones": [
             "Integra la evaluación del riesgo PLD/FT en sus evaluaciones de estabilidad financiera (FSAP — Financial Sector Assessment Program)",
@@ -462,16 +531,46 @@
         {
           "tipo": "datos_generales",
           "items": [
-            {"campo": "Nombre completo español", "valor": "Grupo de Acción Financiera Internacional (GAFI)"},
-            {"campo": "Nombre en inglés", "valor": "Financial Action Task Force (FATF)"},
-            {"campo": "Fundado", "valor": "1989, por el G-7 (grupo de los 7 países más industrializados) en la Cumbre de París"},
-            {"campo": "Sede", "valor": "París, Francia (en las instalaciones de la OCDE)"},
-            {"campo": "Naturaleza", "valor": "Organismo intergubernamental de política. Sus decisiones son adoptadas por consenso."},
-            {"campo": "Mandato original", "valor": "Examinar y desarrollar medidas para combatir el lavado de dinero proveniente del narcotráfico"},
-            {"campo": "Mandato ampliado", "valor": "Desde 2001 incluye el Financiamiento al Terrorismo (FT). Desde 2012 incluye el Financiamiento de la Proliferación de Armas (FP)."},
-            {"campo": "Miembros plenos", "valor": "40 miembros: 37 países + Comisión Europea + Consejo de Cooperación del Golfo + Comité de Expertos del Consejo de Europa (MONEYVAL)"},
-            {"campo": "México", "valor": "Miembro pleno desde el año 2000"},
-            {"campo": "Organismos asociados", "valor": "9 Organismos Regionales tipo GAFI (GAFILAT en América Latina) + observadores internacionales (BM, FMI, ONU, Egmont, Wolfsberg, etc.)"}
+            {
+              "campo": "Nombre completo español",
+              "valor": "Grupo de Acción Financiera Internacional (GAFI)"
+            },
+            {
+              "campo": "Nombre en inglés",
+              "valor": "Financial Action Task Force (FATF)"
+            },
+            {
+              "campo": "Fundado",
+              "valor": "1989, por el G-7 (grupo de los 7 países más industrializados) en la Cumbre de París"
+            },
+            {
+              "campo": "Sede",
+              "valor": "París, Francia (en las instalaciones de la OCDE)"
+            },
+            {
+              "campo": "Naturaleza",
+              "valor": "Organismo intergubernamental de política. Sus decisiones son adoptadas por consenso."
+            },
+            {
+              "campo": "Mandato original",
+              "valor": "Examinar y desarrollar medidas para combatir el lavado de dinero proveniente del narcotráfico"
+            },
+            {
+              "campo": "Mandato ampliado",
+              "valor": "Desde 2001 incluye el Financiamiento al Terrorismo (FT). Desde 2012 incluye el Financiamiento de la Proliferación de Armas (FP)."
+            },
+            {
+              "campo": "Miembros plenos",
+              "valor": "40 miembros: 37 países + Comisión Europea + Consejo de Cooperación del Golfo + Comité de Expertos del Consejo de Europa (MONEYVAL)"
+            },
+            {
+              "campo": "México",
+              "valor": "Miembro pleno desde el año 2000"
+            },
+            {
+              "campo": "Organismos asociados",
+              "valor": "9 Organismos Regionales tipo GAFI (GAFILAT en América Latina) + observadores internacionales (BM, FMI, ONU, Egmont, Wolfsberg, etc.)"
+            }
           ]
         },
         {
@@ -825,7 +924,12 @@
             {
               "dimension": "Cumplimiento Técnico (TC — Technical Compliance)",
               "descripcion": "Mide si el país tiene las LEYES Y REGULACIONES necesarias para cumplir con cada una de las 40 Recomendaciones. Es una evaluación del marco normativo (¿existe la ley?)",
-              "calificaciones": ["C (Compliant) — Cumplimiento total", "LC (Largely Compliant) — Cumplimiento mayoritario", "PC (Partially Compliant) — Cumplimiento parcial", "NC (Non-Compliant) — Incumplimiento"],
+              "calificaciones": [
+                "C (Compliant) — Cumplimiento total",
+                "LC (Largely Compliant) — Cumplimiento mayoritario",
+                "PC (Partially Compliant) — Cumplimiento parcial",
+                "NC (Non-Compliant) — Incumplimiento"
+              ],
               "analogia": "Es el examen de '¿tienes el reglamento escrito?'"
             },
             {
@@ -844,7 +948,12 @@
                 "RI.10: El FP es prevenido",
                 "RI.11: Las ONGs no son usadas para FT"
               ],
-              "calificaciones": ["AE (Alto Eficacia)", "E (Eficaz)", "ME (Moderadamente Eficaz)", "PE (Poco Eficaz)"],
+              "calificaciones": [
+                "AE (Alto Eficacia)",
+                "E (Eficaz)",
+                "ME (Moderadamente Eficaz)",
+                "PE (Poco Eficaz)"
+              ],
               "analogia": "Es el examen de '¿el reglamento se aplica en la práctica?'"
             }
           ]
@@ -982,13 +1091,23 @@
         {
           "nombre": "Cumplimiento Técnico (TC)",
           "pregunta": "¿Tienes las leyes correctas?",
-          "calificaciones": ["C — Compliant", "LC — Largely Compliant", "PC — Partially Compliant", "NC — Non-Compliant"],
+          "calificaciones": [
+            "C — Compliant",
+            "LC — Largely Compliant",
+            "PC — Partially Compliant",
+            "NC — Non-Compliant"
+          ],
           "ejemplo": "¿Está tipificado el LD en el CPF? ¿Existe la UIF? ¿Hay disposiciones CNBV sobre KYC?"
         },
         {
           "nombre": "Efectividad (EF)",
           "pregunta": "¿Funcionan en la práctica?",
-          "calificaciones": ["AE — Alta Eficacia", "E — Eficaz", "ME — Moderadamente Eficaz", "PE — Poco Eficaz"],
+          "calificaciones": [
+            "AE — Alta Eficacia",
+            "E — Eficaz",
+            "ME — Moderadamente Eficaz",
+            "PE — Poco Eficaz"
+          ],
           "ejemplo": "¿Se condena a lavadores de dinero? ¿Se decomisa el producto del delito? ¿Se reportan OIs en la práctica?"
         }
       ],
@@ -1027,24 +1146,90 @@
         "GAFILAT es el organismo regional tipo GAFI para América Latina. México es miembro del GAFILAT además del GAFI global."
       ],
       "tabla_comparativa_organismos": [
-        {"organismo": "GAFI", "naturaleza": "Intergubernamental", "producto": "40 Recomendaciones", "vinculante": "No (pero adoptado universalmente)", "mexico": "Miembro desde 2000"},
-        {"organismo": "ONU", "naturaleza": "Intergubernamental universal", "producto": "Convenciones + Resoluciones CS", "vinculante": "Sí (Convenciones ratificadas y Resoluciones CS)", "mexico": "Miembro — ratificó Viena, Palermo, Convenio FT"},
-        {"organismo": "Comité de Basilea", "naturaleza": "Foro de bancos centrales", "producto": "Estándares bancarios (no solo PLD)", "vinculante": "No (soft law)", "mexico": "Participa vía Banxico y CNBV"},
-        {"organismo": "Grupo Egmont", "naturaleza": "Red de UIFs gubernamentales", "producto": "Intercambio de inteligencia", "vinculante": "No", "mexico": "UIF-SHCP es miembro"},
-        {"organismo": "Grupo Wolfsberg", "naturaleza": "Sector privado (bancos)", "producto": "Principios y cuestionarios", "vinculante": "No", "mexico": "Los bancos mexicanos adoptan sus principios voluntariamente"},
-        {"organismo": "BM y FMI", "naturaleza": "Organismos multilaterales de desarrollo y estabilidad", "producto": "Asistencia técnica, evaluaciones", "vinculante": "No", "mexico": "Miembro de ambos"}
+        {
+          "organismo": "GAFI",
+          "naturaleza": "Intergubernamental",
+          "producto": "40 Recomendaciones",
+          "vinculante": "No (pero adoptado universalmente)",
+          "mexico": "Miembro desde 2000"
+        },
+        {
+          "organismo": "ONU",
+          "naturaleza": "Intergubernamental universal",
+          "producto": "Convenciones + Resoluciones CS",
+          "vinculante": "Sí (Convenciones ratificadas y Resoluciones CS)",
+          "mexico": "Miembro — ratificó Viena, Palermo, Convenio FT"
+        },
+        {
+          "organismo": "Comité de Basilea",
+          "naturaleza": "Foro de bancos centrales",
+          "producto": "Estándares bancarios (no solo PLD)",
+          "vinculante": "No (soft law)",
+          "mexico": "Participa vía Banxico y CNBV"
+        },
+        {
+          "organismo": "Grupo Egmont",
+          "naturaleza": "Red de UIFs gubernamentales",
+          "producto": "Intercambio de inteligencia",
+          "vinculante": "No",
+          "mexico": "UIF-SHCP es miembro"
+        },
+        {
+          "organismo": "Grupo Wolfsberg",
+          "naturaleza": "Sector privado (bancos)",
+          "producto": "Principios y cuestionarios",
+          "vinculante": "No",
+          "mexico": "Los bancos mexicanos adoptan sus principios voluntariamente"
+        },
+        {
+          "organismo": "BM y FMI",
+          "naturaleza": "Organismos multilaterales de desarrollo y estabilidad",
+          "producto": "Asistencia técnica, evaluaciones",
+          "vinculante": "No",
+          "mexico": "Miembro de ambos"
+        }
       ],
       "preguntas_tipicas_examen": [
-        "¿En qué año fue creado el GAFI y por quién?",
-        "¿Cuál es la diferencia entre el Cumplimiento Técnico (TC) y la Efectividad (EF) en una evaluación GAFI?",
-        "¿Cuál es la Convención de la ONU que originó la tipificación del lavado de dinero en México?",
-        "¿Qué es el Grupo Egmont y cuál es su función principal?",
-        "¿El Grupo Wolfsberg es un organismo gubernamental o privado?",
-        "¿Qué obligación impone la Resolución 1267 del Consejo de Seguridad de la ONU a las entidades financieras?",
-        "¿Cuántas recomendaciones tiene el estándar GAFI vigente?",
-        "¿Qué consecuencias tiene para las entidades financieras que un país esté en la lista negra del GAFI?",
-        "¿Qué es la Regla de Viaje del GAFI (Recomendación 16)?",
-        "¿Qué es el GAFILAT y cuál es su relación con el GAFI global?"
+        {
+          "pregunta": "¿En qué año fue creado el GAFI y por quién?",
+          "respuesta": "El GAFI fue creado en 1989 por el G-7 en la Cumbre de París, ante la creciente preocupación por el tráfico de drogas y el lavado de dinero. Inicialmente tenía 16 miembros; hoy cuenta con 39 jurisdicciones miembro y más de 200 países comprometidos con sus estándares."
+        },
+        {
+          "pregunta": "¿Cuál es la diferencia entre el Cumplimiento Técnico (TC) y la Efectividad (EF) en una evaluación GAFI?",
+          "respuesta": "El TC evalúa si el país tiene las leyes, regulaciones e instituciones correctas (si la norma existe en papel). La EF evalúa si esas normas funcionan en la práctica y producen resultados concretos (si el sistema realmente previene y detecta LD/FT). Un país puede tener TC alto (muchas leyes) pero EF baja (no se aplican eficazmente). La 4ª Ronda del GAFI pone mayor énfasis en la EF."
+        },
+        {
+          "pregunta": "¿Cuál es la Convención de la ONU que originó la tipificación del lavado de dinero en México?",
+          "respuesta": "La Convención de Viena de 1988 (Convención contra el Tráfico Ilícito de Estupefacientes y Sustancias Sicotrópicas) fue el primer instrumento internacional que exigió tipificar el lavado de dinero. México la ratificó y fue el fundamento para incluir el delito de ORPI en el CPF (Art. 400 Bis)."
+        },
+        {
+          "pregunta": "¿Qué es el Grupo Egmont y cuál es su función principal?",
+          "respuesta": "El Grupo Egmont es una red internacional de Unidades de Inteligencia Financiera (UIFs) fundada en 1995. Su función principal es facilitar el intercambio seguro de información financiera entre UIFs de distintos países para combatir el LD y FT. México participa a través de la UIF (Unidad de Inteligencia Financiera) de la SHCP."
+        },
+        {
+          "pregunta": "¿El Grupo Wolfsberg es un organismo gubernamental o privado?",
+          "respuesta": "Privado. Es un consorcio de 13 de los principales bancos internacionales privados (incluyendo Deutsche Bank, HSBC, JPMorgan, Citigroup, entre otros) que emite guías y principios voluntarios sobre PLD/FT para banca privada, banca corresponsal y financiamiento del terrorismo. Sus guías son ampliamente adoptadas por la industria aunque no son normas vinculantes."
+        },
+        {
+          "pregunta": "¿Qué obligación impone la Resolución 1267 del Consejo de Seguridad de la ONU a las entidades financieras?",
+          "respuesta": "Obliga a las entidades financieras a congelar inmediatamente los activos y prohibir todas las transacciones con personas y entidades listadas por el Comité de Sanciones de la ONU como vinculadas a Al-Qaeda, ISIS y grupos terroristas. Esta obligación es inmediata, sin previo aviso judicial y sin discrecionalidad para la entidad."
+        },
+        {
+          "pregunta": "¿Cuántas recomendaciones tiene el estándar GAFI vigente?",
+          "respuesta": "40 Recomendaciones (estándar revisado en 2012 y con actualizaciones periódicas). Las antiguas 9 Recomendaciones Especiales sobre FT fueron integradas al conjunto unificado de 40. Las Recomendaciones 1 y 2 (EBR y coordinación nacional) y la 10 (CDD/KYC) son las más citadas en el examen CNBV."
+        },
+        {
+          "pregunta": "¿Qué consecuencias tiene para las entidades financieras que un país esté en la lista negra del GAFI?",
+          "respuesta": "Las entidades deben aplicar Debida Diligencia Reforzada (DDR) a TODAS las operaciones y relaciones con contrapartes de ese país, considerarlas de alto riesgo por defecto. Pueden suspender o terminar relaciones de banca corresponsal con instituciones de ese país. Deben reportar estas relaciones a su propio regulador nacional con mayor frecuencia."
+        },
+        {
+          "pregunta": "¿Qué es la Regla de Viaje del GAFI (Recomendación 16)?",
+          "respuesta": "La Regla de Viaje obliga a que los datos del ordenante (nombre, número de cuenta, dirección, número de identificación) y del beneficiario (nombre, número de cuenta) acompañen o \"viajen\" junto con la transferencia electrónica durante todo el proceso de transmisión. El objetivo es garantizar la trazabilidad completa de los fondos y facilitar la detección de transferencias sospechosas."
+        },
+        {
+          "pregunta": "¿Qué es el GAFILAT y cuál es su relación con el GAFI global?",
+          "respuesta": "El GAFILAT (Grupo de Acción Financiera de Latinoamérica, antes GAFISUD) es el organismo regional de tipo GAFI para América Latina y el Caribe, fundado en 2000. Es un organismo asociado (Associate Member) al GAFI global: aplica los mismos estándares y metodologías del GAFI en la región, realiza evaluaciones mutuas a sus miembros y reporta al GAFI. México es miembro tanto del GAFI como del GAFILAT."
+        }
       ]
     },
     "fuente_detallada": "GAFI — 40 Recomendaciones 2012; ONU — Convenciones de Viena, Palermo y Convenio FT; Guía PLD/FT CNBV 11ª ed., Bloque 2",

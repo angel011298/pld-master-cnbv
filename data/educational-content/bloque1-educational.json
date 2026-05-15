@@ -275,7 +275,11 @@
           "id": "colocacion",
           "etiqueta": "1. Colocación",
           "descripcion": "Ingreso del efectivo ilícito al sistema financiero",
-          "ejemplos": ["Pitufeo", "Casinos", "Cambio de divisas"],
+          "ejemplos": [
+            "Pitufeo",
+            "Casinos",
+            "Cambio de divisas"
+          ],
           "color": "rojo",
           "posicion": 1
         },
@@ -283,7 +287,11 @@
           "id": "estratificacion",
           "etiqueta": "2. Estratificación",
           "descripcion": "Múltiples transacciones para ocultar el origen",
-          "ejemplos": ["Transferencias internacionales", "Empresas fachada", "Criptomonedas"],
+          "ejemplos": [
+            "Transferencias internacionales",
+            "Empresas fachada",
+            "Criptomonedas"
+          ],
           "color": "naranja",
           "posicion": 2
         },
@@ -291,7 +299,11 @@
           "id": "integracion",
           "etiqueta": "3. Integración",
           "descripcion": "Reingreso a la economía como dinero legítimo",
-          "ejemplos": ["Bienes raíces", "Empresas legítimas", "Inversiones"],
+          "ejemplos": [
+            "Bienes raíces",
+            "Empresas legítimas",
+            "Inversiones"
+          ],
           "color": "verde",
           "posicion": 3
         },
@@ -304,10 +316,26 @@
         }
       ],
       "flechas": [
-        {"de": "origen", "a": "colocacion", "etiqueta": "Efectivo ilícito"},
-        {"de": "colocacion", "a": "estratificacion", "etiqueta": "En el sistema"},
-        {"de": "estratificacion", "a": "integracion", "etiqueta": "Rastro oculto"},
-        {"de": "integracion", "a": "economia", "etiqueta": "Dinero 'limpio'"}
+        {
+          "de": "origen",
+          "a": "colocacion",
+          "etiqueta": "Efectivo ilícito"
+        },
+        {
+          "de": "colocacion",
+          "a": "estratificacion",
+          "etiqueta": "En el sistema"
+        },
+        {
+          "de": "estratificacion",
+          "a": "integracion",
+          "etiqueta": "Rastro oculto"
+        },
+        {
+          "de": "integracion",
+          "a": "economia",
+          "etiqueta": "Dinero 'limpio'"
+        }
       ]
     },
     "fuente_detallada": "GAFI — 40 Recomendaciones, Nota Interpretativa Recomendación 1; Guía PLD/FT CNBV, Bloque 1, sección Etapas del Lavado de Dinero",
@@ -324,27 +352,56 @@
       "ramas": [
         {
           "concepto": "Definición",
-          "subnodos": ["Proceso para ocultar origen ilícito", "Dar apariencia legítima a recursos", "Delito autónomo (CPF Art. 400 Bis)"]
+          "subnodos": [
+            "Proceso para ocultar origen ilícito",
+            "Dar apariencia legítima a recursos",
+            "Delito autónomo (CPF Art. 400 Bis)"
+          ]
         },
         {
           "concepto": "Etapas",
-          "subnodos": ["1. Colocación — ingreso al sistema", "2. Estratificación — múltiples capas", "3. Integración — retorno a economía"]
+          "subnodos": [
+            "1. Colocación — ingreso al sistema",
+            "2. Estratificación — múltiples capas",
+            "3. Integración — retorno a economía"
+          ]
         },
         {
           "concepto": "Sujetos",
-          "subnodos": ["Lavador (sujeto activo)", "Interpósita persona / testaferro", "Entidad financiera (si omite reportar)"]
+          "subnodos": [
+            "Lavador (sujeto activo)",
+            "Interpósita persona / testaferro",
+            "Entidad financiera (si omite reportar)"
+          ]
         },
         {
           "concepto": "Delito fuente",
-          "subnodos": ["Narcotráfico", "Corrupción", "Fraude", "Secuestro", "Evasión fiscal", "Cualquier delito"]
+          "subnodos": [
+            "Narcotráfico",
+            "Corrupción",
+            "Fraude",
+            "Secuestro",
+            "Evasión fiscal",
+            "Cualquier delito"
+          ]
         },
         {
           "concepto": "Consecuencias",
-          "subnodos": ["Pena 5-15 años CPF Art. 400 Bis", "Multa hasta 50,000 días de salario mínimo", "Extinción de dominio", "Sanciones CNBV a entidades"]
+          "subnodos": [
+            "Pena 5-15 años CPF Art. 400 Bis",
+            "Multa hasta 50,000 días de salario mínimo",
+            "Extinción de dominio",
+            "Sanciones CNBV a entidades"
+          ]
         },
         {
           "concepto": "Marco regulatorio",
-          "subnodos": ["CPF Art. 400 Bis", "LFPIORPI", "GAFI 40 Recomendaciones", "Regulación CNBV sectorial"]
+          "subnodos": [
+            "CPF Art. 400 Bis",
+            "LFPIORPI",
+            "GAFI 40 Recomendaciones",
+            "Regulación CNBV sectorial"
+          ]
         }
       ]
     },
@@ -424,13 +481,37 @@
         {
           "tipo": "cuadro_comparativo",
           "titulo": "Lavado interno vs. lavado externo",
-          "columnas": ["Dimensión", "Lavado Externo", "Lavado Interno"],
+          "columnas": [
+            "Dimensión",
+            "Lavado Externo",
+            "Lavado Interno"
+          ],
           "filas": [
-            ["Origen", "Criminales que usan la institución como canal", "Empleados o directivos que participan en el esquema"],
-            ["Ejemplo típico", "Cliente que realiza depósitos estructurados", "Empleado que omite reportar u opera cuentas ficticias"],
-            ["Detección", "Sistema de monitoreo transaccional, señales de alerta del cliente", "Auditoría interna, análisis de conducta de empleados"],
-            ["Prevención clave", "Proceso de KYC robusto, monitoreo continuo", "Selección de personal, código de conducta, línea de denuncia"],
-            ["Marco regulatorio", "Obligaciones de reporte (LFPIORPI Art. 17)", "Responsabilidad penal Art. 400 Bis CPF + sanciones CNBV"]
+            [
+              "Origen",
+              "Criminales que usan la institución como canal",
+              "Empleados o directivos que participan en el esquema"
+            ],
+            [
+              "Ejemplo típico",
+              "Cliente que realiza depósitos estructurados",
+              "Empleado que omite reportar u opera cuentas ficticias"
+            ],
+            [
+              "Detección",
+              "Sistema de monitoreo transaccional, señales de alerta del cliente",
+              "Auditoría interna, análisis de conducta de empleados"
+            ],
+            [
+              "Prevención clave",
+              "Proceso de KYC robusto, monitoreo continuo",
+              "Selección de personal, código de conducta, línea de denuncia"
+            ],
+            [
+              "Marco regulatorio",
+              "Obligaciones de reporte (LFPIORPI Art. 17)",
+              "Responsabilidad penal Art. 400 Bis CPF + sanciones CNBV"
+            ]
           ]
         },
         {
@@ -587,17 +668,57 @@
         {
           "tipo": "cuadro_comparativo",
           "titulo": "Diferencias fundamentales entre LD y FT",
-          "columnas": ["Dimensión", "Lavado de Dinero (LD)", "Financiamiento al Terrorismo (FT)"],
+          "columnas": [
+            "Dimensión",
+            "Lavado de Dinero (LD)",
+            "Financiamiento al Terrorismo (FT)"
+          ],
           "filas": [
-            ["Objetivo principal", "Ocultar el origen ilícito de los fondos para poder usarlos libremente", "Financiar actos terroristas o a organizaciones terroristas"],
-            ["Origen de los fondos", "Siempre ilícito (producto del crimen)", "Puede ser lícito O ilícito"],
-            ["Dirección del flujo", "De lo ilícito hacia lo aparentemente lícito", "De cualquier origen hacia el terrorismo"],
-            ["Montos típicos", "Generalmente grandes volúmenes", "Frecuentemente montos pequeños pero con alto impacto"],
-            ["Motivación", "Beneficio económico personal", "Ideológica, política o religiosa"],
-            ["Delito fuente", "Requiere delito previo que genere recursos", "No requiere delito previo — los fondos pueden ser legítimos"],
-            ["Tipificación MX", "CPF Art. 400 Bis — ORPI", "CPF Art. 139 Quáter — FT"],
-            ["Pena máxima", "20 años de prisión (modalidad agravada)", "40 años de prisión"],
-            ["Detección", "Patrones financieros anómalos, montos, frecuencia", "Vinculación a listas de sanción, destino de fondos, ideología"]
+            [
+              "Objetivo principal",
+              "Ocultar el origen ilícito de los fondos para poder usarlos libremente",
+              "Financiar actos terroristas o a organizaciones terroristas"
+            ],
+            [
+              "Origen de los fondos",
+              "Siempre ilícito (producto del crimen)",
+              "Puede ser lícito O ilícito"
+            ],
+            [
+              "Dirección del flujo",
+              "De lo ilícito hacia lo aparentemente lícito",
+              "De cualquier origen hacia el terrorismo"
+            ],
+            [
+              "Montos típicos",
+              "Generalmente grandes volúmenes",
+              "Frecuentemente montos pequeños pero con alto impacto"
+            ],
+            [
+              "Motivación",
+              "Beneficio económico personal",
+              "Ideológica, política o religiosa"
+            ],
+            [
+              "Delito fuente",
+              "Requiere delito previo que genere recursos",
+              "No requiere delito previo — los fondos pueden ser legítimos"
+            ],
+            [
+              "Tipificación MX",
+              "CPF Art. 400 Bis — ORPI",
+              "CPF Art. 139 Quáter — FT"
+            ],
+            [
+              "Pena máxima",
+              "20 años de prisión (modalidad agravada)",
+              "40 años de prisión"
+            ],
+            [
+              "Detección",
+              "Patrones financieros anómalos, montos, frecuencia",
+              "Vinculación a listas de sanción, destino de fondos, ideología"
+            ]
           ]
         },
         {
@@ -757,11 +878,26 @@
         "Las evaluaciones mutuas del GAFI evalúan si México cumple efectivamente (no solo formalmente) con las 40 Recomendaciones."
       ],
       "preguntas_tipicas_examen": [
-        "¿Cuál es el artículo del CPF que tipifica el lavado de dinero en México?",
-        "¿En qué etapa del lavado de dinero el lavador es más vulnerable a ser detectado?",
-        "¿Cuál es la diferencia fundamental entre el lavado de dinero y el financiamiento al terrorismo?",
-        "¿Puede el FT realizarse con fondos de origen lícito?",
-        "¿Qué es la estructuración o pitufeo y en qué etapa del lavado ocurre?"
+        {
+          "pregunta": "¿Cuál es el artículo del CPF que tipifica el lavado de dinero en México?",
+          "respuesta": "El CPF Art. 400 Bis tipifica el delito de Operaciones con Recursos de Procedencia Ilícita (ORPI). Es un delito autónomo: no requiere sentencia previa por el delito fuente. Las penas van de 5 a 15 años de prisión y de 1,000 a 5,000 días multa."
+        },
+        {
+          "pregunta": "¿En qué etapa del lavado de dinero el lavador es más vulnerable a ser detectado?",
+          "respuesta": "La etapa de Colocación, cuando los fondos ilícitos ingresan por primera vez al sistema financiero. Es la etapa más riesgosa para el lavador porque el efectivo aún no ha sido mezclado con fondos legítimos y es más fácil de detectar mediante controles KYC y umbrales de reporte."
+        },
+        {
+          "pregunta": "¿Cuál es la diferencia fundamental entre el lavado de dinero y el financiamiento al terrorismo?",
+          "respuesta": "La diferencia es ORIGEN vs. DESTINO. En el LD los fondos son SIEMPRE de origen ilícito y el objetivo es limpiarlos (transformar fondos sucios en lícitos). En el FT los fondos pueden tener origen lícito o ilícito — lo que importa es el DESTINO: financiar actos terroristas."
+        },
+        {
+          "pregunta": "¿Puede el FT realizarse con fondos de origen lícito?",
+          "respuesta": "Sí. A diferencia del lavado de dinero, el FT puede financiarse con fondos de origen totalmente lícito (donaciones a organizaciones fachada, empresas legítimas, herencias, etc.). Esta característica hace que el FT sea más difícil de detectar mediante controles financieros tradicionales."
+        },
+        {
+          "pregunta": "¿Qué es la estructuración o pitufeo y en qué etapa del lavado ocurre?",
+          "respuesta": "La estructuración o \"pitufeo\" consiste en realizar múltiples depósitos fraccionados por montos ligeramente inferiores al umbral de reporte (en México, por debajo de los umbrales de aviso) para evadir los controles automáticos. Ocurre en la etapa de Colocación y es una de las señales de alerta más comunes e importantes para el examen CENEVAL."
+        }
       ]
     },
     "fuente_detallada": "CPF Arts. 400 Bis y 139 Quáter; GAFI — 40 Recomendaciones; LFPIORPI",
