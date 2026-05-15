@@ -13,21 +13,27 @@ import { cn } from "@/lib/utils"
 
 /* ─── Types ─────────────────────────────────────────────────────────── */
 interface RecContent {
+  tipo?: string
   numero?: number
   titulo?: string
-  texto_completo?: string
+  texto_oficial_parafraseado?: string
   nota_interpretativa?: string
   explicacion_resumida?: string
   vital_examen?: boolean
   elementos_clave?: string[]
   aplicacion_mexico?: string
   importancia_examen?: string
+  fundamento_mexico?: string
 }
 
 interface ContentItem {
   tipo: string
   subtema?: string
-  contenido: RecContent
+  contenido: {
+    titulo?: string
+    cuerpo?: RecContent[]
+    [key: string]: unknown
+  }
 }
 
 /* ─── Static data ────────────────────────────────────────────────────── */
@@ -147,10 +153,15 @@ export default function GafiPage() {
       .then((r) => r.json())
       .then((data: { content: ContentItem[] }) => {
         const map: Record<number, RecContent> = {}
+        // Each explicacion block has contenido.cuerpo[] with nested recomendacion objects
         for (const item of data.content ?? []) {
-          if (item.tipo === "recomendacion") {
-            const c = item.contenido as RecContent
-            if (c?.numero) map[c.numero] = c
+          const cuerpo = item.contenido?.cuerpo
+          if (Array.isArray(cuerpo)) {
+            for (const block of cuerpo) {
+              if (block.tipo === "recomendacion" && block.numero) {
+                map[block.numero] = block
+              }
+            }
           }
         }
         setRecMap(map)
@@ -303,13 +314,13 @@ export default function GafiPage() {
                         <div className="px-5 pb-5 pt-3 bg-slate-50 space-y-3">
                           {data ? (
                             <>
-                              {/* Texto completo */}
-                              {!!data.texto_completo && (
+                              {/* Texto oficial */}
+                              {!!data.texto_oficial_parafraseado && (
                                 <div className="rounded-xl bg-white border border-slate-200 p-4">
                                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2">
                                     📋 Texto de la Recomendación
                                   </p>
-                                  <p className="text-sm text-slate-700 leading-relaxed">{data.texto_completo}</p>
+                                  <p className="text-sm text-slate-700 leading-relaxed">{data.texto_oficial_parafraseado}</p>
                                 </div>
                               )}
 
