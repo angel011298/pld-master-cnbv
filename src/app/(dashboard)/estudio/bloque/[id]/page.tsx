@@ -1645,89 +1645,107 @@ function VerdaderoFalsoExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 
 // — Completar —
 function CompletarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
-  const frases = (ejercicio.contenido.frases ?? []) as {
-    numero: number;
+  const oraciones = (ejercicio.contenido.oraciones ?? []) as {
+    id: number;
     texto: string;
-    opciones: string[];
-    respuesta_correcta: number;
+    espacios: string[];
   }[];
 
-  const [answers, setAnswers] = useState<Record<number, number | null>>(
-    Object.fromEntries(frases.map((f) => [f.numero, null]))
+  const [answers, setAnswers] = useState<Record<number, string[]>>(
+    Object.fromEntries(oraciones.map((o) => [o.id, o.espacios.map(() => "")]))
   );
   const [submitted, setSubmitted] = useState(false);
+  const [results, setResults] = useState<Record<number, boolean[]>>({});
 
-  const allAnswered = Object.values(answers).every((v) => v !== null);
+  const totalBlanks = oraciones.reduce((acc, o) => acc + o.espacios.length, 0);
+  const allFilled = oraciones.every((o) =>
+    (answers[o.id] ?? []).every((a) => a.trim() !== "")
+  );
+
+  const handleInput = (sentenceId: number, blankIdx: number, value: string) => {
+    setAnswers((prev) => {
+      const cur = [...(prev[sentenceId] ?? [])];
+      cur[blankIdx] = value;
+      return { ...prev, [sentenceId]: cur };
+    });
+  };
 
   const handleSubmit = () => {
-    if (!allAnswered) return;
+    if (!allFilled) return;
+    const resultMap: Record<number, boolean[]> = {};
+    let correct = 0;
+    for (const oracion of oraciones) {
+      const userAnswers = answers[oracion.id] ?? [];
+      const booleans = oracion.espacios.map((expected, i) => {
+        const isOk = (userAnswers[i] ?? "").trim().toLowerCase() === expected.trim().toLowerCase();
+        if (isOk) correct++;
+        return isOk;
+      });
+      resultMap[oracion.id] = booleans;
+    }
+    setResults(resultMap);
     setSubmitted(true);
-    const correct = frases.filter((f) => answers[f.numero] === f.respuesta_correcta).length;
-    onScore(Math.round((correct / frases.length) * 100));
+    onScore(Math.round((correct / totalBlanks) * 100));
   };
 
   return (
     <div className="space-y-4">
       <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
-      {frases.map((frase) => {
-        const chosen = answers[frase.numero];
-        const isCorrect = submitted && chosen === frase.respuesta_correcta;
-        const isWrong = submitted && chosen !== null && chosen !== frase.respuesta_correcta;
-
-        const blank = "_______";
-        const parts = frase.texto.split(blank);
+      {oraciones.map((oracion) => {
+        const parts = oracion.texto.split("_____");
+        const userAnswers = answers[oracion.id] ?? [];
+        const booleans = results[oracion.id] ?? [];
 
         return (
           <div
-            key={frase.numero}
-            className={cn(
-              "p-4 rounded-xl border-2 transition-colors",
-              submitted
-                ? isCorrect ? "border-emerald-300 bg-emerald-50" : isWrong ? "border-red-300 bg-red-50" : "border-slate-200"
-                : "border-slate-200 bg-white"
-            )}
+            key={oracion.id}
+            className="p-4 rounded-xl border-2 border-slate-200 bg-white space-y-2"
           >
-            <p className="text-sm text-slate-800 mb-3 leading-relaxed font-medium">
-              {parts[0]}
-              <span className={cn(
-                "inline-block px-2 py-0.5 mx-1 rounded border font-bold min-w-[80px] text-center",
-                submitted && isCorrect ? "bg-emerald-200 border-emerald-400 text-emerald-800" :
-                submitted && isWrong   ? "bg-red-200 border-red-400 text-red-800" :
-                chosen !== null ? "bg-blue-100 border-blue-300 text-blue-800" :
-                "bg-slate-100 border-dashed border-slate-400 text-slate-400"
-              )}>
-                {chosen !== null ? frase.opciones[chosen] : blank}
-              </span>
-              {parts[1]}
+            <p className="text-sm text-slate-800 leading-loose font-medium">
+              {parts.map((part, i) => (
+                <span key={i}>
+                  {part}
+                  {i < oracion.espacios.length && (
+                    <input
+                      disabled={submitted}
+                      value={userAnswers[i] ?? ""}
+                      onChange={(e) => handleInput(oracion.id, i, e.target.value)}
+                      className={cn(
+                        "inline-block border-b-2 bg-transparent text-center text-sm font-bold outline-none mx-1 px-1 min-w-[70px] max-w-[150px]",
+                        submitted
+                          ? booleans[i]
+                            ? "border-emerald-400 text-emerald-700"
+                            : "border-red-400 text-red-700"
+                          : "border-blue-400 text-blue-800 focus:border-blue-600"
+                      )}
+                      placeholder="___"
+                    />
+                  )}
+                </span>
+              ))}
             </p>
-            <div className="flex flex-wrap gap-2">
-              {frase.opciones.map((opcion, idx) => {
-                const isChosen = chosen === idx;
-                const showGreen = submitted && idx === frase.respuesta_correcta;
-                const showRed   = submitted && isChosen && idx !== frase.respuesta_correcta;
-                return (
-                  <button
-                    key={idx}
-                    disabled={submitted}
-                    onClick={() => setAnswers((prev) => ({ ...prev, [frase.numero]: idx }))}
+            {submitted && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {oracion.espacios.map((esp, i) => (
+                  <span
+                    key={i}
                     className={cn(
-                      "px-3 py-1.5 rounded-lg text-sm font-semibold border-2 transition-all",
-                      showGreen ? "bg-emerald-500 text-white border-emerald-600" :
-                      showRed   ? "bg-red-500 text-white border-red-600" :
-                      isChosen  ? "bg-blue-600 text-white border-blue-700" :
-                      "bg-white text-slate-700 border-slate-300 hover:border-blue-400 hover:bg-blue-50"
+                      "text-xs font-bold px-2 py-0.5 rounded border",
+                      booleans[i]
+                        ? "bg-emerald-100 border-emerald-300 text-emerald-700"
+                        : "bg-red-50 border-red-300 text-red-700"
                     )}
                   >
-                    {opcion}
-                  </button>
-                );
-              })}
-            </div>
+                    {i + 1}. {esp}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         );
       })}
       {!submitted && (
-        <Button onClick={handleSubmit} disabled={!allAnswered} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold">
+        <Button onClick={handleSubmit} disabled={!allFilled} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold">
           Verificar Respuestas
         </Button>
       )}
@@ -1738,15 +1756,15 @@ function CompletarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
 
 // — Relacionar —
 function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
-  const columnaA = (ejercicio.contenido.columna_a ?? []) as { id: number; concepto: string }[];
-  const columnaB = (ejercicio.contenido.columna_b ?? []) as { id: string; definicion: string }[];
-  const relaciones = (ejercicio.solucion.relaciones ?? []) as { concepto_id: number; definicion_id: string }[];
+  const columnaA = (ejercicio.contenido.columna_conceptos ?? []) as { id: string; concepto: string }[];
+  const columnaB = (ejercicio.contenido.columna_definiciones ?? []) as { id: string; definicion: string }[];
+  const respuestasCorrectas = (ejercicio.solucion.respuestas_correctas ?? {}) as Record<string, string>;
 
-  const [selectedA, setSelectedA] = useState<number | null>(null);
-  const [matches, setMatches] = useState<Record<number, string>>({});
+  const [selectedA, setSelectedA] = useState<string | null>(null);
+  const [matches, setMatches] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSelectA = (id: number) => {
+  const handleSelectA = (id: string) => {
     if (submitted) return;
     setSelectedA((prev) => (prev === id ? null : id));
   };
@@ -1760,11 +1778,9 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
   const handleSubmit = () => {
     if (Object.keys(matches).length < columnaA.length) return;
     setSubmitted(true);
-    const correct = relaciones.filter((r) => matches[r.concepto_id] === r.definicion_id).length;
-    onScore(Math.round((correct / relaciones.length) * 100));
+    const correct = columnaA.filter((a) => matches[a.id] === respuestasCorrectas[a.id]).length;
+    onScore(Math.round((correct / columnaA.length) * 100));
   };
-
-  const correctMap = Object.fromEntries(relaciones.map((r) => [r.concepto_id, r.definicion_id]));
 
   return (
     <div className="space-y-4">
@@ -1781,8 +1797,8 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
           {columnaA.map((item) => {
             const matchedB = matches[item.id];
             const isSelected = selectedA === item.id;
-            const isCorrect = submitted && correctMap[item.id] === matchedB;
-            const isWrong   = submitted && matchedB && correctMap[item.id] !== matchedB;
+            const isCorrect = submitted && respuestasCorrectas[item.id] === matchedB;
+            const isWrong   = submitted && !!matchedB && respuestasCorrectas[item.id] !== matchedB;
 
             return (
               <button
@@ -1817,7 +1833,9 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
           {columnaB.map((item) => {
             const isLinked = Object.values(matches).includes(item.id);
             const canClick = selectedA !== null && !submitted;
-            const correctConceptId = relaciones.find((r) => r.definicion_id === item.id)?.concepto_id;
+            const correctConceptId = Object.keys(respuestasCorrectas).find(
+              (cId) => respuestasCorrectas[cId] === item.id
+            );
             const isMatchedCorrectly = submitted && correctConceptId !== undefined && matches[correctConceptId] === item.id;
             const isMatchedWrong     = submitted && isLinked && !isMatchedCorrectly;
 
@@ -1854,19 +1872,279 @@ function RelacionarExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
       {submitted && (
         <div className="space-y-2">
           <p className="text-xs font-black text-slate-500 uppercase tracking-wider">Relaciones correctas:</p>
-          {relaciones.map((r) => {
-            const concept = columnaA.find((a) => a.id === r.concepto_id);
-            const def     = columnaB.find((b) => b.id === r.definicion_id);
+          {columnaA.map((concept) => {
+            const defId = respuestasCorrectas[concept.id];
+            const def   = columnaB.find((b) => b.id === defId);
             return (
-              <div key={r.concepto_id} className="flex items-center gap-2 text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
+              <div key={concept.id} className="flex items-center gap-2 text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                <span className="font-bold">{concept?.concepto}</span>
+                <span className="font-bold">{concept.concepto}</span>
                 <ArrowRight className="h-3 w-3 text-emerald-500 shrink-0" />
                 <span>{def?.definicion}</span>
               </div>
             );
           })}
           <SolucionPanel solucion={ejercicio.solucion} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// — Crucigrama —
+function CrucigramaExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
+  const palabras = (ejercicio.contenido.palabras ?? []) as {
+    numero: number;
+    direccion: "horizontal" | "vertical";
+    pista: string;
+    respuesta: string;
+    longitud: number;
+  }[];
+
+  const makeKey = (p: { numero: number; direccion: string }) =>
+    `${p.numero}${p.direccion[0].toUpperCase()}`;
+
+  const [answers, setAnswers] = useState<Record<string, string>>(
+    Object.fromEntries(palabras.map((p) => [makeKey(p), ""]))
+  );
+  const [submitted, setSubmitted] = useState(false);
+  const [results, setResults] = useState<Record<string, boolean>>({});
+
+  const horizontales = palabras.filter((p) => p.direccion === "horizontal");
+  const verticales   = palabras.filter((p) => p.direccion === "vertical");
+  const allFilled = palabras.every((p) => answers[makeKey(p)]?.trim());
+
+  const handleSubmit = () => {
+    const res: Record<string, boolean> = {};
+    let correct = 0;
+    for (const p of palabras) {
+      const key = makeKey(p);
+      const isOk =
+        (answers[key] ?? "").trim().toUpperCase().replace(/\s+/g, "") ===
+        p.respuesta.toUpperCase().replace(/\s+/g, "");
+      res[key] = isOk;
+      if (isOk) correct++;
+    }
+    setResults(res);
+    setSubmitted(true);
+    onScore(Math.round((correct / palabras.length) * 100));
+  };
+
+  const renderClueList = (list: typeof palabras) => (
+    <div className="space-y-3">
+      {list.map((p) => {
+        const key = makeKey(p);
+        const isCorrect = submitted && results[key];
+        const isWrong   = submitted && !results[key];
+        return (
+          <div
+            key={key}
+            className={cn(
+              "flex items-start gap-3 p-3 rounded-xl border-2 transition-colors",
+              isCorrect ? "border-emerald-300 bg-emerald-50" :
+              isWrong   ? "border-red-300 bg-red-50" :
+              "border-slate-200 bg-white"
+            )}
+          >
+            <span className={cn(
+              "shrink-0 h-7 w-7 rounded-lg flex items-center justify-center text-xs font-black",
+              isCorrect ? "bg-emerald-500 text-white" :
+              isWrong   ? "bg-red-500 text-white" :
+              "bg-slate-200 text-slate-700"
+            )}>
+              {p.numero}
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-slate-500 leading-snug mb-1">{p.pista}</p>
+              <div className="flex items-center gap-2">
+                <input
+                  disabled={submitted}
+                  value={answers[key] ?? ""}
+                  onChange={(e) =>
+                    setAnswers((prev) => ({ ...prev, [key]: e.target.value.toUpperCase() }))
+                  }
+                  maxLength={(p.longitud ?? 20) + 5}
+                  className={cn(
+                    "flex-1 border-b-2 bg-transparent text-sm font-bold uppercase outline-none px-1 py-0.5 transition-colors",
+                    isCorrect ? "border-emerald-400 text-emerald-700" :
+                    isWrong   ? "border-red-400 text-red-700" :
+                    "border-blue-400 text-blue-800 focus:border-blue-600"
+                  )}
+                  placeholder={p.longitud ? `${p.longitud} letras` : "Escribe aquí"}
+                />
+                {isCorrect && <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />}
+                {isWrong && (
+                  <span className="text-xs font-bold text-red-600 shrink-0">{p.respuesta}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <div className="space-y-5">
+      <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+      {horizontales.length > 0 && (
+        <div>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-3">→ Horizontales</p>
+          {renderClueList(horizontales)}
+        </div>
+      )}
+      {verticales.length > 0 && (
+        <div>
+          <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-3">↓ Verticales</p>
+          {renderClueList(verticales)}
+        </div>
+      )}
+      {!submitted && (
+        <Button
+          onClick={handleSubmit}
+          disabled={!allFilled}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
+        >
+          Verificar Crucigrama
+        </Button>
+      )}
+      {submitted && <SolucionPanel solucion={ejercicio.solucion} />}
+    </div>
+  );
+}
+
+// — Sopa de Letras —
+function SopaLetrasExercise({ ejercicio, onScore }: ExerciseWrapperProps) {
+  const cuadricula = (ejercicio.contenido.cuadricula ?? []) as string[];
+  const palabrasOcultas = (ejercicio.contenido.palabras_ocultas ?? []) as string[];
+  const ubicaciones = (ejercicio.solucion.ubicaciones ?? {}) as Record<
+    string,
+    { fila: number; columna: number; direccion: string }
+  >;
+
+  const grid = cuadricula.map((row) => row.split(" ").filter(Boolean));
+
+  const [found, setFound] = useState<Set<string>>(new Set());
+  const [submitted, setSubmitted] = useState(false);
+
+  const toggleWord = (word: string) => {
+    if (submitted) return;
+    setFound((prev) => {
+      const next = new Set(prev);
+      if (next.has(word)) next.delete(word);
+      else next.add(word);
+      return next;
+    });
+  };
+
+  const handleSubmit = () => {
+    setSubmitted(true);
+    onScore(Math.round((found.size / Math.max(palabrasOcultas.length, 1)) * 100));
+  };
+
+  // Compute highlighted cells for each found/revealed word
+  const getWordCells = (word: string): Set<string> => {
+    const loc = ubicaciones[word];
+    if (!loc) return new Set();
+    const cells = new Set<string>();
+    const len = word.replace(/\s/g, "").length;
+    for (let i = 0; i < len; i++) {
+      let r = loc.fila - 1;
+      let c = loc.columna - 1;
+      if (loc.direccion === "horizontal") c += i;
+      else if (loc.direccion === "vertical") r += i;
+      else if (loc.direccion === "diagonal") { r += i; c += i; }
+      cells.add(`${r},${c}`);
+    }
+    return cells;
+  };
+
+  const allHighlighted = submitted
+    ? new Set(
+        palabrasOcultas.flatMap((w) => Array.from(getWordCells(w)))
+      )
+    : new Set<string>();
+
+  return (
+    <div className="space-y-4">
+      <p className="text-sm text-slate-600 italic">{ejercicio.instrucciones}</p>
+
+      {/* Grid */}
+      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-slate-50 p-3">
+        <table className="border-collapse mx-auto">
+          <tbody>
+            {grid.map((row, ri) => (
+              <tr key={ri}>
+                {row.map((letter, ci) => {
+                  const cellKey = `${ri},${ci}`;
+                  const isHighlighted = submitted && allHighlighted.has(cellKey);
+                  return (
+                    <td
+                      key={ci}
+                      className={cn(
+                        "w-7 h-7 text-center text-xs font-black border border-slate-200 select-none",
+                        isHighlighted
+                          ? "bg-emerald-200 text-emerald-800 border-emerald-300"
+                          : "text-slate-700"
+                      )}
+                    >
+                      {letter}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Word list */}
+      <div>
+        <p className="text-xs font-black text-slate-500 uppercase tracking-wider mb-2">
+          Palabras a encontrar — haz clic cuando la localices en la sopa
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {palabrasOcultas.map((word) => {
+            const isFound = found.has(word);
+            return (
+              <button
+                key={word}
+                onClick={() => toggleWord(word)}
+                disabled={submitted}
+                className={cn(
+                  "px-3 py-1.5 rounded-lg text-sm font-bold border-2 transition-all",
+                  submitted
+                    ? isFound
+                      ? "bg-emerald-100 border-emerald-400 text-emerald-800 line-through"
+                      : "bg-red-50 border-red-300 text-red-600"
+                    : isFound
+                      ? "bg-emerald-100 border-emerald-400 text-emerald-800 line-through"
+                      : "bg-white border-slate-300 text-slate-700 hover:border-blue-400 hover:bg-blue-50"
+                )}
+              >
+                {word}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {!submitted && (
+        <Button
+          onClick={handleSubmit}
+          disabled={found.size === 0}
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold"
+        >
+          Finalizar Búsqueda ({found.size}/{palabrasOcultas.length} encontradas)
+        </Button>
+      )}
+      {submitted && (
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 space-y-1">
+          <p className="text-xs font-black text-amber-700 uppercase tracking-wider">Resultado</p>
+          <p className="text-sm text-slate-800">
+            Encontraste <strong>{found.size}</strong> de <strong>{palabrasOcultas.length}</strong> palabras.
+            Las celdas resaltadas en verde muestran la ubicación de todas las palabras.
+          </p>
         </div>
       )}
     </div>
@@ -1995,6 +2273,8 @@ function EjercicioCard({
       case "verdadero_falso": return <VerdaderoFalsoExercise {...props} />;
       case "completar":       return <CompletarExercise {...props} />;
       case "relacionar":      return <RelacionarExercise {...props} />;
+      case "crucigrama":      return <CrucigramaExercise {...props} />;
+      case "sopa_letras":     return <SopaLetrasExercise {...props} />;
       case "caso_practico":   return <CasoPracticoExercise {...props} />;
       default:
         return (
