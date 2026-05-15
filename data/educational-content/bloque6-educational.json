@@ -10,14 +10,38 @@
         {
           "tipo": "datos_generales",
           "items": [
-            {"campo": "Nombre completo", "valor": "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita"},
-            {"campo": "Abreviatura", "valor": "LFPIORPI (también llamada 'Ley Antilavado')"},
-            {"campo": "Publicación en DOF", "valor": "17 de octubre de 2012"},
-            {"campo": "Entrada en vigor", "valor": "17 de julio de 2013 (9 meses después de su publicación)"},
-            {"campo": "Reglamento", "valor": "Publicado el 16 de agosto de 2013 en el DOF"},
-            {"campo": "Autoridad reguladora", "valor": "Secretaría de Hacienda y Crédito Público (SHCP)"},
-            {"campo": "Autoridad supervisora", "valor": "Servicio de Administración Tributaria (SAT)"},
-            {"campo": "Receptor de avisos", "valor": "SAT (a diferencia de las entidades financieras que reportan a la UIF)"}
+            {
+              "campo": "Nombre completo",
+              "valor": "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita"
+            },
+            {
+              "campo": "Abreviatura",
+              "valor": "LFPIORPI (también llamada 'Ley Antilavado')"
+            },
+            {
+              "campo": "Publicación en DOF",
+              "valor": "17 de octubre de 2012"
+            },
+            {
+              "campo": "Entrada en vigor",
+              "valor": "17 de julio de 2013 (9 meses después de su publicación)"
+            },
+            {
+              "campo": "Reglamento",
+              "valor": "Publicado el 16 de agosto de 2013 en el DOF"
+            },
+            {
+              "campo": "Autoridad reguladora",
+              "valor": "Secretaría de Hacienda y Crédito Público (SHCP)"
+            },
+            {
+              "campo": "Autoridad supervisora",
+              "valor": "Servicio de Administración Tributaria (SAT)"
+            },
+            {
+              "campo": "Receptor de avisos",
+              "valor": "SAT (a diferencia de las entidades financieras que reportan a la UIF)"
+            }
           ]
         },
         {
@@ -44,15 +68,47 @@
           "titulo": "LFPIORPI vs. Régimen PLD del Sistema Financiero: Las dos grandes vías",
           "descripcion": "México tiene DOS sistemas paralelos de prevención del LD/FT:",
           "cuadro_comparativo": {
-            "columnas": ["Dimensión", "Sistema Financiero (CNBV)", "Actividades Vulnerables (LFPIORPI)"],
+            "columnas": [
+              "Dimensión",
+              "Sistema Financiero (CNBV)",
+              "Actividades Vulnerables (LFPIORPI)"
+            ],
             "filas": [
-              ["Marco legal principal", "LIC Art. 115, LMV Art. 212, etc.", "LFPIORPI"],
-              ["Autoridad supervisora", "CNBV, CNSF, Consar", "SAT"],
-              ["Qué se presenta", "Reportes: OR, OI, OIP (a la UIF)", "Avisos (al SAT, quien los transmite a la UIF)"],
-              ["Plazo de presentación", "Según tipo: día 17 del mes o 60 días", "Dentro de los 30 días hábiles siguientes a la operación"],
-              ["Umbral en divisas", "Varía por sector (ej: $7,500 USD en banca)", "Varía por actividad vulnerable (algunas en UMAs)"],
-              ["Destinatarios", "Entidades financieras reguladas", "Personas físicas y morales que realizan actividades vulnerables"],
-              ["Sistema de envío", "SUAdeO (sistema UIF)", "Portal del SAT (PFPIORPI)"]
+              [
+                "Marco legal principal",
+                "LIC Art. 115, LMV Art. 212, etc.",
+                "LFPIORPI"
+              ],
+              [
+                "Autoridad supervisora",
+                "CNBV, CNSF, Consar",
+                "SAT"
+              ],
+              [
+                "Qué se presenta",
+                "Reportes: OR, OI, OIP (a la UIF)",
+                "Avisos (al SAT, quien los transmite a la UIF)"
+              ],
+              [
+                "Plazo de presentación",
+                "Según tipo: día 17 del mes o 60 días",
+                "Dentro de los 30 días hábiles siguientes a la operación"
+              ],
+              [
+                "Umbral en divisas",
+                "Varía por sector (ej: $7,500 USD en banca)",
+                "Varía por actividad vulnerable (algunas en UMAs)"
+              ],
+              [
+                "Destinatarios",
+                "Entidades financieras reguladas",
+                "Personas físicas y morales que realizan actividades vulnerables"
+              ],
+              [
+                "Sistema de envío",
+                "SUAdeO (sistema UIF)",
+                "Portal del SAT (PFPIORPI)"
+              ]
             ]
           }
         },
@@ -394,7 +450,13 @@
               "descripcion": "Presentar ante el SAT los avisos de las operaciones que alcancen o superen los umbrales establecidos para cada actividad vulnerable. Esta es la obligación central y más importante de la Ley.",
               "plazo": "Dentro de los 30 días hábiles siguientes a la operación",
               "forma": "A través del portal electrónico del SAT (PFPIORPI)",
-              "contenido_aviso": ["Datos de identificación del cliente", "Descripción de la operación", "Monto de la operación", "Forma de pago (efectivo, transferencia, etc.)", "Datos del sujeto obligado"],
+              "contenido_aviso": [
+                "Datos de identificación del cliente",
+                "Descripción de la operación",
+                "Monto de la operación",
+                "Forma de pago (efectivo, transferencia, etc.)",
+                "Datos del sujeto obligado"
+              ],
               "fundamento": "LFPIORPI Art. 18, fracción IV"
             },
             {
@@ -489,24 +551,92 @@
           "tipo": "comparativo_completo",
           "titulo": "Similitudes y diferencias entre el régimen LFPIORPI y el régimen sectorial financiero",
           "cuadro_comparativo": {
-            "columnas": ["Dimensión", "Régimen Sectorial Financiero (CNBV)", "LFPIORPI (Actividades Vulnerables)"],
+            "columnas": [
+              "Dimensión",
+              "Régimen Sectorial Financiero (CNBV)",
+              "LFPIORPI (Actividades Vulnerables)"
+            ],
             "filas": [
-              ["Ámbito de aplicación", "Entidades del sistema financiero reguladas", "Personas físicas y morales que realizan actividades vulnerables no financieras"],
-              ["Marco legal base", "LIC Art. 115, LMV Art. 212, Ley FinTech, etc.", "LFPIORPI Art. 17"],
-              ["Autoridad reguladora", "CNBV (principalmente)", "SHCP"],
-              ["Autoridad supervisora", "CNBV", "SAT"],
-              ["Tipo de comunicación", "REPORTES ante la UIF (OR, OI, OIP)", "AVISOS ante el SAT"],
-              ["Plazo de presentación", "OR: día 17 del mes siguiente; OI: 60 días hábiles", "30 días hábiles tras la operación"],
-              ["Sistema de presentación", "SUAdeO (sistema UIF)", "Portal del SAT (PFPIORPI)"],
-              ["Conservación de documentos", "10 años mínimo", "5 años mínimo"],
-              ["Umbral de identificación", "Varía por sector y tipo de operación (generalmente bajo)", "Varía por actividad (ver Art. 17)"],
-              ["Restricciones en efectivo", "Controles sobre efectivo en todas las operaciones", "Restricciones específicas en operaciones de alto valor (Art. 32)"],
-              ["Manual/Políticas", "Manual PLD/FT obligatorio con todos los procedimientos", "Medidas y procedimientos internos (menos formal)"],
-              ["Oficial de Cumplimiento", "Obligatorio — designado y notificado a CNBV", "No obligatorio como tal (solo en entidades grandes)"],
-              ["Capacitación", "Anual para todo el personal", "Requerida pero con menor especificidad"],
-              ["Sanciones por incumplimiento", "Multas CNBV hasta cientos de miles de SMG + inhabilitación", "Multas SAT + clausura + en casos graves sanción penal"],
-              ["Supervisión", "Visitas de inspección CNBV (ordinarias y especiales)", "Verificaciones del SAT"],
-              ["Similitudes clave", "Identificación de clientes, propietario real, deber de reserva, restricciones con bloqueados", "Identificación de clientes, propietario real, deber de reserva, restricciones con bloqueados"]
+              [
+                "Ámbito de aplicación",
+                "Entidades del sistema financiero reguladas",
+                "Personas físicas y morales que realizan actividades vulnerables no financieras"
+              ],
+              [
+                "Marco legal base",
+                "LIC Art. 115, LMV Art. 212, Ley FinTech, etc.",
+                "LFPIORPI Art. 17"
+              ],
+              [
+                "Autoridad reguladora",
+                "CNBV (principalmente)",
+                "SHCP"
+              ],
+              [
+                "Autoridad supervisora",
+                "CNBV",
+                "SAT"
+              ],
+              [
+                "Tipo de comunicación",
+                "REPORTES ante la UIF (OR, OI, OIP)",
+                "AVISOS ante el SAT"
+              ],
+              [
+                "Plazo de presentación",
+                "OR: día 17 del mes siguiente; OI: 60 días hábiles",
+                "30 días hábiles tras la operación"
+              ],
+              [
+                "Sistema de presentación",
+                "SUAdeO (sistema UIF)",
+                "Portal del SAT (PFPIORPI)"
+              ],
+              [
+                "Conservación de documentos",
+                "10 años mínimo",
+                "5 años mínimo"
+              ],
+              [
+                "Umbral de identificación",
+                "Varía por sector y tipo de operación (generalmente bajo)",
+                "Varía por actividad (ver Art. 17)"
+              ],
+              [
+                "Restricciones en efectivo",
+                "Controles sobre efectivo en todas las operaciones",
+                "Restricciones específicas en operaciones de alto valor (Art. 32)"
+              ],
+              [
+                "Manual/Políticas",
+                "Manual PLD/FT obligatorio con todos los procedimientos",
+                "Medidas y procedimientos internos (menos formal)"
+              ],
+              [
+                "Oficial de Cumplimiento",
+                "Obligatorio — designado y notificado a CNBV",
+                "No obligatorio como tal (solo en entidades grandes)"
+              ],
+              [
+                "Capacitación",
+                "Anual para todo el personal",
+                "Requerida pero con menor especificidad"
+              ],
+              [
+                "Sanciones por incumplimiento",
+                "Multas CNBV hasta cientos de miles de SMG + inhabilitación",
+                "Multas SAT + clausura + en casos graves sanción penal"
+              ],
+              [
+                "Supervisión",
+                "Visitas de inspección CNBV (ordinarias y especiales)",
+                "Verificaciones del SAT"
+              ],
+              [
+                "Similitudes clave",
+                "Identificación de clientes, propietario real, deber de reserva, restricciones con bloqueados",
+                "Identificación de clientes, propietario real, deber de reserva, restricciones con bloqueados"
+              ]
             ]
           }
         },
@@ -658,16 +788,46 @@
         "Los notarios tienen obligaciones dobles: como personas que ejercen fe pública (Fr. V) en operaciones inmobiliarias Y como actores en la constitución de personas morales (Fr. XI) — ambas fracciones aplican a los notarios."
       ],
       "preguntas_tipicas_examen": [
-        "¿Cuál es la diferencia entre un AVISO (LFPIORPI) y un REPORTE (sistema financiero)?",
-        "¿Qué autoridad recibe los avisos de actividades vulnerables y en qué plazo deben presentarse?",
-        "¿Qué establece el Art. 32 LFPIORPI respecto a las restricciones de pago en efectivo?",
-        "¿Cuánto tiempo deben conservarse los documentos bajo la LFPIORPI?",
-        "¿Cuáles son las tres actividades vulnerables de mayor riesgo PLD/FT según la LFPIORPI?",
-        "¿Cuál es el objeto de la LFPIORPI según su Art. 1?",
-        "¿Cuántas y cuáles son las obligaciones de los sujetos de actividades vulnerables?",
-        "¿La LFPIORPI aplica a las entidades financieras? ¿En qué casos?",
-        "¿Qué fracción del Art. 17 aplica a los notarios en operaciones de compraventa inmobiliaria?",
-        "¿Cuál es la diferencia entre el régimen LFPIORPI y el régimen sectorial de la CNBV en cuanto a plazo de conservación de documentos?"
+        {
+          "pregunta": "¿Cuál es la diferencia entre un AVISO (LFPIORPI) y un REPORTE (sistema financiero)?",
+          "respuesta": "AVISO (LFPIORPI): lo presentan los sujetos de actividades vulnerables NO financieras (notarios, inmobiliarias, joyerías, casinos, etc.) ante el SAT. Es por monto o por tipo de operación. Plazo: 30 días hábiles desde la operación. REPORTE (sistema financiero): lo presentan las entidades financieras (bancos, casas de bolsa, etc.) directamente ante la UIF. Incluye OR (por monto), OI (por sospecha) y OIP (por conducta del personal). Ambos alimentan la inteligencia de la UIF pero por canales distintos."
+        },
+        {
+          "pregunta": "¿Qué autoridad recibe los avisos de actividades vulnerables y en qué plazo deben presentarse?",
+          "respuesta": "Los avisos de actividades vulnerables bajo la LFPIORPI se presentan ante el SAT (Servicio de Administración Tributaria) a través del sistema Portal de Avisos. El plazo es dentro de los 30 días hábiles siguientes a la realización de la operación que supere el umbral establecido. El SAT actúa como supervisor y receptor de avisos para actividades vulnerables; la UIF los analiza para inteligencia financiera."
+        },
+        {
+          "pregunta": "¿Qué establece el Art. 32 LFPIORPI respecto a las restricciones de pago en efectivo?",
+          "respuesta": "El Art. 32 LFPIORPI prohíbe el pago en efectivo en operaciones de alto valor: (1) Adquisición de inmuebles: pagos > 8,025 veces el Salario Mínimo General (SMG) deben hacerse con instrumentos financieros rastreables. (2) Vehículos (terrestres, aéreos, marítimos): > 3,210 SMG. (3) Joyas, metales preciosos, relojes, obras de arte: > 805 SMG. El objetivo es forzar la trazabilidad financiera en operaciones de alto valor que históricamente se usaban para la colocación de efectivo ilícito."
+        },
+        {
+          "pregunta": "¿Cuánto tiempo deben conservarse los documentos bajo la LFPIORPI?",
+          "respuesta": "MÍNIMO 5 AÑOS bajo la LFPIORPI — este plazo es significativamente menor al de las entidades financieras supervisadas por la CNBV (10 años). Esta diferencia es una pregunta frecuente en el examen CNBV. Los documentos deben conservarse en condiciones que permitan su consulta y entrega inmediata a las autoridades cuando sean requeridos."
+        },
+        {
+          "pregunta": "¿Cuáles son las tres actividades vulnerables de mayor riesgo PLD/FT según la LFPIORPI?",
+          "respuesta": "Las tres de mayor riesgo según el perfil de la ENR y la práctica regulatoria son: (1) Casinos y juegos con apuestas (Fr. I) — alto volumen de efectivo, difícil trazabilidad. (2) Notarios y corredores públicos en operaciones inmobiliarias (Fr. V y XI) — el sector inmobiliario es el segundo más vulnerable en México según la ENR. (3) Compraventa de inmuebles (Fr. VII) — el sector inmobiliario como tal, por el alto valor de las operaciones y el uso tradicional para integración de fondos ilícitos."
+        },
+        {
+          "pregunta": "¿Cuál es el objeto de la LFPIORPI según su Art. 1?",
+          "respuesta": "La LFPIORPI tiene por objeto establecer medidas y procedimientos para prevenir y detectar actos u operaciones que involucren recursos de procedencia ilícita, mediante una coordinación interinstitucional entre autoridades y sujetos obligados no financieros (actividades vulnerables). Fue publicada el 17/10/2012 y entró en vigor el 17/07/2013. Complementa el régimen del sistema financiero — no lo sustituye."
+        },
+        {
+          "pregunta": "¿Cuántas y cuáles son las obligaciones de los sujetos de actividades vulnerables?",
+          "respuesta": "El Art. 18 LFPIORPI establece 8 obligaciones: (1) Identificar al cliente y verificar su identidad. (2) Identificar al propietario real (beneficiario final). (3) Conservar documentos por mínimo 5 años. (4) Presentar avisos al SAT. (5) Abstenerse de realizar operaciones con personas bloqueadas (Lista UIF) o en incumplimiento. (6) Deber de reserva (no informar al cliente que fue avisado). (7) Capacitar al personal. (8) Establecer y mantener procedimientos internos."
+        },
+        {
+          "pregunta": "¿La LFPIORPI aplica a las entidades financieras? ¿En qué casos?",
+          "respuesta": "La LFPIORPI tiene carácter SUPLETORIO para las entidades financieras — aplica a ellas solo en lo que no esté previsto en su regulación sectorial específica (emitida por la CNBV, CNSF, Banxico, etc.). En la práctica, las entidades financieras se rigen principalmente por las Disposiciones de carácter general de la CNBV. Si una entidad también realiza actividades que la LFPIORPI cataloga como vulnerables, esas actividades específicas pueden quedar sujetas a la LFPIORPI adicionalmente."
+        },
+        {
+          "pregunta": "¿Qué fracción del Art. 17 aplica a los notarios en operaciones de compraventa inmobiliaria?",
+          "respuesta": "Los notarios públicos tienen obligaciones bajo DOS fracciones del Art. 17: Fr. V: como fedatarios públicos en la formalización de operaciones inmobiliarias (compraventa de bienes inmuebles). Fr. XI: como fedatarios en la constitución o modificación de personas morales. El notario es el sujeto obligado más regulado de la LFPIORPI precisamente porque es el actor que da certeza jurídica a las operaciones de mayor riesgo (inmobiliarias y societarias)."
+        },
+        {
+          "pregunta": "¿Cuál es la diferencia entre el régimen LFPIORPI y el régimen sectorial de la CNBV en cuanto a plazo de conservación de documentos?",
+          "respuesta": "LFPIORPI (actividades vulnerables): conservación MÍNIMO 5 AÑOS desde la operación. Régimen CNBV (entidades financieras): conservación 10 AÑOS desde el fin de la relación comercial. Esta diferencia refleja la mayor capacidad y obligación de las entidades financieras de mantener controles más robustos. Para el examen: si la pregunta es sobre bancos o casas de bolsa → 10 años; si es sobre notarios, casinos o inmobiliarias → 5 años mínimo."
+        }
       ]
     },
     "fuente_detallada": "LFPIORPI Arts. 1-58; Reglamento LFPIORPI DOF 16/08/2013; Reglas de Carácter General LFPIORPI; GAFI — Recomendaciones 22 y 23; Guía PLD/FT CNBV 11ª ed., Bloque 6",

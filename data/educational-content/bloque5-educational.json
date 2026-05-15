@@ -171,31 +171,112 @@
         {
           "tipo": "cuadro_comparativo",
           "titulo": "Banca Múltiple vs. Banca de Desarrollo",
-          "columnas": ["Dimensión", "Banca Múltiple", "Banca de Desarrollo"],
+          "columnas": [
+            "Dimensión",
+            "Banca Múltiple",
+            "Banca de Desarrollo"
+          ],
           "filas": [
-            ["Naturaleza jurídica", "Sociedad Anónima (privada)", "Entidad de la Administración Pública Federal"],
-            ["Objetivo", "Lucro — maximizar valor para accionistas", "Fomento económico y social (mandato de ley)"],
-            ["Ejemplos", "BBVA, Banorte, Santander, HSBC, Citibanamex", "Nafin, Banobras, Banjercito, Banco del Bienestar"],
-            ["Marco legal principal", "Ley de Instituciones de Crédito (LIC)", "Ley orgánica de cada institución + LIC supletoriamente"],
-            ["Regulador/Supervisor", "CNBV", "CNBV"],
-            ["Clientes típicos", "Público en general, empresas, gobierno", "Empresas (especialmente PyMES), gobiernos estatales/municipales, sectores prioritarios"],
-            ["Nivel de riesgo PLD", "Muy Alto (mayor volumen y diversidad)", "Alto (aunque clientela más acotada)"],
-            ["Obligaciones PLD", "Idénticas en lo esencial", "Idénticas en lo esencial"]
+            [
+              "Naturaleza jurídica",
+              "Sociedad Anónima (privada)",
+              "Entidad de la Administración Pública Federal"
+            ],
+            [
+              "Objetivo",
+              "Lucro — maximizar valor para accionistas",
+              "Fomento económico y social (mandato de ley)"
+            ],
+            [
+              "Ejemplos",
+              "BBVA, Banorte, Santander, HSBC, Citibanamex",
+              "Nafin, Banobras, Banjercito, Banco del Bienestar"
+            ],
+            [
+              "Marco legal principal",
+              "Ley de Instituciones de Crédito (LIC)",
+              "Ley orgánica de cada institución + LIC supletoriamente"
+            ],
+            [
+              "Regulador/Supervisor",
+              "CNBV",
+              "CNBV"
+            ],
+            [
+              "Clientes típicos",
+              "Público en general, empresas, gobierno",
+              "Empresas (especialmente PyMES), gobiernos estatales/municipales, sectores prioritarios"
+            ],
+            [
+              "Nivel de riesgo PLD",
+              "Muy Alto (mayor volumen y diversidad)",
+              "Alto (aunque clientela más acotada)"
+            ],
+            [
+              "Obligaciones PLD",
+              "Idénticas en lo esencial",
+              "Idénticas en lo esencial"
+            ]
           ]
         },
         {
           "tipo": "cuadro_comparativo",
           "titulo": "SOCAP vs. SOFIPO vs. SOFINCO — El sector de ahorro y crédito popular",
-          "columnas": ["Dimensión", "SOCAP", "SOFIPO", "SOFINCO"],
+          "columnas": [
+            "Dimensión",
+            "SOCAP",
+            "SOFIPO",
+            "SOFINCO"
+          ],
           "filas": [
-            ["Nombre completo", "Sociedad Cooperativa de Ahorro y Préstamo", "Sociedad Financiera Popular", "Sociedad Financiera Comunitaria"],
-            ["Forma jurídica", "Sociedad Cooperativa", "Sociedad Anónima de Capital Variable", "Organismo de Integración Financiera Rural"],
-            ["Marco legal", "LRASCAP", "Ley de Ahorro y Crédito Popular (LACP)", "LACP"],
-            ["Socios/clientes", "Solo socios (sector cerrado)", "Socios y clientes (público en general)", "Comunidades rurales marginadas"],
-            ["Regulador", "CNBV", "CNBV", "CNBV"],
-            ["Enfoque geográfico", "Nacional / Urban-rural", "Nacional", "Principalmente rural"],
-            ["Supervisión auxiliar", "CNBV + Federaciones", "CNBV + Federaciones", "CNBV + Organismos de Integración"],
-            ["Riesgo PLD típico", "Medio — clientela definida", "Medio", "Bajo-Medio — operaciones pequeñas"]
+            [
+              "Nombre completo",
+              "Sociedad Cooperativa de Ahorro y Préstamo",
+              "Sociedad Financiera Popular",
+              "Sociedad Financiera Comunitaria"
+            ],
+            [
+              "Forma jurídica",
+              "Sociedad Cooperativa",
+              "Sociedad Anónima de Capital Variable",
+              "Organismo de Integración Financiera Rural"
+            ],
+            [
+              "Marco legal",
+              "LRASCAP",
+              "Ley de Ahorro y Crédito Popular (LACP)",
+              "LACP"
+            ],
+            [
+              "Socios/clientes",
+              "Solo socios (sector cerrado)",
+              "Socios y clientes (público en general)",
+              "Comunidades rurales marginadas"
+            ],
+            [
+              "Regulador",
+              "CNBV",
+              "CNBV",
+              "CNBV"
+            ],
+            [
+              "Enfoque geográfico",
+              "Nacional / Urban-rural",
+              "Nacional",
+              "Principalmente rural"
+            ],
+            [
+              "Supervisión auxiliar",
+              "CNBV + Federaciones",
+              "CNBV + Federaciones",
+              "CNBV + Organismos de Integración"
+            ],
+            [
+              "Riesgo PLD típico",
+              "Medio — clientela definida",
+              "Medio",
+              "Bajo-Medio — operaciones pequeñas"
+            ]
           ]
         },
         {
@@ -218,14 +299,42 @@
         {
           "tipo": "diferencia_clave",
           "titulo": "La distinción fundamental: IDENTIFICAR ≠ CONOCER",
-          "columnas": ["Dimensión", "IDENTIFICAR", "CONOCER"],
+          "columnas": [
+            "Dimensión",
+            "IDENTIFICAR",
+            "CONOCER"
+          ],
           "filas": [
-            ["¿Qué es?", "Verificar y registrar la identidad del cliente mediante documentos oficiales", "Entender quién es el cliente, a qué se dedica, cuál es su perfil transaccional esperado y cuál es su nivel de riesgo"],
-            ["Momento", "Al inicio de la relación comercial (apertura)", "Durante toda la vigencia de la relación (proceso continuo)"],
-            ["Herramienta principal", "Expediente de identificación", "Perfil transaccional del cliente"],
-            ["Pregunta que responde", "'¿Quién eres?'", "'¿Qué haces? ¿Para qué usas tus cuentas? ¿Cuánto ganas?'"],
-            ["Proceso en la norma", "Política de Identificación del Cliente (PIC)", "Política de Conocimiento del Cliente (PCC)"],
-            ["Equivalente internacional", "Customer Identification Program (CIP)", "Customer Due Diligence (CDD) / Know Your Customer (KYC)"]
+            [
+              "¿Qué es?",
+              "Verificar y registrar la identidad del cliente mediante documentos oficiales",
+              "Entender quién es el cliente, a qué se dedica, cuál es su perfil transaccional esperado y cuál es su nivel de riesgo"
+            ],
+            [
+              "Momento",
+              "Al inicio de la relación comercial (apertura)",
+              "Durante toda la vigencia de la relación (proceso continuo)"
+            ],
+            [
+              "Herramienta principal",
+              "Expediente de identificación",
+              "Perfil transaccional del cliente"
+            ],
+            [
+              "Pregunta que responde",
+              "'¿Quién eres?'",
+              "'¿Qué haces? ¿Para qué usas tus cuentas? ¿Cuánto ganas?'"
+            ],
+            [
+              "Proceso en la norma",
+              "Política de Identificación del Cliente (PIC)",
+              "Política de Conocimiento del Cliente (PCC)"
+            ],
+            [
+              "Equivalente internacional",
+              "Customer Identification Program (CIP)",
+              "Customer Due Diligence (CDD) / Know Your Customer (KYC)"
+            ]
           ]
         },
         {
@@ -550,19 +659,39 @@
               "items": [
                 {
                   "categoria": "PEPs Nacionales",
-                  "ejemplos": ["Secretarios de Estado y subsecretarios", "Senadores y Diputados federales", "Gobernadores y presidentes municipales", "Magistrados y ministros del Poder Judicial", "Directores de organismos descentralizados y empresas productivas del Estado (Pemex, CFE)", "Funcionarios de alta jerarquía del Banco de México", "Altos mandos militares y policiales"]
+                  "ejemplos": [
+                    "Secretarios de Estado y subsecretarios",
+                    "Senadores y Diputados federales",
+                    "Gobernadores y presidentes municipales",
+                    "Magistrados y ministros del Poder Judicial",
+                    "Directores de organismos descentralizados y empresas productivas del Estado (Pemex, CFE)",
+                    "Funcionarios de alta jerarquía del Banco de México",
+                    "Altos mandos militares y policiales"
+                  ]
                 },
                 {
                   "categoria": "PEPs Extranjeras",
-                  "ejemplos": ["Jefes de Estado y de Gobierno extranjeros", "Ministros y secretarios de Estado de otros países", "Directivos de organismos internacionales (ONU, FMI, BM, etc.)"]
+                  "ejemplos": [
+                    "Jefes de Estado y de Gobierno extranjeros",
+                    "Ministros y secretarios de Estado de otros países",
+                    "Directivos de organismos internacionales (ONU, FMI, BM, etc.)"
+                  ]
                 },
                 {
                   "categoria": "Familiares de PEPs",
-                  "ejemplos": ["Cónyuge o concubino/a", "Hijos y sus cónyuges", "Padres"]
+                  "ejemplos": [
+                    "Cónyuge o concubino/a",
+                    "Hijos y sus cónyuges",
+                    "Padres"
+                  ]
                 },
                 {
                   "categoria": "Colaboradores cercanos (Associates)",
-                  "ejemplos": ["Socios de negocios conocidos", "Personas con copropiedad de personas morales", "Personas con asociación estrecha conocida públicamente"]
+                  "ejemplos": [
+                    "Socios de negocios conocidos",
+                    "Personas con copropiedad de personas morales",
+                    "Personas con asociación estrecha conocida públicamente"
+                  ]
                 }
               ]
             },
@@ -912,13 +1041,37 @@
             },
             {
               "tipo": "tabla",
-              "columnas": ["Dimensión", "Auditoría Interna", "Auditoría Externa Independiente"],
+              "columnas": [
+                "Dimensión",
+                "Auditoría Interna",
+                "Auditoría Externa Independiente"
+              ],
               "filas": [
-                ["Quién realiza", "Área de auditoría de la propia entidad", "Despacho externo independiente contratado"],
-                ["Periodicidad", "Según plan anual de auditoría", "Al menos una vez al año"],
-                ["Alcance", "Revisión continua de todos los aspectos del programa", "Evaluación integral del programa PLD/FT"],
-                ["Resultado", "Informe interno con hallazgos y recomendaciones", "Informe de auditoría PLD/FT para el CCC y el Consejo"],
-                ["Uso por CNBV", "Insumo en visitas de supervisión", "Referencia en evaluación supervisora"]
+                [
+                  "Quién realiza",
+                  "Área de auditoría de la propia entidad",
+                  "Despacho externo independiente contratado"
+                ],
+                [
+                  "Periodicidad",
+                  "Según plan anual de auditoría",
+                  "Al menos una vez al año"
+                ],
+                [
+                  "Alcance",
+                  "Revisión continua de todos los aspectos del programa",
+                  "Evaluación integral del programa PLD/FT"
+                ],
+                [
+                  "Resultado",
+                  "Informe interno con hallazgos y recomendaciones",
+                  "Informe de auditoría PLD/FT para el CCC y el Consejo"
+                ],
+                [
+                  "Uso por CNBV",
+                  "Insumo en visitas de supervisión",
+                  "Referencia en evaluación supervisora"
+                ]
               ]
             }
           ]
@@ -1140,14 +1293,42 @@
           "contenido": [
             {
               "tipo": "cuadro_comparativo",
-              "columnas": ["Dimensión", "Persona Física", "Persona Moral"],
+              "columnas": [
+                "Dimensión",
+                "Persona Física",
+                "Persona Moral"
+              ],
               "filas": [
-                ["Definición", "Ser humano individualmente considerado", "Entidad jurídica creada por la voluntad de dos o más personas (empresa, asociación, etc.)"],
-                ["Identificación", "ID oficial vigente + CURP + RFC", "Acta constitutiva + RFC + poderes del representante + identificación del representante"],
-                ["Propietario real", "Es la persona física misma", "Debe identificarse la persona física que la controla (≥25% o control efectivo)"],
-                ["Riesgo inherente", "Generalmente menor", "Mayor — capas de opacidad potencial"],
-                ["Debida diligencia", "Estándar (salvo PEP o alto riesgo)", "Siempre más intensa que para persona física"],
-                ["Ejemplos", "Clientes individuales, empresarios individuales", "Empresas SA, SC, AC, SPR, fideicomisos, cooperativas"]
+                [
+                  "Definición",
+                  "Ser humano individualmente considerado",
+                  "Entidad jurídica creada por la voluntad de dos o más personas (empresa, asociación, etc.)"
+                ],
+                [
+                  "Identificación",
+                  "ID oficial vigente + CURP + RFC",
+                  "Acta constitutiva + RFC + poderes del representante + identificación del representante"
+                ],
+                [
+                  "Propietario real",
+                  "Es la persona física misma",
+                  "Debe identificarse la persona física que la controla (≥25% o control efectivo)"
+                ],
+                [
+                  "Riesgo inherente",
+                  "Generalmente menor",
+                  "Mayor — capas de opacidad potencial"
+                ],
+                [
+                  "Debida diligencia",
+                  "Estándar (salvo PEP o alto riesgo)",
+                  "Siempre más intensa que para persona física"
+                ],
+                [
+                  "Ejemplos",
+                  "Clientes individuales, empresarios individuales",
+                  "Empresas SA, SC, AC, SPR, fideicomisos, cooperativas"
+                ]
               ]
             }
           ]
@@ -1159,14 +1340,42 @@
             {
               "tipo": "tabla",
               "titulo": "¿Cuándo pueden las entidades compartir información de PLD?",
-              "columnas": ["Supuesto", "¿Puede compartirse?", "Condición"],
+              "columnas": [
+                "Supuesto",
+                "¿Puede compartirse?",
+                "Condición"
+              ],
               "filas": [
-                ["Entidades del mismo Grupo Financiero", "SÍ", "Siempre que sea para fines de PLD/FT y con acuerdo de confidencialidad"],
-                ["Entidades nacionales distintas sin relación de grupo", "SÍ, limitado", "Solo para verificar identidad o para gestión de riesgo compartido, bajo las condiciones de las disposiciones"],
-                ["Entidades extranjeras (instituciones de crédito)", "SÍ, con restricciones", "Dentro del grupo financiero internacional, sujeto a convenios y estándares equivalentes de confidencialidad"],
-                ["Entidades extranjeras (ITF / FinTech)", "SÍ, con restricciones específicas", "Ley FinTech Art. 87 establece condiciones específicas"],
-                ["Con autoridades (UIF, CNBV, PGR/FGR)", "SÍ, obligatorio", "Ante requerimiento formal de autoridad competente"],
-                ["Con el cliente sobre sus propios datos", "SÍ, normalmente", "EXCEPTO cuando exista un reporte de operación inusual activo — entonces aplica deber de reserva"]
+                [
+                  "Entidades del mismo Grupo Financiero",
+                  "SÍ",
+                  "Siempre que sea para fines de PLD/FT y con acuerdo de confidencialidad"
+                ],
+                [
+                  "Entidades nacionales distintas sin relación de grupo",
+                  "SÍ, limitado",
+                  "Solo para verificar identidad o para gestión de riesgo compartido, bajo las condiciones de las disposiciones"
+                ],
+                [
+                  "Entidades extranjeras (instituciones de crédito)",
+                  "SÍ, con restricciones",
+                  "Dentro del grupo financiero internacional, sujeto a convenios y estándares equivalentes de confidencialidad"
+                ],
+                [
+                  "Entidades extranjeras (ITF / FinTech)",
+                  "SÍ, con restricciones específicas",
+                  "Ley FinTech Art. 87 establece condiciones específicas"
+                ],
+                [
+                  "Con autoridades (UIF, CNBV, PGR/FGR)",
+                  "SÍ, obligatorio",
+                  "Ante requerimiento formal de autoridad competente"
+                ],
+                [
+                  "Con el cliente sobre sus propios datos",
+                  "SÍ, normalmente",
+                  "EXCEPTO cuando exista un reporte de operación inusual activo — entonces aplica deber de reserva"
+                ]
               ]
             }
           ]
@@ -1312,16 +1521,46 @@
         "Sanciones → Multas CNBV + Inhabilitación personal"
       ],
       "preguntas_tipicas_examen": [
-        "¿Cuál es la diferencia entre identificar y conocer al cliente?",
-        "¿Qué es una Persona Políticamente Expuesta (PEP) y qué tratamiento especial recibe?",
-        "¿Cuál es el umbral para reportar una Operación Relevante en banca múltiple?",
-        "¿En qué plazo debe presentarse un reporte de Operación Inusual ante la UIF?",
-        "¿Qué es el deber de reserva y qué consecuencias tiene su violación?",
-        "¿Quién designa al Oficial de Cumplimiento y a quién debe notificarse?",
-        "¿Cuánto tiempo deben conservarse los expedientes de clientes?",
-        "¿Qué es la debida diligencia reforzada y cuándo aplica?",
-        "¿Cuál es la diferencia entre OR y OI?",
-        "¿Qué es el CCC y cuáles son sus principales funciones?"
+        {
+          "pregunta": "¿Cuál es la diferencia entre identificar y conocer al cliente?",
+          "respuesta": "IDENTIFICAR: saber quién es el cliente — recabar y verificar su identidad con documentos (nombre, RFC, CURP, domicilio, identificación oficial). Forma el expediente de cliente. CONOCER: entender el perfil transaccional y el nivel de riesgo del cliente — actividad económica, origen de fondos, volumen esperado de operaciones, propósito de la relación. Es la base del monitoreo continuo. Identificar es el primer paso; conocer es el proceso continuo durante toda la relación comercial."
+        },
+        {
+          "pregunta": "¿Qué es una Persona Políticamente Expuesta (PEP) y qué tratamiento especial recibe?",
+          "respuesta": "Un PEP es toda persona que desempeña o ha desempeñado funciones públicas de alto nivel (presidentes, gobernadores, senadores, jueces, directores de organismos públicos, militares de alto rango, etc.), así como sus familiares directos y colaboradores cercanos. Tratamiento especial: siempre se clasifican como ALTO RIESGO, requieren Debida Diligencia Reforzada (DDR), aprobación de la alta dirección para iniciar la relación, verificación del origen de fondos y monitoreo intensificado. El estatus PEP se mantiene MÍNIMO 1 año después de dejar el cargo."
+        },
+        {
+          "pregunta": "¿Cuál es el umbral para reportar una Operación Relevante en banca múltiple?",
+          "respuesta": "En banca múltiple, el umbral para reportar una Operación Relevante (OR) ante la UIF es de ,500 USD (o su equivalente en pesos al tipo de cambio del día) por operación. Las OR son reportes AUTOMÁTICOS y OBJETIVOS — se presentan por el solo hecho de superar el umbral, sin necesidad de que la operación sea sospechosa. El plazo de presentación es los primeros 10 días hábiles del mes siguiente al que ocurrió la operación."
+        },
+        {
+          "pregunta": "¿En qué plazo debe presentarse un reporte de Operación Inusual ante la UIF?",
+          "respuesta": "60 días hábiles contados a partir del día en que la entidad tiene elementos suficientes para determinar que la operación es inusual. El OI es un reporte SUBJETIVO — requiere análisis e investigación por parte del Oficial de Cumplimiento. A diferencia del OR (objetivo, por monto), el OI se presenta cuando existen elementos que no pueden ser justificados por la actividad declarada del cliente, independientemente del monto."
+        },
+        {
+          "pregunta": "¿Qué es el deber de reserva y qué consecuencias tiene su violación?",
+          "respuesta": "El deber de reserva PROHÍBE a las entidades financieras y a su personal informar al cliente o a cualquier tercero que ha sido sujeto de un reporte ante la UIF, o que se está analizando para serlo. Su objetivo es no alertar al posible lavador para que no destruya evidencia. La violación del deber de reserva es una infracción grave sancionable por la CNBV con multa y posible inhabilitación del responsable. También puede constituir el delito de revelación de secreto."
+        },
+        {
+          "pregunta": "¿Quién designa al Oficial de Cumplimiento y a quién debe notificarse?",
+          "respuesta": "El Oficial de Cumplimiento es designado por el Consejo de Administración (o equivalente) de la entidad. La designación debe ser notificada a la CNBV a través del Sistema Interinstitucional de Transferencia de Información (SITI) dentro de los plazos establecidos. El Oficial tiene protección legal especial: si reporta de buena fe ante la UIF, está protegido de responsabilidad civil o penal derivada de dicho reporte (cláusula de safe harbor)."
+        },
+        {
+          "pregunta": "¿Cuánto tiempo deben conservarse los expedientes de clientes?",
+          "respuesta": "10 años contados desde el término de la relación comercial con el cliente — este plazo aplica para las entidades del sistema financiero supervisadas por la CNBV. Para las actividades vulnerables bajo la LFPIORPI el plazo es MÍNIMO 5 años. Esta diferencia (10 vs 5 años) es relevante para el examen. Los documentos deben conservarse de forma que sean accesibles para consulta y entregables a las autoridades dentro de los plazos requeridos."
+        },
+        {
+          "pregunta": "¿Qué es la debida diligencia reforzada y cuándo aplica?",
+          "respuesta": "La Debida Diligencia Reforzada (DDR) es un conjunto de medidas adicionales de conocimiento del cliente que se aplican cuando el riesgo es ALTO. Incluye: (1) obtener información adicional sobre el origen de fondos y del patrimonio, (2) obtener aprobación de la alta dirección antes de iniciar o continuar la relación, (3) monitoreo continuo e intensificado de las transacciones. Aplica obligatoriamente para: PEPs, clientes en jurisdicciones de alto riesgo, banca corresponsal, y cualquier cliente clasificado como alto riesgo en la evaluación institucional."
+        },
+        {
+          "pregunta": "¿Cuál es la diferencia entre OR y OI?",
+          "respuesta": "OR (Operación Relevante): reporte OBJETIVO y AUTOMÁTICO que se presenta cuando una operación supera el umbral monetario establecido por tipo de entidad (ej. ,500 USD en banca múltiple). No requiere que la operación sea sospechosa. OI (Operación Inusual): reporte SUBJETIVO que se presenta cuando el Oficial de Cumplimiento determina que una operación no tiene justificación aparente conforme al perfil del cliente, independientemente del monto. El OI requiere investigación y análisis — es la herramienta clave para detectar lavado de dinero real. OIP: similar al OI pero se presenta cuando el personal de la entidad es quien realiza la conducta sospechosa."
+        },
+        {
+          "pregunta": "¿Qué es el CCC y cuáles son sus principales funciones?",
+          "respuesta": "El CCC (Comité de Comunicación y Control) es el órgano colegiado interno de la entidad financiera responsable de supervisar el programa PLD/FT. Sus funciones principales: (1) aprobar las políticas y procedimientos PLD/FT, (2) revisar y tomar decisiones sobre reportes de operaciones inusuales (OI), (3) dar seguimiento a los hallazgos de auditoría y visitas de la CNBV, (4) conocer el estado del programa y sus indicadores. El Oficial de Cumplimiento funge como Secretario del CCC. El CCC debe sesionar con la frecuencia que establezcan las Disposiciones (generalmente mensual o según eventos que lo requieran)."
+        }
       ]
     },
     "fuente_detallada": "LIC Art. 115; Disposiciones de carácter general CNBV para instituciones de crédito (texto completo); GAFI — Recomendaciones 10, 11, 12, 16, 18, 20, 21 y 24; Ley FinTech Art. 58",
@@ -1341,9 +1580,18 @@
         "descripcion": "Receptora de reportes, emisora de lista de bloqueados, política nacional PLD"
       },
       "nivel_regulador": [
-        {"nodo": "CNBV", "descripcion": "Regula y supervisa entidades financieras"},
-        {"nodo": "CNSF", "descripcion": "Supervisa aseguradoras"},
-        {"nodo": "Banxico", "descripcion": "Regula activos virtuales (FinTech)"}
+        {
+          "nodo": "CNBV",
+          "descripcion": "Regula y supervisa entidades financieras"
+        },
+        {
+          "nodo": "CNSF",
+          "descripcion": "Supervisa aseguradoras"
+        },
+        {
+          "nodo": "Banxico",
+          "descripcion": "Regula activos virtuales (FinTech)"
+        }
       ],
       "nivel_entidades": [
         "Banca Múltiple",
@@ -1357,11 +1605,31 @@
         "Aseguradoras"
       ],
       "flujos_informacion": [
-        {"de": "Entidades", "a": "UIF", "tipo": "Reportes OR, OI, OIP y especiales"},
-        {"de": "CNBV", "a": "Entidades", "tipo": "Disposiciones, circulares, visitas de supervisión"},
-        {"de": "UIF", "a": "Entidades", "tipo": "Lista de personas bloqueadas, retroalimentación"},
-        {"de": "FGR / PGR", "a": "Entidades", "tipo": "Requerimientos de información en investigaciones"},
-        {"de": "Entidades", "a": "FGR / PGR", "tipo": "Respuesta a requerimientos"}
+        {
+          "de": "Entidades",
+          "a": "UIF",
+          "tipo": "Reportes OR, OI, OIP y especiales"
+        },
+        {
+          "de": "CNBV",
+          "a": "Entidades",
+          "tipo": "Disposiciones, circulares, visitas de supervisión"
+        },
+        {
+          "de": "UIF",
+          "a": "Entidades",
+          "tipo": "Lista de personas bloqueadas, retroalimentación"
+        },
+        {
+          "de": "FGR / PGR",
+          "a": "Entidades",
+          "tipo": "Requerimientos de información en investigaciones"
+        },
+        {
+          "de": "Entidades",
+          "a": "FGR / PGR",
+          "tipo": "Respuesta a requerimientos"
+        }
       ]
     },
     "fuente_detallada": "Estructura del sistema financiero mexicano y régimen PLD/FT; GAFI — Recomendación 29 (UIF) y 26 (Regulación y supervisión de instituciones financieras)",

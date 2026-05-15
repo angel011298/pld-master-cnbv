@@ -18,17 +18,33 @@
             {
               "categoria": "Autoridades REGULADORAS",
               "funcion": "Emiten las normas, disposiciones y circulares que establecen las obligaciones PLD/FT para las entidades financieras y actividades vulnerables",
-              "ejemplos": ["SHCP — Secretaría de Hacienda y Crédito Público", "CNBV — Comisión Nacional Bancaria y de Valores", "CNSF — Comisión Nacional de Seguros y Fianzas", "Consar — Comisión Nacional del Sistema de Ahorro para el Retiro", "Banco de México"]
+              "ejemplos": [
+                "SHCP — Secretaría de Hacienda y Crédito Público",
+                "CNBV — Comisión Nacional Bancaria y de Valores",
+                "CNSF — Comisión Nacional de Seguros y Fianzas",
+                "Consar — Comisión Nacional del Sistema de Ahorro para el Retiro",
+                "Banco de México"
+              ]
             },
             {
               "categoria": "Autoridades SUPERVISORAS",
               "funcion": "Verifican que las entidades reguladas cumplan con sus obligaciones PLD/FT mediante visitas de inspección, revisión documental y reportes periódicos",
-              "ejemplos": ["CNBV", "CNSF", "Consar", "SAT — en actividades vulnerables no financieras"]
+              "ejemplos": [
+                "CNBV",
+                "CNSF",
+                "Consar",
+                "SAT — en actividades vulnerables no financieras"
+              ]
             },
             {
               "categoria": "Autoridades de DETECCIÓN y COMBATE",
               "funcion": "Recopilan, analizan y comparten inteligencia financiera, investigan y persiguen penalmente los delitos de LD/FT",
-              "ejemplos": ["UIF — Unidad de Inteligencia Financiera (SHCP)", "FGR — Fiscalía General de la República", "PJF — Poder Judicial Federal", "FMP — Fuerzas de seguridad y militares"]
+              "ejemplos": [
+                "UIF — Unidad de Inteligencia Financiera (SHCP)",
+                "FGR — Fiscalía General de la República",
+                "PJF — Poder Judicial Federal",
+                "FMP — Fuerzas de seguridad y militares"
+              ]
             }
           ]
         },
@@ -64,7 +80,12 @@
                 "Recibe los reportes de operaciones de las entidades financieras (a través de la UIF)",
                 "Regula las actividades vulnerables no financieras junto con el SAT"
               ],
-              "instrumentos_emite": ["LFPIORPI (iniciativa y regulación secundaria)", "Reglamento LFPIORPI", "Reglas de carácter general LFPIORPI", "Lista de Personas Bloqueadas"],
+              "instrumentos_emite": [
+                "LFPIORPI (iniciativa y regulación secundaria)",
+                "Reglamento LFPIORPI",
+                "Reglas de carácter general LFPIORPI",
+                "Lista de Personas Bloqueadas"
+              ],
               "fundamento": "LFPIORPI Arts. 6-8"
             },
             {
@@ -78,8 +99,20 @@
                 "Certifica a los oficiales de cumplimiento a través del examen CNBV",
                 "Emite lineamientos sobre sistemas automatizados de monitoreo"
               ],
-              "entidades_que_regula": ["Instituciones de crédito", "Casas de bolsa", "SOCAP/SOFIPO/SOFINCO", "Casas de cambio", "Transmisores de dinero", "SOFOMES", "ITF (IFPE/IFC)"],
-              "instrumentos_emite": ["Disposiciones de carácter general para cada sector", "Circulares CNBV", "Lineamientos técnicos"],
+              "entidades_que_regula": [
+                "Instituciones de crédito",
+                "Casas de bolsa",
+                "SOCAP/SOFIPO/SOFINCO",
+                "Casas de cambio",
+                "Transmisores de dinero",
+                "SOFOMES",
+                "ITF (IFPE/IFC)"
+              ],
+              "instrumentos_emite": [
+                "Disposiciones de carácter general para cada sector",
+                "Circulares CNBV",
+                "Lineamientos técnicos"
+              ],
               "fundamento": "LIC Art. 115; Ley de la CNBV Art. 4"
             },
             {
@@ -90,7 +123,10 @@
                 "Supervisa el cumplimiento PLD/FT de aseguradoras y afianzadoras",
                 "Impone sanciones administrativas"
               ],
-              "entidades_que_regula": ["Instituciones de seguros", "Instituciones de fianzas"],
+              "entidades_que_regula": [
+                "Instituciones de seguros",
+                "Instituciones de fianzas"
+              ],
               "fundamento": "Ley de Instituciones de Seguros y de Fianzas (LISF)"
             },
             {
@@ -100,7 +136,10 @@
                 "Emite disposiciones PLD/FT para el Sistema de Ahorro para el Retiro (SAR)",
                 "Supervisa el cumplimiento de AFORES y SIEFORES"
               ],
-              "entidades_que_regula": ["AFORES", "SIEFORES"],
+              "entidades_que_regula": [
+                "AFORES",
+                "SIEFORES"
+              ],
               "fundamento": "Ley del SAR"
             },
             {
@@ -244,11 +283,26 @@
           "tipo": "uif_detalle",
           "titulo": "Unidad de Inteligencia Financiera (UIF)",
           "datos_generales": [
-            {"campo": "Dependencia", "valor": "Secretaría de Hacienda y Crédito Público (SHCP)"},
-            {"campo": "Naturaleza", "valor": "Unidad administrativa — modelo de UIF administrativo"},
-            {"campo": "Creación", "valor": "2004, mediante decreto presidencial"},
-            {"campo": "Titular", "valor": "Titular de la UIF designado por el Secretario de Hacienda"},
-            {"campo": "Membresía internacional", "valor": "Grupo Egmont — red mundial de UIFs"}
+            {
+              "campo": "Dependencia",
+              "valor": "Secretaría de Hacienda y Crédito Público (SHCP)"
+            },
+            {
+              "campo": "Naturaleza",
+              "valor": "Unidad administrativa — modelo de UIF administrativo"
+            },
+            {
+              "campo": "Creación",
+              "valor": "2004, mediante decreto presidencial"
+            },
+            {
+              "campo": "Titular",
+              "valor": "Titular de la UIF designado por el Secretario de Hacienda"
+            },
+            {
+              "campo": "Membresía internacional",
+              "valor": "Grupo Egmont — red mundial de UIFs"
+            }
           ],
           "funciones": [
             {
@@ -330,7 +384,16 @@
           "tipo": "comite_coordinador",
           "titulo": "El Comité Coordinador para la Prevención y Combate del LD/FT",
           "descripcion": "México cuenta con un mecanismo de coordinación interinstitucional presidido por la SHCP. El Comité reúne a todas las autoridades relevantes para coordinar la política nacional PLD/FT, compartir información y coordinar esfuerzos contra el crimen organizado financiero.",
-          "integrantes_principales": ["SHCP/UIF (Presidencia)", "CNBV", "CNSF", "Consar", "Banxico", "FGR", "SSPC", "SAT"],
+          "integrantes_principales": [
+            "SHCP/UIF (Presidencia)",
+            "CNBV",
+            "CNSF",
+            "Consar",
+            "Banxico",
+            "FGR",
+            "SSPC",
+            "SAT"
+          ],
           "fundamento": "LFPIORPI Art. 16"
         },
         {
@@ -355,26 +418,43 @@
         {
           "capa": "REGULACIÓN",
           "color": "azul",
-          "actores": ["SHCP — Política nacional PLD/FT", "CNBV — Entidades financieras", "CNSF — Seguros y fianzas", "Consar — SAR/AFORES", "Banxico — Sistema de pagos y activos virtuales", "SAT — Actividades vulnerables"],
+          "actores": [
+            "SHCP — Política nacional PLD/FT",
+            "CNBV — Entidades financieras",
+            "CNSF — Seguros y fianzas",
+            "Consar — SAR/AFORES",
+            "Banxico — Sistema de pagos y activos virtuales",
+            "SAT — Actividades vulnerables"
+          ],
           "producto": "Normas, disposiciones, circulares"
         },
         {
           "capa": "SUPERVISIÓN",
           "color": "naranja",
-          "actores": ["CNBV — Visitas de inspección a entidades financieras", "CNSF — Visitas a aseguradoras", "SAT — Verificaciones a actividades vulnerables"],
+          "actores": [
+            "CNBV — Visitas de inspección a entidades financieras",
+            "CNSF — Visitas a aseguradoras",
+            "SAT — Verificaciones a actividades vulnerables"
+          ],
           "producto": "Informes de visita, sanciones, requerimientos"
         },
         {
           "capa": "DETECCIÓN E INTELIGENCIA",
           "color": "verde",
-          "actores": ["UIF (SHCP) — Recibe reportes, analiza inteligencia, emite lista bloqueados"],
+          "actores": [
+            "UIF (SHCP) — Recibe reportes, analiza inteligencia, emite lista bloqueados"
+          ],
           "flujo_entrada": "OR, OI, OIP, avisos LFPIORPI de entidades",
           "flujo_salida": "Inteligencia financiera a FGR, cooperación internacional vía Egmont"
         },
         {
           "capa": "PERSECUCIÓN PENAL",
           "color": "rojo",
-          "actores": ["FGR — Investiga, ejerce acción penal", "PJF — Juzga, condena, ordena decomiso", "SEDENA/Marina/SSPC — Apoyo operativo"],
+          "actores": [
+            "FGR — Investiga, ejerce acción penal",
+            "PJF — Juzga, condena, ordena decomiso",
+            "SEDENA/Marina/SSPC — Apoyo operativo"
+          ],
           "producto": "Sentencias penales, decomiso, extinción de dominio"
         }
       ],
@@ -722,12 +802,21 @@
             {
               "elemento": "Calificación del riesgo inherente",
               "descripcion": "Con base en la evaluación anterior, la entidad califica su riesgo inherente general y por segmento de negocio.",
-              "escalas_tipicas": ["1-3 (bajo, medio, alto)", "1-5 (muy bajo, bajo, medio, alto, muy alto)"]
+              "escalas_tipicas": [
+                "1-3 (bajo, medio, alto)",
+                "1-5 (muy bajo, bajo, medio, alto, muy alto)"
+              ]
             },
             {
               "elemento": "Evaluación de controles existentes",
               "descripcion": "La entidad evalúa la efectividad de sus controles PLD/FT actuales: ¿existe el control? ¿está documentado? ¿se aplica consistentemente? ¿es efectivo para mitigar el riesgo identificado?",
-              "escala_tipica": ["Control inexistente", "Control parcial", "Control implementado pero ineficiente", "Control efectivo", "Control efectivo y mejorado"]
+              "escala_tipica": [
+                "Control inexistente",
+                "Control parcial",
+                "Control implementado pero ineficiente",
+                "Control efectivo",
+                "Control efectivo y mejorado"
+              ]
             },
             {
               "elemento": "Determinación del riesgo residual",
@@ -782,15 +871,47 @@
           "titulo": "Metodología de Evaluación de Riesgos vs. Grado de Riesgo de Clientes",
           "descripcion": "Es fundamental distinguir entre la evaluación institucional de riesgos (macro) y la asignación del grado de riesgo a cada cliente (micro):",
           "cuadro_comparativo": {
-            "columnas": ["Dimensión", "Evaluación Institucional (macro)", "Grado de Riesgo por Cliente (micro)"],
+            "columnas": [
+              "Dimensión",
+              "Evaluación Institucional (macro)",
+              "Grado de Riesgo por Cliente (micro)"
+            ],
             "filas": [
-              ["¿Qué evalúa?", "El negocio completo de la entidad: segmentos, productos, geografía", "Un cliente individual y su perfil específico"],
-              ["¿Quién lo hace?", "Oficial de Cumplimiento + CCC + Alta Dirección", "Ejecutivo de cuenta + Oficial de Cumplimiento"],
-              ["¿Con qué frecuencia?", "Anual o ante cambios significativos del negocio", "Al inicio de la relación + actualizaciones periódicas según riesgo"],
-              ["¿Cuál es el resultado?", "Mapa de riesgo institucional + plan de mitigación", "Clasificación Bajo/Medio/Alto + nivel de diligencia a aplicar"],
-              ["¿Qué informa?", "Qué segmentos y productos requieren más recursos de control", "Qué controles específicos aplican a este cliente concreto"],
-              ["¿Quién lo aprueba?", "CCC y Consejo de Administración", "Oficial de Cumplimiento (alto riesgo: también CCC o alta dirección)"],
-              ["¿Cómo se documenta?", "Informe formal de evaluación institucional", "En el expediente del cliente y en el sistema de clasificación"]
+              [
+                "¿Qué evalúa?",
+                "El negocio completo de la entidad: segmentos, productos, geografía",
+                "Un cliente individual y su perfil específico"
+              ],
+              [
+                "¿Quién lo hace?",
+                "Oficial de Cumplimiento + CCC + Alta Dirección",
+                "Ejecutivo de cuenta + Oficial de Cumplimiento"
+              ],
+              [
+                "¿Con qué frecuencia?",
+                "Anual o ante cambios significativos del negocio",
+                "Al inicio de la relación + actualizaciones periódicas según riesgo"
+              ],
+              [
+                "¿Cuál es el resultado?",
+                "Mapa de riesgo institucional + plan de mitigación",
+                "Clasificación Bajo/Medio/Alto + nivel de diligencia a aplicar"
+              ],
+              [
+                "¿Qué informa?",
+                "Qué segmentos y productos requieren más recursos de control",
+                "Qué controles específicos aplican a este cliente concreto"
+              ],
+              [
+                "¿Quién lo aprueba?",
+                "CCC y Consejo de Administración",
+                "Oficial de Cumplimiento (alto riesgo: también CCC o alta dirección)"
+              ],
+              [
+                "¿Cómo se documenta?",
+                "Informe formal de evaluación institucional",
+                "En el expediente del cliente y en el sistema de clasificación"
+              ]
             ]
           },
           "relacion": "La evaluación institucional establece el MARCO y los criterios para clasificar a los clientes. La clasificación individual de clientes APLICA esos criterios a cada caso concreto. Son complementarias: sin evaluación institucional, la clasificación de clientes carece de fundamento."
@@ -897,26 +1018,80 @@
         "La Ley Nacional de Extinción de Dominio (2019) es una herramienta clave del sistema de combate al LD. No requiere condena penal previa — la carga de la prueba recae en el titular del bien para demostrar su origen lícito."
       ],
       "tabla_autoridades_rapida": [
-        {"autoridad": "SHCP", "funcion_principal": "Política nacional PLD/FT, LFPIORPI, coordina UIF y ENR"},
-        {"autoridad": "CNBV", "funcion_principal": "Regula Y supervisa entidades financieras. Impone sanciones."},
-        {"autoridad": "SAT", "funcion_principal": "Regula Y supervisa actividades vulnerables LFPIORPI"},
-        {"autoridad": "Banxico", "funcion_principal": "Regula pagos, dólares en efectivo y activos virtuales para FinTech"},
-        {"autoridad": "UIF", "funcion_principal": "Recibe reportes, analiza inteligencia, emite lista bloqueados, Egmont"},
-        {"autoridad": "FGR", "funcion_principal": "Investiga y persigue penalmente LD/FT. Extinción de dominio."},
-        {"autoridad": "PJF", "funcion_principal": "Juzga, condena, ordena decomiso. Última instancia penal."},
-        {"autoridad": "SAE", "funcion_principal": "Administra bienes asegurados o decomisados"}
+        {
+          "autoridad": "SHCP",
+          "funcion_principal": "Política nacional PLD/FT, LFPIORPI, coordina UIF y ENR"
+        },
+        {
+          "autoridad": "CNBV",
+          "funcion_principal": "Regula Y supervisa entidades financieras. Impone sanciones."
+        },
+        {
+          "autoridad": "SAT",
+          "funcion_principal": "Regula Y supervisa actividades vulnerables LFPIORPI"
+        },
+        {
+          "autoridad": "Banxico",
+          "funcion_principal": "Regula pagos, dólares en efectivo y activos virtuales para FinTech"
+        },
+        {
+          "autoridad": "UIF",
+          "funcion_principal": "Recibe reportes, analiza inteligencia, emite lista bloqueados, Egmont"
+        },
+        {
+          "autoridad": "FGR",
+          "funcion_principal": "Investiga y persigue penalmente LD/FT. Extinción de dominio."
+        },
+        {
+          "autoridad": "PJF",
+          "funcion_principal": "Juzga, condena, ordena decomiso. Última instancia penal."
+        },
+        {
+          "autoridad": "SAE",
+          "funcion_principal": "Administra bienes asegurados o decomisados"
+        }
       ],
       "preguntas_tipicas_examen": [
-        "¿Cuál es la diferencia entre las autoridades reguladoras, supervisoras y de detección y combate en el sistema PLD/FT mexicano?",
-        "¿Qué autoridad regula las actividades vulnerables no financieras establecidas en la LFPIORPI?",
-        "¿Qué es la UIF y cuál es su modelo (administrativo, policial o judicial)?",
-        "¿Cuál es el flujo de información desde que una entidad detecta una operación inusual hasta que se inicia una investigación penal?",
-        "¿Qué tipos de visitas de inspección realiza la CNBV y en qué se diferencian?",
-        "¿Qué son las tipologías y cómo deben usarlas las entidades financieras?",
-        "¿Por qué la corrupción tiene un vínculo directo con el lavado de dinero?",
-        "¿Cuáles son las principales amenazas de LD/FT identificadas en la ENR de México?",
-        "¿Qué es la Ley de Extinción de Dominio y por qué no requiere condena penal previa?",
-        "¿Cuál es la diferencia entre la evaluación institucional de riesgos y la asignación del grado de riesgo a clientes individuales?"
+        {
+          "pregunta": "¿Cuál es la diferencia entre las autoridades reguladoras, supervisoras y de detección y combate en el sistema PLD/FT mexicano?",
+          "respuesta": "Reguladoras (emiten normas): SHCP, CNBV, CNSF, Consar, Banxico y SAT — diseñan las reglas del juego. Supervisoras (verifican cumplimiento): principalmente CNBV (entidades financieras) y SAT (actividades vulnerables) — aplican las reglas mediante visitas. De detección y combate: UIF (inteligencia financiera), FGR (investigación y acción penal) y PJF (juicio y condena) — procesan la inteligencia y sancionan penalmente."
+        },
+        {
+          "pregunta": "¿Qué autoridad regula las actividades vulnerables no financieras establecidas en la LFPIORPI?",
+          "respuesta": "El SAT (Servicio de Administración Tributaria) regula y supervisa las actividades vulnerables no financieras bajo la LFPIORPI. Las entidades financieras son reguladas y supervisadas por la CNBV. Son universos regulatorios distintos — el SAT recibe los avisos de actividades vulnerables y realiza verificaciones de cumplimiento."
+        },
+        {
+          "pregunta": "¿Qué es la UIF y cuál es su modelo (administrativo, policial o judicial)?",
+          "respuesta": "La UIF (Unidad de Inteligencia Financiera) es la Unidad de Inteligencia Financiera de México, adscrita a la SHCP. Su modelo es ADMINISTRATIVO — no policial ni judicial. Recibe todos los reportes de operaciones de entidades financieras (OR, OI, OIP) y los avisos de actividades vulnerables. Los analiza y convierte en inteligencia financiera que transmite a la FGR para investigaciones penales. Es miembro del Grupo Egmont."
+        },
+        {
+          "pregunta": "¿Cuál es el flujo de información desde que una entidad detecta una operación inusual hasta que se inicia una investigación penal?",
+          "respuesta": "Entidad detecta OI → Oficial de Cumplimiento investiga → Entidad presenta Reporte OI a la UIF (plazo: 60 días hábiles) → UIF analiza y cruza con otros reportes e inteligencia → UIF transmite inteligencia a la FGR → FGR inicia investigación → PJF conoce del proceso penal. La UIF es el nodo central: agrega inteligencia de todas las entidades y filtra lo relevante para la FGR."
+        },
+        {
+          "pregunta": "¿Qué tipos de visitas de inspección realiza la CNBV y en qué se diferencian?",
+          "respuesta": "Extramuros: supervisión continua sin presencia física, basada en análisis de reportes y documentación remota. Ordinaria in situ: programada, notificada a la entidad con anticipación, integral (evalúa todos los componentes del programa PLD/FT). Especial in situ: puede ser sorpresiva, motivada por alertas o hallazgos específicos, puede ser focalizada en un aspecto concreto (ej. solo reporte de OIs o solo KYC). La CNBV aplica EBR en su función supervisora: mayor intensidad de supervisión para entidades de mayor riesgo."
+        },
+        {
+          "pregunta": "¿Qué son las tipologías y cómo deben usarlas las entidades financieras?",
+          "respuesta": "Las tipologías son documentos que describen modus operandi completos y detallados de cómo se realiza el LD/FT en la práctica — no son señales aisladas sino patrones de comportamiento completos documentados en casos reales. La UIF publica tipologías basadas en casos mexicanos. Las entidades deben usarlas para: (1) actualizar sus reglas de monitoreo transaccional, (2) capacitar al personal con casos reales y (3) ajustar sus factores de riesgo en la evaluación institucional."
+        },
+        {
+          "pregunta": "¿Por qué la corrupción tiene un vínculo directo con el lavado de dinero?",
+          "respuesta": "La corrupción genera recursos ilícitos (sobornos, desvíos) que necesitan ser lavados para integrarse a la economía formal. La ENR de México identifica la corrupción como una amenaza de alto riesgo de LD. Por esto, los PEPs (Personas Políticamente Expuestas) reciben Debida Diligencia Reforzada — su posición les da mayor capacidad de generar y/o lavar fondos de corrupción. La Ley de Extinción de Dominio (2019) permite confiscar bienes vinculados a corrupción sin necesidad de condena penal previa."
+        },
+        {
+          "pregunta": "¿Cuáles son las principales amenazas de LD/FT identificadas en la ENR de México?",
+          "respuesta": "Según la Evaluación Nacional de Riesgos (ENR) de México: Amenaza MUY ALTA: narcotráfico (principal generador de fondos ilícitos en México). Amenazas ALTAS: corrupción, extorsión/secuestro. Amenaza emergente: huachicol (robo de combustibles). Sectores más vulnerables: banca múltiple, sector inmobiliario y transmisores de dinero. La ENR es el documento de referencia nacional que las entidades deben conocer y usar como insumo para su propia evaluación institucional."
+        },
+        {
+          "pregunta": "¿Qué es la Ley de Extinción de Dominio y por qué no requiere condena penal previa?",
+          "respuesta": "La Ley Nacional de Extinción de Dominio (2019) permite al Estado confiscar bienes que son producto de delitos graves (incluyendo LD) o que fueron utilizados para cometerlos. No requiere condena penal previa porque es una acción civil autónoma — recae sobre los bienes, no sobre las personas. La carga de la prueba SE INVIERTE: el titular del bien debe demostrar que tiene origen lícito. Es una herramienta clave del sistema antilavado porque ataca el beneficio económico del delito."
+        },
+        {
+          "pregunta": "¿Cuál es la diferencia entre la evaluación institucional de riesgos y la asignación del grado de riesgo a clientes individuales?",
+          "respuesta": "La evaluación institucional (macro) evalúa el nivel de riesgo PLD/FT del negocio completo de la entidad — considera el tipo de productos, canales, clientes en general y geografía. Es la metodología que el Oficial de Cumplimiento elabora y el Consejo aprueba. La asignación de grado de riesgo (micro) clasifica a cada cliente individual como Bajo, Medio o Alto en función de su perfil específico. La primera define los controles generales del programa; la segunda determina el nivel de diligencia (normal, simplificada o reforzada) aplicable a cada cliente."
+        }
       ]
     },
     "fuente_detallada": "LFPIORPI Arts. 6-16; LIC Art. 115; Ley de la CNBV; Ley Nacional de Extinción de Dominio 2019; SHCP/UIF — ENR México; GAFI — Informe Evaluación Mutua México 2018; Guía PLD/FT CNBV 11ª ed., Bloque 4",
