@@ -45,11 +45,15 @@ export function supabase() {
         persistSession: true,
         // Auto-refresh de tokens antes de que expiren
         autoRefreshToken: true,
-        // Detectar sesiones en URL — permite recuperar sesiones de OAuth redirects
-        // y fragmentos de hash automáticamente al cargar la página
-        detectSessionInUrl: true,
-        // Storage directo en window.localStorage para máxima persistencia y
-        // lectura síncrona al inicializar el cliente
+        // IMPORTANTE: false en PKCE para evitar doble consumo del ?code=
+        // La página /auth/callback intercambia el code manualmente con
+        // exchangeCodeForSession(). Si esto fuera true, el cliente lo
+        // intercambiaría automáticamente al iniciar y la llamada manual
+        // fallaría porque los códigos PKCE son de un solo uso.
+        detectSessionInUrl: false,
+        // Storage directo en window.localStorage — persistencia indefinida
+        // hasta logout manual; sobrevive a cierre de pestaña, navegador,
+        // pérdida de conexión y reinicios del dispositivo.
         storage: window.localStorage,
         // Clave de almacenamiento — compatible con sesiones existentes
         storageKey: "certifik-pld-session",

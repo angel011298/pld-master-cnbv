@@ -34,18 +34,21 @@ function CallbackInner() {
       const code = searchParams?.get("code");
       if (code) {
         const { error } = await sb.auth.exchangeCodeForSession(code);
-        if (error) {
-          console.error("[auth/callback] exchangeCodeForSession error:", error.message);
-          router.replace(`/?error=auth_failed`);
+        if (!error) {
+          // Sesión establecida correctamente → redirigir
+          router.replace(next);
           return;
         }
-        // Sesión establecida correctamente → redirigir
-        router.replace(next);
-        return;
+        // Si el exchange falló, NO redirigir a error todavía: el code pudo
+        // haberse consumido en otra pestaña o reintento, pero la sesión
+        // pudo haber quedado almacenada. Verificamos antes de declarar fallo.
+        console.warn("[auth/callback] exchangeCodeForSession warning:", error.message);
       }
 
-      // ── Fallback: verificar si ya hay sesión activa (ej. re-visita) ────
-      await new Promise((r) => setTimeout(r, 120));
+      // ── Fallback: verificar si ya hay sesión activa ────────────────────
+      // Aplica tanto cuando no hay code (re-visita) como cuando el exchange
+      // falló por code consumido / race condition entre pestañas.
+      await new Promise((r) => setTimeout(r, 200));
       const { data: { session } } = await sb.auth.getSession();
       if (session) {
         router.replace(next);
