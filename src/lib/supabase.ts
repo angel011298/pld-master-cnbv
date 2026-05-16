@@ -20,34 +20,6 @@ function getAnonKey() {
   return key;
 }
 
-// Implementación simple y robusta de storage persistente
-const browserStorage = {
-  getItem: (key: string): string | null => {
-    if (typeof window === "undefined") return null;
-    try {
-      return window.localStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  },
-  setItem: (key: string, value: string): void => {
-    if (typeof window === "undefined") return;
-    try {
-      window.localStorage.setItem(key, value);
-    } catch {
-      // ignore
-    }
-  },
-  removeItem: (key: string): void => {
-    if (typeof window === "undefined") return;
-    try {
-      window.localStorage.removeItem(key);
-    } catch {
-      // ignore
-    }
-  },
-};
-
 // Variable global para almacenar la instancia única en el cliente (Navegador)
 let supabaseClientInstance: SupabaseClient | null = null;
 
@@ -73,17 +45,16 @@ export function supabase() {
         persistSession: true,
         // Auto-refresh de tokens antes de que expiren
         autoRefreshToken: true,
-        // PKCE maneja el code en la query string — el callback lo intercambia
-        // explícitamente con exchangeCodeForSession(), no con hash detection
-        detectSessionInUrl: false,
-        // Storage directo en localStorage para máxima persistencia
-        storage: browserStorage,
-        // Clave de almacenamiento estándar
+        // Detectar sesiones en URL — permite recuperar sesiones de OAuth redirects
+        // y fragmentos de hash automáticamente al cargar la página
+        detectSessionInUrl: true,
+        // Storage directo en window.localStorage para máxima persistencia y
+        // lectura síncrona al inicializar el cliente
+        storage: window.localStorage,
+        // Clave de almacenamiento — compatible con sesiones existentes
         storageKey: "certifik-pld-session",
-        // PKCE: flujo recomendado por Supabase para Next.js. Más robusto que
-        // implicit: los tokens nunca van en el hash (#), van como ?code= en la
-        // query, se intercambian explícitamente en /auth/callback, y el
-        // refresh_token se almacena correctamente en localStorage.
+        // PKCE: flujo seguro recomendado por Supabase para Next.js.
+        // Los tokens van como ?code= en la query, se intercambian en /auth/callback.
         flowType: "pkce",
       },
     });
