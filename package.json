@@ -10,7 +10,8 @@
     "seed": "node scripts/seed-global-documents.mjs",
     "ingest-gafi": "node scripts/ingest-gafi-40.mjs",
     "batch-ingest": "tsx scripts/batch-ingest.ts",
-    "generate-quiz": "tsx scripts/generate-quiz-bank.ts"
+    "generate-quiz": "tsx scripts/generate-quiz-bank.ts",
+    "generate-bank": "node scripts/generate-question-bank.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
