@@ -35,6 +35,7 @@ const NAV_GROUPS = [
     items: [
       { title: "Ruta de Aprendizaje", url: "/dashboard", icon: Map },
       { title: "Modo Estudio", url: "/estudio", icon: BookOpen, badge: "XP x2" },
+      { title: "40 Rec. GAFI", url: "/gafi", icon: Globe },
       { title: "Simulador CENEVAL", url: "/simulator", icon: GraduationCap },
     ]
   },
@@ -43,7 +44,6 @@ const NAV_GROUPS = [
     items: [
       { title: "Entidades Financieras", url: "/entities", icon: Building2 },
       { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
-      { title: "40 Rec. GAFI", url: "/gafi", icon: Globe },
       { title: "Guía de Trámites", url: "/tramites", icon: ClipboardList },
     ]
   },
