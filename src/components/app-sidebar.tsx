@@ -96,10 +96,11 @@ export function AppSidebar() {
       collapsible="icon"
       className={cn(isSuperAdmin && "border-r border-r-amber-400 shadow-[2px_0_15px_rgba(251,191,36,0.1)] transition-all")}
     >
-      {/* Header: logo + toggle button — sticky, never scrolls */}
-      <SidebarHeader className="border-b border-neutral-100 px-4 py-4 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:py-3">
-        <div className="flex items-center justify-between gap-2 w-full group-data-[collapsible=icon]:justify-center">
-          {/* Full logo — hidden when sidebar is collapsed */}
+      {/* Header: logo then toggle — sticky, never scrolls */}
+      <SidebarHeader className="border-b border-neutral-100 px-3 py-3 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-3">
+        {/* Logo row */}
+        <div className="flex items-center min-w-0 group-data-[collapsible=icon]:justify-center">
+          {/* Expanded: full logo + optional admin badge */}
           <div className="flex items-center gap-2 min-w-0 group-data-[collapsible=icon]:hidden">
             <Logo variant="full" size={32} className="shrink-0" />
             {isSuperAdmin && (
@@ -108,7 +109,13 @@ export function AppSidebar() {
               </Badge>
             )}
           </div>
-          {/* Collapse / expand toggle — always visible */}
+          {/* Collapsed: isotype logo centered */}
+          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center">
+            <Logo variant="isotype" size={28} />
+          </div>
+        </div>
+        {/* Toggle button — below logo, always visible */}
+        <div className="flex group-data-[collapsible=icon]:justify-center">
           <SidebarTrigger className="h-8 w-8 shrink-0 rounded-xl border border-neutral-200 text-neutral-500 hover:bg-neutral-50 hover:text-neutral-700 transition-colors" />
         </div>
       </SidebarHeader>

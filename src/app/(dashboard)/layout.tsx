@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { HeaderProgress } from "@/components/header-progress";
 
@@ -17,7 +17,6 @@ export default function DashboardLayout({
       <AppSidebar />
       <SidebarInset className="flex min-h-screen min-w-0 flex-1 flex-col overflow-hidden bg-slate-50">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-white px-4">
-          <SidebarTrigger className="-ml-1" />
           <HeaderProgress />
         </header>
         <main className="min-w-0 flex-1 overflow-y-auto p-4 md:p-6">
