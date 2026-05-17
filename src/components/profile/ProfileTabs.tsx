@@ -26,8 +26,13 @@ interface ProfileTabsProps {
   showToast: (msg: string, type?: "success" | "error") => void;
 }
 
+// Active tab = black pill with white text.
+// Using data-active:! (Tailwind !important) to override the Base UI default active styles.
 const triggerClass =
-  "rounded-none px-5 py-3 text-sm font-semibold after:bg-brand-500 after:h-[2px] data-active:text-brand-700 data-active:bg-transparent hover:text-neutral-700";
+  "h-auto flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 " +
+  "text-neutral-500 hover:text-neutral-700 " +
+  "data-active:!bg-neutral-900 data-active:!text-white data-active:shadow-sm " +
+  "data-active:after:!opacity-0";
 
 export function ProfileTabs({
   profile,
@@ -42,21 +47,23 @@ export function ProfileTabs({
     // flex-col is explicit because the Base UI Tabs root uses data-orientation="horizontal"
     // which does NOT match the data-horizontal: Tailwind shorthand in the default className.
     <Tabs defaultValue={0} className="flex-col gap-0">
-      <div className="sticky top-0 z-20 bg-white">
-        <TabsList
-          variant="line"
-          className="h-auto w-full gap-0 rounded-none border-b border-neutral-200 bg-transparent p-0"
-        >
-          <TabsTrigger value={0} className={triggerClass}>
-            Perfil
-          </TabsTrigger>
-          <TabsTrigger value={1} className={triggerClass}>
-            Estadísticas
-          </TabsTrigger>
-          <TabsTrigger value={2} className={triggerClass}>
-            Ajustes
-          </TabsTrigger>
-        </TabsList>
+      <div className="sticky top-0 z-20 bg-white py-3 border-b border-neutral-100">
+        {/* Pill container — visual styling is on this wrapper; TabsList is transparent inside */}
+        <div className="rounded-2xl bg-neutral-100 p-1">
+          <TabsList
+            className="!h-auto w-full !gap-1 !rounded-none !bg-transparent p-0"
+          >
+            <TabsTrigger value={0} className={triggerClass}>
+              Perfil
+            </TabsTrigger>
+            <TabsTrigger value={1} className={triggerClass}>
+              Estadísticas
+            </TabsTrigger>
+            <TabsTrigger value={2} className={triggerClass}>
+              Ajustes
+            </TabsTrigger>
+          </TabsList>
+        </div>
       </div>
 
       <TabsContent value={0} className="pt-6">

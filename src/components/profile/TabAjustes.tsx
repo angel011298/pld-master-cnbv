@@ -129,6 +129,12 @@ export function TabAjustes({
       const sb = supabase();
       const { error } = await sb.auth.updateUser({ password: newPassword });
       if (error) throw error;
+      // Record timestamp so admin dashboard can see the last password change
+      await onProfileUpdate({
+        password_changed_at: new Date().toISOString(),
+      }).catch(() => {
+        // Non-blocking — password already changed, just skip tracking if it fails
+      });
       showToast("Contraseña actualizada");
       setNewPassword("");
       setConfirmPassword("");
@@ -193,7 +199,7 @@ export function TabAjustes({
             </label>
             <div className="space-y-2">
               {EXAM_DATES.map((opt) => {
-                const isSelected = profile.exam_date === opt.value;
+                const isSelected = profile.exam_target_date === opt.value;
                 const remaining = daysUntil(opt.value);
                 return (
                   <label

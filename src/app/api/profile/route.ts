@@ -73,8 +73,9 @@ export async function PATCH(req: NextRequest) {
   const updates: Record<string, unknown> = {};
   if (typeof body.full_name === "string")
     updates.full_name = body.full_name.trim() || null;
+  // Column in DB is exam_target_date (not exam_date)
   if (typeof body.exam_target_date === "string")
-    updates.exam_date = body.exam_target_date || null;
+    updates.exam_target_date = body.exam_target_date || null;
   if (
     typeof body.daily_xp_goal === "number" &&
     [10, 25, 50, 100].includes(body.daily_xp_goal)
@@ -84,6 +85,9 @@ export async function PATCH(req: NextRequest) {
     updates.notification_email_enabled = body.notification_email_enabled;
   if (typeof body.notification_study_reminder === "boolean")
     updates.notification_study_reminder = body.notification_study_reminder;
+  // Track when user last changed their password (visible in admin dashboard)
+  if (typeof body.password_changed_at === "string")
+    updates.password_changed_at = body.password_changed_at || null;
 
   if (Object.keys(updates).length === 0)
     return NextResponse.json(

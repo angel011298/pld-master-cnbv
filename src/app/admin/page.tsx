@@ -1383,6 +1383,16 @@ export default function AdminPage() {
                         {u.status === 'suspended' && <span className="text-[10px] uppercase bg-red-200 text-red-800 px-1.5 py-0.5 rounded font-black">Suspendido</span>}
                       </p>
                       <p className="text-xs font-medium text-gray-500">{u.public_customer_id}</p>
+                      {u.password_changed_at && (
+                        <p className="text-[10px] text-amber-600 flex items-center gap-1 mt-0.5">
+                          <Lock className="h-2.5 w-2.5" />
+                          Contraseña cambiada:{" "}
+                          {new Date(u.password_changed_at).toLocaleString("es-MX", {
+                            day: "2-digit", month: "short", year: "numeric",
+                            hour: "2-digit", minute: "2-digit",
+                          })}
+                        </p>
+                      )}
                     </div>
 
                     <div className="flex items-center gap-3 shrink-0 mr-4 hidden md:flex">

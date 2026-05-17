@@ -9,7 +9,8 @@ export interface ProfileData {
   exam_score_prediction: number | null;
   pass_probability: number | null;
   tier: string;
-  exam_date: string | null;
+  exam_target_date: string | null;
+  password_changed_at: string | null;
   daily_xp_goal: number;
   notification_email_enabled: boolean;
   notification_study_reminder: boolean;
