@@ -36,6 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { supabase } from "@/lib/supabase"
+import { QuestionBankAdmin } from "@/components/admin/QuestionBankAdmin"
 
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 const RESICO_LIMIT = 3500000 // 3.5 Millones MXN
@@ -1232,63 +1233,7 @@ export default function AdminPage() {
       )}
 
       {/* ── 3. CMS REACTIVOS ── */}
-      {tab === "cms" && (
-        <div className="space-y-6">
-          <Card className="border-2 border-dashed border-gray-300 bg-gray-50/50">
-            <CardContent className="flex flex-col items-center justify-center py-10">
-              <div className="h-16 w-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                <Upload className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-black text-gray-800">Ingestión Masiva de Reactivos</h3>
-              <p className="text-sm text-gray-500 mb-6 text-center max-w-md">
-                Sube un archivo CSV o JSON para poblar el banco de preguntas. El sistema clasificará automáticamente por área del examen CNBV y generará la retroalimentación.
-              </p>
-              <div className="flex gap-4 w-full max-w-md">
-                <Input type="file" accept=".csv,.json" className="bg-white border-2 cursor-pointer" />
-                <Button className="font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-md">Procesar</Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-2 shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between pb-3">
-              <CardTitle className="text-gray-900 flex items-center gap-2">
-                <Database className="h-5 w-5 text-blue-600" />
-                Banco de Reactivos Actual
-              </CardTitle>
-              <Button size="sm" className="gap-1 bg-blue-600 hover:bg-blue-700 text-white">
-                <Plus className="h-4 w-4" /> Crear Manual
-              </Button>
-            </CardHeader>
-            <CardContent>
-              {questions.length === 0 ? (
-                 <div className="text-center py-6 text-gray-500">No hay reactivos cargados. (Requiere tabla dedicada o integración con documents)</div>
-              ) : (
-                <div className="space-y-3">
-                  {questions.map((q: any) => (
-                    <div key={q.id} className="flex items-start justify-between gap-3 p-4 rounded-xl bg-white border border-gray-200 shadow-sm hover:border-blue-300 transition-colors">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-900 mb-1">{q.text}</p>
-                        <div className="flex flex-wrap gap-2">
-                          <span className="text-xs bg-blue-50 text-blue-700 font-bold px-2 py-1 rounded-md border border-blue-100">{q.area}</span>
-                        </div>
-                      </div>
-                      <div className="flex gap-1 shrink-0">
-                        <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50" title="Editar Retroalimentación">
-                          <Edit3 className="h-4 w-4" />
-                        </Button>
-                        <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-red-500 hover:bg-red-50">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
+      {tab === "cms" && <QuestionBankAdmin />}
 
       {/* ── 4. BIBLIOTECA & DOCS ── */}
       {tab === "knowledge" && (
