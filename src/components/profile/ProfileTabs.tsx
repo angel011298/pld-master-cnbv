@@ -39,21 +39,25 @@ export function ProfileTabs({
   showToast,
 }: ProfileTabsProps) {
   return (
-    <Tabs defaultValue={0}>
-      <TabsList
-        variant="line"
-        className="h-auto w-full gap-0 rounded-none border-b border-neutral-200 bg-transparent p-0"
-      >
-        <TabsTrigger value={0} className={triggerClass}>
-          Perfil
-        </TabsTrigger>
-        <TabsTrigger value={1} className={triggerClass}>
-          Estadísticas
-        </TabsTrigger>
-        <TabsTrigger value={2} className={triggerClass}>
-          Ajustes
-        </TabsTrigger>
-      </TabsList>
+    // flex-col is explicit because the Base UI Tabs root uses data-orientation="horizontal"
+    // which does NOT match the data-horizontal: Tailwind shorthand in the default className.
+    <Tabs defaultValue={0} className="flex-col gap-0">
+      <div className="sticky top-0 z-20 bg-white">
+        <TabsList
+          variant="line"
+          className="h-auto w-full gap-0 rounded-none border-b border-neutral-200 bg-transparent p-0"
+        >
+          <TabsTrigger value={0} className={triggerClass}>
+            Perfil
+          </TabsTrigger>
+          <TabsTrigger value={1} className={triggerClass}>
+            Estadísticas
+          </TabsTrigger>
+          <TabsTrigger value={2} className={triggerClass}>
+            Ajustes
+          </TabsTrigger>
+        </TabsList>
+      </div>
 
       <TabsContent value={0} className="pt-6">
         <TabPerfil profile={profile} achievements={achievements} />

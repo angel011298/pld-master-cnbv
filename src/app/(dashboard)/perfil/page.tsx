@@ -128,7 +128,7 @@ export default function PerfilPage() {
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-2xl space-y-6 py-2">
+      <div className="mx-auto max-w-3xl space-y-6 py-4">
         <div className="h-10 w-48 animate-pulse rounded-lg bg-neutral-100" />
         <div className="h-8 w-full animate-pulse rounded-lg bg-neutral-100" />
         <div className="h-24 w-full animate-pulse rounded-2xl bg-neutral-100" />
@@ -155,7 +155,7 @@ export default function PerfilPage() {
 
   if (error || !profile) {
     return (
-      <div className="mx-auto max-w-2xl py-12 text-center">
+      <div className="mx-auto max-w-3xl py-12 text-center">
         <p className="mb-4 text-sm text-neutral-500">
           {error || "No se pudo cargar el perfil. Intenta de nuevo."}
         </p>
@@ -174,7 +174,7 @@ export default function PerfilPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl py-2">
+    <div className="mx-auto max-w-3xl py-4">
       <h1 className="mb-6 text-2xl font-bold tracking-tight text-neutral-900">
         Mi perfil
       </h1>

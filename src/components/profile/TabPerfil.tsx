@@ -63,31 +63,31 @@ export function TabPerfil({ profile, achievements }: TabPerfilProps) {
             <img
               src={profile.avatar_url}
               alt={displayName}
-              className="h-16 w-16 rounded-full border-2 border-white object-cover shadow-sm"
+              className="h-20 w-20 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
             />
           ) : (
             <div
-              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-xl font-bold text-white shadow-sm"
+              className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full text-2xl font-bold text-white shadow-sm"
               style={{ backgroundColor: avatarBg }}
             >
               {initials}
             </div>
           )}
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <h2 className="truncate text-xl font-bold tracking-tight text-neutral-900">
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-xl font-bold tracking-tight text-neutral-900">
                 {displayName}
               </h2>
               <span
                 className={cn(
-                  "rounded-full border px-3 py-0.5 text-xs font-semibold",
+                  "shrink-0 rounded-full border px-3 py-0.5 text-xs font-semibold",
                   planColor
                 )}
               >
                 {planLabel}
               </span>
             </div>
-            <p className="mt-0.5 text-sm text-neutral-500">
+            <p className="mt-1 text-sm text-neutral-500">
               Miembro desde {getMemberSince(profile.created_at)}
             </p>
           </div>
@@ -96,33 +96,39 @@ export function TabPerfil({ profile, achievements }: TabPerfilProps) {
 
       {/* Stat pills */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="flex items-center gap-2.5 rounded-2xl border border-neutral-100 bg-white px-4 py-3 shadow-sm">
-          <Flame className="h-5 w-5 shrink-0 text-orange-500" />
-          <div>
-            <p className="text-lg font-bold tracking-tight text-neutral-900">
+        <div className="flex items-center gap-3 rounded-2xl border border-neutral-100 bg-white px-4 py-4 shadow-sm">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50">
+            <Flame className="h-5 w-5 text-orange-500" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xl font-bold tabular-nums tracking-tight text-neutral-900">
               {profile.current_streak}
             </p>
-            <p className="text-[11px] font-medium text-neutral-500">Racha</p>
+            <p className="text-[11px] font-medium leading-tight text-neutral-500">Racha días</p>
           </div>
         </div>
-        <div className="flex items-center gap-2.5 rounded-2xl border border-neutral-100 bg-white px-4 py-3 shadow-sm">
-          <Zap className="h-5 w-5 shrink-0 text-brand-500" />
-          <div>
-            <p className="text-lg font-bold tracking-tight text-neutral-900">
+        <div className="flex items-center gap-3 rounded-2xl border border-neutral-100 bg-white px-4 py-4 shadow-sm">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50">
+            <Zap className="h-5 w-5 text-brand-500" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xl font-bold tabular-nums tracking-tight text-neutral-900">
               {profile.total_xp.toLocaleString()}
             </p>
-            <p className="text-[11px] font-medium text-neutral-500">XP Total</p>
+            <p className="text-[11px] font-medium leading-tight text-neutral-500">XP Total</p>
           </div>
         </div>
-        <div className="flex items-center gap-2.5 rounded-2xl border border-neutral-100 bg-white px-4 py-3 shadow-sm">
-          <Target className="h-5 w-5 shrink-0 text-emerald-500" />
-          <div>
-            <p className="text-lg font-bold tracking-tight text-neutral-900">
+        <div className="flex items-center gap-3 rounded-2xl border border-neutral-100 bg-white px-4 py-4 shadow-sm">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50">
+            <Target className="h-5 w-5 text-emerald-500" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xl font-bold tabular-nums tracking-tight text-neutral-900">
               {profile.pass_probability !== null
                 ? `${profile.pass_probability}%`
                 : "—"}
             </p>
-            <p className="text-[11px] font-medium text-neutral-500">
+            <p className="text-[11px] font-medium leading-tight text-neutral-500">
               Predicción
             </p>
           </div>
