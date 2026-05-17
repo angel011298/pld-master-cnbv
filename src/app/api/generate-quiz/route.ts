@@ -1,39 +1,69 @@
 import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 import { supabaseAdmin } from "@/lib/supabase";
-import { generateEmbedding, proModel } from "@/lib/gemini";
+import { claudeGenerateJson } from "@/lib/claude";
 import { applyRateLimit } from "@/lib/rate-limit";
-import { getAuthenticatedUserId, getClientIp, validateQuizPayload } from "@/lib/security";
+import {
+  getAuthenticatedUserId,
+  getClientIp,
+  validateQuizPayload,
+} from "@/lib/security";
 import type { QuizQuestion } from "@/types/quiz";
 
-const GLOBAL_ADMIN_USER_ID = "00000000-0000-0000-0000-000000000000";
-
-const DIFF_TO_BANK: Record<string, string> = {
-  Básico: "fácil",
-  Intermedio: "medio",
-  Avanzado: "difícil",
+// ─── Mappers ───────────────────────────────────────────────────────────────
+// Difficulty: UI label → question_bank value
+const DIFF_LABEL_TO_BANK: Record<string, "basico" | "intermedio" | "avanzado"> = {
+  Básico: "basico",
+  Intermedio: "intermedio",
+  Avanzado: "avanzado",
 };
+
+// Topic text → bloque (1-8). Returns null when no clear match (no filter).
+function topicToBloque(topic: string): number | null {
+  if (!topic) return null;
+  const t = topic.toLowerCase();
+  if (/marco|ley|lfpiorpi|regulator|circular/.test(t)) return 1;
+  if (/definici|concepto|glosario/.test(t)) return 2;
+  if (/kyc|cdd|identificac|expedient|cliente/.test(t)) return 3;
+  if (/reporte|formato|inusual|relevante|24|preocupant/.test(t)) return 4;
+  if (/une|oficial.*cumplimiento|estructura/.test(t)) return 5;
+  if (/sancion|lista|ofac|pep|bloqueo/.test(t)) return 6;
+  if (/tipolog|sospechos|operacion|señal/.test(t)) return 7;
+  if (/gafi|fatf|40.*recom/.test(t)) return 8;
+  return null;
+}
+
+// Exercise type → formato
+function exerciseToFormato(et: string): string {
+  const e = (et || "").toLowerCase();
+  if (e.includes("verdadero")) return "true_false";
+  if (e.includes("flashcard")) return "flashcard";
+  if (e.includes("caso")) return "case_study";
+  if (e.includes("completar")) return "fill_blank";
+  if (e.includes("crucigrama")) return "crossword";
+  if (e.includes("sopa")) return "word_search";
+  return "multiple_choice";
+}
 
 type BankRow = {
   id: number;
-  pregunta: string;
-  opciones: string[];
-  respuesta_correcta: number;
-  explicacion: string;
-  tema: string;
+  bloque: number;
   dificultad: string;
-  fuente: string;
+  formato: string;
+  stem: string;
+  options: string[] | null;
+  correct_answer: { index?: number; value?: boolean; answer?: string };
+  explanation: string | null;
+  source_document: string | null;
 };
 
-type GeminiQuestion = {
-  id: number;
+type ClaudeQuestion = {
   question: string;
   options: string[];
   answer: string;
   justification: string;
 };
 
-// Fisher-Yates shuffle — returns a new array
 function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -43,50 +73,63 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
-// Convert a quiz_bank row to the response shape with shuffled option positions
+// Convert a question_bank row → response shape with shuffled option positions
 function bankRowToQuestion(row: BankRow, seqId: number): QuizQuestion {
   const labels = ["A)", "B)", "C)", "D)"];
-  const indices = shuffleArray([0, 1, 2, 3]);
-  const options = indices.map((origIdx, pos) => `${labels[pos]} ${row.opciones[origIdx]}`);
-  const correctPos = indices.indexOf(row.respuesta_correcta);
+  const opts = Array.isArray(row.options) ? row.options : [];
+
+  // For multiple_choice the correct_answer is {"index": N}
+  const correctIdx =
+    typeof row.correct_answer?.index === "number" ? row.correct_answer.index : 0;
+
+  // Shuffle option order so the correct one isn't always at the same position
+  const positions = shuffleArray(opts.map((_, i) => i));
+  const options = positions.map((origIdx, pos) => `${labels[pos]} ${opts[origIdx]}`);
+  const correctPos = positions.indexOf(correctIdx);
+
   return {
     id: seqId,
     question_id: row.id,
-    question: row.pregunta,
+    question: row.stem,
     options,
-    answer: options[correctPos],
-    justification: `${row.explicacion}${row.fuente ? ` (Fuente: ${row.fuente})` : ""}`,
+    answer: options[Math.max(0, correctPos)],
+    justification: `${row.explanation || ""}${
+      row.source_document ? ` (Fuente: ${row.source_document})` : ""
+    }`,
     source: "bank",
   };
 }
 
-// Persist a Gemini-generated question into quiz_bank; returns the new row id or null
+// Persist a Claude-generated question into question_bank for reuse
 async function cacheInBank(
-  gq: GeminiQuestion,
-  tema: string,
+  cq: ClaudeQuestion,
+  bloque: number,
   dificultad: string,
+  formato: string,
   sb: ReturnType<typeof supabaseAdmin>
 ): Promise<number | null> {
-  const opciones = gq.options.map((o) => o.replace(/^[A-D]\)\s*/, "").trim());
-  const answerClean = gq.answer.replace(/^[A-D]\)\s*/, "").trim();
-  const respuesta_correcta = opciones.findIndex((o) => o === answerClean);
+  const opciones = cq.options.map((o) => o.replace(/^[A-D]\)\s*/, "").trim());
+  const answerClean = cq.answer.replace(/^[A-D]\)\s*/, "").trim();
+  const respuestaIdx = opciones.findIndex((o) => o === answerClean);
 
   const { data, error } = await sb
-    .from("quiz_bank")
+    .from("question_bank")
     .insert({
-      pregunta: gq.question,
-      opciones,
-      respuesta_correcta: respuesta_correcta >= 0 ? respuesta_correcta : 0,
-      explicacion: gq.justification,
-      tema,
+      bloque,
       dificultad,
-      fuente: "Gemini RAG",
+      formato,
+      stem: cq.question,
+      options: opciones,
+      correct_answer: { index: respuestaIdx >= 0 ? respuestaIdx : 0 },
+      explanation: cq.justification,
+      source_document: "Claude (on-the-fly)",
+      status: "review", // require admin review before being used in simulator
     })
     .select("id")
     .single();
 
   if (error) {
-    console.error("quiz_bank cache error:", error.message);
+    console.error("question_bank cache error:", error.message);
     return null;
   }
   return (data as { id: number } | null)?.id ?? null;
@@ -97,7 +140,7 @@ export async function POST(req: NextRequest) {
     const ip = getClientIp(req);
     const userId = await getAuthenticatedUserId(req);
     if (!userId) {
-      return NextResponse.json({ error: "Debes iniciar sesión con Google." }, { status: 401 });
+      return NextResponse.json({ error: "Debes iniciar sesión." }, { status: 401 });
     }
 
     const rate = applyRateLimit({
@@ -120,120 +163,98 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: parsed.error }, { status: 400 });
     }
 
-    const { topic, difficulty, count, bankDificultad } = parsed.data;
+    const { topic, difficulty, count } = parsed.data;
     const exerciseType =
-      (payload as Record<string, unknown>).exerciseType as string | undefined ??
+      ((payload as Record<string, unknown>).exerciseType as string | undefined) ??
       "Opción Múltiple";
 
-    // ── 1. Query quiz_bank ────────────────────────────────────────────────────
-    let bankQuery = sb.from("quiz_bank").select("*");
-    if (topic) bankQuery = bankQuery.ilike("tema", `%${topic}%`);
-    if (bankDificultad) bankQuery = bankQuery.eq("dificultad", bankDificultad);
+    const bloque = topicToBloque(topic);
+    const dificultad = DIFF_LABEL_TO_BANK[difficulty] ?? "intermedio";
+    const formato = exerciseToFormato(exerciseType);
+
+    // ── 1. Query question_bank ────────────────────────────────────────────
+    let bankQuery = sb
+      .from("question_bank")
+      .select("*")
+      .eq("status", "active")
+      .eq("formato", formato)
+      .eq("dificultad", dificultad);
+
+    if (bloque !== null) bankQuery = bankQuery.eq("bloque", bloque);
 
     const { data: bankRows } = await bankQuery;
     const available = (bankRows ?? []) as BankRow[];
-    const threshold = count * 2;
 
-    if (available.length >= threshold) {
-      // Sufficient cached questions: random pool, shuffle option order per question
+    if (available.length >= count) {
       const selected = shuffleArray(available).slice(0, count);
       const quiz = selected.map((row, i) => bankRowToQuestion(row, i + 1));
-      return NextResponse.json({ success: true, quiz, source_context_used: 0 });
+      return NextResponse.json({ success: true, quiz, source: "bank" });
     }
 
-    // ── 2. Not enough cached: use what exists + generate the rest via Gemini ──
+    // ── 2. Use what exists + generate the rest with Claude ────────────────
     const fromBank = shuffleArray(available);
     const bankQuestions = fromBank.map((row, i) => bankRowToQuestion(row, i + 1));
     const needed = count - bankQuestions.length;
 
-    // RAG: embed topic and retrieve relevant document chunks
-    const topicEmbedding = await generateEmbedding(topic || "PLD/FT");
-    const { data: contextChunks, error: searchError } = await sb.rpc(
-      "match_document_embeddings",
-      {
-        p_user_id: GLOBAL_ADMIN_USER_ID,
-        query_embedding: topicEmbedding,
-        match_threshold: 0.5,
-        match_count: 10,
-      }
-    );
-    if (searchError) throw searchError;
+    // ── 3. Claude prompt — no RAG embedding (was causing the Gemini error) ──
+    const system = `Eres un experto pedagogo y examinador especializado en la Certificación CENEVAL de Prevención de Lavado de Dinero y Financiamiento al Terrorismo (PLD/FT) de la CNBV, México.
 
-    const contextText =
-      contextChunks?.map((c: { content: string }) => c.content).join("\n\n---\n\n") ?? "";
-    const finalContext =
-      contextText ||
-      "No hay contexto suficiente en documentos internos globales. Usa fuentes públicas oficiales recientes de México (DOF, CNBV, SHCP, UIF) e incluye referencias.";
+Fuentes de verdad (jerarquía estricta):
+1. LFPIORPI (Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita) y su Reglamento.
+2. Disposiciones de Carácter General CNBV (Circular Única) y anexos.
+3. Las 40 Recomendaciones del GAFI (FATF) — especialmente cuando el tema lo requiera.
+4. Marco jurídico publicado en el DOF y guías oficiales SHCP/UIF.
 
-    // ── 3. Gemini prompt (generates only the missing `needed` questions) ──────
-    const prompt = `
-Eres un experto pedagogo y examinador especializado en la Certificación de Prevención de Lavado de Dinero y Financiamiento al Terrorismo (PLD/FT) de la CNBV en México.
+Devuelve EXCLUSIVAMENTE JSON válido. Sin markdown, sin texto introductorio, el primer carácter debe ser '{'.`;
 
-INSTRUCCIONES DE FUENTE DE VERDAD (JERARQUÍA ESTRICTA):
-1. FUENTE PRINCIPAL Y DEFINITIVA: Debes basar tus respuestas PRIMORDIALMENTE en LFPIORPI (Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita) y las Disposiciones CNBV (Circular 2-B y anexos). Todo el material generado debe alinearse con estas normas obligatoriamente.
-2. FUENTES SECUNDARIAS: GAFI (Grupo de Acción Financiera) — 40 Recomendaciones, circulares de Banxico, recomendaciones del Comité de Basilea, y marco jurídico publicado en el DOF y la Cámara de Diputados, así como los documentos aportados a continuación.
-
-CONTEXTO RECUPERADO (Base de Datos Vectorial de la Carpeta Drive Oficial):
-${finalContext}
-
-INSTRUCCIONES DE GENERACIÓN:
-Se te ha solicitado generar material educativo técnico y preciso sobre el tema: "${topic || "PLD/FT"}".
+    const user = `Genera ${needed} reactivos tipo CENEVAL sobre el tema: "${topic || "PLD/FT general"}".
 Nivel de dificultad: ${difficulty}.
-Tipo de ejercicio solicitado: "${exerciseType}".
-Cantidad de elementos solicitada: ${needed}.
+Tipo de ejercicio: "${exerciseType}".
 
-REGLAS DE FORMATO Y EJERCICIOS (Obligatorio seguir estas reglas según el tipo de ejercicio):
-- Si el tipo es "Opción Múltiple" o "Casos Prácticos": DEBES generar EXACTAMENTE 4 opciones de respuesta para CADA pregunta, etiquetadas como "A)", "B)", "C)" y "D)". Una sola es correcta.
-- Si el tipo es "Verdadero o Falso": Las únicas opciones deben ser "A) Verdadero" y "B) Falso".
-- Si el tipo es "Completar Texto": Usa "______" en la pregunta para el espacio en blanco y genera 4 opciones (A, B, C, D) para llenarlo.
-- Si el tipo es "Flashcards": La 'pregunta' será el concepto. Omite las 4 opciones enviando un arreglo con una sola opción igual a la respuesta, y explica el concepto detalladamente en 'justification'.
+Reglas por tipo de ejercicio:
+- "Opción Múltiple" / "Casos Prácticos": EXACTAMENTE 4 opciones etiquetadas "A)", "B)", "C)", "D)". Una sola correcta.
+- "Verdadero o Falso": solo "A) Verdadero" y "B) Falso".
+- "Completar Texto": usa "______" en la pregunta y 4 opciones para llenarlo.
+- "Flashcards": pregunta = concepto, options = [respuesta única], justification = explicación detallada.
 
-IMPORTANTE:
-Devuelve el resultado ESTRICTAMENTE en formato JSON válido puro, con esta estructura base:
+Estructura JSON requerida:
 {
   "quiz": [
     {
-      "id": 1,
-      "question": "Pregunta o planteamiento del caso...",
-      "options": ["A) Opción 1", "B) Opción 2", "C) Opción 3", "D) Opción 4"],
-      "answer": "A) Opción 1",
-      "justification": "Base legal y explicación extraída de la Guía..."
+      "question": "Enunciado del reactivo",
+      "options": ["A) ...", "B) ...", "C) ...", "D) ..."],
+      "answer": "A) ...",
+      "justification": "Base legal y explicación detallada citando LFPIORPI/CNBV/GAFI cuando aplique"
     }
   ]
-}
-NO uses formato markdown ni bloques de código (como \`\`\`json). No agregues ningún texto introductorio, el primer y último carácter deben ser las llaves del JSON { }.`;
+}`;
 
-    const result = await proModel().generateContent(prompt);
-    const text = result.response.text();
-    const jsonStr = text.replace(/```json/g, "").replace(/```/g, "").trim();
-    const { quiz: geminiRaw } = JSON.parse(jsonStr) as { quiz: GeminiQuestion[] };
+    const { quiz: claudeRaw } = await claudeGenerateJson<{ quiz: ClaudeQuestion[] }>({
+      system,
+      user,
+      maxTokens: 4096,
+      temperature: 0.7,
+    });
 
-    // ── 4. Cache Gemini results in quiz_bank for future requests ──────────────
-    const cacheTema = topic || "PLD/FT";
-    const cacheDif = bankDificultad ?? DIFF_TO_BANK[difficulty] ?? "medio";
-
-    const geminiQuestions: QuizQuestion[] = await Promise.all(
-      geminiRaw.map(async (gq, i) => {
-        const newId = await cacheInBank(gq, cacheTema, cacheDif, sb);
+    // ── 4. Cache Claude results in question_bank (status='review') ────────
+    const cacheBloque = bloque ?? 1;
+    const claudeQuestions: QuizQuestion[] = await Promise.all(
+      (claudeRaw || []).slice(0, needed).map(async (cq, i) => {
+        const newId = await cacheInBank(cq, cacheBloque, dificultad, formato, sb);
         return {
           id: bankQuestions.length + i + 1,
           question_id: newId ?? undefined,
-          question: gq.question,
-          options: gq.options,
-          answer: gq.answer,
-          justification: gq.justification,
-          source: "gemini" as const,
+          question: cq.question,
+          options: cq.options,
+          answer: cq.answer,
+          justification: cq.justification,
+          source: "claude" as const,
         };
       })
     );
 
-    const quiz = [...bankQuestions, ...geminiQuestions];
-
-    return NextResponse.json({
-      success: true,
-      quiz,
-      source_context_used: contextChunks?.length ?? 0,
-    });
+    const quiz = [...bankQuestions, ...claudeQuestions];
+    return NextResponse.json({ success: true, quiz, source: "mixed" });
   } catch (error: unknown) {
     console.error("Quiz generation error:", error);
     const message = error instanceof Error ? error.message : "Error desconocido";

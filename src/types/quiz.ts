@@ -5,5 +5,5 @@ export interface QuizQuestion {
   options: string[];
   answer: string;
   justification: string;
-  source?: "bank" | "gemini";
+  source?: "bank" | "gemini" | "claude";
 }
