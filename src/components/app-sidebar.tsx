@@ -18,6 +18,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
@@ -28,7 +29,6 @@ import { Logo } from "@/components/Logo"
 
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 
-// Estructura agrupada con soporte para Badges (Notificaciones)
 const NAV_GROUPS = [
   {
     label: "Estudio y Práctica",
@@ -45,7 +45,6 @@ const NAV_GROUPS = [
       { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
       { title: "40 Rec. GAFI", url: "/gafi", icon: Globe },
       { title: "Guía de Trámites", url: "/tramites", icon: ClipboardList },
-      { title: "Base de Conocimiento", url: "/knowledge", icon: Library },
     ]
   },
   {
@@ -92,30 +91,28 @@ export function AppSidebar() {
   }
 
   return (
-    <Sidebar 
-      variant="sidebar" 
-      collapsible="icon" 
-      // MODO DIOS: Borde y sombra dorada sutil si es Super Admin
+    <Sidebar
+      variant="sidebar"
+      collapsible="icon"
       className={cn(isSuperAdmin && "border-r border-r-amber-400 shadow-[2px_0_15px_rgba(251,191,36,0.1)] transition-all")}
     >
-      <SidebarHeader className="border-b border-neutral-100 px-4 py-4">
-        <div className="flex items-center overflow-hidden transition-all duration-200 group-data-[collapsible=icon]:justify-center group-data-[collapsible!=icon]:justify-between gap-2 w-full">
-          {/* Expanded: full logo + badge */}
-          <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
-            <Logo variant="full" size={32} />
+      {/* Header: logo + toggle button — sticky, never scrolls */}
+      <SidebarHeader className="border-b border-neutral-100 px-4 py-4 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:py-3">
+        <div className="flex items-center justify-between gap-2 w-full group-data-[collapsible=icon]:justify-center">
+          {/* Full logo — hidden when sidebar is collapsed */}
+          <div className="flex items-center gap-2 min-w-0 group-data-[collapsible=icon]:hidden">
+            <Logo variant="full" size={32} className="shrink-0" />
             {isSuperAdmin && (
               <Badge variant="outline" className="bg-amber-50 border-amber-200 text-amber-700 text-[9px] font-bold uppercase tracking-eyebrow px-1.5 hidden lg:flex shrink-0">
                 Admin
               </Badge>
             )}
           </div>
-          {/* Collapsed: isotype only */}
-          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center">
-            <Logo variant="isotype" size={32} />
-          </div>
+          {/* Collapse / expand toggle — always visible */}
+          <SidebarTrigger className="h-8 w-8 shrink-0 rounded-xl border border-neutral-200 text-neutral-500 hover:bg-neutral-50 hover:text-neutral-700 transition-colors" />
         </div>
       </SidebarHeader>
-      
+
       <SidebarContent className="gap-0 custom-scrollbar">
         {NAV_GROUPS.map((group, index) => (
           <SidebarGroup key={index} className="pt-4">
@@ -125,14 +122,7 @@ export function AppSidebar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {group.items.map((item) => {
-                  // Lógica de "Active Link Tracking"
                   const isActive = pathname === item.url || pathname.startsWith(`${item.url}/`)
-
-                  // Ocultar "Base de Conocimiento" si no es super admin
-                  if (item.title === "Base de Conocimiento" && !isSuperAdmin) {
-                    return null
-                  }
-
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
@@ -165,8 +155,8 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
-        
-        {/* Admin group — only for super admin */}
+
+        {/* Admin group — only visible to super admin */}
         {isSuperAdmin && (
           <SidebarGroup className="mt-auto pt-4 border-t border-neutral-100">
             <SidebarGroupLabel className="text-[11px] font-semibold text-neutral-400 uppercase tracking-eyebrow group-data-[collapsible=icon]:hidden mb-1">
@@ -192,13 +182,31 @@ export function AppSidebar() {
                     )}
                   />
                 </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton
+                    tooltip="Base de Conocimiento"
+                    isActive={pathname === "/knowledge" || pathname.startsWith("/knowledge/")}
+                    className={cn(
+                      "transition-all h-10 rounded-xl",
+                      pathname === "/knowledge" || pathname.startsWith("/knowledge/")
+                        ? "bg-neutral-900 text-white font-semibold"
+                        : "text-neutral-600 hover:bg-neutral-50 font-medium"
+                    )}
+                    render={(props) => (
+                      <a href="/knowledge" {...props} className={cn(props.className, "w-full")}>
+                        <Library className={cn("h-[18px] w-[18px] shrink-0 transition-colors", pathname === "/knowledge" || pathname.startsWith("/knowledge/") ? "text-white" : "text-neutral-400")} strokeWidth={2} />
+                        <span className="truncate text-sm group-data-[collapsible=icon]:hidden tracking-tight">Base de Conocimiento</span>
+                      </a>
+                    )}
+                  />
+                </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         )}
       </SidebarContent>
 
-      {/* Footer: nivel, racha y perfil */}
+      {/* Footer: level, streak, profile */}
       <SidebarFooter className="border-t border-neutral-100 p-3 space-y-3 bg-white">
         {!loading && (
           <div className="overflow-hidden px-1 group-data-[collapsible=icon]:hidden">
@@ -224,7 +232,7 @@ export function AppSidebar() {
             <SidebarMenuButton
               tooltip="Mi Perfil"
               size="lg"
-              className="bg-white hover:bg-neutral-50 border border-neutral-200 transition-all rounded-2xl h-14"
+              className="bg-white hover:bg-neutral-50 border border-neutral-200 transition-all rounded-2xl h-14 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:rounded-xl"
               render={(props) => (
                 <a href="/perfil" {...props}>
                   <UserCircle className="h-6 w-6 text-neutral-700 shrink-0" strokeWidth={2} />
