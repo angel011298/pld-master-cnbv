@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Save, Eye, EyeOff } from "lucide-react";
+import { Save, Eye, EyeOff, CalendarCheck, Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -17,11 +17,13 @@ interface TabAjustesProps {
 const EXAM_DATES = [
   {
     value: "2026-06-27",
-    label: "27 de junio de 2026 — Convocatoria Ordinaria",
+    label: "27 de junio de 2026",
+    sublabel: "Convocatoria Ordinaria",
   },
   {
     value: "2026-10-24",
-    label: "24 de octubre de 2026 — Convocatoria Extraordinaria",
+    label: "24 de octubre de 2026",
+    sublabel: "Convocatoria Extraordinaria",
   },
 ] as const;
 
@@ -73,6 +75,12 @@ export function TabAjustes({
 }: TabAjustesProps) {
   const [name, setName] = React.useState(profile.full_name || "");
   const [savingName, setSavingName] = React.useState(false);
+
+  // Exam date: show picker only when not set or user clicks "Cambiar"
+  const [editingExamDate, setEditingExamDate] = React.useState(
+    !profile.exam_target_date
+  );
+
   const [newPassword, setNewPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -82,6 +90,11 @@ export function TabAjustes({
   React.useEffect(() => {
     setName(profile.full_name || "");
   }, [profile.full_name]);
+
+  // When profile gets the date after save, collapse the picker
+  React.useEffect(() => {
+    if (profile.exam_target_date) setEditingExamDate(false);
+  }, [profile.exam_target_date]);
 
   const handleSaveName = async () => {
     setSavingName(true);
@@ -98,7 +111,8 @@ export function TabAjustes({
   const handleExamDateChange = async (dateValue: string) => {
     try {
       await onProfileUpdate({ exam_target_date: dateValue });
-      showToast("Fecha de examen actualizada");
+      showToast("Fecha de examen guardada");
+      setEditingExamDate(false); // collapse after selecting
     } catch {
       showToast("Error al guardar fecha", "error");
     }
@@ -154,9 +168,16 @@ export function TabAjustes({
       ? "bg-brand-50 text-brand-700 border-brand-200"
       : "bg-orange-50 text-orange-700 border-orange-200";
 
+  const selectedDateDef = EXAM_DATES.find(
+    (d) => d.value === profile.exam_target_date
+  );
+  const remainingDays = profile.exam_target_date
+    ? daysUntil(profile.exam_target_date)
+    : 0;
+
   return (
     <div className="space-y-6">
-      {/* ── Account ── */}
+      {/* ── Cuenta ── */}
       <div>
         <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-neutral-500">
           Cuenta
@@ -177,10 +198,7 @@ export function TabAjustes({
               />
               <Button
                 onClick={handleSaveName}
-                disabled={
-                  savingName ||
-                  name.trim() === (profile.full_name || "")
-                }
+                disabled={savingName || name.trim() === (profile.full_name || "")}
                 size="sm"
                 className="shrink-0"
               >
@@ -194,45 +212,84 @@ export function TabAjustes({
 
           {/* Exam Date */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-neutral-700">
-              Fecha objetivo de examen
-            </label>
-            <div className="space-y-2">
-              {EXAM_DATES.map((opt) => {
-                const isSelected = profile.exam_target_date === opt.value;
-                const remaining = daysUntil(opt.value);
-                return (
-                  <label
-                    key={opt.value}
-                    className={cn(
-                      "flex cursor-pointer items-start gap-3 rounded-xl border p-3.5 transition-all duration-200",
-                      isSelected
-                        ? "border-brand-300 bg-brand-50/50"
-                        : "border-neutral-200 hover:border-neutral-300"
-                    )}
-                  >
-                    <input
-                      type="radio"
-                      name="exam_date"
-                      value={opt.value}
-                      checked={isSelected}
-                      onChange={() => handleExamDateChange(opt.value)}
-                      className="mt-0.5 accent-brand-500"
-                    />
-                    <div>
-                      <span className="text-sm font-medium text-neutral-800">
-                        {opt.label}
-                      </span>
-                      {isSelected && remaining > 0 && (
-                        <span className="ml-2 inline-block rounded-full bg-brand-100 px-2.5 py-0.5 text-[11px] font-semibold text-brand-700">
-                          Faltan {remaining} días
-                        </span>
-                      )}
-                    </div>
-                  </label>
-                );
-              })}
+            <div className="mb-3 flex items-center justify-between">
+              <label className="text-sm font-medium text-neutral-700">
+                Fecha objetivo de examen
+              </label>
+              {profile.exam_target_date && !editingExamDate && (
+                <button
+                  type="button"
+                  onClick={() => setEditingExamDate(true)}
+                  className="flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-700"
+                >
+                  <Pencil className="h-3 w-3" />
+                  Cambiar
+                </button>
+              )}
             </div>
+
+            {/* Compact view — shown after a date is selected */}
+            {profile.exam_target_date && !editingExamDate ? (
+              <div className="flex items-center gap-4 rounded-xl border border-brand-200 bg-brand-50/50 px-4 py-3.5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-100">
+                  <CalendarCheck className="h-5 w-5 text-brand-600" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-neutral-900">
+                    {selectedDateDef?.label ?? profile.exam_target_date}
+                  </p>
+                  <p className="text-xs text-neutral-500">
+                    {selectedDateDef?.sublabel}
+                    {remainingDays > 0 && (
+                      <span className="ml-2 inline-block rounded-full bg-brand-100 px-2 py-0.5 text-[11px] font-semibold text-brand-700">
+                        Faltan {remainingDays} días
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              /* Picker — shown when no date set or editing */
+              <div className="space-y-2">
+                {EXAM_DATES.map((opt) => {
+                  const isSelected = profile.exam_target_date === opt.value;
+                  const remaining = daysUntil(opt.value);
+                  return (
+                    <label
+                      key={opt.value}
+                      className={cn(
+                        "flex cursor-pointer items-start gap-3 rounded-xl border p-3.5 transition-all duration-200",
+                        isSelected
+                          ? "border-brand-300 bg-brand-50/50"
+                          : "border-neutral-200 hover:border-neutral-300 hover:bg-neutral-50"
+                      )}
+                    >
+                      <input
+                        type="radio"
+                        name="exam_target_date"
+                        value={opt.value}
+                        checked={isSelected}
+                        onChange={() => handleExamDateChange(opt.value)}
+                        className="mt-0.5 accent-brand-500"
+                      />
+                      <div>
+                        <span className="text-sm font-semibold text-neutral-800">
+                          {opt.label}
+                        </span>
+                        <span className="ml-1 text-sm text-neutral-500">
+                          — {opt.sublabel}
+                        </span>
+                        {remaining > 0 && (
+                          <span className="ml-2 inline-block rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] font-medium text-neutral-500">
+                            {remaining} días
+                          </span>
+                        )}
+                      </div>
+                    </label>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <div className="border-t border-neutral-100" />
@@ -256,7 +313,7 @@ export function TabAjustes({
 
       <div className="border-t border-neutral-100" />
 
-      {/* ── Notifications ── */}
+      {/* ── Notificaciones ── */}
       <div>
         <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-neutral-500">
           Notificaciones
@@ -303,95 +360,87 @@ export function TabAjustes({
 
       <div className="border-t border-neutral-100" />
 
-      {/* ── Security ── */}
+      {/* ── Seguridad ── */}
       <div>
         <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-neutral-500">
           Seguridad
         </p>
 
         <div className="rounded-2xl border border-neutral-100 bg-white p-6 shadow-sm">
-          {isGoogleAuth ? (
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-50">
-                <svg className="h-5 w-5" viewBox="0 0 24 24">
-                  <path
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
-                    fill="#4285F4"
-                  />
-                  <path
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                    fill="#34A853"
-                  />
-                  <path
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                    fill="#FBBC05"
-                  />
-                  <path
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                    fill="#EA4335"
-                  />
-                </svg>
-              </div>
-              <div>
-                <p className="text-sm font-medium text-neutral-800">
-                  Cuenta vinculada con Google
-                </p>
-                <p className="text-xs text-neutral-500">
-                  Cambia tu contraseña desde la configuración de Google
-                </p>
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <div>
-                <label className="mb-1.5 block text-sm font-medium text-neutral-700">
-                  Nueva contraseña
-                </label>
-                <div className="relative">
-                  <Input
-                    type={showPassword ? "text" : "password"}
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Mínimo 8 caracteres"
-                    className="pr-10"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Eye className="h-4 w-4" />
-                    )}
-                  </button>
-                </div>
-              </div>
-              <div>
-                <label className="mb-1.5 block text-sm font-medium text-neutral-700">
-                  Confirmar contraseña
-                </label>
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Repite la contraseña"
+          {/* Google note — shown for Google-linked accounts but form is always visible */}
+          {isGoogleAuth && (
+            <div className="mb-5 flex items-start gap-3 rounded-xl border border-blue-100 bg-blue-50/60 p-3.5">
+              <svg className="mt-0.5 h-4 w-4 shrink-0" viewBox="0 0 24 24">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                  fill="#4285F4"
                 />
-              </div>
-              <Button
-                onClick={handleChangePassword}
-                disabled={
-                  savingPassword || !newPassword || !confirmPassword
-                }
-                className="w-full sm:w-auto"
-              >
-                {savingPassword
-                  ? "Actualizando..."
-                  : "Actualizar contraseña"}
-              </Button>
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"
+                />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"
+                />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"
+                />
+              </svg>
+              <p className="text-xs text-blue-700">
+                Tu cuenta está vinculada con Google. Puedes establecer una
+                contraseña adicional para iniciar sesión directamente con email
+                y contraseña.
+              </p>
             </div>
           )}
+
+          <div className="space-y-4">
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                Nueva contraseña
+              </label>
+              <div className="relative">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="Mínimo 8 caracteres"
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+                Confirmar contraseña
+              </label>
+              <Input
+                type={showPassword ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Repite la contraseña"
+              />
+            </div>
+            <Button
+              onClick={handleChangePassword}
+              disabled={savingPassword || !newPassword || !confirmPassword}
+              className="w-full sm:w-auto"
+            >
+              {savingPassword ? "Actualizando..." : "Actualizar contraseña"}
+            </Button>
+          </div>
         </div>
       </div>
 

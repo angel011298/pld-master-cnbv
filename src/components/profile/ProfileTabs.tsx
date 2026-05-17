@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "@/components/ui/tabs";
+import * as React from "react";
+import { cn } from "@/lib/utils";
 import type {
   ProfileData,
   StatsData,
@@ -26,14 +22,14 @@ interface ProfileTabsProps {
   showToast: (msg: string, type?: "success" | "error") => void;
 }
 
-// Active tab = black pill with white text.
-// Using data-active:! (Tailwind !important) to override the Base UI default active styles.
-const triggerClass =
-  "h-auto flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 " +
-  "text-neutral-500 hover:text-neutral-700 " +
-  "data-active:!bg-neutral-900 data-active:!text-white data-active:shadow-sm " +
-  "data-active:after:!opacity-0";
+const TABS = [
+  { id: 0, label: "Perfil" },
+  { id: 1, label: "Estadísticas" },
+  { id: 2, label: "Ajustes" },
+] as const;
 
+// Custom tab bar using plain React state + native buttons so the black-pill
+// active style is fully in our control — no Base UI CSS specificity fights.
 export function ProfileTabs({
   profile,
   stats,
@@ -43,49 +39,52 @@ export function ProfileTabs({
   onGoalChange,
   showToast,
 }: ProfileTabsProps) {
+  const [active, setActive] = React.useState<0 | 1 | 2>(0);
+
   return (
-    // flex-col is explicit because the Base UI Tabs root uses data-orientation="horizontal"
-    // which does NOT match the data-horizontal: Tailwind shorthand in the default className.
-    <Tabs defaultValue={0} className="flex-col gap-0">
+    <div className="flex flex-col">
+      {/* ── Sticky tab bar ── */}
       <div className="sticky top-0 z-20 bg-white py-3 border-b border-neutral-100">
-        {/* Pill container — visual styling is on this wrapper; TabsList is transparent inside */}
-        <div className="rounded-2xl bg-neutral-100 p-1">
-          <TabsList
-            className="!h-auto w-full !gap-1 !rounded-none !bg-transparent p-0"
-          >
-            <TabsTrigger value={0} className={triggerClass}>
-              Perfil
-            </TabsTrigger>
-            <TabsTrigger value={1} className={triggerClass}>
-              Estadísticas
-            </TabsTrigger>
-            <TabsTrigger value={2} className={triggerClass}>
-              Ajustes
-            </TabsTrigger>
-          </TabsList>
+        <div className="flex gap-1 rounded-2xl bg-neutral-100 p-1">
+          {TABS.map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setActive(id)}
+              className={cn(
+                "flex-1 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200",
+                active === id
+                  ? "bg-neutral-900 text-white shadow-sm"
+                  : "text-neutral-500 hover:text-neutral-700 hover:bg-white/60"
+              )}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
 
-      <TabsContent value={0} className="pt-6">
-        <TabPerfil profile={profile} achievements={achievements} />
-      </TabsContent>
-
-      <TabsContent value={1} className="pt-6">
-        <TabEstadisticas
-          profile={profile}
-          stats={stats}
-          activity={activity}
-          onGoalChange={onGoalChange}
-        />
-      </TabsContent>
-
-      <TabsContent value={2} className="pt-6">
-        <TabAjustes
-          profile={profile}
-          onProfileUpdate={onProfileUpdate}
-          showToast={showToast}
-        />
-      </TabsContent>
-    </Tabs>
+      {/* ── Tab panels ── */}
+      <div className="pt-6">
+        {active === 0 && (
+          <TabPerfil profile={profile} achievements={achievements} />
+        )}
+        {active === 1 && (
+          <TabEstadisticas
+            profile={profile}
+            stats={stats}
+            activity={activity}
+            onGoalChange={onGoalChange}
+          />
+        )}
+        {active === 2 && (
+          <TabAjustes
+            profile={profile}
+            onProfileUpdate={onProfileUpdate}
+            showToast={showToast}
+          />
+        )}
+      </div>
+    </div>
   );
 }
