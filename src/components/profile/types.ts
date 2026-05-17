@@ -104,11 +104,12 @@ export const ACHIEVEMENT_DEFINITIONS: Record<
 };
 
 export const BLOQUE_NAMES: Record<number, string> = {
-  1: "Marco Legal",
-  2: "GAFI",
-  3: "KYC / CDD",
-  4: "Reportes CNBV",
-  5: "UNE",
-  6: "Sanciones",
-  7: "Tipologías",
+  1: "Marco Legal PLD/FT",
+  2: "Definiciones",
+  3: "KYC / Identificación del Cliente",
+  4: "Reportes a CNBV",
+  5: "Estructura UNE / Oficial Cumplimiento",
+  6: "Sanciones y Listas",
+  7: "Tipologías y Operaciones Sospechosas",
+  8: "40 Recomendaciones GAFI",
 };
