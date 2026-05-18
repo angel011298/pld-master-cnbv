@@ -67,12 +67,28 @@ export async function GET(req: NextRequest) {
   const stats    = statsRes.data;
   const profile  = profileRes.data;
 
+  // ── Typed sessions array (cast once, used throughout) ────────────────────
+  type SessionRow = {
+    id: string;
+    created_at: string;
+    formato: string;
+    bloque: number | null;
+    score_percentage: number | null;
+    correct_count: number;
+    total_questions: number;
+    started_at: string;
+    completed_at: string | null;
+    xp_earned: number;
+  };
+
+  const sessions = (sessionsRes.data ?? []) as unknown as SessionRow[];
+
   // ── Failed questions count (last 30 days) ─────────────────────────────────
   const thirtyDaysAgo = new Date(
     Date.now() - 30 * 24 * 60 * 60 * 1000
   ).toISOString();
 
-  const recentSessionIds = (sessionsRes.data ?? [])
+  const recentSessionIds = sessions
     .filter((s) => new Date(s.created_at) >= new Date(thirtyDaysAgo))
     .map((s) => s.id)
     .slice(0, 100);
@@ -90,21 +106,6 @@ export async function GET(req: NextRequest) {
       (failedData ?? []).map((r: { question_id: number }) => r.question_id)
     ).size;
   }
-
-  type SessionRow = {
-    id: string;
-    created_at: string;
-    formato: string;
-    bloque: number | null;
-    score_percentage: number | null;
-    correct_count: number;
-    total_questions: number;
-    started_at: string;
-    completed_at: string | null;
-    xp_earned: number;
-  };
-
-  const sessions = (sessionsRes.data ?? []) as SessionRow[];
 
   // ── 1. Session accuracy chart — last 20, ascending for timeline display ───
   const sessionChart = sessions

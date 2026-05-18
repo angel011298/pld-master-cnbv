@@ -29,7 +29,15 @@ import { Logo } from "@/components/Logo"
 
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 
-const NAV_GROUPS = [
+type NavItem = {
+  title: string
+  url: string
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  badge?: string
+  exact?: boolean
+}
+
+const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
   {
     label: "Estudio y Práctica",
     items: [
