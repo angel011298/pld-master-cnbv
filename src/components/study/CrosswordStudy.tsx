@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CheckCircle2, XCircle, Eye, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useStudySession, type StudyMeta } from "@/hooks/useStudySession";
 
 interface CrosswordWord {
   word: string;
@@ -22,6 +23,7 @@ interface StudyQuestion {
 interface CrosswordStudyProps {
   questions: StudyQuestion[];
   onFinish: (correct: number, total: number) => void;
+  studyMeta?: StudyMeta;
 }
 
 /** Single crossword clue card */
@@ -58,11 +60,11 @@ function ClueCard({
       "border-red-200 bg-red-50"
     )}>
       <div className="flex items-start gap-3">
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700" aria-hidden="true">
           {number}
         </span>
         <div className="flex-1 min-w-0">
-          <p className="text-sm text-slate-700 mb-3">{clue}</p>
+          <p className="text-sm text-slate-700 mb-3" id={`clue-${number}`}>{clue}</p>
           <div className="flex gap-2">
             <input
               type="text"
@@ -70,8 +72,10 @@ function ClueCard({
               onChange={(e) => { setUserInput(e.target.value.toUpperCase()); setChecked(false); }}
               placeholder={`${word.length} letras`}
               maxLength={word.length + 5}
+              aria-label={`Pista ${number}: ${clue} (${word.length} letras)`}
+              aria-describedby={checked ? `feedback-${number}` : undefined}
               className={cn(
-                "flex-1 rounded-lg border-2 px-3 py-1.5 text-sm font-mono font-bold uppercase tracking-widest transition-colors focus:outline-none",
+                "flex-1 rounded-lg border-2 px-3 min-h-[44px] py-1.5 text-sm font-mono font-bold uppercase tracking-widest transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1",
                 !checked && "border-slate-200 focus:border-indigo-400",
                 checked && isCorrect && "border-emerald-400 bg-emerald-50 text-emerald-700",
                 checked && !isCorrect && "border-red-400 bg-red-50 text-red-700"
@@ -82,34 +86,49 @@ function ClueCard({
             <button
               onClick={handleCheck}
               disabled={!userInput.trim() || revealed}
-              className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-40 transition-colors"
+              aria-label={`Verificar respuesta para pista ${number}`}
+              className="rounded-lg bg-indigo-600 px-3 min-h-[44px] py-1.5 text-xs font-bold text-white hover:bg-indigo-700 disabled:opacity-40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
             >
               Verificar
             </button>
           </div>
           {checked && (
-            <div className={cn("flex items-center gap-1 mt-2 text-xs font-semibold", isCorrect ? "text-emerald-600" : "text-red-600")}>
-              {isCorrect ? <CheckCircle2 className="h-3.5 w-3.5" /> : <XCircle className="h-3.5 w-3.5" />}
+            <div
+              id={`feedback-${number}`}
+              role="status"
+              aria-live="polite"
+              className={cn("flex items-center gap-1 mt-2 text-xs font-semibold", isCorrect ? "text-emerald-600" : "text-red-600")}
+            >
+              {isCorrect ? <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" /> : <XCircle className="h-3.5 w-3.5" aria-hidden="true" />}
               {isCorrect ? "¡Correcto!" : `Respuesta: ${word}`}
             </div>
           )}
         </div>
         <button
           onClick={handleReveal}
-          disabled={revealed || checked && isCorrect}
-          className="shrink-0 rounded-lg border border-slate-200 px-2 py-1.5 text-xs text-slate-500 hover:bg-slate-50 disabled:opacity-30 transition-colors flex items-center gap-1"
+          disabled={revealed || (checked && isCorrect)}
+          aria-label={`Revelar respuesta para pista ${number}`}
+          className="shrink-0 rounded-lg border border-slate-200 px-2 min-h-[44px] py-1.5 text-xs text-slate-500 hover:bg-slate-50 disabled:opacity-30 transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
         >
-          <Eye className="h-3 w-3" />
+          <Eye className="h-3 w-3" aria-hidden="true" />
+          <span className="sr-only">Revelar respuesta</span>
         </button>
       </div>
     </div>
   );
 }
 
-export function CrosswordStudy({ questions, onFinish }: CrosswordStudyProps) {
+export function CrosswordStudy({ questions, onFinish, studyMeta }: CrosswordStudyProps) {
+  const { startSession, recordAnswer, completeSession } = useStudySession();
   const [index, setIndex] = React.useState(0);
   const [revealed, setRevealed] = React.useState<Set<number>>(new Set());
   const [score, setScore] = React.useState(0);
+
+  // ── Start a study session on mount ──────────────────────────────────────
+  React.useEffect(() => {
+    if (studyMeta) startSession(studyMeta, questions.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const q = questions[index];
   const words: CrosswordWord[] = q.correct_answer?.words ?? [];
@@ -118,11 +137,23 @@ export function CrosswordStudy({ questions, onFinish }: CrosswordStudyProps) {
     setRevealed((prev) => new Set(prev).add(i));
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const notRevealed = words.length - revealed.size;
+    // Record one response per crossword puzzle: correct if all words guessed without reveal
+    recordAnswer(
+      q.id,
+      `${notRevealed}/${words.length} sin pistas`,
+      notRevealed === words.length
+    );
     setScore((s) => s + notRevealed);
     if (index + 1 >= questions.length) {
-      onFinish(score + notRevealed, questions.length * words.length);
+      const finalScore = score + notRevealed;
+      const totalWords = questions.reduce(
+        (acc, sq) => acc + ((sq.correct_answer?.words ?? []).length),
+        0
+      );
+      await completeSession(finalScore, totalWords);
+      onFinish(finalScore, totalWords);
     } else {
       setRevealed(new Set());
       setIndex((i) => i + 1);
@@ -176,13 +207,15 @@ export function CrosswordStudy({ questions, onFinish }: CrosswordStudyProps) {
       <div className="flex gap-3">
         <button
           onClick={handleReset}
-          className="flex items-center gap-1.5 rounded-xl border-2 border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors"
+          aria-label="Reiniciar crucigrama"
+          className="flex items-center gap-1.5 rounded-xl border-2 border-slate-200 px-4 min-h-[44px] py-2.5 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
         >
-          <RotateCcw className="h-4 w-4" /> Reiniciar
+          <RotateCcw className="h-4 w-4" aria-hidden="true" /> Reiniciar
         </button>
         <button
           onClick={handleNext}
-          className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-2.5 text-sm font-bold text-white hover:bg-indigo-700 transition-colors"
+          aria-label={index + 1 >= questions.length ? "Ver resultados finales" : "Siguiente crucigrama"}
+          className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-indigo-600 min-h-[44px] py-2.5 text-sm font-bold text-white hover:bg-indigo-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
         >
           {index + 1 >= questions.length ? "Ver resultados" : "Siguiente crucigrama"}
         </button>

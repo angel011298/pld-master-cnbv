@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CheckCircle2, XCircle, ChevronRight, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useStudySession, type StudyMeta } from "@/hooks/useStudySession";
 
 interface StudyQuestion {
   id: number;
@@ -17,12 +18,20 @@ interface StudyQuestion {
 interface TrueFalseStudyProps {
   questions: StudyQuestion[];
   onFinish: (correct: number, total: number) => void;
+  studyMeta?: StudyMeta;
 }
 
-export function TrueFalseStudy({ questions, onFinish }: TrueFalseStudyProps) {
+export function TrueFalseStudy({ questions, onFinish, studyMeta }: TrueFalseStudyProps) {
+  const { startSession, recordAnswer, completeSession } = useStudySession();
   const [index, setIndex] = React.useState(0);
   const [selected, setSelected] = React.useState<boolean | null>(null);
   const [score, setScore] = React.useState(0);
+
+  // ── Start a study session on mount ──────────────────────────────────────
+  React.useEffect(() => {
+    if (studyMeta) startSession(studyMeta, questions.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const q = questions[index];
   const correctValue = q.correct_answer?.value ?? true;
@@ -37,12 +46,15 @@ export function TrueFalseStudy({ questions, onFinish }: TrueFalseStudyProps) {
 
   const handleSelect = (value: boolean) => {
     if (answered) return;
+    const correct = value === correctValue;
     setSelected(value);
-    if (value === correctValue) setScore((s) => s + 1);
+    if (correct) setScore((s) => s + 1);
+    recordAnswer(q.id, String(value), correct);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (index + 1 >= questions.length) {
+      await completeSession(score, questions.length);
       onFinish(score, questions.length);
     } else {
       setSelected(null);
@@ -88,33 +100,38 @@ export function TrueFalseStudy({ questions, onFinish }: TrueFalseStudyProps) {
         <p className="mt-3 text-xs text-slate-400">Bloque {q.bloque}</p>
       </div>
 
-      {/* Result badge */}
-      {answered && (
-        <div className={cn(
-          "flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold",
-          isCorrect ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"
-        )}>
-          {isCorrect ? (
-            <><CheckCircle2 className="h-5 w-5" /> ¡Correcto! La afirmación es {correctValue ? "Verdadera" : "Falsa"}</>
-          ) : (
-            <><XCircle className="h-5 w-5" /> Incorrecto. Es {correctValue ? "Verdadera" : "Falsa"}</>
-          )}
-        </div>
-      )}
+      {/* Result badge — live region for screen readers */}
+      <div role="status" aria-live="polite">
+        {answered && (
+          <div className={cn(
+            "flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-bold",
+            isCorrect ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"
+          )}>
+            {isCorrect ? (
+              <><CheckCircle2 className="h-5 w-5" aria-hidden="true" /> ¡Correcto! La afirmación es {correctValue ? "Verdadera" : "Falsa"}</>
+            ) : (
+              <><XCircle className="h-5 w-5" aria-hidden="true" /> Incorrecto. Es {correctValue ? "Verdadera" : "Falsa"}</>
+            )}
+          </div>
+        )}
+      </div>
 
       {/* V/F Buttons */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3" role="group" aria-label="Elige verdadero o falso">
         {[true, false].map((v) => (
           <button
             key={String(v)}
             onClick={() => handleSelect(v)}
+            disabled={answered}
+            aria-pressed={selected === v}
+            aria-label={v ? "Verdadero" : "Falso"}
             className={cn(
-              "flex flex-col items-center justify-center gap-2 rounded-2xl border-2 py-6 font-bold transition-all text-lg",
+              "flex flex-col items-center justify-center gap-2 rounded-2xl border-2 min-h-[44px] py-6 font-bold transition-all text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1",
               btnStyle(v)
             )}
           >
-            {answered && v === correctValue && <CheckCircle2 className="h-6 w-6 text-emerald-500" />}
-            {answered && v === selected && v !== correctValue && <XCircle className="h-6 w-6 text-red-500" />}
+            {answered && v === correctValue && <CheckCircle2 className="h-6 w-6 text-emerald-500" aria-hidden="true" />}
+            {answered && v === selected && v !== correctValue && <XCircle className="h-6 w-6 text-red-500" aria-hidden="true" />}
             {v ? "✓ Verdadero" : "✗ Falso"}
           </button>
         ))}
@@ -123,7 +140,7 @@ export function TrueFalseStudy({ questions, onFinish }: TrueFalseStudyProps) {
       {/* Explanation */}
       {answered && q.explanation && (
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 flex gap-3">
-          <Lightbulb className="h-5 w-5 shrink-0 text-amber-500 mt-0.5" />
+          <Lightbulb className="h-5 w-5 shrink-0 text-amber-500 mt-0.5" aria-hidden="true" />
           <div>
             <p className="text-xs font-bold text-amber-700 mb-1">Explicación</p>
             <p className="text-sm text-amber-900">{q.explanation}</p>
@@ -135,10 +152,10 @@ export function TrueFalseStudy({ questions, onFinish }: TrueFalseStudyProps) {
       {answered && (
         <button
           onClick={handleNext}
-          className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white hover:bg-indigo-700 transition-colors"
+          className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 min-h-[44px] py-3 text-sm font-bold text-white hover:bg-indigo-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
         >
           {index + 1 >= questions.length ? "Ver resultados" : "Siguiente"}
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </button>
       )}
     </div>

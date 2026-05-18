@@ -4,7 +4,7 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 import { usePathname } from "next/navigation"
 import {
-  Map, GraduationCap, MessageSquare, Library, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle, LogOut, Globe
+  Map, GraduationCap, MessageSquare, Library, Building2, Zap, Flame, ClipboardList, Shield, BookOpen, Users, UserCircle, LogOut, Globe, BarChart2
 } from "lucide-react"
 
 import {
@@ -34,7 +34,8 @@ const NAV_GROUPS = [
     label: "Estudio y Práctica",
     items: [
       { title: "Ruta de Aprendizaje", url: "/dashboard", icon: Map },
-      { title: "Modo Estudio", url: "/estudio", icon: BookOpen, badge: "XP x2" },
+      { title: "Modo Estudio", url: "/estudio", icon: BookOpen, badge: "XP x2", exact: true },
+      { title: "Mis Estadísticas", url: "/estudio/estadisticas", icon: BarChart2 },
       { title: "40 Rec. GAFI", url: "/gafi", icon: Globe },
       { title: "Simulador CENEVAL", url: "/simulator", icon: GraduationCap },
     ]
@@ -116,7 +117,10 @@ export function AppSidebar() {
         </div>
         {/* Toggle button — below logo, always visible */}
         <div className="flex group-data-[collapsible=icon]:justify-center">
-          <SidebarTrigger className="h-8 w-8 shrink-0 rounded-xl border border-neutral-200 text-neutral-500 hover:bg-neutral-50 hover:text-neutral-700 transition-colors" />
+          <SidebarTrigger
+            aria-label="Abrir/cerrar menú"
+            className="h-8 w-8 shrink-0 rounded-xl border border-neutral-200 text-neutral-500 hover:bg-neutral-50 hover:text-neutral-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
+          />
         </div>
       </SidebarHeader>
 
@@ -129,7 +133,7 @@ export function AppSidebar() {
             <SidebarGroupContent>
               <SidebarMenu>
                 {group.items.map((item) => {
-                  const isActive = pathname === item.url || pathname.startsWith(`${item.url}/`)
+                  const isActive = pathname === item.url || (!item.exact && pathname.startsWith(`${item.url}/`))
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
@@ -254,11 +258,12 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Cerrar sesión"
+              aria-label={signingOut ? "Cerrando sesión..." : "Cerrar sesión"}
               className="text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 rounded-xl h-10"
               disabled={signingOut}
               onClick={handleSignOut}
             >
-              <LogOut className="h-[18px] w-[18px] shrink-0" strokeWidth={2} />
+              <LogOut className="h-[18px] w-[18px] shrink-0" strokeWidth={2} aria-hidden="true" />
               <span className="truncate text-sm group-data-[collapsible=icon]:hidden tracking-tight">Cerrar sesión</span>
             </SidebarMenuButton>
           </SidebarMenuItem>

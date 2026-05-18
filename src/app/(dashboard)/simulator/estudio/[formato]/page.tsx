@@ -18,6 +18,8 @@ import { TrueFalseStudy } from "@/components/study/TrueFalseStudy";
 import { FillBlankStudy } from "@/components/study/FillBlankStudy";
 import { CrosswordStudy } from "@/components/study/CrosswordStudy";
 import { WordSearchStudy } from "@/components/study/WordSearchStudy";
+import { type StudyMeta } from "@/hooks/useStudySession";
+import { generateGrid, type WordSearchGrid } from "@/lib/word-search-utils";
 
 const FORMAT_META: Record<string, { label: string; emoji: string; description: string }> = {
   flashcard: { label: "Flashcards", emoji: "🃏", description: "Voltea las tarjetas y repasa definiciones clave" },
@@ -74,6 +76,7 @@ export default function EstudioFormatoPage() {
   const [questionCount, setQuestionCount] = React.useState(10);
   const [questions, setQuestions] = React.useState<StudyQuestion[]>([]);
   const [results, setResults] = React.useState<ResultsData | null>(null);
+  const [preGeneratedGrids, setPreGeneratedGrids] = React.useState<Record<number, WordSearchGrid>>({});
 
   if (!meta) {
     return (
@@ -107,36 +110,43 @@ export default function EstudioFormatoPage() {
     }
   };
 
-  const handleFinish = async (correct: number, total: number) => {
+  const handleFinish = (correct: number, total: number) => {
+    // XP is credited by the study component via /api/study/sessions/:id/complete
     setResults({ correct, total });
     setPhase("results");
-
-    // Award XP silently
-    try {
-      await fetch("/api/update-xp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          event_type: formato === "flashcard" ? "flashcard" : "quiz",
-          correct: correct > total / 2,
-          topic: `estudio-${formato}`,
-          difficulty:
-            dificultad === "all" ? "Intermedio" :
-            dificultad === "basico" ? "Básico" :
-            dificultad === "avanzado" ? "Avanzado" : "Intermedio",
-          response_time_ms: 0,
-        }),
-      });
-    } catch {
-      // Silently ignore XP errors
-    }
   };
+
+  // Build studyMeta from the user-selected filters, resolved once questions load
+  const studyMeta: StudyMeta = React.useMemo(() => ({
+    formato,
+    bloque: bloque !== "all" ? parseInt(bloque, 10) : null,
+    dificultad: dificultad !== "all" ? dificultad : null,
+  }), [formato, bloque, dificultad]);
 
   const handleRestart = () => {
     setPhase("config");
     setResults(null);
     setQuestions([]);
+    setPreGeneratedGrids({});
   };
+
+  // Pre-generate grids for word_search questions in background
+  React.useEffect(() => {
+    if (formato !== "word_search" || questions.length === 0) return;
+
+    const generateGridsAsync = async () => {
+      const grids: Record<number, WordSearchGrid> = {};
+      for (const q of questions) {
+        const words = q.correct_answer?.words ?? [];
+        if (Array.isArray(words) && words.length > 0) {
+          grids[q.id] = generateGrid(words);
+        }
+      }
+      setPreGeneratedGrids(grids);
+    };
+
+    generateGridsAsync();
+  }, [questions, formato]);
 
   const pct = results ? Math.round((results.correct / results.total) * 100) : 0;
 
@@ -262,6 +272,7 @@ export default function EstudioFormatoPage() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               questions={questions as any}
               onFinish={handleFinish}
+              studyMeta={studyMeta}
             />
           )}
           {(formato === "multiple_choice") && (
@@ -269,6 +280,7 @@ export default function EstudioFormatoPage() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               questions={questions as any}
               onFinish={handleFinish}
+              studyMeta={studyMeta}
             />
           )}
           {formato === "case_study" && (
@@ -277,6 +289,7 @@ export default function EstudioFormatoPage() {
               questions={questions as any}
               onFinish={handleFinish}
               isCaseStudy
+              studyMeta={studyMeta}
             />
           )}
           {formato === "true_false" && (
@@ -284,6 +297,7 @@ export default function EstudioFormatoPage() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               questions={questions as any}
               onFinish={handleFinish}
+              studyMeta={studyMeta}
             />
           )}
           {formato === "fill_blank" && (
@@ -291,6 +305,7 @@ export default function EstudioFormatoPage() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               questions={questions as any}
               onFinish={handleFinish}
+              studyMeta={studyMeta}
             />
           )}
           {formato === "crossword" && (
@@ -298,6 +313,7 @@ export default function EstudioFormatoPage() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               questions={questions as any}
               onFinish={handleFinish}
+              studyMeta={studyMeta}
             />
           )}
           {formato === "word_search" && (
@@ -305,6 +321,8 @@ export default function EstudioFormatoPage() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               questions={questions as any}
               onFinish={handleFinish}
+              studyMeta={studyMeta}
+              preGeneratedGrids={preGeneratedGrids}
             />
           )}
         </div>

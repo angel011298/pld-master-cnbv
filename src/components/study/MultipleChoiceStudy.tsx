@@ -3,6 +3,7 @@
 import * as React from "react";
 import { CheckCircle2, XCircle, ChevronRight, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useStudySession, type StudyMeta } from "@/hooks/useStudySession";
 
 interface StudyQuestion {
   id: number;
@@ -19,16 +20,25 @@ interface MultipleChoiceStudyProps {
   questions: StudyQuestion[];
   onFinish: (correct: number, total: number) => void;
   isCaseStudy?: boolean;
+  studyMeta?: StudyMeta;
 }
 
 export function MultipleChoiceStudy({
   questions,
   onFinish,
   isCaseStudy = false,
+  studyMeta,
 }: MultipleChoiceStudyProps) {
+  const { startSession, recordAnswer, completeSession } = useStudySession();
   const [index, setIndex] = React.useState(0);
   const [selected, setSelected] = React.useState<number | null>(null);
   const [score, setScore] = React.useState(0);
+
+  // ── Start a study session on mount ──────────────────────────────────────
+  React.useEffect(() => {
+    if (studyMeta) startSession(studyMeta, questions.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const q = questions[index];
   const correctIndex = q.correct_answer?.index ?? 0;
@@ -42,12 +52,15 @@ export function MultipleChoiceStudy({
 
   const handleSelect = (i: number) => {
     if (answered) return;
+    const isCorrect = i === correctIndex;
     setSelected(i);
-    if (i === correctIndex) setScore((s) => s + 1);
+    if (isCorrect) setScore((s) => s + 1);
+    recordAnswer(q.id, String.fromCharCode(65 + i), isCorrect);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (index + 1 >= questions.length) {
+      await completeSession(score, questions.length);
       onFinish(score, questions.length);
     } else {
       setSelected(null);
@@ -95,13 +108,15 @@ export function MultipleChoiceStudy({
       </div>
 
       {/* Options */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2" role="group" aria-label="Opciones de respuesta">
         {(q.options ?? []).map((opt, i) => (
           <button
             key={i}
             onClick={() => handleSelect(i)}
+            disabled={answered}
+            aria-pressed={selected === i}
             className={cn(
-              "flex items-center gap-3 rounded-xl border-2 px-4 py-3 text-left text-sm font-medium transition-all",
+              "flex items-center gap-3 rounded-xl border-2 px-4 min-h-[44px] py-3 text-left text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1",
               getOptionStyle(i)
             )}
           >
@@ -111,7 +126,7 @@ export function MultipleChoiceStudy({
               answered && i === correctIndex && "bg-emerald-500 text-white",
               answered && i === selected && i !== correctIndex && "bg-red-500 text-white",
               answered && i !== correctIndex && i !== selected && "bg-slate-100 text-slate-400"
-            )}>
+            )} aria-hidden="true">
               {answered && i === correctIndex ? (
                 <CheckCircle2 className="h-4 w-4" />
               ) : answered && i === selected ? (
@@ -125,10 +140,19 @@ export function MultipleChoiceStudy({
         ))}
       </div>
 
+      {/* Feedback live region */}
+      <div role="status" aria-live="polite" className="sr-only">
+        {answered
+          ? selected === correctIndex
+            ? "¡Correcto!"
+            : `Incorrecto. La respuesta correcta es: ${q.options?.[correctIndex] ?? ""}`
+          : ""}
+      </div>
+
       {/* Explanation */}
       {answered && q.explanation && (
         <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 flex gap-3">
-          <Lightbulb className="h-5 w-5 shrink-0 text-amber-500 mt-0.5" />
+          <Lightbulb className="h-5 w-5 shrink-0 text-amber-500 mt-0.5" aria-hidden="true" />
           <div>
             <p className="text-xs font-bold text-amber-700 mb-1">Explicación</p>
             <p className="text-sm text-amber-900">{q.explanation}</p>
@@ -140,10 +164,10 @@ export function MultipleChoiceStudy({
       {answered && (
         <button
           onClick={handleNext}
-          className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white hover:bg-indigo-700 transition-colors"
+          className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 min-h-[44px] py-3 text-sm font-bold text-white hover:bg-indigo-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
         >
           {index + 1 >= questions.length ? "Ver resultados" : "Siguiente"}
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </button>
       )}
     </div>

@@ -1,8 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { CheckCircle2, Trophy } from "lucide-react";
+import { CheckCircle2, Trophy, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useStudySession, type StudyMeta } from "@/hooks/useStudySession";
+import { generateGrid, type WordSearchGrid, type PlacedWord } from "@/lib/word-search-utils";
 
 interface StudyQuestion {
   id: number;
@@ -14,79 +16,6 @@ interface StudyQuestion {
   source_document: string;
 }
 
-interface PlacedWord {
-  word: string;
-  cells: [number, number][];
-}
-
-const GRID_SIZE = 14;
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-function generateGrid(rawWords: string[]): {
-  grid: string[][];
-  placed: PlacedWord[];
-} {
-  const words = rawWords
-    .map((w) => w.toUpperCase().replace(/[^A-Z]/g, ""))
-    .filter((w) => w.length > 1 && w.length <= GRID_SIZE);
-
-  const grid: string[][] = Array.from({ length: GRID_SIZE }, () =>
-    Array(GRID_SIZE).fill("")
-  );
-  const placed: PlacedWord[] = [];
-
-  // Directions: right, down, diagonal down-right
-  const dirs: [number, number][] = [
-    [0, 1],
-    [1, 0],
-    [1, 1],
-  ];
-
-  for (const word of words) {
-    let success = false;
-    for (let attempt = 0; attempt < 80 && !success; attempt++) {
-      const [dr, dc] = dirs[Math.floor(Math.random() * dirs.length)];
-      const maxR = dr === 0 ? GRID_SIZE : GRID_SIZE - word.length;
-      const maxC = dc === 0 ? GRID_SIZE : GRID_SIZE - word.length;
-      if (maxR <= 0 || maxC <= 0) continue;
-
-      const r = Math.floor(Math.random() * maxR);
-      const c = Math.floor(Math.random() * maxC);
-
-      const cells: [number, number][] = [];
-      let fits = true;
-
-      for (let i = 0; i < word.length; i++) {
-        const nr = r + dr * i;
-        const nc = c + dc * i;
-        if (grid[nr][nc] !== "" && grid[nr][nc] !== word[i]) {
-          fits = false;
-          break;
-        }
-        cells.push([nr, nc]);
-      }
-
-      if (fits) {
-        for (let i = 0; i < word.length; i++) {
-          grid[cells[i][0]][cells[i][1]] = word[i];
-        }
-        placed.push({ word, cells });
-        success = true;
-      }
-    }
-  }
-
-  // Fill empty cells with random letters
-  for (let r = 0; r < GRID_SIZE; r++) {
-    for (let c = 0; c < GRID_SIZE; c++) {
-      if (!grid[r][c]) {
-        grid[r][c] = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
-      }
-    }
-  }
-
-  return { grid, placed };
-}
 
 function cellKey(r: number, c: number) {
   return `${r},${c}`;
@@ -126,18 +55,31 @@ const FOUND_COLORS = [
 interface WordSearchStudyProps {
   questions: StudyQuestion[];
   onFinish: (correct: number, total: number) => void;
+  studyMeta?: StudyMeta;
+  preGeneratedGrids?: Record<number, WordSearchGrid>; // Pre-generated grids by question ID
 }
 
-export function WordSearchStudy({ questions, onFinish }: WordSearchStudyProps) {
+export function WordSearchStudy({ questions, onFinish, studyMeta, preGeneratedGrids = {} }: WordSearchStudyProps) {
+  const { startSession, recordAnswer, completeSession } = useStudySession();
   const [index, setIndex] = React.useState(0);
+
+  // ── Start a study session on mount ──────────────────────────────────────
+  React.useEffect(() => {
+    if (studyMeta) startSession(studyMeta, questions.length);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const q = questions[index];
   const rawWords = q.correct_answer?.words ?? [];
 
+  // Use pre-generated grid if available; otherwise generate on-demand (< 1s)
   const { grid, placed } = React.useMemo(
-    () => generateGrid(rawWords),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [q.id]
+    () => preGeneratedGrids[q.id] ?? generateGrid(rawWords),
+    [q.id, preGeneratedGrids, rawWords]
   );
+
+  // Show spinner if grid not yet in cache (only visible if user navigates before pre-gen completes)
+  const isGenerating = !preGeneratedGrids[q.id] && Object.keys(preGeneratedGrids).length > 0;
 
   const [foundWords, setFoundWords] = React.useState<
     { word: string; cells: [number, number][]; colorIdx: number }[]
@@ -200,8 +142,15 @@ export function WordSearchStudy({ questions, onFinish }: WordSearchStudyProps) {
     setHoverCell(null);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    // Record one response per word-search puzzle: correct if all placed words found
+    recordAnswer(
+      q.id,
+      `${foundWords.length}/${placed.length} encontradas`,
+      foundWords.length === placed.length
+    );
     if (index + 1 >= questions.length) {
+      await completeSession(foundWords.length, placed.length);
       onFinish(foundWords.length, placed.length);
     } else {
       setFoundWords([]);
@@ -241,12 +190,22 @@ export function WordSearchStudy({ questions, onFinish }: WordSearchStudyProps) {
       <div className="flex flex-col lg:flex-row gap-4">
         {/* Grid */}
         <div
-          className="overflow-auto rounded-xl border-2 border-slate-200 bg-white p-3 select-none"
-          onMouseLeave={() => {
+          className="relative overflow-auto rounded-xl border-2 border-slate-200 bg-white p-3 select-none"
+          style={{ touchAction: "none" }}
+          onPointerLeave={() => {
             if (selecting) handleCellUp();
           }}
         >
-          <table className="border-collapse">
+          {/* Loading overlay for grid generation */}
+          {isGenerating && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm rounded-lg z-10">
+              <div className="flex flex-col items-center gap-2">
+                <Loader2 className="h-6 w-6 text-indigo-500 animate-spin" aria-hidden="true" />
+                <p className="text-xs text-slate-500">Generando sopa...</p>
+              </div>
+            </div>
+          )}
+          <table className="border-collapse" role="grid" aria-label="Sopa de letras">
             <tbody>
               {grid.map((row, r) => (
                 <tr key={r}>
@@ -259,6 +218,8 @@ export function WordSearchStudy({ questions, onFinish }: WordSearchStudyProps) {
                     return (
                       <td
                         key={c}
+                        role="gridcell"
+                        aria-selected={isSel || isFound}
                         className={cn(
                           "h-8 w-8 cursor-pointer text-center text-xs font-bold rounded-sm transition-colors",
                           isFound
@@ -267,9 +228,9 @@ export function WordSearchStudy({ questions, onFinish }: WordSearchStudyProps) {
                             ? "bg-indigo-300 text-indigo-900"
                             : "text-slate-700 hover:bg-slate-100"
                         )}
-                        onMouseDown={() => handleCellDown(r, c)}
-                        onMouseEnter={() => handleCellEnter(r, c)}
-                        onMouseUp={handleCellUp}
+                        onPointerDown={() => handleCellDown(r, c)}
+                        onPointerEnter={() => handleCellEnter(r, c)}
+                        onPointerUp={handleCellUp}
                       >
                         {letter}
                       </td>
@@ -282,7 +243,7 @@ export function WordSearchStudy({ questions, onFinish }: WordSearchStudyProps) {
         </div>
 
         {/* Word list */}
-        <div className="flex flex-col gap-2 min-w-[180px]">
+        <div className="flex flex-col gap-2 min-w-[180px]" aria-label="Palabras a encontrar">
           <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
             Palabras a encontrar
           </p>
@@ -312,17 +273,20 @@ export function WordSearchStudy({ questions, onFinish }: WordSearchStudyProps) {
       </div>
 
       {/* Complete message */}
-      {allFound && (
-        <div className="flex items-center gap-3 rounded-xl bg-emerald-50 border-2 border-emerald-200 px-5 py-4">
-          <Trophy className="h-6 w-6 text-emerald-500 shrink-0" />
-          <p className="font-bold text-emerald-800">¡Encontraste todas las palabras!</p>
-        </div>
-      )}
+      <div role="status" aria-live="polite">
+        {allFound && (
+          <div className="flex items-center gap-3 rounded-xl bg-emerald-50 border-2 border-emerald-200 px-5 py-4">
+            <Trophy className="h-6 w-6 text-emerald-500 shrink-0" aria-hidden="true" />
+            <p className="font-bold text-emerald-800">¡Encontraste todas las palabras!</p>
+          </div>
+        )}
+      </div>
 
       {/* Next */}
       <button
         onClick={handleNext}
-        className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 py-3 text-sm font-bold text-white hover:bg-indigo-700 transition-colors"
+        aria-label={index + 1 >= questions.length ? "Ver resultados finales" : "Siguiente sopa de letras"}
+        className="flex items-center justify-center gap-2 rounded-xl bg-indigo-600 min-h-[44px] py-3 text-sm font-bold text-white hover:bg-indigo-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-1"
       >
         {index + 1 >= questions.length ? "Ver resultados" : "Siguiente sopa"}
       </button>
