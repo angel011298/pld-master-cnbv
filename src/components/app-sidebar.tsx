@@ -26,6 +26,7 @@ import { useUserProfile } from "@/hooks/useUserProfile"
 import { supabase } from "@/lib/supabase"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/Logo"
+import { SugerenciasPanel } from "@/components/SugerenciasPanel"
 
 const SUPER_ADMIN_EMAIL = "553angelortiz@gmail.com"
 
@@ -174,6 +175,9 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+
+        {/* Dudas y Sugerencias — below nav groups, above admin */}
+        <SugerenciasPanel />
 
         {/* Admin group — only visible to super admin */}
         {isSuperAdmin && (

@@ -22,10 +22,15 @@ export async function POST(request: Request) {
 
       if (authError) throw authError
 
-      // Actualizar el perfil recién creado a premium
+      // Actualizar el perfil recién creado a premium + guardar contraseña inicial
       const { error: profileError } = await supabaseAdmin
         .from('user_profiles')
-        .update({ tier: 'premium', full_name: fullName, status: 'active' })
+        .update({
+          tier: 'premium',
+          full_name: fullName,
+          status: 'active',
+          temp_password: password ?? null,   // visible en el panel admin
+        })
         .eq('user_id', authData.user.id)
 
       if (profileError) throw profileError

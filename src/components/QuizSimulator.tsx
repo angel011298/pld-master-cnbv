@@ -22,6 +22,7 @@ interface Question {
   options: string[]
   answer: string
   justification: string
+  format?: string   // tagged by fetchQuiz when multiple formats are active
 }
 
 const CNBV_SYLLABUS = [
@@ -165,7 +166,27 @@ export function QuizSimulator() {
     topicsArray.length === 1 ? topicsArray[0] : `${topicsArray.length} subtemas seleccionados`
 
   const [difficulty, setDifficulty] = React.useState("Intermedio")
-  const [exerciseType, setExerciseType] = React.useState(EXERCISE_TYPES[0])
+
+  // ── Multi-select exercise formats ─────────────────────────────────────────
+  const [selectedFormats, setSelectedFormats] = React.useState<Set<string>>(
+    () => new Set([EXERCISE_TYPES[0]])
+  )
+
+  const toggleFormat = (type: string) =>
+    setSelectedFormats((prev) => {
+      const next = new Set(prev)
+      if (next.has(type) && next.size > 1) {
+        next.delete(type)  // keep at least one selected
+      } else if (!next.has(type)) {
+        next.add(type)
+      }
+      return next
+    })
+
+  const formatsArray  = [...selectedFormats]
+  const formatsLabel  = formatsArray.length === 1
+    ? formatsArray[0]
+    : `${formatsArray.length} formatos seleccionados`
   const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
   const [questions, setQuestions] = React.useState<Question[]>([])
   const [currentIdx, setCurrentIdx] = React.useState(0)
@@ -186,22 +207,29 @@ export function QuizSimulator() {
     setGameState("loading")
     try {
       const headers = await buildAuthHeaders({ "Content-Type": "application/json" })
-      const res = await fetch("/api/generate-quiz", {
-        method: "POST",
-        headers,
-        body: JSON.stringify({ topic: topicForApi, difficulty, count: 5, exerciseType }),
-      })
-      const data = await res.json()
-      if (res.ok) {
-        setQuestions(data.quiz)
-        setGameState("quiz")
-        setCurrentIdx(0)
-        setScore(0)
-        setSessionXp(0)
-        setStartTime(Date.now())
-      } else {
-        throw new Error(data.error)
-      }
+
+      // One API call per selected format, all in parallel
+      const results = await Promise.all(
+        formatsArray.map(async (format) => {
+          const res = await fetch("/api/generate-quiz", {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ topic: topicForApi, difficulty, count: 5, exerciseType: format }),
+          })
+          const data = await res.json()
+          if (!res.ok) throw new Error(data.error ?? `Error generando formato: ${format}`)
+          // Tag each question with its format so the UI can display it
+          return (data.quiz as Question[]).map((q) => ({ ...q, format }))
+        })
+      )
+
+      const allQuestions = results.flat()
+      setQuestions(allQuestions)
+      setGameState("quiz")
+      setCurrentIdx(0)
+      setScore(0)
+      setSessionXp(0)
+      setStartTime(Date.now())
     } catch (err) {
       alert("Error al generar el quiz: " + (err as Error).message)
       setGameState("idle")
@@ -228,7 +256,7 @@ export function QuizSimulator() {
       const res = await fetch("/api/update-xp", {
         method: "POST",
         headers,
-        body: JSON.stringify({ xpGained, correct, topic: topicLabel, difficulty, responseTimeMs }),
+        body: JSON.stringify({ xpGained, correct, topic: topicLabel, difficulty: `${difficulty} · ${formatsLabel}`, responseTimeMs }),
       })
       const data = await res.json()
       if (res.ok) {
@@ -383,25 +411,41 @@ export function QuizSimulator() {
               </div>
             </div>
 
-            {/* SELECCIÓN DE TIPO DE EJERCICIO */}
+            {/* SELECCIÓN DE TIPO DE EJERCICIO — multi-select */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Formato de Estudio</label>
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold uppercase text-muted-foreground">Formato de Estudio</label>
+                {formatsArray.length > 1 && (
+                  <span className="text-xs font-bold text-primary">
+                    {formatsArray.length} formatos · {formatsArray.length * 5} preguntas
+                  </span>
+                )}
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {EXERCISE_TYPES.map((type) => (
-                  <motion.button
-                    key={type}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setExerciseType(type)}
-                    className={cn(
-                      "py-2 px-2 rounded-xl border-2 font-bold text-xs transition-all",
-                      exerciseType === type
-                        ? "bg-gray-900 text-white border-gray-900"
-                        : "bg-white border-gray-200 text-gray-700 hover:border-gray-700 hover:bg-gray-50"
-                    )}
-                  >
-                    {type}
-                  </motion.button>
-                ))}
+                {EXERCISE_TYPES.map((type) => {
+                  const isSelected = selectedFormats.has(type)
+                  return (
+                    <motion.button
+                      key={type}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => toggleFormat(type)}
+                      className={cn(
+                        "py-2 px-2 rounded-xl border-2 font-bold text-xs transition-all flex items-center gap-1.5",
+                        isSelected
+                          ? "bg-gray-900 text-white border-gray-900"
+                          : "bg-white border-gray-200 text-gray-700 hover:border-gray-700 hover:bg-gray-50"
+                      )}
+                    >
+                      <div className={cn(
+                        "h-3 w-3 rounded border shrink-0 flex items-center justify-center flex-none",
+                        isSelected ? "bg-white/20 border-white/60" : "border-gray-300"
+                      )}>
+                        {isSelected && <Check className="h-2 w-2 text-white" strokeWidth={3} />}
+                      </div>
+                      {type}
+                    </motion.button>
+                  )
+                })}
               </div>
             </div>
 
@@ -513,6 +557,11 @@ export function QuizSimulator() {
             >
               <Card className="border-b-[6px] border-primary/30">
                 <CardHeader>
+                  {q.format && formatsArray.length > 1 && (
+                    <span className="text-[10px] font-black uppercase tracking-wide text-muted-foreground bg-muted rounded-full px-2 py-0.5 w-fit mb-1">
+                      {q.format}
+                    </span>
+                  )}
                   <CardTitle className="text-xl leading-snug">{q.question}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -651,7 +700,7 @@ export function QuizSimulator() {
               <Trophy className="h-20 w-20 mx-auto text-secondary" />
             </motion.div>
             <h2 className="text-4xl font-black tracking-tight">¡EXAMEN COMPLETADO!</h2>
-            <p className="text-muted-foreground">Tema: {topicLabel} · {difficulty}</p>
+            <p className="text-muted-foreground">Tema: {topicLabel} · {difficulty} · {formatsLabel}</p>
           </div>
 
           <div className="grid grid-cols-3 gap-4">

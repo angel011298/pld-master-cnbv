@@ -6,10 +6,11 @@ import {
   Shield, Users, DollarSign, BarChart3, FileText, Settings, Upload,
   TrendingUp, AlertTriangle, CheckCircle2, Clock, Download, Plus,
   Search, Filter, Ban, RefreshCw, Activity, Zap, Flame, Trophy,
-  Building2, Edit3, Trash2, Eye, Lock, Landmark, Database, BookOpen,
+  Building2, Edit3, Trash2, Eye, EyeOff, Lock, Landmark, Database, BookOpen,
   HardDrive, X, CheckCircle, WalletCards, ArrowUpRight, ArrowDownRight,
   MoreHorizontal, ReceiptText, Gauge, Bot, Sparkles, Target, Megaphone,
-  Linkedin, Facebook, Mail, Video, BrainCircuit, Loader2, ChevronRight, PieChart as PieChartIcon
+  Linkedin, Facebook, Mail, Video, BrainCircuit, Loader2, ChevronRight,
+  ChevronDown, ChevronUp, MessageSquarePlus, Mic, PieChart as PieChartIcon
 } from "lucide-react"
 import {
   Area,
@@ -100,6 +101,11 @@ export default function AdminPage() {
   const [stats, setStats] = React.useState({ mrr: 0, b2b: 0, activeUsers: 0, reactivos: 0 })
   const [questions, setQuestions] = React.useState<any[]>([])
   const [logs, setLogs] = React.useState<any[]>([])
+
+  // Suggestions & B2B UI
+  const [suggestions, setSuggestions] = React.useState<any[]>([])
+  const [expandedUserId, setExpandedUserId] = React.useState<string | null>(null)
+  const [showPasswordFor, setShowPasswordFor] = React.useState<Set<string>>(new Set())
 
   // Estados UI para Modales y Módulos
   const [showAddModal, setShowAddModal] = React.useState(false)
@@ -297,10 +303,20 @@ export default function AdminPage() {
         .from('finance_transactions')
         .select('*')
         .order('date', { ascending: false });
-        
+
       if (finances) {
         setFinanceTransactions(finances);
       }
+
+      // Fetch all user suggestions via admin API (service-role bypass)
+      try {
+        const sugRes = await fetch('/api/admin/suggestions')
+        if (sugRes.ok) {
+          const sugData = await sugRes.json()
+          setSuggestions(sugData.suggestions ?? [])
+        }
+      } catch { /* suggestions are non-critical */ }
+
     } catch (error) {
       console.error("Error fetching admin data:", error);
     } finally {
@@ -1315,61 +1331,143 @@ export default function AdminPage() {
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </div>
-              <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2">
-                {filteredUsers.map((u) => (
-                  <div key={u.user_id} className={`flex items-center gap-3 p-4 rounded-xl border shadow-sm transition-colors ${u.status === 'suspended' ? 'bg-red-50 border-red-200 opacity-75' : 'bg-white border-gray-200 hover:border-blue-200'}`}>
-                    <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${u.status === 'suspended' ? 'bg-red-100 text-red-700' : 'bg-blue-50 border border-blue-100 text-blue-700'}`}>
-                      <span className="font-black text-sm">{(u.full_name || 'U')[0].toUpperCase()}</span>
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-gray-900 flex items-center gap-2 truncate">
-                        {u.full_name || 'Usuario sin nombre'}
-                        {u.status === 'suspended' && <span className="text-[10px] uppercase bg-red-200 text-red-800 px-1.5 py-0.5 rounded font-black">Suspendido</span>}
-                      </p>
-                      <p className="text-xs font-medium text-gray-500">{u.public_customer_id}</p>
-                      {u.password_changed_at && (
-                        <p className="text-[10px] text-amber-600 flex items-center gap-1 mt-0.5">
-                          <Lock className="h-2.5 w-2.5" />
-                          Contraseña cambiada:{" "}
-                          {new Date(u.password_changed_at).toLocaleString("es-MX", {
-                            day: "2-digit", month: "short", year: "numeric",
-                            hour: "2-digit", minute: "2-digit",
-                          })}
-                        </p>
+              <div className="space-y-2 max-h-[700px] overflow-y-auto pr-2">
+                {filteredUsers.map((u) => {
+                  const userSuggestions = suggestions.filter(s => s.user_id === u.user_id)
+                  const isExpanded = expandedUserId === u.user_id
+                  const pwVisible = showPasswordFor.has(u.user_id)
+
+                  return (
+                    <div key={u.user_id} className={`rounded-xl border shadow-sm transition-colors ${u.status === 'suspended' ? 'bg-red-50 border-red-200 opacity-75' : 'bg-white border-gray-200'}`}>
+                      {/* Main row */}
+                      <div className="flex items-center gap-3 p-4">
+                        <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${u.status === 'suspended' ? 'bg-red-100 text-red-700' : 'bg-blue-50 border border-blue-100 text-blue-700'}`}>
+                          <span className="font-black text-sm">{(u.full_name || 'U')[0].toUpperCase()}</span>
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-gray-900 flex items-center gap-2 flex-wrap">
+                            {u.full_name || 'Usuario sin nombre'}
+                            {u.status === 'suspended' && <span className="text-[10px] uppercase bg-red-200 text-red-800 px-1.5 py-0.5 rounded font-black">Suspendido</span>}
+                            {userSuggestions.length > 0 && (
+                              <span className="flex items-center gap-1 text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded font-black">
+                                <MessageSquarePlus className="h-2.5 w-2.5" />
+                                {userSuggestions.length} mensaje{userSuggestions.length !== 1 ? 's' : ''}
+                              </span>
+                            )}
+                          </p>
+                          <p className="text-xs font-medium text-gray-500">{u.public_customer_id}</p>
+
+                          {/* Password row */}
+                          <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                            {u.temp_password ? (
+                              <span className="flex items-center gap-1 text-[10px] text-indigo-700 font-bold">
+                                <Lock className="h-2.5 w-2.5" />
+                                Contraseña:{" "}
+                                <span className="font-mono">
+                                  {pwVisible ? u.temp_password : "••••••••••"}
+                                </span>
+                                <button
+                                  onClick={() => setShowPasswordFor(prev => {
+                                    const next = new Set(prev)
+                                    if (next.has(u.user_id)) next.delete(u.user_id)
+                                    else next.add(u.user_id)
+                                    return next
+                                  })}
+                                  className="text-indigo-400 hover:text-indigo-700 ml-0.5"
+                                  title={pwVisible ? "Ocultar" : "Mostrar contraseña"}
+                                >
+                                  {pwVisible ? <EyeOff className="h-2.5 w-2.5" /> : <Eye className="h-2.5 w-2.5" />}
+                                </button>
+                              </span>
+                            ) : u.password_changed_at ? (
+                              <span className="text-[10px] text-amber-600 flex items-center gap-1">
+                                <Lock className="h-2.5 w-2.5" />
+                                Contraseña cambiada:{" "}
+                                {new Date(u.password_changed_at).toLocaleString("es-MX", {
+                                  day: "2-digit", month: "short", year: "numeric",
+                                  hour: "2-digit", minute: "2-digit",
+                                })}
+                              </span>
+                            ) : (
+                              <span className="text-[10px] text-gray-400 flex items-center gap-1">
+                                <Lock className="h-2.5 w-2.5" /> Acceso vía Google / OAuth
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Stats pills */}
+                        <div className="flex items-center gap-2 shrink-0 mr-2 hidden md:flex">
+                          <span className="flex items-center gap-1 text-xs font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded-md">
+                            <Zap className="h-3.5 w-3.5" />{u.total_xp?.toLocaleString() || 0} XP
+                          </span>
+                          <span className="flex items-center gap-1 text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-md">
+                            <Flame className="h-3.5 w-3.5" />{u.current_streak || 0}d
+                          </span>
+                          <span className={`px-2 py-1 rounded-md text-xs font-black uppercase tracking-wider ${
+                            u.tier === "premium" ? "bg-indigo-100 text-indigo-700" : "bg-gray-100 text-gray-500"
+                          }`}>{u.tier || 'free'}</span>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex gap-1 shrink-0 border-l pl-3 border-gray-100">
+                          {/* Expand/collapse suggestions */}
+                          {userSuggestions.length > 0 && (
+                            <Button
+                              size="sm" variant="ghost"
+                              onClick={() => setExpandedUserId(isExpanded ? null : u.user_id)}
+                              className={`h-8 w-8 p-0 ${isExpanded ? 'text-indigo-600 bg-indigo-50' : 'text-gray-400 hover:text-indigo-600 hover:bg-indigo-50'}`}
+                              title="Ver mensajes del usuario"
+                            >
+                              {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                            </Button>
+                          )}
+                          <Button size="sm" variant="ghost" onClick={() => handleToggleStatus(u.user_id, u.status)} className={`h-8 w-8 p-0 ${u.status === 'suspended' ? 'text-emerald-600 hover:bg-emerald-50' : 'text-orange-500 hover:bg-orange-50'}`} title={u.status === 'suspended' ? 'Reactivar Cuenta' : 'Suspender Cuenta'}>
+                            {u.status === 'suspended' ? <CheckCircle className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
+                          </Button>
+                          <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-yellow-600 hover:bg-yellow-50" title="Reset password">
+                            <RefreshCw className="h-4 w-4" />
+                          </Button>
+                          <Button size="sm" variant="ghost" onClick={() => handleDeleteUser(u.user_id)} className="h-8 w-8 p-0 text-red-400 hover:text-red-700 hover:bg-red-50" title="Eliminar Usuario Permanentemente">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* Expanded suggestions panel */}
+                      {isExpanded && userSuggestions.length > 0 && (
+                        <div className="border-t border-indigo-100 bg-indigo-50/40 px-4 py-3 space-y-2 rounded-b-xl">
+                          <p className="text-[10px] font-black text-indigo-600 uppercase tracking-wide flex items-center gap-1.5">
+                            <MessageSquarePlus className="h-3 w-3" />
+                            Mensajes y sugerencias del usuario
+                          </p>
+                          <div className="space-y-2 max-h-52 overflow-y-auto pr-1">
+                            {userSuggestions.map((s) => (
+                              <div key={s.id} className="bg-white rounded-lg border border-indigo-100 px-3 py-2 space-y-1">
+                                <div className="flex items-center gap-2">
+                                  <span className={`text-[9px] font-black uppercase px-1.5 py-0.5 rounded ${s.type === 'voice' ? 'bg-purple-100 text-purple-700' : 'bg-blue-100 text-blue-700'}`}>
+                                    {s.type === 'voice' ? <><Mic className="h-2 w-2 inline mr-0.5" />Nota de voz</> : 'Texto'}
+                                  </span>
+                                  <span className="text-[10px] text-gray-400 ml-auto">
+                                    {new Date(s.created_at).toLocaleString("es-MX", {
+                                      day: "2-digit", month: "short", year: "numeric",
+                                      hour: "2-digit", minute: "2-digit"
+                                    })}
+                                  </span>
+                                  {s.read_at && (
+                                    <span className="text-[9px] text-emerald-600 font-bold">✓ Leído</span>
+                                  )}
+                                </div>
+                                <p className="text-xs text-gray-700 leading-relaxed">{s.content}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       )}
                     </div>
-
-                    <div className="flex items-center gap-3 shrink-0 mr-4 hidden md:flex">
-                      <span className="flex items-center gap-1 text-xs font-bold text-yellow-600 bg-yellow-50 px-2 py-1 rounded-md">
-                        <Zap className="h-3.5 w-3.5" />{u.total_xp?.toLocaleString() || 0} XP
-                      </span>
-                      <span className="flex items-center gap-1 text-xs font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded-md">
-                        <Flame className="h-3.5 w-3.5" />{u.current_streak || 0}d
-                      </span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-black uppercase tracking-wider ${
-                        u.tier === "premium" ? "bg-indigo-100 text-indigo-700" : "bg-gray-100 text-gray-500"
-                      }`}>{u.tier || 'free'}</span>
-                    </div>
-                    
-                    <div className="flex gap-1 shrink-0 border-l pl-4 border-gray-100">
-                      <Button size="sm" variant="ghost" onClick={() => handleToggleStatus(u.user_id, u.status)} className={`h-8 w-8 p-0 ${u.status === 'suspended' ? 'text-emerald-600 hover:bg-emerald-50' : 'text-orange-500 hover:bg-orange-50'}`} title={u.status === 'suspended' ? 'Reactivar Cuenta' : 'Suspender Cuenta'}>
-                        {u.status === 'suspended' ? <CheckCircle className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
-                      </Button>
-
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-blue-500 hover:text-blue-700 hover:bg-blue-50" title="Impersonate (Ver como usuario)">
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-yellow-600 hover:bg-yellow-50" title="Reset password">
-                        <RefreshCw className="h-4 w-4" />
-                      </Button>
-
-                      <Button size="sm" variant="ghost" onClick={() => handleDeleteUser(u.user_id)} className="h-8 w-8 p-0 text-red-400 hover:text-red-700 hover:bg-red-50" title="Eliminar Usuario Permanentemente">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
                 {filteredUsers.length === 0 && <p className="text-sm text-gray-500 text-center py-4">No se encontraron usuarios.</p>}
               </div>
             </CardContent>

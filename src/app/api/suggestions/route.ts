@@ -3,7 +3,7 @@ import { supabase } from "@/lib/supabase"
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { content } = body
+    const { content, type = "text" } = body
 
     if (!content || typeof content !== "string") {
       return Response.json(
@@ -42,6 +42,7 @@ export async function POST(req: Request) {
         {
           user_id: user.user.id,
           content: content.trim(),
+          type: ["text", "voice"].includes(type) ? type : "text",
         },
       ])
       .select("id")
