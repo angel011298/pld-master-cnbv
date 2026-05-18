@@ -259,6 +259,13 @@ aside.sidebar-master[data-state="expanded"] {
     scrollbar-width: none;
   }
 
+  /* Used by shadcn SidebarContent to hide scrollbar while keeping scroll */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   /* Custom scrollbar (sidebar / chat) — slim, off-white */
   .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
   .custom-scrollbar::-webkit-scrollbar-thumb {
