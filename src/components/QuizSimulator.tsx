@@ -5,7 +5,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   ChevronRight, CheckCircle2, XCircle, Trophy, Loader2,
-  BrainCircuit, Lightbulb, Zap, Flame, Target, Globe
+  BrainCircuit, Lightbulb, Zap, Flame, Target, Globe, Check,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
@@ -132,7 +132,38 @@ const EXERCISE_TYPES = [
 export function QuizSimulator() {
   const { profile, loading } = useUserProfile()
   
-  const [topic, setTopic] = React.useState(CNBV_SYLLABUS[0].topics[0])
+  // ── Multi-select syllabus state ───────────────────────────────────────────
+  const [selectedTopics, setSelectedTopics] = React.useState<Set<string>>(
+    () => new Set([CNBV_SYLLABUS[0].topics[0]])
+  )
+
+  const toggleTopic = (t: string) =>
+    setSelectedTopics((prev) => {
+      const next = new Set(prev)
+      if (next.has(t)) { next.delete(t) } else { next.add(t) }
+      return next
+    })
+
+  const toggleBloque = (mod: typeof CNBV_SYLLABUS[0]) =>
+    setSelectedTopics((prev) => {
+      const allSelected = mod.topics.every((t) => prev.has(t))
+      const next = new Set(prev)
+      if (allSelected) { mod.topics.forEach((t) => next.delete(t)) }
+      else             { mod.topics.forEach((t) => next.add(t)) }
+      return next
+    })
+
+  // Derived: flat array + strings for API and display
+  const topicsArray = [...selectedTopics]
+  const topicForApi =
+    topicsArray.length === 1
+      ? topicsArray[0]
+      : topicsArray.length > 1
+      ? `los siguientes subtemas del temario CNBV PLD/FT: ${topicsArray.join(" | ")}`
+      : ""
+  const topicLabel =
+    topicsArray.length === 1 ? topicsArray[0] : `${topicsArray.length} subtemas seleccionados`
+
   const [difficulty, setDifficulty] = React.useState("Intermedio")
   const [exerciseType, setExerciseType] = React.useState(EXERCISE_TYPES[0])
   const [gameState, setGameState] = React.useState<"idle" | "loading" | "quiz" | "finished">("idle")
@@ -158,7 +189,7 @@ export function QuizSimulator() {
       const res = await fetch("/api/generate-quiz", {
         method: "POST",
         headers,
-        body: JSON.stringify({ topic, difficulty, count: 5, exerciseType }),
+        body: JSON.stringify({ topic: topicForApi, difficulty, count: 5, exerciseType }),
       })
       const data = await res.json()
       if (res.ok) {
@@ -197,7 +228,7 @@ export function QuizSimulator() {
       const res = await fetch("/api/update-xp", {
         method: "POST",
         headers,
-        body: JSON.stringify({ xpGained, correct, topic, difficulty, responseTimeMs }),
+        body: JSON.stringify({ xpGained, correct, topic: topicLabel, difficulty, responseTimeMs }),
       })
       const data = await res.json()
       if (res.ok) {
@@ -246,7 +277,7 @@ export function QuizSimulator() {
               <BrainCircuit className="h-8 w-8 text-primary" />
               <div>
                 <CardTitle className="text-2xl font-black tracking-tight uppercase">Simulador CNBV</CardTitle>
-                <CardDescription>Selecciona un subtema específico de la Guía Oficial para practicar.</CardDescription>
+                <CardDescription>Selecciona uno o varios subtemas del Temario Oficial para generar material de estudio.</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -254,40 +285,97 @@ export function QuizSimulator() {
            
             {/* SELECCIÓN DE TEMARIO DESGLOSADO OFICIAL */}
             <div className="space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Temario Oficial Desglosado CNBV</label>
-              <div className="h-[280px] overflow-y-auto border-2 border-gray-200 rounded-xl p-3 bg-gray-50 custom-scrollbar space-y-6">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-bold uppercase text-muted-foreground">Temario Oficial Desglosado CNBV</label>
+                <div className="flex items-center gap-3">
+                  {topicsArray.length > 0 && (
+                    <span className="text-xs font-bold text-primary">
+                      {topicsArray.length} subtema{topicsArray.length !== 1 ? "s" : ""} seleccionado{topicsArray.length !== 1 ? "s" : ""}
+                    </span>
+                  )}
+                  {topicsArray.length > 0 && (
+                    <button
+                      onClick={() => setSelectedTopics(new Set())}
+                      className="text-xs text-red-500 hover:text-red-700 font-bold transition-colors"
+                    >
+                      Limpiar
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="h-[280px] overflow-y-auto border-2 border-gray-200 rounded-xl p-3 bg-gray-50 custom-scrollbar space-y-4">
                 {CNBV_SYLLABUS.map((mod) => {
                   const isGafi = mod.module.includes("GAFI")
+                  const allSelected = mod.topics.every((t) => selectedTopics.has(t))
+                  const someSelected = !allSelected && mod.topics.some((t) => selectedTopics.has(t))
+                  const selectedCount = mod.topics.filter((t) => selectedTopics.has(t)).length
                   return (
-                    <div key={mod.module} className="space-y-2">
-                      <div className={cn(
-                        "sticky top-0 backdrop-blur-sm py-1 font-black text-sm uppercase border-b flex items-center gap-2",
-                        isGafi
-                          ? "bg-teal-50/95 text-teal-700 border-teal-300"
-                          : "bg-gray-50/95 text-primary border-primary/20"
-                      )}>
-                        {isGafi && <Globe className="h-3.5 w-3.5 shrink-0" />}
-                        {mod.module}
-                      </div>
-                      <div className="grid gap-1 pl-2">
-                        {mod.topics.map((t) => (
-                          <button
-                            key={t}
-                            onClick={() => setTopic(t)}
-                            className={cn(
-                              "text-left px-3 py-2.5 rounded-lg text-sm font-semibold transition-all border border-transparent",
-                              topic === t
-                                ? isGafi
-                                  ? "bg-teal-600 text-white shadow-md border-teal-600"
-                                  : "bg-primary text-white shadow-md border-primary"
-                                : isGafi
-                                ? "bg-white text-teal-700 hover:border-teal-200 hover:bg-teal-50"
-                                : "bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-100"
-                            )}
-                          >
-                            {t}
-                          </button>
-                        ))}
+                    <div key={mod.module} className="space-y-1.5">
+                      {/* Bloque header — clicking toggles all topics in bloque */}
+                      <button
+                        onClick={() => toggleBloque(mod)}
+                        className={cn(
+                          "sticky top-0 w-full backdrop-blur-sm py-1.5 px-2 font-black text-xs uppercase border-b flex items-center gap-2 rounded-sm text-left transition-colors",
+                          isGafi
+                            ? "bg-teal-50/95 text-teal-700 border-teal-300 hover:bg-teal-100/95"
+                            : "bg-gray-50/95 text-primary border-primary/20 hover:bg-gray-100/95"
+                        )}
+                      >
+                        {/* Checkbox indicator: empty / partial / full */}
+                        <div className={cn(
+                          "h-4 w-4 rounded border-2 shrink-0 flex items-center justify-center transition-colors",
+                          allSelected
+                            ? isGafi ? "bg-teal-600 border-teal-600" : "bg-primary border-primary"
+                            : someSelected
+                            ? isGafi ? "bg-teal-200 border-teal-400" : "bg-primary/30 border-primary/60"
+                            : "border-gray-400 bg-white"
+                        )}>
+                          {allSelected && <Check className="h-2.5 w-2.5 text-white" strokeWidth={3} />}
+                          {someSelected && <div className={cn("h-1.5 w-1.5 rounded-sm", isGafi ? "bg-teal-600" : "bg-primary")} />}
+                        </div>
+                        {isGafi && <Globe className="h-3 w-3 shrink-0" />}
+                        <span className="flex-1">{mod.module}</span>
+                        {selectedCount > 0 && (
+                          <span className={cn(
+                            "text-[10px] font-bold px-1.5 py-0.5 rounded-full shrink-0",
+                            isGafi ? "bg-teal-200 text-teal-800" : "bg-primary/20 text-primary"
+                          )}>
+                            {selectedCount}/{mod.topics.length}
+                          </span>
+                        )}
+                      </button>
+
+                      {/* Individual topic buttons */}
+                      <div className="grid gap-0.5 pl-2">
+                        {mod.topics.map((t) => {
+                          const isSelected = selectedTopics.has(t)
+                          return (
+                            <button
+                              key={t}
+                              onClick={() => toggleTopic(t)}
+                              className={cn(
+                                "text-left px-3 py-2 rounded-lg text-sm font-semibold transition-all border flex items-center gap-2.5",
+                                isSelected
+                                  ? isGafi
+                                    ? "bg-teal-600 text-white border-teal-600"
+                                    : "bg-primary text-white border-primary"
+                                  : isGafi
+                                  ? "bg-white text-teal-700 border-transparent hover:border-teal-200 hover:bg-teal-50"
+                                  : "bg-white text-gray-600 border-transparent hover:border-gray-300 hover:bg-gray-100"
+                              )}
+                            >
+                              <div className={cn(
+                                "h-3.5 w-3.5 rounded border-2 shrink-0 flex items-center justify-center transition-colors",
+                                isSelected
+                                  ? "bg-white/20 border-white/60"
+                                  : isGafi ? "border-teal-300" : "border-gray-300"
+                              )}>
+                                {isSelected && <Check className="h-2.5 w-2.5 text-white" strokeWidth={3} />}
+                              </div>
+                              {t}
+                            </button>
+                          )
+                        })}
                       </div>
                     </div>
                   )
@@ -307,8 +395,8 @@ export function QuizSimulator() {
                     className={cn(
                       "py-2 px-2 rounded-xl border-2 font-bold text-xs transition-all",
                       exerciseType === type
-                        ? "bg-secondary text-white border-secondary"
-                        : "border-gray-200 text-muted-foreground hover:border-secondary"
+                        ? "bg-gray-900 text-white border-gray-900"
+                        : "bg-white border-gray-200 text-gray-700 hover:border-gray-700 hover:bg-gray-50"
                     )}
                   >
                     {type}
@@ -341,8 +429,13 @@ export function QuizSimulator() {
           </CardContent>
           <CardFooter>
             <motion.div className="w-full" whileTap={{ scale: 0.98 }}>
-              <Button size="lg" className="w-full font-black text-lg h-14 border-b-4 border-primary/70" onClick={fetchQuiz}>
-                ¡GENERAR MATERIAL!
+              <Button
+                size="lg"
+                className="w-full font-black text-lg h-14 border-b-4 border-primary/70"
+                onClick={fetchQuiz}
+                disabled={topicsArray.length === 0}
+              >
+                {topicsArray.length === 0 ? "Selecciona al menos un subtema" : "¡GENERAR MATERIAL!"}
               </Button>
             </motion.div>
           </CardFooter>
@@ -558,7 +651,7 @@ export function QuizSimulator() {
               <Trophy className="h-20 w-20 mx-auto text-secondary" />
             </motion.div>
             <h2 className="text-4xl font-black tracking-tight">¡EXAMEN COMPLETADO!</h2>
-            <p className="text-muted-foreground">Tema: {topic} · {difficulty}</p>
+            <p className="text-muted-foreground">Tema: {topicLabel} · {difficulty}</p>
           </div>
 
           <div className="grid grid-cols-3 gap-4">
