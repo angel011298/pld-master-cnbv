@@ -106,7 +106,7 @@ export default function ForoPage() {
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
           <h1 className="flex items-center gap-2 text-3xl font-black text-slate-900">
-            Comunidad PLD <Flame className="h-6 w-6 text-orange-500" />
+            Comunidad Certifik PLD <Flame className="h-6 w-6 text-orange-500" />
           </h1>
           <p className="font-medium text-slate-500">Resuelve casos prácticos y debate con expertos.</p>
         </div>
