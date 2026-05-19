@@ -43,13 +43,45 @@ function fmtDateTime(iso: string) {
   })
 }
 
+/** Derive a human-readable premium duration from the code's dates. */
+function getPremiumLabel(code: QRCode): string {
+  const created = new Date(code.created_at)
+  const until   = new Date(code.premium_until)
+  const days    = Math.round((until.getTime() - created.getTime()) / 86_400_000)
+  if (days >= 365) {
+    const y = Math.round(days / 365)
+    return `${y} año${y > 1 ? "s" : ""} Premium`
+  }
+  if (days >= 28) {
+    const m = Math.round(days / 30)
+    return `${m} ${m === 1 ? "mes" : "meses"} Premium`
+  }
+  return `${days} días Premium`
+}
+
+/** Parse max-uses raw string: 0 or empty → null (unlimited), else positive int. */
+function parseMaxUses(raw: string): number | null {
+  const n = parseInt(raw, 10)
+  if (isNaN(n) || n <= 0) return null
+  return n
+}
+
+function parsePremiumDays(raw: string): number {
+  const n = parseInt(raw, 10)
+  if (isNaN(n) || n < 1) return 61
+  return Math.min(n, 3650)
+}
+
+function parseExpiresHrs(raw: string): number {
+  const n = parseInt(raw, 10)
+  if (isNaN(n) || n < 1) return 24
+  return Math.min(n, 8760)
+}
+
 // ─── SVG card builder ─────────────────────────────────────────────────────────
-// Renders a Revolut-style card (480×680) as PNG data URL.
-// Logo: exact Certifik PLD isotype (matches favicon) at top AND inside QR center.
-async function buildCardDataUrl(redeemUrl: string): Promise<string> {
+async function buildCardDataUrl(redeemUrl: string, premiumLabel: string): Promise<string> {
   const QRCodeLib = (await import("qrcode")).default
 
-  // H error-correction (30% tolerance) is required to overlay the logo without breaking scan
   const qrDataUrl: string = await QRCodeLib.toDataURL(redeemUrl, {
     errorCorrectionLevel: "H",
     margin: 1,
@@ -59,8 +91,6 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
 
   const W = 480, H = 680
 
-  // ── Isotype helper (matches Logo.tsx viewBox="0 0 64 64") ────────────────
-  // Returns inline SVG group for the Certifik isotype at position (tx,ty), scaled to `sz` px.
   function iso(tx: number, ty: number, sz: number) {
     const s = sz / 64
     return `
@@ -79,17 +109,12 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
       </g>`
   }
 
-  // Header logo: 64×64 centered at x=240, top at y=34
-  const headerLogoX = 240 - 32  // = 208
+  const headerLogoX = 240 - 32
   const headerLogoY = 34
-
-  // QR frame
   const qrX = 90, qrY = 288, qrSize = 300
-  // Logo in QR center: 44×44, centered in QR
   const logoInQR = 44
-  const liX = qrX + qrSize / 2 - logoInQR / 2  // 240 - 22 = 218
-  const liY = qrY + qrSize / 2 - logoInQR / 2  // 438 - 22 = 416
-  // White background behind QR-center logo: 56×56
+  const liX = qrX + qrSize / 2 - logoInQR / 2
+  const liY = qrY + qrSize / 2 - logoInQR / 2
   const bgPad = 6
   const bgX = liX - bgPad, bgY = liY - bgPad
   const bgSz = logoInQR + bgPad * 2
@@ -97,18 +122,15 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
     <defs>
-      <!-- Revolut-style royal-blue-to-navy gradient -->
       <linearGradient id="bg" x1="20%" y1="0%" x2="80%" y2="100%">
         <stop offset="0%"   stop-color="#1B38F0"/>
         <stop offset="48%"  stop-color="#0F1FCC"/>
         <stop offset="100%" stop-color="#030A6E"/>
       </linearGradient>
-      <!-- Top-center radial brightness (Revolut glow) -->
       <radialGradient id="topGlow" cx="50%" cy="0%" r="55%" fx="50%" fy="0%">
         <stop offset="0%"   stop-color="#3D5CFF" stop-opacity="0.45"/>
         <stop offset="100%" stop-color="#3D5CFF" stop-opacity="0"/>
       </radialGradient>
-      <!-- Side ambient glows -->
       <radialGradient id="glowTR" cx="100%" cy="0%" r="60%">
         <stop offset="0%"   stop-color="#5571FF" stop-opacity="0.22"/>
         <stop offset="100%" stop-color="#5571FF" stop-opacity="0"/>
@@ -117,20 +139,17 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
         <stop offset="0%"   stop-color="#0A2FD0" stop-opacity="0.28"/>
         <stop offset="100%" stop-color="#0A2FD0" stop-opacity="0"/>
       </radialGradient>
-      <!-- QR frame gradient -->
       <linearGradient id="qrFrame" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%"   stop-color="#ffffff"/>
         <stop offset="100%" stop-color="#eef2ff"/>
       </linearGradient>
     </defs>
 
-    <!-- Card background -->
     <rect width="${W}" height="${H}" rx="28" fill="url(#bg)"/>
     <rect width="${W}" height="${H}" rx="28" fill="url(#topGlow)"/>
     <rect width="${W}" height="${H}" rx="28" fill="url(#glowTR)"/>
     <rect width="${W}" height="${H}" rx="28" fill="url(#glowBL)"/>
 
-    <!-- Subtle grid lines -->
     <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
       <line x1="0"    y1="${H*0.27}" x2="${W}"  y2="${H*0.27}"/>
       <line x1="0"    y1="${H*0.57}" x2="${W}"  y2="${H*0.57}"/>
@@ -138,10 +157,8 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
       <line x1="${W*0.67}" y1="0"    x2="${W*0.67}" y2="${H}"/>
     </g>
 
-    <!-- ── Header logo (exact favicon isotype, 64×64) ── -->
     ${iso(headerLogoX, headerLogoY, 64)}
 
-    <!-- Wordmark -->
     <text x="${W/2}" y="124" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="27" font-weight="800" fill="white" letter-spacing="-0.6">Certifik</text>
@@ -149,10 +166,8 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="10" font-weight="600" fill="rgba(255,255,255,0.35)" letter-spacing="3.6">PLD · CNBV</text>
 
-    <!-- Divider -->
     <line x1="80" y1="163" x2="${W-80}" y2="163" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
 
-    <!-- Headline -->
     <text x="${W/2}" y="204" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="22" font-weight="800" fill="white" letter-spacing="-0.3">Tu acceso Premium</text>
@@ -160,7 +175,6 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="22" font-weight="800" fill="rgba(160,185,255,0.92)" letter-spacing="-0.3">te espera.</text>
 
-    <!-- Slogan (split into 2 lines to avoid overflow) -->
     <text x="${W/2}" y="259" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="12.5" font-weight="400" fill="rgba(255,255,255,0.46)">Escanea y prepárate para tu</text>
@@ -168,26 +182,21 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="12.5" font-weight="400" fill="rgba(255,255,255,0.46)">certificación PLD/FT hoy</text>
 
-    <!-- QR frame shadow -->
     <rect x="${qrX}" y="${qrY+5}" width="${qrSize}" height="${qrSize}" rx="22"
       fill="rgba(0,0,20,0.38)"/>
-    <!-- QR frame -->
     <rect x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}" rx="22"
       fill="url(#qrFrame)"/>
-    <!-- QR image -->
     <image x="${qrX+10}" y="${qrY+10}" width="${qrSize-20}" height="${qrSize-20}"
       href="${qrDataUrl}" preserveAspectRatio="xMidYMid meet"/>
 
-    <!-- Logo overlay in QR center: white pad then isotype -->
     <rect x="${bgX}" y="${bgY}" width="${bgSz}" height="${bgSz}" rx="9" fill="white"/>
     ${iso(liX, liY, logoInQR)}
 
-    <!-- Badges -->
     <rect x="74"  y="${qrY+qrSize+16}" width="148" height="30" rx="15"
       fill="rgba(50,80,255,0.22)" stroke="rgba(120,150,255,0.35)" stroke-width="1"/>
     <text x="148" y="${qrY+qrSize+36}" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-      font-size="11" font-weight="700" fill="rgba(180,205,255,0.92)">2 meses Premium</text>
+      font-size="11" font-weight="700" fill="rgba(180,205,255,0.92)">${premiumLabel}</text>
 
     <rect x="258" y="${qrY+qrSize+16}" width="148" height="30" rx="15"
       fill="rgba(16,185,129,0.14)" stroke="rgba(52,211,153,0.32)" stroke-width="1"/>
@@ -197,7 +206,6 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
 
   </svg>`
 
-  // Convert SVG → 2× PNG via canvas
   return new Promise((resolve, reject) => {
     const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" })
     const url  = URL.createObjectURL(blob)
@@ -217,29 +225,24 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
   })
 }
 
-// ─── Uses selector options ────────────────────────────────────────────────────
-const USE_OPTIONS: { label: string; value: number | null }[] = [
-  { label: "1 uso",     value: 1    },
-  { label: "5 usos",    value: 5    },
-  { label: "10 usos",   value: 10   },
-  { label: "25 usos",   value: 25   },
-  { label: "∞",         value: null },
-]
-
 // ─── Modal ────────────────────────────────────────────────────────────────────
 export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
-  const [generating,     setGenerating]     = React.useState(false)
-  const [generateError,  setGenerateError]  = React.useState<string | null>(null)
-  const [label,          setLabel]          = React.useState("")
-  const [maxUses,        setMaxUses]        = React.useState<number | null>(1)
-  const [codes,          setCodes]          = React.useState<QRCode[]>([])
-  const [loadingCodes,   setLoadingCodes]   = React.useState(true)
-  const [activeCode,     setActiveCode]     = React.useState<QRCode | null>(null)
-  const [cardDataUrl,    setCardDataUrl]    = React.useState<string | null>(null)
-  const [buildingCard,   setBuildingCard]   = React.useState(false)
-  const [copied,         setCopied]         = React.useState(false)
-  const [showHistory,    setShowHistory]    = React.useState(false)
-  const [deletingId,     setDeletingId]     = React.useState<string | null>(null)
+  const [generating,      setGenerating]      = React.useState(false)
+  const [generateError,   setGenerateError]   = React.useState<string | null>(null)
+  const [label,           setLabel]           = React.useState("")
+  // ── Config fields (free-form text) ─────────────────────────────────────────
+  const [maxUsesRaw,      setMaxUsesRaw]      = React.useState("1")
+  const [premiumDaysRaw,  setPremiumDaysRaw]  = React.useState("61")
+  const [expiresHrsRaw,   setExpiresHrsRaw]   = React.useState("24")
+  // ── Codes & UI state ───────────────────────────────────────────────────────
+  const [codes,           setCodes]           = React.useState<QRCode[]>([])
+  const [loadingCodes,    setLoadingCodes]    = React.useState(true)
+  const [activeCode,      setActiveCode]      = React.useState<QRCode | null>(null)
+  const [cardDataUrl,     setCardDataUrl]     = React.useState<string | null>(null)
+  const [buildingCard,    setBuildingCard]    = React.useState(false)
+  const [copied,          setCopied]          = React.useState(false)
+  const [showHistory,     setShowHistory]     = React.useState(false)
+  const [deletingId,      setDeletingId]      = React.useState<string | null>(null)
 
   // ── Auth helper ─────────────────────────────────────────────────────────────
   async function getAuthHeaders(): Promise<HeadersInit> {
@@ -257,7 +260,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
     if (!activeCode) return
     setBuildingCard(true)
     setCardDataUrl(null)
-    buildCardDataUrl(redeemUrl)
+    buildCardDataUrl(redeemUrl, getPremiumLabel(activeCode))
       .then(setCardDataUrl)
       .catch(console.error)
       .finally(() => setBuildingCard(false))
@@ -278,12 +281,20 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
     setGenerating(true)
     setGenerateError(null)
     try {
+      const maxUses      = parseMaxUses(maxUsesRaw)
+      const premiumDays  = parsePremiumDays(premiumDaysRaw)
+      const expiresHours = parseExpiresHrs(expiresHrsRaw)
+
       const h = await getAuthHeaders()
       const res = await fetch("/api/admin/qr-codes", {
         method: "POST",
         headers: h,
-        // Send 0 to signal "unlimited" (API maps 0 → null)
-        body: JSON.stringify({ label, max_uses: maxUses === null ? 0 : maxUses }),
+        body: JSON.stringify({
+          label,
+          max_uses:              maxUses === null ? 0 : maxUses,
+          premium_duration_days: premiumDays,
+          expires_in_hours:      expiresHours,
+        }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? `Error ${res.status}`)
@@ -361,12 +372,14 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
             </div>
             <div>
               <h2 className="text-lg font-black text-white">Códigos QR Premium</h2>
-              <p className="text-xs text-white/50">Genera accesos de 2 meses · expiran en 24 h</p>
+              <p className="text-xs text-white/50">Genera y personaliza accesos Premium para Certifik PLD</p>
             </div>
           </div>
 
           {/* ── Generator form ── */}
           <div className="space-y-3">
+
+            {/* Label + Generate row */}
             <div className="flex gap-2">
               <Input
                 value={label}
@@ -386,23 +399,81 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
               </button>
             </div>
 
-            {/* Uses selector */}
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs text-white/40 font-medium shrink-0">Usos:</span>
-              {USE_OPTIONS.map(opt => (
-                <button
-                  key={String(opt.value)}
-                  onClick={() => setMaxUses(opt.value)}
-                  className={cn(
-                    "shimmer-btn h-7 px-3 rounded-full text-xs font-bold border transition-all",
-                    maxUses === opt.value
-                      ? "bg-indigo-600 border-indigo-400 text-white"
-                      : "bg-white/5 border-white/15 text-white/60 hover:text-white hover:border-white/30"
-                  )}
-                >
-                  {opt.label === "∞" ? <span className="flex items-center gap-1"><Infinity className="h-3 w-3" /> Ilimitado</span> : opt.label}
-                </button>
-              ))}
+            {/* ── Configuration panel ── */}
+            <div className="rounded-xl bg-white/[0.04] border border-white/[0.08] p-4 space-y-3">
+              <p className="text-[10px] font-bold text-white/35 uppercase tracking-widest">
+                Configuración del código
+              </p>
+
+              <div className="grid grid-cols-3 gap-4">
+
+                {/* 1 · Número de usos */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold text-white/55 flex items-center gap-1.5">
+                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-400 text-[9px] font-black shrink-0">1</span>
+                    Núm. de usos
+                  </label>
+                  <Input
+                    type="number"
+                    min="0"
+                    value={maxUsesRaw}
+                    onChange={e => setMaxUsesRaw(e.target.value)}
+                    placeholder="1"
+                    className="bg-white/5 border-white/10 text-white text-sm rounded-lg h-9 focus:border-indigo-500"
+                  />
+                  <p className="text-[10px] text-white/28 leading-tight">
+                    Escribe la cantidad.<br/>
+                    <span className="text-indigo-400/70">0 = ilimitado</span>
+                  </p>
+                </div>
+
+                {/* 2 · Duración del acceso premium */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold text-white/55 flex items-center gap-1.5">
+                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-400 text-[9px] font-black shrink-0">2</span>
+                    Acceso premium
+                  </label>
+                  <div className="flex items-center gap-1.5">
+                    <Input
+                      type="number"
+                      min="1"
+                      value={premiumDaysRaw}
+                      onChange={e => setPremiumDaysRaw(e.target.value)}
+                      placeholder="61"
+                      className="bg-white/5 border-white/10 text-white text-sm rounded-lg h-9 focus:border-indigo-500"
+                    />
+                    <span className="text-white/35 text-xs font-semibold shrink-0">días</span>
+                  </div>
+                  <p className="text-[10px] text-white/28 leading-tight">
+                    Días de acceso.<br/>
+                    <span className="text-emerald-400/70">30=1m · 61=2m · 90=3m</span>
+                  </p>
+                </div>
+
+                {/* 3 · Expiración del código QR */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-semibold text-white/55 flex items-center gap-1.5">
+                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-400 text-[9px] font-black shrink-0">3</span>
+                    Expiración del QR
+                  </label>
+                  <div className="flex items-center gap-1.5">
+                    <Input
+                      type="number"
+                      min="1"
+                      value={expiresHrsRaw}
+                      onChange={e => setExpiresHrsRaw(e.target.value)}
+                      placeholder="24"
+                      className="bg-white/5 border-white/10 text-white text-sm rounded-lg h-9 focus:border-indigo-500"
+                    />
+                    <span className="text-white/35 text-xs font-semibold shrink-0">hrs</span>
+                  </div>
+                  <p className="text-[10px] text-white/28 leading-tight">
+                    Horas activo el QR.<br/>
+                    <span className="text-amber-400/70">24=1d · 168=1sem</span>
+                  </p>
+                </div>
+
+              </div>
             </div>
 
             {generateError && (
@@ -439,7 +510,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                   </p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-2.5 space-y-0.5">
-                  <p className="text-white/35 uppercase tracking-wide text-[9px] font-semibold">Expira en</p>
+                  <p className="text-white/35 uppercase tracking-wide text-[9px] font-semibold">QR expira</p>
                   <p className="text-white font-bold flex items-center gap-1">
                     <Clock className="h-3 w-3 text-amber-400 shrink-0" />
                     {fmtDateTime(activeCode.expires_at)}
@@ -520,7 +591,6 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                             : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/[0.08]"
                       )}
                     >
-                      {/* Main info — click to set active */}
                       <button
                         onClick={() => active && setActiveCode(code)}
                         disabled={!active}
@@ -530,13 +600,14 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                           <span className="font-mono text-white/60 truncate">{code.token.slice(0, 14)}…</span>
                           <span className={cn(
                             "shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold",
-                            fullyUsed ? "bg-amber-500/15 text-amber-400"  :
-                            expired   ? "bg-red-500/15   text-red-400"    :
+                            fullyUsed ? "bg-amber-500/15 text-amber-400"   :
+                            expired   ? "bg-red-500/15   text-red-400"     :
                                         "bg-indigo-500/15 text-indigo-400"
                           )}>
                             {fullyUsed ? "Agotado" : expired ? "Expirado" : "Activo"}
                           </span>
                           <span className="shrink-0 text-white/35">{usesLabel(code)}</span>
+                          <span className="shrink-0 text-white/25">{getPremiumLabel(code)}</span>
                         </div>
                         <div className="flex items-center gap-2 mt-1 text-white/35 flex-wrap">
                           {code.label && <span className="text-white/50">{code.label}</span>}
@@ -547,7 +618,6 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                         </div>
                       </button>
 
-                      {/* Delete button */}
                       <button
                         onClick={() => handleDelete(code.id)}
                         disabled={deletingId === code.id}

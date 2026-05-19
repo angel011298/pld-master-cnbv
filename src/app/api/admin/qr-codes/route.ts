@@ -23,20 +23,29 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json().catch(() => ({}));
   const label: string = typeof body.label === "string" ? body.label.slice(0, 120) : "";
-  // max_uses: positive integer or null (unlimited). Default 1 (single use).
+
+  // max_uses: positive integer or null (unlimited). 0 sent from client = unlimited.
   const rawMax = body.max_uses;
   const maxUses: number | null =
     rawMax === null || rawMax === undefined
       ? 1
       : rawMax === 0
-        ? null  // 0 sent from client means unlimited
+        ? null
         : Math.max(1, Math.floor(Number(rawMax)));
 
+  // expires_in_hours: how long the QR token itself is valid (default 24 h, max 8 760 h = 1 year)
+  const rawExpHrs = Number(body.expires_in_hours);
+  const expiresInHours: number =
+    isNaN(rawExpHrs) || rawExpHrs < 1 ? 24 : Math.min(Math.floor(rawExpHrs), 8760);
+
+  // premium_duration_days: how long the premium access lasts after redemption (default 61 d ≈ 2 months)
+  const rawPremDays = Number(body.premium_duration_days);
+  const premiumDays: number =
+    isNaN(rawPremDays) || rawPremDays < 1 ? 61 : Math.min(Math.floor(rawPremDays), 3650);
+
   const now = new Date();
-  // Token expires in 24 hours — after that it can no longer be scanned
-  const expiresAt = new Date(now.getTime() + 24 * 60 * 60 * 1000);
-  // The premium access granted on redemption lasts 2 months (~61 days)
-  const premiumUntil = new Date(now.getTime() + 61 * 24 * 60 * 60 * 1000);
+  const expiresAt    = new Date(now.getTime() + expiresInHours * 60 * 60 * 1000);
+  const premiumUntil = new Date(now.getTime() + premiumDays   * 24 * 60 * 60 * 1000);
 
   const sb = supabaseAdmin();
   const { data, error } = await sb
