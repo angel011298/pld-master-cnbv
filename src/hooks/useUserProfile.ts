@@ -55,11 +55,16 @@ export function useUserProfile() {
           ? metadata.picture
           : null;
 
-    const { data } = await sb
+    const { data, error: profileError } = await sb
       .from("user_profiles")
       .select("user_id, public_customer_id, full_name, total_xp, current_streak, exam_score_prediction, pass_probability, tier, exam_target_date, onboarding_completed")
       .eq("user_id", user.id)
       .single();
+
+    if (profileError && profileError.code !== "PGRST116") {
+      // PGRST116 = row not found (expected for new users); anything else is a real error
+      console.error("[useUserProfile] query failed:", profileError.message, profileError.code);
+    }
 
     const { data: events } = await sb
       .from("study_events")

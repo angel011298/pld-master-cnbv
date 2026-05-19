@@ -37,15 +37,6 @@ export async function POST(req: NextRequest) {
       response_time_ms: responseTimeMs,
     });
 
-    // Check if user answered a quiz in the last 24h (for streak logic)
-    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-    const { count: recentCount } = await sb
-      .from("study_events")
-      .select("*", { count: "exact", head: true })
-      .eq("user_id", userId)
-      .eq("event_type", "quiz")
-      .gte("created_at", oneDayAgo);
-
     // Get current profile
     const { data: profile } = await sb
       .from("user_profiles")
@@ -56,8 +47,42 @@ export async function POST(req: NextRequest) {
     const currentXp = profile?.total_xp ?? 0;
     const currentStreak = profile?.current_streak ?? 0;
 
-    // Streak: increment if this is the first quiz today (recentCount was 0 before this insert, so now it's 1)
-    const newStreak = (recentCount ?? 0) <= 1 ? currentStreak + 1 : currentStreak;
+    // Streak logic using calendar days (Mexico City time, UTC-6)
+    // We offset by 6h so "today" lines up with local day boundaries.
+    const nowMs = Date.now();
+    const offsetMs = 6 * 60 * 60 * 1000; // UTC-6
+    const toDay = (ms: number) => Math.floor((ms - offsetMs) / (24 * 60 * 60 * 1000));
+
+    const todayDay   = toDay(nowMs);
+    const todayStart = new Date((todayDay * 24 * 60 * 60 * 1000) + offsetMs).toISOString();
+    const yestStart  = new Date(((todayDay - 1) * 24 * 60 * 60 * 1000) + offsetMs).toISOString();
+
+    // Check if user already studied today (before this event)
+    const { count: todayCount } = await sb
+      .from("study_events")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .gte("created_at", todayStart);
+
+    // Check if user studied yesterday (keeps the chain alive)
+    const { count: yestCount } = await sb
+      .from("study_events")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", userId)
+      .gte("created_at", yestStart)
+      .lt("created_at", todayStart);
+
+    let newStreak: number;
+    if ((todayCount ?? 0) > 1) {
+      // Already studied today before this event → streak unchanged
+      newStreak = currentStreak;
+    } else if ((yestCount ?? 0) > 0 || currentStreak === 0) {
+      // First event today AND (studied yesterday OR streak was already 0) → increment
+      newStreak = currentStreak + 1;
+    } else {
+      // First event today but missed yesterday → reset to 1
+      newStreak = 1;
+    }
     const newXp = currentXp + xpGained;
 
     // Upsert profile (create if not exists)

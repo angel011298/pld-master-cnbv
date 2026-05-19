@@ -1,21 +1,28 @@
 "use client";
 
 import { Flame, Zap } from "lucide-react";
-import { useUserProgress } from "@/hooks/useUserProgress";
-import { cn } from "@/lib/utils";
+import { useUserProfile } from "@/hooks/useUserProfile";
 
+// HeaderProgress reads from the same useUserProfile hook that the dashboard uses,
+// so XP and streak are always consistent across the page.
 export function HeaderProgress() {
-  const { xp, racha, leccionesHoy, cargando } = useUserProgress();
+  const { profile, loading } = useUserProfile();
 
+  // Count today's study events from the lastStudyDates array
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const leccionesHoy = profile?.lastStudyDates?.filter((d) => d === todayStr).length ?? 0;
   const progressPct = Math.min((leccionesHoy / 20) * 100, 100);
 
-  if (cargando) {
+  const xp = profile?.totalXp ?? 0;
+  const racha = profile?.currentStreak ?? 0;
+
+  if (loading) {
     return null;
   }
 
   return (
     <div className="flex items-center gap-4 ml-auto">
-      {/* Streak */}
+      {/* Streak — only show when ≥ 2 days */}
       {racha >= 2 && (
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200">
           <Flame className="h-4 w-4 text-orange-500" />
