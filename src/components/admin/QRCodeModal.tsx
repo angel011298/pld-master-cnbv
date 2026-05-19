@@ -3,11 +3,12 @@
 import * as React from "react"
 import {
   X, Download, Copy, CheckCircle2, Loader2, QrCode,
-  Sparkles, Calendar, RefreshCw, ChevronDown, ChevronUp, Clock,
+  Sparkles, Calendar, RefreshCw, ChevronDown, ChevronUp, Clock, AlertTriangle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import { supabase } from "@/lib/supabase"
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface QRCode {
@@ -186,6 +187,7 @@ async function buildCardDataUrl(redeemUrl: string): Promise<string> {
 // ─── Modal Component ──────────────────────────────────────────────────────────
 export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
   const [generating, setGenerating] = React.useState(false)
+  const [generateError, setGenerateError] = React.useState<string | null>(null)
   const [label, setLabel] = React.useState("")
   const [codes, setCodes] = React.useState<QRCode[]>([])
   const [loadingCodes, setLoadingCodes] = React.useState(true)
@@ -194,6 +196,14 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
   const [buildingCard, setBuildingCard] = React.useState(false)
   const [copied, setCopied] = React.useState(false)
   const [showHistory, setShowHistory] = React.useState(false)
+
+  // Helper: get Supabase Bearer token for authenticated API calls
+  async function getAuthHeaders(): Promise<HeadersInit> {
+    const { data: { session } } = await supabase().auth.getSession()
+    return session?.access_token
+      ? { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` }
+      : { "Content-Type": "application/json" }
+  }
 
   const redeemUrl = activeCode
     ? `${siteUrl}/redeem?token=${activeCode.token}`
@@ -218,11 +228,14 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
   async function fetchCodes() {
     setLoadingCodes(true)
     try {
-      const res = await fetch("/api/admin/qr-codes")
+      const headers = await getAuthHeaders()
+      const res = await fetch("/api/admin/qr-codes", { headers })
       if (res.ok) {
         const data = await res.json()
         setCodes(data.codes ?? [])
       }
+    } catch (err) {
+      console.error("[QRCodeModal] fetchCodes error:", err)
     } finally {
       setLoadingCodes(false)
     }
@@ -230,20 +243,24 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
 
   async function handleGenerate() {
     setGenerating(true)
+    setGenerateError(null)
     try {
+      const headers = await getAuthHeaders()
       const res = await fetch("/api/admin/qr-codes", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ label }),
       })
-      if (!res.ok) throw new Error("Error generando código")
       const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `Error ${res.status}`)
       const newCode: QRCode = data.code
       setCodes((prev) => [newCode, ...prev])
       setActiveCode(newCode)
       setLabel("")
-    } catch (err) {
-      console.error(err)
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Error generando código"
+      console.error("[QRCodeModal] handleGenerate error:", msg)
+      setGenerateError(msg)
     } finally {
       setGenerating(false)
     }
@@ -292,23 +309,31 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
           </div>
 
           {/* Generator form */}
-          <div className="flex gap-2">
-            <Input
-              value={label}
-              onChange={(e) => setLabel(e.target.value)}
-              placeholder="Etiqueta opcional (ej. Evento IMEF Mayo)"
-              className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-white/30 rounded-xl focus:border-indigo-500"
-              onKeyDown={(e) => e.key === "Enter" && !generating && handleGenerate()}
-            />
-            <Button
-              onClick={handleGenerate}
-              disabled={generating}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl px-5 shrink-0"
-            >
-              {generating
-                ? <Loader2 className="h-4 w-4 animate-spin" />
-                : <><Sparkles className="h-4 w-4 mr-1.5" />Generar</>}
-            </Button>
+          <div className="space-y-2">
+            <div className="flex gap-2">
+              <Input
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+                placeholder="Etiqueta opcional (ej. Evento IMEF Mayo)"
+                className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-white/30 rounded-xl focus:border-indigo-500"
+                onKeyDown={(e) => e.key === "Enter" && !generating && handleGenerate()}
+              />
+              <Button
+                onClick={handleGenerate}
+                disabled={generating}
+                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl px-5 shrink-0"
+              >
+                {generating
+                  ? <Loader2 className="h-4 w-4 animate-spin" />
+                  : <><Sparkles className="h-4 w-4 mr-1.5" />Generar</>}
+              </Button>
+            </div>
+            {generateError && (
+              <div className="flex items-center gap-2 rounded-xl bg-red-500/10 border border-red-500/20 px-3 py-2 text-xs text-red-400">
+                <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+                {generateError}
+              </div>
+            )}
           </div>
 
           {/* Active card preview */}
