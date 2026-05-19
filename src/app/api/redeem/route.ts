@@ -40,6 +40,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Este código ya alcanzó el número máximo de usos." }, { status: 409 });
   }
 
+  // Guard: one redemption per user per code
+  const { data: alreadyRedeemed } = await sb
+    .from("premium_qr_redemptions")
+    .select("id")
+    .eq("code_id", code.id)
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (alreadyRedeemed) {
+    return NextResponse.json(
+      { error: "Ya canjeaste este código anteriormente. Cada código sólo puede usarse una vez por usuario." },
+      { status: 409 }
+    );
+  }
+
   // Increment use_count atomically and set first-activation metadata
   const isFirstUse = useCount === 0;
   const { error: updateCodeError } = await sb
@@ -64,6 +79,16 @@ export async function POST(req: NextRequest) {
 
   if (profileError) {
     console.error("[redeem] profile update error:", profileError);
+  }
+
+  // Log individual redemption for admin usage tracking (non-fatal)
+  const { error: logError } = await sb
+    .from("premium_qr_redemptions")
+    .insert({ code_id: code.id, user_id: userId });
+
+  if (logError && logError.code !== "23505") {
+    // 23505 = unique_violation (already guarded above, but safe to ignore)
+    console.error("[redeem] redemption log error:", logError);
   }
 
   return NextResponse.json({

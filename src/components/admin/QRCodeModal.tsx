@@ -4,7 +4,7 @@ import * as React from "react"
 import {
   X, Download, Copy, CheckCircle2, Loader2, QrCode,
   Sparkles, Calendar, RefreshCw, ChevronDown, ChevronUp,
-  Clock, AlertTriangle, Trash2, Infinity,
+  Clock, AlertTriangle, Trash2, Infinity, Users,
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
@@ -17,7 +17,7 @@ interface QRCode {
   label: string | null
   expires_at: string
   premium_until: string
-  max_uses: number | null   // null = unlimited
+  max_uses: number | null
   use_count: number
   activated_by: string | null
   activated_at: string | null
@@ -25,12 +25,19 @@ interface QRCode {
   created_at: string
 }
 
+interface Redemption {
+  id: string
+  user_id: string
+  full_name: string | null
+  redeemed_at: string
+}
+
 interface QRCodeModalProps {
   siteUrl: string
   onClose: () => void
 }
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
+// ─── Date helpers ─────────────────────────────────────────────────────────────
 function fmtDate(iso: string) {
   return new Date(iso).toLocaleDateString("es-MX", {
     day: "numeric", month: "short", year: "numeric",
@@ -43,39 +50,39 @@ function fmtDateTime(iso: string) {
   })
 }
 
-/** Derive a human-readable premium duration from the code's dates. */
+function fmtRelative(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime()
+  const mins = Math.floor(diff / 60_000)
+  if (mins < 1)   return "ahora mismo"
+  if (mins < 60)  return `hace ${mins} min`
+  const hrs = Math.floor(mins / 60)
+  if (hrs < 24)   return `hace ${hrs} h`
+  const days = Math.floor(hrs / 24)
+  if (days < 7)   return `hace ${days} día${days > 1 ? "s" : ""}`
+  return fmtDate(iso)
+}
+
 function getPremiumLabel(code: QRCode): string {
-  const created = new Date(code.created_at)
-  const until   = new Date(code.premium_until)
-  const days    = Math.round((until.getTime() - created.getTime()) / 86_400_000)
-  if (days >= 365) {
-    const y = Math.round(days / 365)
-    return `${y} año${y > 1 ? "s" : ""} Premium`
-  }
-  if (days >= 28) {
-    const m = Math.round(days / 30)
-    return `${m} ${m === 1 ? "mes" : "meses"} Premium`
-  }
+  const days = Math.round(
+    (new Date(code.premium_until).getTime() - new Date(code.created_at).getTime()) / 86_400_000
+  )
+  if (days >= 365) { const y = Math.round(days / 365); return `${y} año${y > 1 ? "s" : ""} Premium` }
+  if (days >= 28)  { const m = Math.round(days / 30);  return `${m} ${m === 1 ? "mes" : "meses"} Premium` }
   return `${days} días Premium`
 }
 
-/** Parse max-uses raw string: 0 or empty → null (unlimited), else positive int. */
+// ─── Config parsers ───────────────────────────────────────────────────────────
 function parseMaxUses(raw: string): number | null {
   const n = parseInt(raw, 10)
-  if (isNaN(n) || n <= 0) return null
-  return n
+  return isNaN(n) || n <= 0 ? null : n
 }
-
 function parsePremiumDays(raw: string): number {
   const n = parseInt(raw, 10)
-  if (isNaN(n) || n < 1) return 61
-  return Math.min(n, 3650)
+  return isNaN(n) || n < 1 ? 61 : Math.min(n, 3650)
 }
-
 function parseExpiresHrs(raw: string): number {
   const n = parseInt(raw, 10)
-  if (isNaN(n) || n < 1) return 24
-  return Math.min(n, 8760)
+  return isNaN(n) || n < 1 ? 24 : Math.min(n, 8760)
 }
 
 // ─── SVG card builder ─────────────────────────────────────────────────────────
@@ -144,66 +151,54 @@ async function buildCardDataUrl(redeemUrl: string, premiumLabel: string): Promis
         <stop offset="100%" stop-color="#eef2ff"/>
       </linearGradient>
     </defs>
-
     <rect width="${W}" height="${H}" rx="28" fill="url(#bg)"/>
     <rect width="${W}" height="${H}" rx="28" fill="url(#topGlow)"/>
     <rect width="${W}" height="${H}" rx="28" fill="url(#glowTR)"/>
     <rect width="${W}" height="${H}" rx="28" fill="url(#glowBL)"/>
-
     <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
-      <line x1="0"    y1="${H*0.27}" x2="${W}"  y2="${H*0.27}"/>
-      <line x1="0"    y1="${H*0.57}" x2="${W}"  y2="${H*0.57}"/>
-      <line x1="${W*0.33}" y1="0"    x2="${W*0.33}" y2="${H}"/>
-      <line x1="${W*0.67}" y1="0"    x2="${W*0.67}" y2="${H}"/>
+      <line x1="0"         y1="${H*0.27}" x2="${W}"         y2="${H*0.27}"/>
+      <line x1="0"         y1="${H*0.57}" x2="${W}"         y2="${H*0.57}"/>
+      <line x1="${W*0.33}" y1="0"         x2="${W*0.33}"   y2="${H}"/>
+      <line x1="${W*0.67}" y1="0"         x2="${W*0.67}"   y2="${H}"/>
     </g>
-
     ${iso(headerLogoX, headerLogoY, 64)}
-
     <text x="${W/2}" y="124" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="27" font-weight="800" fill="white" letter-spacing="-0.6">Certifik</text>
     <text x="${W/2}" y="144" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="10" font-weight="600" fill="rgba(255,255,255,0.35)" letter-spacing="3.6">PLD · CNBV</text>
-
     <line x1="80" y1="163" x2="${W-80}" y2="163" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-
     <text x="${W/2}" y="204" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="22" font-weight="800" fill="white" letter-spacing="-0.3">Tu acceso Premium</text>
     <text x="${W/2}" y="231" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="22" font-weight="800" fill="rgba(160,185,255,0.92)" letter-spacing="-0.3">te espera.</text>
-
     <text x="${W/2}" y="259" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="12.5" font-weight="400" fill="rgba(255,255,255,0.46)">Escanea y prepárate para tu</text>
     <text x="${W/2}" y="276" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="12.5" font-weight="400" fill="rgba(255,255,255,0.46)">certificación PLD/FT hoy</text>
-
     <rect x="${qrX}" y="${qrY+5}" width="${qrSize}" height="${qrSize}" rx="22"
       fill="rgba(0,0,20,0.38)"/>
     <rect x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}" rx="22"
       fill="url(#qrFrame)"/>
     <image x="${qrX+10}" y="${qrY+10}" width="${qrSize-20}" height="${qrSize-20}"
       href="${qrDataUrl}" preserveAspectRatio="xMidYMid meet"/>
-
     <rect x="${bgX}" y="${bgY}" width="${bgSz}" height="${bgSz}" rx="9" fill="white"/>
     ${iso(liX, liY, logoInQR)}
-
     <rect x="74"  y="${qrY+qrSize+16}" width="148" height="30" rx="15"
       fill="rgba(50,80,255,0.22)" stroke="rgba(120,150,255,0.35)" stroke-width="1"/>
     <text x="148" y="${qrY+qrSize+36}" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="11" font-weight="700" fill="rgba(180,205,255,0.92)">${premiumLabel}</text>
-
     <rect x="258" y="${qrY+qrSize+16}" width="148" height="30" rx="15"
       fill="rgba(16,185,129,0.14)" stroke="rgba(52,211,153,0.32)" stroke-width="1"/>
     <text x="332" y="${qrY+qrSize+36}" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="11" font-weight="700" fill="rgba(110,231,183,0.88)">Acceso Completo</text>
-
   </svg>`
 
   return new Promise((resolve, reject) => {
@@ -227,22 +222,26 @@ async function buildCardDataUrl(redeemUrl: string, premiumLabel: string): Promis
 
 // ─── Modal ────────────────────────────────────────────────────────────────────
 export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
+  // ── Generator form state ────────────────────────────────────────────────────
   const [generating,      setGenerating]      = React.useState(false)
   const [generateError,   setGenerateError]   = React.useState<string | null>(null)
   const [label,           setLabel]           = React.useState("")
-  // ── Config fields (free-form text) ─────────────────────────────────────────
   const [maxUsesRaw,      setMaxUsesRaw]      = React.useState("1")
   const [premiumDaysRaw,  setPremiumDaysRaw]  = React.useState("61")
   const [expiresHrsRaw,   setExpiresHrsRaw]   = React.useState("24")
-  // ── Codes & UI state ───────────────────────────────────────────────────────
+  // ── Codes list ──────────────────────────────────────────────────────────────
   const [codes,           setCodes]           = React.useState<QRCode[]>([])
   const [loadingCodes,    setLoadingCodes]    = React.useState(true)
+  const [showHistory,     setShowHistory]     = React.useState(false)
+  const [deletingId,      setDeletingId]      = React.useState<string | null>(null)
+  // ── Active code ─────────────────────────────────────────────────────────────
   const [activeCode,      setActiveCode]      = React.useState<QRCode | null>(null)
   const [cardDataUrl,     setCardDataUrl]     = React.useState<string | null>(null)
   const [buildingCard,    setBuildingCard]    = React.useState(false)
   const [copied,          setCopied]          = React.useState(false)
-  const [showHistory,     setShowHistory]     = React.useState(false)
-  const [deletingId,      setDeletingId]      = React.useState<string | null>(null)
+  // ── Redemptions panel ───────────────────────────────────────────────────────
+  const [redemptions,        setRedemptions]        = React.useState<Redemption[]>([])
+  const [loadingRedemptions, setLoadingRedemptions] = React.useState(false)
 
   // ── Auth helper ─────────────────────────────────────────────────────────────
   async function getAuthHeaders(): Promise<HeadersInit> {
@@ -254,8 +253,10 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
 
   const redeemUrl = activeCode ? `${siteUrl}/redeem?token=${activeCode.token}` : ""
 
+  // ── Load codes on mount ─────────────────────────────────────────────────────
   React.useEffect(() => { fetchCodes() }, [])
 
+  // ── Rebuild card when active code changes ───────────────────────────────────
   React.useEffect(() => {
     if (!activeCode) return
     setBuildingCard(true)
@@ -265,6 +266,28 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
       .catch(console.error)
       .finally(() => setBuildingCard(false))
   }, [activeCode, redeemUrl])
+
+  // ── Fetch redemptions when active code changes ──────────────────────────────
+  React.useEffect(() => {
+    if (!activeCode) { setRedemptions([]); return }
+    let cancelled = false
+    setLoadingRedemptions(true)
+    setRedemptions([])
+    ;(async () => {
+      try {
+        const h = await getAuthHeaders()
+        const res = await fetch(
+          `/api/admin/qr-codes/redemptions?code_id=${activeCode.id}`,
+          { headers: h }
+        )
+        if (!cancelled && res.ok) {
+          setRedemptions((await res.json()).redemptions ?? [])
+        }
+      } catch (e) { console.error(e) }
+      finally { if (!cancelled) setLoadingRedemptions(false) }
+    })()
+    return () => { cancelled = true }
+  }, [activeCode?.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Actions ──────────────────────────────────────────────────────────────────
   async function fetchCodes() {
@@ -319,7 +342,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
         body: JSON.stringify({ id }),
       })
       setCodes(prev => prev.filter(c => c.id !== id))
-      if (activeCode?.id === id) setActiveCode(null)
+      if (activeCode?.id === id) { setActiveCode(null); setRedemptions([]) }
     } catch (e) { console.error(e) }
     finally { setDeletingId(null) }
   }
@@ -339,7 +362,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
     setTimeout(() => setCopied(false), 2500)
   }
 
-  // ── Status helpers ───────────────────────────────────────────────────────────
+  // ── Status / label helpers ───────────────────────────────────────────────────
   function codeStatus(code: QRCode) {
     const fullyUsed = code.max_uses !== null && code.use_count >= code.max_uses
     const expired   = !fullyUsed && new Date(code.expires_at) < new Date()
@@ -347,8 +370,9 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
   }
 
   function usesLabel(code: QRCode) {
-    if (code.max_uses === null) return `${code.use_count} / ∞`
-    return `${code.use_count} / ${code.max_uses}`
+    return code.max_uses === null
+      ? `${code.use_count} / ∞`
+      : `${code.use_count} / ${code.max_uses}`
   }
 
   // ── Render ────────────────────────────────────────────────────────────────────
@@ -365,7 +389,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
 
         <div className="p-6 space-y-5">
 
-          {/* Header */}
+          {/* ── Header ── */}
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center shrink-0">
               <QrCode className="h-5 w-5 text-indigo-400" />
@@ -379,7 +403,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
           {/* ── Generator form ── */}
           <div className="space-y-3">
 
-            {/* Label + Generate row */}
+            {/* Label + Generate */}
             <div className="flex gap-2">
               <Input
                 value={label}
@@ -404,7 +428,6 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
               <p className="text-[10px] font-bold text-white/35 uppercase tracking-widest">
                 Configuración del código
               </p>
-
               <div className="grid grid-cols-3 gap-4">
 
                 {/* 1 · Número de usos */}
@@ -483,10 +506,11 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
             )}
           </div>
 
-          {/* ── Active code card ── */}
+          {/* ── Active code panel ── */}
           {activeCode && (
             <div className="space-y-4">
-              {/* Preview container */}
+
+              {/* Card preview */}
               <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#0F1FCC] to-[#030A6E] border border-white/10 flex items-center justify-center" style={{ minHeight: 340 }}>
                 {buildingCard && (
                   <div className="absolute inset-0 flex items-center justify-center bg-[#080D28]/60 backdrop-blur-sm">
@@ -517,12 +541,68 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                   </p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-2.5 space-y-0.5">
-                  <p className="text-white/35 uppercase tracking-wide text-[9px] font-semibold">Usos máx.</p>
+                  <p className="text-white/35 uppercase tracking-wide text-[9px] font-semibold">Usos</p>
                   <p className="text-white font-bold flex items-center gap-1">
                     {activeCode.max_uses === null
-                      ? <><Infinity className="h-3 w-3 text-emerald-400 shrink-0" />Ilimitado</>
-                      : <>{activeCode.max_uses} {activeCode.max_uses === 1 ? "uso" : "usos"}</>}
+                      ? <><Infinity className="h-3 w-3 text-emerald-400 shrink-0" />{activeCode.use_count} / ∞</>
+                      : <>{activeCode.use_count} / {activeCode.max_uses}</>}
                   </p>
+                </div>
+              </div>
+
+              {/* ── Redemptions (usage) panel ── */}
+              <div className="rounded-xl bg-white/[0.04] border border-white/[0.08] overflow-hidden">
+                {/* Panel header */}
+                <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-white/[0.06]">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-3.5 w-3.5 text-indigo-400" />
+                    <span className="text-[11px] font-bold text-white/60 uppercase tracking-widest">
+                      Canjes
+                    </span>
+                    <span className={cn(
+                      "px-2 py-0.5 rounded-full text-[10px] font-black",
+                      activeCode.use_count > 0
+                        ? "bg-indigo-500/20 text-indigo-300"
+                        : "bg-white/5 text-white/30"
+                    )}>
+                      {activeCode.use_count}
+                      {activeCode.max_uses !== null && ` / ${activeCode.max_uses}`}
+                    </span>
+                  </div>
+                  {loadingRedemptions && (
+                    <Loader2 className="h-3.5 w-3.5 text-white/30 animate-spin" />
+                  )}
+                </div>
+
+                {/* Panel body */}
+                <div className="px-3.5 py-3 space-y-2 max-h-52 overflow-y-auto">
+                  {!loadingRedemptions && redemptions.length === 0 && (
+                    <p className="text-white/25 text-xs text-center py-3">
+                      Sin canjes aún — comparte el código para ver actividad aquí.
+                    </p>
+                  )}
+
+                  {redemptions.map((r, i) => (
+                    <div key={r.id} className="flex items-center justify-between gap-3 py-1">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        {/* Index avatar */}
+                        <span className="h-6 w-6 rounded-full bg-indigo-500/20 text-indigo-400 text-[10px] font-black flex items-center justify-center shrink-0">
+                          {i + 1}
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-sm text-white/80 font-medium truncate">
+                            {r.full_name ?? <span className="italic text-white/35">Sin nombre</span>}
+                          </p>
+                          <p className="text-[10px] text-white/30 font-mono truncate">
+                            {r.user_id.slice(0, 14)}…
+                          </p>
+                        </div>
+                      </div>
+                      <span className="text-[11px] text-white/35 shrink-0 whitespace-nowrap">
+                        {fmtRelative(r.redeemed_at)}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -577,7 +657,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                   <p className="text-white/30 text-xs text-center py-4">Sin códigos generados aún.</p>
                 )}
                 {!loadingCodes && codes.map(code => {
-                  const { fullyUsed, expired, active } = codeStatus(code)
+                  const { fullyUsed, expired } = codeStatus(code)
                   const isActive = activeCode?.id === code.id
                   return (
                     <div
@@ -591,9 +671,9 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                             : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/[0.08]"
                       )}
                     >
+                      {/* Clickable info area — any code can be selected to view details */}
                       <button
-                        onClick={() => active && setActiveCode(code)}
-                        disabled={!active}
+                        onClick={() => setActiveCode(code)}
                         className="flex-1 min-w-0 text-left"
                       >
                         <div className="flex items-center gap-2 flex-wrap">
@@ -606,8 +686,12 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                           )}>
                             {fullyUsed ? "Agotado" : expired ? "Expirado" : "Activo"}
                           </span>
-                          <span className="shrink-0 text-white/35">{usesLabel(code)}</span>
-                          <span className="shrink-0 text-white/25">{getPremiumLabel(code)}</span>
+                          {/* Use count badge */}
+                          <span className="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/50">
+                            <Users className="h-2.5 w-2.5" />
+                            {usesLabel(code)}
+                          </span>
+                          <span className="shrink-0 text-white/25 text-[10px]">{getPremiumLabel(code)}</span>
                         </div>
                         <div className="flex items-center gap-2 mt-1 text-white/35 flex-wrap">
                           {code.label && <span className="text-white/50">{code.label}</span>}
@@ -618,6 +702,7 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                         </div>
                       </button>
 
+                      {/* Delete */}
                       <button
                         onClick={() => handleDelete(code.id)}
                         disabled={deletingId === code.id}

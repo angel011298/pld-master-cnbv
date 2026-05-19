@@ -313,6 +313,14 @@ aside.sidebar-master[data-state="expanded"] {
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
   }
 
+  /* Remove browser-default spinners on all number inputs */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] { -moz-appearance: textfield; }
+
   /* Tracking shorthands */
   .tracking-tightest { letter-spacing: var(--tracking-tightest); }
   .tracking-display { letter-spacing: var(--tracking-tighter); }
