@@ -275,6 +275,44 @@ aside.sidebar-master[data-state="expanded"] {
   .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--gray-300); }
   .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
 
+  /* ── Shimmer border-light effect for dark-surface buttons (QR modal) ─────── */
+  .shimmer-btn {
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.22s ease, transform 0.1s ease;
+  }
+  .shimmer-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    bottom: 0;
+    width: 60%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.22),
+      transparent
+    );
+    transform: skewX(-15deg);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .shimmer-btn:hover::after,
+  .shimmer-btn:focus-visible::after {
+    left: 130%;
+    transition: left 0.52s ease;
+  }
+  .shimmer-btn:hover {
+    box-shadow:
+      0 0 0 1.5px rgba(255, 255, 255, 0.20),
+      0 0 22px rgba(100, 130, 255, 0.18);
+  }
+  .shimmer-btn:active {
+    transform: scale(0.968);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+  }
+
   /* Tracking shorthands */
   .tracking-tightest { letter-spacing: var(--tracking-tightest); }
   .tracking-display { letter-spacing: var(--tracking-tighter); }

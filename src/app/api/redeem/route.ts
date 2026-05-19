@@ -18,10 +18,9 @@ export async function POST(req: NextRequest) {
 
   const sb = supabaseAdmin();
 
-  // Fetch the QR code record
   const { data: code, error: fetchError } = await sb
     .from("premium_qr_codes")
-    .select("id, token, expires_at, premium_until, activated_by, activated_at")
+    .select("id, token, expires_at, premium_until, max_uses, use_count, activated_by, activated_at")
     .eq("token", token)
     .single();
 
@@ -29,29 +28,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Código no encontrado. Verifica que sea correcto." }, { status: 404 });
   }
 
-  // Already used by someone else
-  if (code.activated_by && code.activated_by !== userId) {
-    return NextResponse.json({ error: "Este código ya fue canjeado por otro usuario." }, { status: 409 });
-  }
-
-  // Already used by this user
-  if (code.activated_by === userId) {
-    return NextResponse.json({
-      alreadyActivated: true,
-      premiumUntil: code.premium_until,
-      message: "Ya canjeaste este código. Tu acceso premium está activo.",
-    });
-  }
-
   // Expired token
   if (new Date(code.expires_at) < new Date()) {
     return NextResponse.json({ error: "Este código ha expirado y ya no puede canjearse." }, { status: 410 });
   }
 
-  // Mark token as used
+  // Fully consumed (multi-use exhausted)
+  const maxUses: number | null = code.max_uses ?? null;
+  const useCount: number = code.use_count ?? 0;
+  if (maxUses !== null && useCount >= maxUses) {
+    return NextResponse.json({ error: "Este código ya alcanzó el número máximo de usos." }, { status: 409 });
+  }
+
+  // Increment use_count atomically and set first-activation metadata
+  const isFirstUse = useCount === 0;
   const { error: updateCodeError } = await sb
     .from("premium_qr_codes")
-    .update({ activated_by: userId, activated_at: new Date().toISOString() })
+    .update({
+      use_count: useCount + 1,
+      // Only record the first redeemer
+      ...(isFirstUse ? { activated_by: userId, activated_at: new Date().toISOString() } : {}),
+    })
     .eq("id", code.id);
 
   if (updateCodeError) {
@@ -59,18 +56,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Error al procesar el canje." }, { status: 500 });
   }
 
-  // Upgrade the user profile to premium
+  // Upgrade user to premium
   const { error: profileError } = await sb
     .from("user_profiles")
-    .update({
-      tier: "premium",
-      premium_expires_at: code.premium_until,
-    })
+    .update({ tier: "premium", premium_expires_at: code.premium_until })
     .eq("user_id", userId);
 
   if (profileError) {
     console.error("[redeem] profile update error:", profileError);
-    // Don't fail — code is already marked used; log for manual resolution
   }
 
   return NextResponse.json({
