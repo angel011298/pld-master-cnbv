@@ -10,8 +10,10 @@ import {
   HardDrive, X, CheckCircle, WalletCards, ArrowUpRight, ArrowDownRight,
   MoreHorizontal, ReceiptText, Gauge, Bot, Sparkles, Target, Megaphone,
   Linkedin, Facebook, Mail, Video, BrainCircuit, Loader2, ChevronRight,
-  ChevronDown, ChevronUp, MessageSquarePlus, Mic, PieChart as PieChartIcon
+  ChevronDown, ChevronUp, MessageSquarePlus, Mic, PieChart as PieChartIcon,
+  QrCode,
 } from "lucide-react"
+import { QRCodeModal } from "@/components/admin/QRCodeModal"
 import {
   Area,
   AreaChart,
@@ -109,6 +111,7 @@ export default function AdminPage() {
 
   // Estados UI para Modales y Módulos
   const [showAddModal, setShowAddModal] = React.useState(false)
+  const [showQRModal, setShowQRModal] = React.useState(false)
   const [actionLoading, setActionLoading] = React.useState(false)
   const [newUser, setNewUser] = React.useState({ email: '', fullName: '', password: 'Certifik2026!' })
   const [financeSearch, setFinanceSearch] = React.useState("")
@@ -466,6 +469,14 @@ export default function AdminPage() {
   return (
     <div className="container mx-auto py-8 space-y-8 max-w-7xl px-4 relative">
       
+      {/* MODAL QR PREMIUM */}
+      {showQRModal && (
+        <QRCodeModal
+          siteUrl={typeof window !== "undefined" ? window.location.origin : "https://certifikpld.mx"}
+          onClose={() => setShowQRModal(false)}
+        />
+      )}
+
       {/* MODAL CREAR USUARIO MANUAL */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
@@ -1317,9 +1328,18 @@ export default function AdminPage() {
                 </CardTitle>
                 <CardDescription>Visualiza asientos, suspende cuentas u otorga soporte técnico.</CardDescription>
               </div>
-              <Button onClick={() => setShowAddModal(true)} size="sm" className="gap-1 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md font-bold">
-                <Plus className="h-4 w-4" /> Alta Manual Premium
-              </Button>
+              <div className="flex gap-2 flex-wrap">
+                <Button
+                  onClick={() => setShowQRModal(true)}
+                  size="sm"
+                  className="gap-1 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-md font-bold"
+                >
+                  <QrCode className="h-4 w-4" /> QR Premium
+                </Button>
+                <Button onClick={() => setShowAddModal(true)} size="sm" className="gap-1 bg-indigo-600 hover:bg-indigo-700 text-white shadow-md font-bold">
+                  <Plus className="h-4 w-4" /> Alta Manual Premium
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="relative">
