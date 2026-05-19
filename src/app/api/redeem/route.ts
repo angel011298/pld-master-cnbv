@@ -71,10 +71,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Error al procesar el canje." }, { status: 500 });
   }
 
-  // Upgrade user to premium
+  // Upgrade user to premium and record which QR code was used
   const { error: profileError } = await sb
     .from("user_profiles")
-    .update({ tier: "premium", premium_expires_at: code.premium_until })
+    .update({
+      tier:                "premium",
+      premium_expires_at:  code.premium_until,
+      premium_qr_code_id:  code.id,
+      premium_source:      "qr",
+    })
     .eq("user_id", userId);
 
   if (profileError) {

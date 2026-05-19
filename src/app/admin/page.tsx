@@ -105,9 +105,15 @@ export default function AdminPage() {
   const [logs, setLogs] = React.useState<any[]>([])
 
   // Suggestions & B2B UI
-  const [suggestions, setSuggestions] = React.useState<any[]>([])
-  const [expandedUserId, setExpandedUserId] = React.useState<string | null>(null)
+  const [suggestions,     setSuggestions]     = React.useState<any[]>([])
+  const [expandedUserId,  setExpandedUserId]  = React.useState<string | null>(null)
   const [showPasswordFor, setShowPasswordFor] = React.useState<Set<string>>(new Set())
+
+  // Reminder scheduling
+  const [reminderFor,     setReminderFor]     = React.useState<any | null>(null)
+  const [reminderDate,    setReminderDate]     = React.useState("")
+  const [reminderChs,     setReminderChs]      = React.useState<string[]>(["email"])
+  const [reminderSaving,  setReminderSaving]   = React.useState(false)
 
   // Estados UI para Modales y Módulos
   const [showAddModal, setShowAddModal] = React.useState(false)
@@ -278,18 +284,19 @@ export default function AdminPage() {
   const fetchRealtimeData = React.useCallback(async () => {
     const sb = supabase();
     try {
-      const { data: profiles } = await sb
-        .from('user_profiles')
-        .select('*')
-        .order('total_xp', { ascending: false });
-
-      if (profiles) {
-        setUsers(profiles);
-        setStats(prev => ({ 
-          ...prev, 
-          activeUsers: profiles.length,
-          mrr: 0
-        }));
+      // Fetch all users via service-role API (bypasses RLS → sees all profiles + emails)
+      const { data: { session } } = await sb.auth.getSession();
+      const token = session?.access_token;
+      const usersRes = await fetch('/api/admin/dashboard-users', {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (usersRes.ok) {
+        const { users: allUsers } = await usersRes.json();
+        const sorted = [...(allUsers ?? [])].sort((a: any, b: any) =>
+          (b.total_xp ?? 0) - (a.total_xp ?? 0)
+        );
+        setUsers(sorted);
+        setStats(prev => ({ ...prev, activeUsers: sorted.length, mrr: 0 }));
       }
 
       const { data: docs, count: docsCount } = await sb
@@ -391,6 +398,27 @@ export default function AdminPage() {
     }
   };
 
+  const handleSaveReminder = async () => {
+    if (!reminderFor) return;
+    setReminderSaving(true);
+    try {
+      const { data: { session } } = await supabase().auth.getSession();
+      const t = session?.access_token;
+      await fetch('/api/admin/dashboard-users', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', ...(t ? { Authorization: `Bearer ${t}` } : {}) },
+        body: JSON.stringify({
+          user_id: reminderFor.user_id,
+          next_reminder_at: reminderDate ? new Date(reminderDate).toISOString() : null,
+          reminder_channels: reminderChs,
+        }),
+      });
+      fetchRealtimeData();
+      setReminderFor(null);
+    } catch { /* non-fatal */ }
+    finally { setReminderSaving(false); }
+  };
+
   const handleDeleteUser = async (userId: string) => {
     if (!confirm("⚠️ ADVERTENCIA: Esta acción es irreversible. ¿Eliminar usuario permanentemente?")) return;
 
@@ -475,6 +503,66 @@ export default function AdminPage() {
           siteUrl={typeof window !== "undefined" ? window.location.origin : "https://certifikpld.mx"}
           onClose={() => setShowQRModal(false)}
         />
+      )}
+
+      {/* MODAL RECORDATORIO */}
+      {reminderFor && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <Card className="w-full max-w-sm shadow-2xl">
+            <CardHeader className="flex flex-row items-center justify-between pb-3">
+              <CardTitle className="text-base flex items-center gap-2 text-indigo-900">
+                <Clock className="w-4 h-4" /> Programar Recordatorio
+              </CardTitle>
+              <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => setReminderFor(null)}><X className="w-4 h-4"/></Button>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="bg-indigo-50 rounded-xl p-3 space-y-0.5">
+                <p className="text-sm font-bold text-indigo-900">{reminderFor.full_name || 'Sin nombre'}</p>
+                <p className="text-xs text-indigo-500">{reminderFor.email}</p>
+                {reminderFor.premium_expires_at && (
+                  <p className="text-xs text-indigo-400">
+                    Premium hasta: {new Date(reminderFor.premium_expires_at).toLocaleDateString("es-MX", { day:"numeric", month:"long", year:"numeric" })}
+                  </p>
+                )}
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-gray-700">Fecha y hora del recordatorio</label>
+                <input
+                  type="datetime-local"
+                  value={reminderDate}
+                  onChange={e => setReminderDate(e.target.value)}
+                  className="w-full rounded-xl border-2 border-gray-200 px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-indigo-400"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-gray-700">Canal de envío</label>
+                <div className="flex gap-2 flex-wrap">
+                  {(["email","whatsapp"] as const).map(ch => (
+                    <button
+                      key={ch}
+                      type="button"
+                      onClick={() => setReminderChs(prev =>
+                        prev.includes(ch) ? prev.filter(c => c !== ch) : [...prev, ch]
+                      )}
+                      className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all capitalize ${
+                        reminderChs.includes(ch)
+                          ? "bg-indigo-600 border-indigo-600 text-white"
+                          : "bg-white border-gray-300 text-gray-600 hover:border-indigo-400"
+                      }`}
+                    >{ch === "whatsapp" ? "WhatsApp" : "Email"}</button>
+                  ))}
+                </div>
+              </div>
+              <Button
+                onClick={handleSaveReminder}
+                disabled={reminderSaving || !reminderDate}
+                className="w-full bg-indigo-600 hover:bg-indigo-700 font-bold"
+              >
+                {reminderSaving ? "Guardando..." : "Guardar recordatorio"}
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {/* MODAL CREAR USUARIO MANUAL */}
@@ -1376,7 +1464,41 @@ export default function AdminPage() {
                               </span>
                             )}
                           </p>
-                          <p className="text-xs font-medium text-gray-500">{u.public_customer_id}</p>
+                          {/* Email + Customer ID */}
+                          <p className="text-xs text-gray-500 font-medium">{u.email || '—'}</p>
+                          <p className="text-[10px] text-gray-400">{u.public_customer_id}</p>
+
+                          {/* Premium + QR info row */}
+                          <div className="flex items-center gap-2 mt-1 flex-wrap">
+                            {u.premium_expires_at && (() => {
+                              const daysLeft = Math.ceil((new Date(u.premium_expires_at).getTime() - Date.now()) / 86_400_000)
+                              const expired = daysLeft <= 0
+                              return (
+                                <span className={`flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                                  expired ? 'bg-red-100 text-red-700' : daysLeft <= 14 ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'
+                                }`}>
+                                  <Sparkles className="h-2.5 w-2.5" />
+                                  {expired ? 'Expirado' : `${daysLeft}d restantes`} · hasta {new Date(u.premium_expires_at).toLocaleDateString("es-MX",{day:"numeric",month:"short",year:"numeric"})}
+                                </span>
+                              )
+                            })()}
+                            {u.premium_source === 'qr' && (
+                              <span className="flex items-center gap-1 text-[10px] bg-violet-100 text-violet-700 px-1.5 py-0.5 rounded font-bold">
+                                <QrCode className="h-2.5 w-2.5" />
+                                QR{u.qr_label ? `: ${u.qr_label}` : ''}
+                              </span>
+                            )}
+                            {u.premium_source === 'stripe' && (
+                              <span className="text-[10px] bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded font-bold">Stripe</span>
+                            )}
+                            {u.next_reminder_at && (
+                              <span className="flex items-center gap-1 text-[10px] bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded border border-indigo-100 font-medium">
+                                <Clock className="h-2.5 w-2.5" />
+                                Rec. {new Date(u.next_reminder_at).toLocaleDateString("es-MX",{day:"numeric",month:"short"})}
+                                {(u.reminder_channels ?? []).length > 0 && ` · ${(u.reminder_channels as string[]).join('/')}`}
+                              </span>
+                            )}
+                          </div>
 
                           {/* Password row */}
                           <div className="flex items-center gap-2 mt-0.5 flex-wrap">
@@ -1411,7 +1533,7 @@ export default function AdminPage() {
                               </span>
                             ) : (
                               <span className="text-[10px] text-gray-400 flex items-center gap-1">
-                                <Lock className="h-2.5 w-2.5" /> Acceso vía Google / OAuth
+                                <Lock className="h-2.5 w-2.5" /> Acceso vía {u.provider || 'OAuth'}
                               </span>
                             )}
                           </div>
@@ -1445,6 +1567,20 @@ export default function AdminPage() {
                           )}
                           <Button size="sm" variant="ghost" onClick={() => handleToggleStatus(u.user_id, u.status)} className={`h-8 w-8 p-0 ${u.status === 'suspended' ? 'text-emerald-600 hover:bg-emerald-50' : 'text-orange-500 hover:bg-orange-50'}`} title={u.status === 'suspended' ? 'Reactivar Cuenta' : 'Suspender Cuenta'}>
                             {u.status === 'suspended' ? <CheckCircle className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
+                          </Button>
+                          <Button
+                            size="sm" variant="ghost"
+                            onClick={() => {
+                              setReminderFor(u);
+                              setReminderDate(u.next_reminder_at
+                                ? new Date(u.next_reminder_at).toISOString().slice(0,16)
+                                : "");
+                              setReminderChs(u.reminder_channels?.length > 0 ? u.reminder_channels : ["email"]);
+                            }}
+                            className="h-8 w-8 p-0 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50"
+                            title="Programar recordatorio"
+                          >
+                            <Clock className="h-4 w-4" />
                           </Button>
                           <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-yellow-600 hover:bg-yellow-50" title="Reset password">
                             <RefreshCw className="h-4 w-4" />

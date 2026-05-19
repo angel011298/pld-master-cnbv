@@ -96,7 +96,7 @@ async function buildCardDataUrl(redeemUrl: string, premiumLabel: string): Promis
     color: { dark: "#111827", light: "#FFFFFF" },
   })
 
-  const W = 480, H = 680
+  const W = 480, H = 720
 
   function iso(tx: number, ty: number, sz: number) {
     const s = sz / 64
@@ -116,15 +116,21 @@ async function buildCardDataUrl(redeemUrl: string, premiumLabel: string): Promis
       </g>`
   }
 
-  const headerLogoX = 240 - 32
-  const headerLogoY = 34
-  const qrX = 90, qrY = 288, qrSize = 300
-  const logoInQR = 44
-  const liX = qrX + qrSize / 2 - logoInQR / 2
-  const liY = qrY + qrSize / 2 - logoInQR / 2
-  const bgPad = 6
+  // Header logo: 88×88 centered
+  const headerLogoSz = 88
+  const headerLogoX = 240 - headerLogoSz / 2  // = 196
+  const headerLogoY = 22
+
+  // QR frame — slightly taller card, same horizontal position
+  const qrX = 90, qrY = 306, qrSize = 300
+
+  // Logo inside QR center: 64×64 (safe with H correction at ~21% coverage)
+  const logoInQR = 64
+  const liX = qrX + qrSize / 2 - logoInQR / 2   // = 208
+  const liY = qrY + qrSize / 2 - logoInQR / 2   // = 438
+  const bgPad = 8
   const bgX = liX - bgPad, bgY = liY - bgPad
-  const bgSz = logoInQR + bgPad * 2
+  const bgSz = logoInQR + bgPad * 2               // = 80
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">
@@ -161,26 +167,26 @@ async function buildCardDataUrl(redeemUrl: string, premiumLabel: string): Promis
       <line x1="${W*0.33}" y1="0"         x2="${W*0.33}"   y2="${H}"/>
       <line x1="${W*0.67}" y1="0"         x2="${W*0.67}"   y2="${H}"/>
     </g>
-    ${iso(headerLogoX, headerLogoY, 64)}
-    <text x="${W/2}" y="124" text-anchor="middle"
+    ${iso(headerLogoX, headerLogoY, headerLogoSz)}
+    <text x="${W/2}" y="134" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-      font-size="27" font-weight="800" fill="white" letter-spacing="-0.6">Certifik</text>
-    <text x="${W/2}" y="144" text-anchor="middle"
+      font-size="32" font-weight="900" fill="white" letter-spacing="-0.8">Certifik PLD</text>
+    <text x="${W/2}" y="156" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-      font-size="10" font-weight="600" fill="rgba(255,255,255,0.35)" letter-spacing="3.6">PLD · CNBV</text>
-    <line x1="80" y1="163" x2="${W-80}" y2="163" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-    <text x="${W/2}" y="204" text-anchor="middle"
+      font-size="11" font-weight="600" fill="rgba(255,255,255,0.38)" letter-spacing="3.8">CNBV · PLD/FT</text>
+    <line x1="80" y1="175" x2="${W-80}" y2="175" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <text x="${W/2}" y="218" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-      font-size="22" font-weight="800" fill="white" letter-spacing="-0.3">Tu acceso Premium</text>
-    <text x="${W/2}" y="231" text-anchor="middle"
+      font-size="24" font-weight="800" fill="white" letter-spacing="-0.4">Tu acceso Premium</text>
+    <text x="${W/2}" y="248" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-      font-size="22" font-weight="800" fill="rgba(160,185,255,0.92)" letter-spacing="-0.3">te espera.</text>
-    <text x="${W/2}" y="259" text-anchor="middle"
+      font-size="24" font-weight="800" fill="rgba(160,185,255,0.92)" letter-spacing="-0.4">te espera.</text>
+    <text x="${W/2}" y="275" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-      font-size="12.5" font-weight="400" fill="rgba(255,255,255,0.46)">Escanea y prepárate para tu</text>
-    <text x="${W/2}" y="276" text-anchor="middle"
+      font-size="13.5" font-weight="400" fill="rgba(255,255,255,0.48)">Escanea y prepárate para tu</text>
+    <text x="${W/2}" y="293" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-      font-size="12.5" font-weight="400" fill="rgba(255,255,255,0.46)">certificación PLD/FT hoy</text>
+      font-size="13.5" font-weight="400" fill="rgba(255,255,255,0.48)">certificación PLD/FT hoy</text>
     <rect x="${qrX}" y="${qrY+5}" width="${qrSize}" height="${qrSize}" rx="22"
       fill="rgba(0,0,20,0.38)"/>
     <rect x="${qrX}" y="${qrY}" width="${qrSize}" height="${qrSize}" rx="22"
