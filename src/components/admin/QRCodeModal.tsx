@@ -168,13 +168,13 @@ async function buildCardDataUrl(redeemUrl: string, premiumLabel: string): Promis
       <line x1="${W*0.67}" y1="0"         x2="${W*0.67}"   y2="${H}"/>
     </g>
     ${iso(headerLogoX, headerLogoY, headerLogoSz)}
-    <text x="${W/2}" y="134" text-anchor="middle"
+    <text x="${W/2}" y="152" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="32" font-weight="900" fill="white" letter-spacing="-0.8">Certifik PLD</text>
-    <text x="${W/2}" y="156" text-anchor="middle"
+    <text x="${W/2}" y="174" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="11" font-weight="600" fill="rgba(255,255,255,0.38)" letter-spacing="3.8">CNBV · PLD/FT</text>
-    <line x1="80" y1="175" x2="${W-80}" y2="175" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <line x1="80" y1="193" x2="${W-80}" y2="193" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
     <text x="${W/2}" y="218" text-anchor="middle"
       font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
       font-size="24" font-weight="800" fill="white" letter-spacing="-0.4">Tu acceso Premium</text>
