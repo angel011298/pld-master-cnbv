@@ -129,18 +129,25 @@ function RedeemPage() {
   const handleGoogleAuth = async () => {
     setAuthLoading(true)
     setAuthError(null)
-    // Store token so the OAuth redirect can pick it up via onAuthStateChange
+    // Store token as fallback in case the ?next= param gets stripped
     if (token && typeof window !== "undefined") {
       localStorage.setItem("pendingPremiumToken", token)
     }
+    // PKCE flow: must go through /auth/callback which calls exchangeCodeForSession(code)
+    // then redirects to ?next=. Pointing directly at /redeem would skip the PKCE exchange.
+    const next = encodeURIComponent(`/redeem?token=${token}`)
     const redirectTo = typeof window !== "undefined"
-      ? `${window.location.origin}/redeem?token=${encodeURIComponent(token)}`
+      ? `${window.location.origin}/auth/callback?next=${next}`
       : undefined
-    await supabase().auth.signInWithOAuth({
+    const { error } = await supabase().auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo },
     })
-    // Note: page will navigate away; no finally needed
+    if (error) {
+      setAuthError(error.message)
+      setAuthLoading(false)
+    }
+    // On success the browser navigates away — no finally needed
   }
 
   const handleEmailAuth = async (e: React.FormEvent) => {
@@ -205,7 +212,7 @@ function RedeemPage() {
           {/* Card */}
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 space-y-6">
             <div className="text-center space-y-2">
-              <Logo variant="mono-white" size={32} className="mx-auto" />
+              <Logo variant="isotype" size={60} className="mx-auto" />
               <h1 className="text-2xl font-black text-white mt-3">Acceso Premium</h1>
               <p className="text-white/55 text-sm leading-relaxed">
                 Ingresa o crea tu cuenta para activar tu acceso Premium.
@@ -302,7 +309,7 @@ function RedeemPage() {
     <div className="min-h-screen bg-gradient-to-br from-[#07091A] to-[#1A0533] flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 text-center space-y-6">
-          <Logo variant="mono-white" size={32} className="mx-auto" />
+          <Logo variant="isotype" size={60} className="mx-auto" />
 
           {/* Loading / redeeming */}
           {(redeemState === "idle" || redeemState === "redeeming") && (
