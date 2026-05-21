@@ -75,7 +75,7 @@ export default function RegisterIndividual() {
                 <Zap className="text-cyan-400 h-5 w-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base mb-1">Años luz de Check PLD o 360EDUCA</h3>
+                <h3 className="font-bold text-base mb-1">A años luz de otros cursos de preparación</h3>
                 <p className="text-white/50 text-sm leading-relaxed">
                   Olvídate de leer PDFs aburridos o ver videos de 3 horas. Nuestra gamificación interactiva hace que retengas la información un 60% más rápido.
                 </p>
@@ -198,11 +198,12 @@ export default function RegisterIndividual() {
               </p>
             </div>
 
-            {/* Submit — black + white animated border */}
+            {/* Submit — black + white animated border
+                bg-black on wrapper = conic white sweeps over black gap → visible */}
             <AnimatedBorderButton
               type="submit"
               variant="white"
-              wrapperClassName="rounded-xl w-full mt-2"
+              wrapperClassName="rounded-xl w-full mt-2 bg-black"
               className="w-full h-14 text-lg font-black rounded-[10px] bg-black hover:bg-neutral-800 text-white"
               disabled={loading}
             >
