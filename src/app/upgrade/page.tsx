@@ -7,6 +7,7 @@ import { BookOpen, Timer, ShieldCheck, ChevronRight, Zap, Flame, ArrowLeft } fro
 import { buildAuthHeaders } from "@/lib/auth-client";
 import { PRICING, PLAN_LABELS } from "@/lib/pricing";
 import { Logo } from "@/components/Logo";
+import { AnimatedBorderButton, type AnimatedBorderVariant } from "@/components/ui/animated-border-button";
 
 const EARLY_BIRD = process.env.NEXT_PUBLIC_EARLY_BIRD_ACTIVE === "true";
 
@@ -41,51 +42,6 @@ const PLAN_FEATURES = [
   "Progreso y analíticas por bloque",
 ];
 
-// ─── Animated border button ───────────────────────────────────────────────────
-
-type BorderVariant = "indigo" | "blue";
-
-function AnimatedBorderButton({
-  children,
-  onClick,
-  disabled,
-  variant = "indigo",
-}: {
-  children: React.ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
-  variant?: BorderVariant;
-}) {
-  const conic =
-    variant === "blue"
-      ? "conic-gradient(from 0deg, transparent 20%, #2563EB 42%, #93C5FD 50%, #2563EB 58%, transparent 80%)"
-      : "conic-gradient(from 0deg, transparent 20%, #6366F1 42%, #C7D2FE 50%, #6366F1 58%, transparent 80%)";
-
-  const btnCls =
-    variant === "blue"
-      ? "bg-blue-600 hover:bg-blue-700 text-white"
-      : "bg-[#0e1737] hover:bg-[#141f4a] text-white";
-
-  return (
-    <div className="relative rounded-xl overflow-hidden p-[1.5px]">
-      <motion.div
-        className="absolute inset-[-100%] pointer-events-none"
-        style={{ background: conic }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
-      />
-      <button
-        onClick={onClick}
-        disabled={disabled}
-        className={`relative z-10 w-full py-4 font-black text-base rounded-[10px] flex items-center justify-center gap-2 transition-all
-          disabled:opacity-50 disabled:cursor-not-allowed ${btnCls}`}
-      >
-        {children}
-      </button>
-    </div>
-  );
-}
-
 // ─── Plan card ────────────────────────────────────────────────────────────────
 
 function PlanCard({
@@ -116,7 +72,7 @@ function PlanCard({
   const subtextCls = highlighted ? "text-slate-500" : "text-white/40";
   const featureCls = highlighted ? "text-slate-700" : "text-white/65";
   const checkCls   = highlighted ? "text-blue-600"  : "text-indigo-400";
-  const borderVariant: BorderVariant = highlighted ? "blue" : "indigo";
+  const borderVariant: AnimatedBorderVariant = highlighted ? "blue" : "indigo";
 
   return (
     <div className={`rounded-2xl p-6 space-y-5 flex flex-col ${cardCls}`}>
@@ -165,6 +121,12 @@ function PlanCard({
       {/* CTA */}
       <AnimatedBorderButton
         variant={borderVariant}
+        wrapperClassName="rounded-xl w-full"
+        className={`w-full py-4 font-black text-base rounded-[10px] ${
+          highlighted
+            ? "bg-blue-600 hover:bg-blue-700 text-white"
+            : "bg-[#0e1737] hover:bg-[#141f4a] text-white"
+        }`}
         onClick={() => !isDisabled && onCheckout(planKey)}
         disabled={isDisabled}
       >

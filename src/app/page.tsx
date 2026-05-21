@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Logo } from "@/components/Logo";
+import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import type { DemoQuestion } from "@/app/api/demo-questions/route";
 
 // ─── Demo Quiz ────────────────────────────────────────────────────────────────
@@ -333,12 +334,13 @@ export default function LandingPage() {
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/trial">
-                <motion.button
-                  whileTap={{ scale: 0.96 }}
-                  className="inline-flex items-center gap-2 bg-white hover:bg-neutral-100 text-black font-semibold px-7 py-4 rounded-full text-base transition-colors tracking-tight"
+                <AnimatedBorderButton
+                  variant="cyan"
+                  wrapperClassName="rounded-full"
+                  className="bg-white hover:bg-neutral-100 text-black font-semibold px-7 py-4 rounded-full text-base tracking-tight"
                 >
                   Comenzar gratis <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
-                </motion.button>
+                </AnimatedBorderButton>
               </Link>
               <a href="#demo">
                 <motion.button
@@ -465,13 +467,14 @@ export default function LandingPage() {
               <div className="text-white font-bold text-5xl tracking-tightest tabular-nums">$1,999</div>
               <div className="t-mono text-neutral-500 text-xs">MXN · 12 meses · pago único</div>
               <div className="t-mono text-neutral-500 text-xs">o $1,299 MXN · 4 meses</div>
-              <Link href="/trial" className="hover:no-underline w-full">
-                <motion.button
-                  whileTap={{ scale: 0.96 }}
-                  className="mt-4 w-full bg-white hover:bg-neutral-100 text-black font-semibold px-6 py-3 rounded-full transition-colors flex items-center justify-center gap-2 tracking-tight"
+              <Link href="/trial" className="hover:no-underline w-full mt-4">
+                <AnimatedBorderButton
+                  variant="cyan"
+                  wrapperClassName="rounded-full w-full"
+                  className="w-full bg-white hover:bg-neutral-100 text-black font-semibold px-6 py-3 rounded-full tracking-tight"
                 >
                   Empezar gratis <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
-                </motion.button>
+                </AnimatedBorderButton>
               </Link>
             </div>
           </div>
@@ -512,12 +515,13 @@ export default function LandingPage() {
               Empieza hoy con 15 preguntas gratuitas. Sin tarjeta de crédito.
             </p>
             <Link href="/trial" className="hover:no-underline">
-              <motion.button
-                whileTap={{ scale: 0.96 }}
-                className="inline-flex items-center gap-2 bg-black hover:bg-neutral-800 text-white font-semibold px-8 py-4 rounded-full text-base transition-colors tracking-tight"
+              <AnimatedBorderButton
+                variant="cyan"
+                wrapperClassName="rounded-full"
+                className="bg-black hover:bg-neutral-800 text-white font-semibold px-8 py-4 rounded-full text-base tracking-tight"
               >
                 Comenzar gratis <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
-              </motion.button>
+              </AnimatedBorderButton>
             </Link>
             <p className="mt-4 text-sm text-neutral-500">
               ¿Ya decidiste?{" "}

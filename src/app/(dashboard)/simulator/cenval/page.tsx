@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Loader2,
 } from "lucide-react";
+import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import { supabase } from "@/lib/supabase";
 
 async function authFetch(url: string, init?: RequestInit) {
@@ -143,10 +144,12 @@ export default function CenvalIntroPage() {
         </div>
       )}
 
-      <button
+      <AnimatedBorderButton
+        variant="cyan"
+        wrapperClassName="rounded-2xl w-full mt-6"
+        className="w-full px-6 py-4 text-base font-semibold rounded-[14px] bg-neutral-900 hover:bg-neutral-800 text-white shadow-lg"
         onClick={handleStart}
         disabled={starting}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-neutral-900 px-6 py-4 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:bg-neutral-800 disabled:opacity-60"
       >
         {starting ? (
           <>
@@ -159,7 +162,7 @@ export default function CenvalIntroPage() {
             <ChevronRight className="h-5 w-5" />
           </>
         )}
-      </button>
+      </AnimatedBorderButton>
 
       {/* ── Sesiones previas ── */}
       <div className="mt-10">

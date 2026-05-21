@@ -4,8 +4,8 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { X, Heart, Zap, ShieldAlert, BookOpen, BrainCircuit, Target, ArrowRight, CheckCircle2, XCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
+import { AnimatedBorderButton } from "@/components/ui/animated-border-button"
 
 // Preguntas reales PLD/FT CNBV
 const TRIAL_QUESTIONS = [
@@ -106,12 +106,14 @@ export default function TrialPage() {
 
           {/* Botón de registro */}
           <div className="flex flex-col gap-4">
-            <Button
+            <AnimatedBorderButton
+              variant="cyan"
+              wrapperClassName="rounded-2xl w-full"
+              className="w-full h-14 text-lg font-black rounded-[14px] bg-blue-600 hover:bg-blue-700 text-white"
               onClick={() => router.push("/register/individual")}
-              className="w-full h-14 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-blue-500/30 transition-all flex items-center justify-center gap-2"
             >
               Crear mi cuenta <ArrowRight className="h-5 w-5" />
-            </Button>
+            </AnimatedBorderButton>
             <button
               onClick={() => router.push("/upgrade")}
               className="text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors underline underline-offset-2"

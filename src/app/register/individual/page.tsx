@@ -2,9 +2,9 @@
 
 import * as React from "react"
 import { Shield, Mail, Lock, Phone, User, Calendar, Loader2, Trophy, Zap, Clock, CheckCircle } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { supabase } from "@/lib/supabase" 
+import { supabase } from "@/lib/supabase"
+import { AnimatedBorderButton } from "@/components/ui/animated-border-button"
 
 export default function RegisterIndividual() {
   const [loading, setLoading] = React.useState(false)
@@ -96,21 +96,23 @@ export default function RegisterIndividual() {
             <p className="text-sm text-slate-500 mt-2">Completa tu registro para desbloquear el acceso Premium.</p>
           </div>
 
-          <Button 
-            onClick={handleGoogleLogin} 
+          <AnimatedBorderButton
+            variant="cyan"
+            wrapperClassName="rounded-xl w-full mb-6"
+            className="w-full font-bold h-12 rounded-[10px] bg-white hover:bg-slate-50 text-slate-800 border border-slate-200"
+            onClick={handleGoogleLogin}
             disabled={googleLoading}
-            variant="outline" 
-            className="w-full mb-6 font-bold h-12 rounded-xl relative overflow-hidden group"
           >
             {googleLoading ? (
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
               <>
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5 mr-2 transition-transform group-hover:scale-110" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-5 w-5" />
                 Continuar con Google
               </>
             )}
-          </Button>
+          </AnimatedBorderButton>
 
           <div className="relative flex items-center py-2 mb-6">
             <div className="flex-grow border-t border-slate-200"></div>
@@ -161,9 +163,15 @@ export default function RegisterIndividual() {
               </p>
             </div>
 
-            <Button type="submit" disabled={loading} className="w-full h-14 text-lg font-black rounded-xl bg-blue-600 hover:bg-blue-700 mt-2">
+            <AnimatedBorderButton
+              type="submit"
+              variant="cyan"
+              wrapperClassName="rounded-xl w-full mt-2"
+              className="w-full h-14 text-lg font-black rounded-[10px] bg-blue-600 hover:bg-blue-700 text-white"
+              disabled={loading}
+            >
               {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Crear cuenta y Pagar"}
-            </Button>
+            </AnimatedBorderButton>
           </form>
         </div>
       </div>

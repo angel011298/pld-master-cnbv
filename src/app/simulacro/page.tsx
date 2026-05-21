@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { AnimatedBorderButton } from "@/components/ui/animated-border-button";
 import { Badge } from "@/components/ui/badge";
 import { buildAuthHeaders } from "@/lib/auth-client";
 import { supabase } from "@/lib/supabase";
@@ -220,12 +221,14 @@ export default function SimulacroPage() {
             ))}
           </div>
 
-          <Button
+          <AnimatedBorderButton
+            variant="cyan"
+            wrapperClassName="rounded-2xl w-full"
+            className="w-full py-6 text-lg font-black rounded-[14px] bg-blue-600 hover:bg-blue-700 text-white"
             onClick={startExam}
-            className="w-full py-6 text-lg font-black rounded-2xl bg-blue-600 hover:bg-blue-700 text-white border-b-4 border-blue-800 active:border-b-0 active:translate-y-1 transition-all"
           >
             Iniciar Simulacro <ChevronRight className="ml-2 h-5 w-5" />
-          </Button>
+          </AnimatedBorderButton>
         </div>
       </div>
     );
