@@ -5,8 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, CheckCircle2, Loader2, Bot,
-  BarChart2, Target, Building2, ChevronRight, Zap,
-  BookOpen, GraduationCap, Users,
+  BarChart2, Target, ChevronRight, Zap,
+  BookOpen, GraduationCap,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { Logo } from "@/components/Logo";
@@ -213,14 +213,13 @@ const FEATURES = [
 ];
 
 const INCLUDED_LIST = [
-  "200+ reactivos del banco oficial CNBV",
-  "7 temas completos del temario oficial",
-  "Simulacro cronometrado tipo examen real",
+  "1,000+ reactivos del banco oficial CNBV",
+  "8 bloques completos del temario oficial",
+  "Simulacro cronometrado tipo examen real (118 preguntas)",
   "Tutor IA Gemini con citas a documentos",
   "Racha diaria y XP para mantener motivación",
   "Mapa de dominio por tema con semáforo",
   "Algoritmo SM-2 de repaso espaciado",
-  "Panel corporativo para equipos",
 ];
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -455,9 +454,10 @@ export default function LandingPage() {
               </ul>
             </div>
             <div className="shrink-0 flex flex-col items-center gap-2 text-center bg-white/5 border border-white/10 rounded-2xl p-7 min-w-[220px]">
-              <div className="t-label text-neutral-400">Plan individual</div>
-              <div className="text-white font-bold text-5xl tracking-tightest tabular-nums">$2,999</div>
-              <div className="t-mono text-neutral-500 text-xs">MXN · 12 meses</div>
+              <div className="t-label text-neutral-400">Plan Anual</div>
+              <div className="text-white font-bold text-5xl tracking-tightest tabular-nums">$1,999</div>
+              <div className="t-mono text-neutral-500 text-xs">MXN · 12 meses · pago único</div>
+              <div className="t-mono text-neutral-500 text-xs">o $1,299 MXN · 4 meses</div>
               <Link href="/trial" className="hover:no-underline w-full">
                 <motion.button
                   whileTap={{ scale: 0.96 }}
@@ -475,8 +475,8 @@ export default function LandingPage() {
       <section className="py-16 px-4 bg-neutral-25 border-y border-neutral-100">
         <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
           {[
-            { value: "200+", label: "Reactivos CNBV" },
-            { value: "7", label: "Bloques del temario" },
+            { value: "1,000+", label: "Reactivos CNBV" },
+            { value: "8", label: "Bloques del temario" },
             { value: "98%", label: "Cobertura del examen" },
             { value: "AI", label: "Tutor con citas" },
           ].map((s) => (
@@ -485,55 +485,6 @@ export default function LandingPage() {
               <span className="t-caption mt-2 max-w-[140px]">{s.label}</span>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* ── PARA EMPRESAS ── */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-brand-500 rounded-3xl p-8 md:p-12 text-white flex flex-col md:flex-row items-start gap-10">
-            <div className="flex-1">
-              <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-3 py-1 text-[11px] font-semibold text-brand-50 mb-6 uppercase tracking-eyebrow">
-                <Building2 className="h-3.5 w-3.5" strokeWidth={2} />
-                Bancos · SOFOMES · Fintechs
-              </div>
-              <h2 className="t-h1 text-white mb-4">
-                Certifica a tu equipo de cumplimiento
-              </h2>
-              <p className="t-body-lg text-brand-100 mb-6">
-                Licencia corporativa con 5 accesos premium y dashboard admin para monitorear el progreso de la Unidad de Cumplimiento.
-              </p>
-              <ul className="space-y-3 mb-2">
-                {[
-                  "5 usuarios premium simultáneos",
-                  "Dashboard admin con semáforo de preparación",
-                  "Exportación de reportes CSV por usuario",
-                  "Invitaciones por email con token seguro",
-                  "Soporte prioritario directo",
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-sm text-brand-50">
-                    <CheckCircle2 className="h-4 w-4 text-white shrink-0" strokeWidth={2} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="shrink-0 bg-white text-black rounded-2xl p-7 text-center min-w-[240px]">
-              <Users className="h-8 w-8 text-brand-500 mx-auto mb-3" strokeWidth={2} />
-              <div className="t-label text-neutral-500">Licencia corporativa</div>
-              <div className="text-5xl font-bold text-black mt-2 mb-1 tracking-tightest tabular-nums">$9,999</div>
-              <div className="t-mono text-neutral-500 text-xs mb-6">MXN · anual · 5 usuarios</div>
-              <Link href="/register/corporativo" className="hover:no-underline">
-                <motion.button
-                  whileTap={{ scale: 0.96 }}
-                  className="w-full bg-black hover:bg-neutral-800 text-white font-semibold py-3 px-6 rounded-full transition-colors flex items-center justify-center gap-2 tracking-tight"
-                >
-                  Contratar licencia <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
-                </motion.button>
-              </Link>
-              <p className="t-caption mt-3">Facturación CFDI 4.0</p>
-            </div>
-          </div>
         </div>
       </section>
 

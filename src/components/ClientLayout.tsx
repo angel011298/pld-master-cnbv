@@ -9,7 +9,7 @@ export function ClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   
   // Lista de rutas donde el sidebar NO debe aparecer
-  const noSidebarRoutes = ["/", "/trial", "/register/individual", "/register/corporativo", "/invite", "/estudio/focus"]
+  const noSidebarRoutes = ["/", "/trial", "/register/individual", "/invite", "/estudio/focus"]
   const hideSidebar = noSidebarRoutes.includes(pathname)
 
   // Si estamos en onboarding, prueba o registro, no renderizamos el Sidebar

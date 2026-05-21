@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       .single();
 
     const plan = profile?.plan ?? "trial";
-    const isPremium = plan === "premium_individual" || plan === "corporativo";
+    const isPremium = plan === "premium_individual";
 
     // Trial: enforce simulacro limit
     if (!isPremium) {

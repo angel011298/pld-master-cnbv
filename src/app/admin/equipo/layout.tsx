@@ -13,16 +13,8 @@ export default function EquipoLayout({ children }: { children: React.ReactNode }
     supabase().auth.getUser().then(async ({ data: { user } }) => {
       if (!user) { router.push("/"); return; }
 
-      // Verify corporativo plan
-      const { data: profile } = await supabase()
-        .from("user_profiles")
-        .select("plan")
-        .eq("user_id", user.id)
-        .single();
-
-      if (profile?.plan !== "corporativo") {
-        router.push("/dashboard");
-      }
+      // El plan corporativo fue descontinuado; redirigir siempre al dashboard
+      router.push("/dashboard");
     });
   }, [router]);
 

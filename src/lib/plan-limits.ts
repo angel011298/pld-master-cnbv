@@ -4,7 +4,7 @@ export const TRIAL_QUESTION_LIMIT = 15;
 export const TRIAL_SIMULACRO_QUESTIONS = 15;
 export const TRIAL_SIMULACRO_LIMIT = 1;
 
-export type UserPlan = "trial" | "premium_individual" | "corporativo";
+export type UserPlan = "trial" | "premium_individual";
 
 export interface PlanInfo {
   plan: UserPlan;
@@ -26,7 +26,7 @@ export async function getUserPlanInfo(userId: string): Promise<PlanInfo> {
 
   const plan = (profile?.plan ?? "trial") as UserPlan;
   const trialQuestionsUsed = profile?.trial_questions_used ?? 0;
-  const isPremium = plan === "premium_individual" || plan === "corporativo";
+  const isPremium = plan === "premium_individual";
 
   if (isPremium) {
     return {

@@ -50,7 +50,7 @@ export async function middleware(req: NextRequest) {
   const plan = profile?.plan ?? "trial";
 
   // Premium users pass through
-  if (plan === "premium_individual" || plan === "corporativo") {
+  if (plan === "premium_individual") {
     return NextResponse.next();
   }
 

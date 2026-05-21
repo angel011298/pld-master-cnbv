@@ -3,20 +3,15 @@ export const dynamic = "force-dynamic";
 import Stripe from "stripe";
 import { getAuthenticatedUserId } from "@/lib/security";
 import { supabaseAdmin } from "@/lib/supabase";
+import {
+  activePriceCents,
+  PLAN_LABELS,
+  PLAN_DESCRIPTIONS,
+  type PlanKey,
+} from "@/lib/pricing";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.app";
-
-const PRICE_MAP: Record<string, { priceId: string; plan: string }> = {
-  individual: {
-    priceId: process.env.STRIPE_PRICE_PREMIUM!,
-    plan: "premium_individual",
-  },
-  corporativo: {
-    priceId: process.env.STRIPE_PRICE_CORPORATIVO!,
-    plan: "corporativo",
-  },
-};
 
 export async function POST(req: NextRequest) {
   if (!STRIPE_SECRET_KEY) {
@@ -34,11 +29,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const body = (await req.json().catch(() => ({}))) as {
-    plan?: string;
-  };
-  const planKey = body.plan === "corporativo" ? "corporativo" : "individual";
-  const config = PRICE_MAP[planKey];
+  const body = (await req.json().catch(() => ({}))) as { plan?: string };
+  const plan: PlanKey =
+    body.plan === "convocatoria" ? "convocatoria" : "anual";
 
   const stripe = new Stripe(STRIPE_SECRET_KEY);
   const sb = supabaseAdmin();
@@ -69,13 +62,26 @@ export async function POST(req: NextRequest) {
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     payment_method_types: ["card"],
-    line_items: [{ price: config.priceId, quantity: 1 }],
+    line_items: [
+      {
+        price_data: {
+          currency: "mxn",
+          product_data: {
+            name: `Certifik PLD — ${PLAN_LABELS[plan]}`,
+            description: PLAN_DESCRIPTIONS[plan],
+          },
+          unit_amount: activePriceCents(plan),
+        },
+        quantity: 1,
+      },
+    ],
     mode: "payment",
     success_url: `${BASE_URL}/welcome?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${BASE_URL}/register/${planKey}`,
+    cancel_url: `${BASE_URL}/register/individual`,
     metadata: {
       user_id: userId,
-      plan: config.plan,
+      plan: "premium_individual",
+      plan_key: plan,
     },
   });
 

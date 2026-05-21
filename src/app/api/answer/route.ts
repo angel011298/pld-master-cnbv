@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       .single();
 
     const plan = profile?.plan ?? "trial";
-    const isPremium = plan === "premium_individual" || plan === "corporativo";
+    const isPremium = plan === "premium_individual";
     const trialQuestionsUsed = profile?.trial_questions_used ?? 0;
 
     // Trial limit check
