@@ -28,6 +28,7 @@ const CONIC: Record<string, string> = {
   blue:   "conic-gradient(from 0deg, transparent 20%, #2563EB 42%, #93C5FD 50%, #2563EB 58%, transparent 80%)",
   gold:   "conic-gradient(from 0deg, transparent 20%, #F59E0B 42%, #FEF9C3 50%, #F59E0B 58%, transparent 80%)",
   violet: "conic-gradient(from 0deg, transparent 20%, #7C3AED 42%, #DDD6FE 50%, #7C3AED 58%, transparent 80%)",
+  white:  "conic-gradient(from 0deg, transparent 20%, rgba(255,255,255,0.6) 42%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.6) 58%, transparent 80%)",
 };
 
 export type AnimatedBorderVariant = keyof typeof CONIC;
