@@ -350,7 +350,14 @@ export default function LandingPage() {
               </a>
             </div>
 
-            <div className="mt-12 flex flex-wrap justify-center gap-6 text-[11px] text-neutral-500 uppercase tracking-eyebrow font-semibold">
+            <p className="mt-5 text-sm text-neutral-500">
+              ¿Ya decidiste?{" "}
+              <Link href="/upgrade" className="text-white font-semibold underline underline-offset-2 hover:text-neutral-200 transition-colors">
+                Ver planes de pago →
+              </Link>
+            </p>
+
+            <div className="mt-8 flex flex-wrap justify-center gap-6 text-[11px] text-neutral-500 uppercase tracking-eyebrow font-semibold">
               {["Sin tarjeta", "Acceso inmediato", "15 preguntas gratis"].map((item) => (
                 <span key={item} className="flex items-center gap-1.5">
                   <CheckCircle2 className="h-3.5 w-3.5 text-success" strokeWidth={2} />
@@ -512,6 +519,12 @@ export default function LandingPage() {
                 Comenzar gratis <ArrowRight className="h-4 w-4" strokeWidth={2.5} />
               </motion.button>
             </Link>
+            <p className="mt-4 text-sm text-neutral-500">
+              ¿Ya decidiste?{" "}
+              <Link href="/upgrade" className="text-blue-600 hover:underline font-semibold transition-colors">
+                Ver planes de pago →
+              </Link>
+            </p>
           </motion.div>
         </div>
       </section>

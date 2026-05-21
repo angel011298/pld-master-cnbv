@@ -112,6 +112,12 @@ export default function TrialPage() {
             >
               Crear mi cuenta <ArrowRight className="h-5 w-5" />
             </Button>
+            <button
+              onClick={() => router.push("/upgrade")}
+              className="text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors underline underline-offset-2"
+            >
+              Ver planes de pago →
+            </button>
           </div>
         </motion.div>
       </div>
@@ -130,9 +136,17 @@ export default function TrialPage() {
           <X className="h-6 w-6" />
         </button>
         <Progress value={((currentStep + 1) / TRIAL_QUESTIONS.length) * 100} className="h-3 flex-1 bg-slate-100" />
-        <div className="flex items-center gap-1.5 text-red-500 font-bold">
-          <Heart className="h-6 w-6 fill-red-500" />
-          <span>5</span>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 text-red-500 font-bold">
+            <Heart className="h-6 w-6 fill-red-500" />
+            <span>5</span>
+          </div>
+          <button
+            onClick={() => router.push("/upgrade")}
+            className="text-xs font-semibold text-blue-600 hover:text-blue-800 transition-colors whitespace-nowrap"
+          >
+            Ver planes →
+          </button>
         </div>
       </div>
 
