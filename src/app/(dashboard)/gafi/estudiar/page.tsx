@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -1264,7 +1264,7 @@ function EjercicioCard({ ejercicio, index, onScore, score }: { ejercicio: Ejerci
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
-export default function GafiEstudiarPage() {
+function GafiEstudiarContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialTab = (searchParams.get("tab") ?? "teoria") as "teoria" | "ejercicios" | "practicar";
@@ -1470,5 +1470,13 @@ export default function GafiEstudiarPage() {
         </AnimatePresence>
       )}
     </div>
+  );
+}
+
+export default function GafiEstudiarPage() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-600 border-t-transparent" /></div>}>
+      <GafiEstudiarContent />
+    </Suspense>
   );
 }
