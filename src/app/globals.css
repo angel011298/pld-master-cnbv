@@ -142,6 +142,18 @@
 
   a { color: hsl(var(--primary)); text-decoration: none; }
   a:hover { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+
+  /* ── iOS Safari: eliminate 300ms tap delay on all interactive elements ── */
+  button, a, [role="button"], input, select, textarea {
+    touch-action: manipulation;
+  }
+
+  /* ── iOS Safari: safe-area insets so content clears the home-indicator ── */
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
 }
 
 [data-state="expanded"] aside.sidebar-master,
