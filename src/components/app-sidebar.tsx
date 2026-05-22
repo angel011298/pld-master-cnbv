@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
+import { AnimatedBorderButton } from "@/components/ui/animated-border-button"
 import { useUserProfile } from "@/hooks/useUserProfile"
 import { supabase } from "@/lib/supabase"
 import { cn } from "@/lib/utils"
@@ -108,20 +109,20 @@ export function AppSidebar() {
       {/* Header: logo then toggle — sticky, never scrolls */}
       <SidebarHeader className="border-b border-neutral-100 px-3 py-3 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-3">
         {/* Logo row */}
-        <div className="flex items-center min-w-0 group-data-[collapsible=icon]:justify-center">
+        <div className="flex items-center min-w-0 group-data-[collapsible=icon]:justify-center gap-3">
           {/* Expanded: full logo + optional admin badge */}
-          <div className="flex items-center gap-2 min-w-0 group-data-[collapsible=icon]:hidden">
-            <Logo variant="full" size={32} className="shrink-0" />
+          <a href="/dashboard" className="flex items-center gap-3 min-w-0 group-data-[collapsible=icon]:hidden hover:opacity-80 transition-opacity">
+            <Logo variant="full" size={48} className="shrink-0" />
             {isSuperAdmin && (
               <Badge variant="outline" className="bg-amber-50 border-amber-200 text-amber-700 text-[9px] font-bold uppercase tracking-eyebrow px-1.5 hidden lg:flex shrink-0">
                 Admin
               </Badge>
             )}
-          </div>
+          </a>
           {/* Collapsed: isotype logo centered */}
-          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center">
-            <Logo variant="isotype" size={28} />
-          </div>
+          <a href="/dashboard" className="hidden group-data-[collapsible=icon]:flex items-center justify-center hover:opacity-80 transition-opacity">
+            <Logo variant="isotype" size={36} />
+          </a>
         </div>
         {/* Toggle button — below logo, always visible */}
         <div className="flex group-data-[collapsible=icon]:justify-center">
@@ -250,20 +251,18 @@ export function AppSidebar() {
 
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip="Mi Perfil"
-              size="lg"
-              className="bg-white hover:bg-neutral-50 border border-neutral-200 transition-all rounded-2xl h-14 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:rounded-xl"
-              render={(props) => (
-                <a href="/perfil" {...props}>
-                  <UserCircle className="h-6 w-6 text-neutral-700 shrink-0" strokeWidth={2} />
-                  <div className="flex flex-col text-left overflow-hidden group-data-[collapsible=icon]:hidden ml-1">
-                    <span className="font-semibold text-neutral-900 text-[13px] leading-tight tracking-tight">Mi perfil</span>
-                    <span className="text-[11px] text-neutral-500 font-medium truncate">Ajustes y progreso</span>
-                  </div>
-                </a>
-              )}
-            />
+            <AnimatedBorderButton
+              variant="white"
+              wrapperClassName="rounded-2xl w-full group-data-[collapsible=icon]:rounded-xl"
+              className="w-full h-14 bg-black hover:bg-neutral-900 text-white rounded-[calc(1rem-1.5px)] font-semibold transition-all flex items-center justify-start gap-3 px-4 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:h-11 group-data-[collapsible=icon]:px-0"
+              onClick={() => router.push("/perfil")}
+            >
+              <UserCircle className="h-6 w-6 text-white shrink-0" strokeWidth={2} />
+              <div className="flex flex-col text-left overflow-hidden group-data-[collapsible=icon]:hidden">
+                <span className="font-semibold text-white text-[13px] leading-tight tracking-tight">Mi perfil</span>
+                <span className="text-[11px] text-neutral-200 font-medium truncate">Ajustes y progreso</span>
+              </div>
+            </AnimatedBorderButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
