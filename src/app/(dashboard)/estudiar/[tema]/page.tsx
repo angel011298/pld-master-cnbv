@@ -20,11 +20,11 @@ import type { Achievement } from "@/components/AchievementToast";
 
 /**
  * Normalised shape returned by /api/lesson/questions.
- * The API handles both DB schema variants (individual opcion_a/b/c/d columns
- * OR an opciones[] array) and converts respuesta_correcta to a 0-based index.
+ * Source table: question_bank (id bigint, bloque int, status "active").
+ * The API normalises both option formats and converts correct_answer to 0-based index.
  */
 interface QuizBankRow {
-  id: string;               // uuid
+  id: number;               // bigint (question_bank.id)
   pregunta: string;
   opciones: string[];       // always an array (normalised server-side)
   respuesta_correcta: number; // 0-based index (normalised server-side)
@@ -164,8 +164,8 @@ export default function LeccionPage() {
   const [unlockedAchievements, setUnlockedAchievements] = useState<Achievement[]>([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
 
-  // Keep uuid strings for answer tracking (separate from QuizQuestion.id which is a seq number)
-  const questionUuidsRef = useRef<string[]>([]);
+  // Keep bigint IDs for answer tracking (separate from QuizQuestion.id which is a seq number)
+  const questionUuidsRef = useRef<number[]>([]);
 
   // Refs avoid stale-closure issues in async callbacks
   const correctRef = useRef(0);
@@ -223,7 +223,7 @@ export default function LeccionPage() {
         return;
       }
 
-      const { questions: bankRows, dueIds }: { questions: QuizBankRow[]; dueIds: string[] } =
+      const { questions: bankRows, dueIds }: { questions: QuizBankRow[]; dueIds: number[] } =
         await res.json();
 
       if (bankRows.length === 0) {
@@ -231,7 +231,7 @@ export default function LeccionPage() {
         return;
       }
 
-      const dueSet = new Set<string>(dueIds);
+      const dueSet = new Set<number>(dueIds);
 
       // Due reviews first, then new questions – capped at 10
       const ordered = [
@@ -284,9 +284,9 @@ export default function LeccionPage() {
       if (isCorrect) correctRef.current++;
       xpRef.current += isCorrect ? 10 : 3;
 
-      // Use the uuid stored at the matching index
+      // Use the bigint ID stored at the matching index
       const questionUuid = questionUuidsRef.current[currentIndex];
-      if (!questionUuid) return;
+      if (questionUuid === undefined) return;
 
       const elapsed = Math.round((Date.now() - questionStartRef.current) / 1000);
       try {

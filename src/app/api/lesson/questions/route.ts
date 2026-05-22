@@ -4,71 +4,84 @@ import { supabaseAdmin } from "@/lib/supabase";
 import { getAuthenticatedUserId } from "@/lib/security";
 
 /**
- * GET /api/lesson/questions?tema=<pld_topic_enum_key>
+ * GET /api/lesson/questions?tema=<slug>
  *
- * Fetches active quiz_bank questions for a given topic using the service-role
- * client (bypasses RLS). Normalises both possible column layouts:
- *   • Legacy:  opcion_a / opcion_b / opcion_c / opcion_d  + respuesta_correcta char('A'–'D')
- *   • Array:   opciones text[]                            + respuesta_correcta int (index)
+ * Returns active questions from `question_bank` for the given bloque,
+ * plus the IDs of spaced-review questions due today for the user.
  *
- * Also returns the IDs of spaced-review questions that are due today for
- * the authenticated user, so the lesson can prioritise them.
+ * Slug → bloque mapping (matches URL slugs in /estudiar/[tema]):
+ *   tipologias     → 1   gafi           → 2   sanciones      → 3
+ *   kyc_cdd        → 4   reportes_cnbv  → 5   marco_legal    → 6
+ *   une            → 7
+ *
+ * question_bank options/correct_answer have two live formats:
+ *   Format A: options = string[]           correct_answer = { index: number }
+ *   Format B: options = {key,texto}[]      correct_answer = "A"…"D"
+ * Both are normalised to: opciones string[], respuesta_correcta number (0-based).
  */
 
-const VALID_TOPICS = [
-  "tipologias",
-  "gafi",
-  "sanciones",
-  "kyc_cdd",
-  "reportes_cnbv",
-  "marco_legal",
-  "une",
-] as const;
+const SLUG_TO_BLOQUE: Record<string, number> = {
+  tipologias:    1,
+  gafi:          2,
+  sanciones:     3,
+  kyc_cdd:       4,
+  reportes_cnbv: 5,
+  marco_legal:   6,
+  une:           7,
+};
 
-type ValidTopic = (typeof VALID_TOPICS)[number];
-
-function isValidTopic(t: string | null): t is ValidTopic {
-  return VALID_TOPICS.includes(t as ValidTopic);
+function isValidSlug(t: string | null): t is keyof typeof SLUG_TO_BLOQUE {
+  return t !== null && t in SLUG_TO_BLOQUE;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normaliseRow(row: any) {
-  // ── Options array ──────────────────────────────────────────────────────────
-  let opciones: string[];
-  if (Array.isArray(row.opciones) && row.opciones.length >= 2) {
-    // Array schema: opciones text[]
-    opciones = row.opciones as string[];
-  } else {
-    // Individual-column schema: opcion_a … opcion_d
-    opciones = [row.opcion_a, row.opcion_b, row.opcion_c, row.opcion_d].filter(
-      (o): o is string => typeof o === "string" && o.length > 0
-    );
+  // ── Options ────────────────────────────────────────────────────────────────
+  let opciones: string[] = [];
+  const raw = row.options;
+
+  if (Array.isArray(raw) && raw.length > 0) {
+    if (typeof raw[0] === "string") {
+      // Format A: plain string array
+      opciones = raw as string[];
+    } else if (typeof raw[0] === "object" && raw[0] !== null) {
+      // Format B: [{ key: "A", texto: "..." }, ...]
+      opciones = raw.map(
+        (o: { texto?: string; text?: string; key?: string }) =>
+          o.texto ?? o.text ?? String(o.key ?? "")
+      );
+    }
   }
 
-  // ── Correct answer index ───────────────────────────────────────────────────
-  let respuesta_correcta: number;
-  if (typeof row.respuesta_correcta === "number") {
-    // Already an index (0–3)
-    respuesta_correcta = row.respuesta_correcta;
-  } else if (
-    typeof row.respuesta_correcta === "string" &&
-    row.respuesta_correcta.length === 1
-  ) {
-    // char 'A'→0, 'B'→1, 'C'→2, 'D'→3
-    respuesta_correcta =
-      row.respuesta_correcta.toUpperCase().charCodeAt(0) - 65;
-  } else {
+  // ── Correct answer index (0-based) ────────────────────────────────────────
+  let respuesta_correcta = 0;
+  const ca = row.correct_answer;
+
+  if (ca !== null && ca !== undefined) {
+    if (typeof ca === "object" && typeof ca.index === "number") {
+      // Format A: { index: 1 }
+      respuesta_correcta = ca.index;
+    } else if (typeof ca === "string" && ca.length === 1) {
+      // Format B: "B" → 1
+      respuesta_correcta = ca.toUpperCase().charCodeAt(0) - 65;
+    } else if (typeof ca === "number") {
+      respuesta_correcta = ca;
+    }
+  }
+
+  // Clamp to valid range
+  if (respuesta_correcta < 0 || respuesta_correcta >= opciones.length) {
     respuesta_correcta = 0;
   }
 
   return {
-    id: row.id as string,                       // uuid
-    pregunta: row.pregunta as string,
+    id: row.id as number,                              // bigint → number
+    pregunta: (row.stem ?? row.pregunta ?? "") as string,
     opciones,
     respuesta_correcta,
-    explicacion: (row.explicacion as string) ?? "",
-    fuente: (row.fuente_documento as string) ?? "",
-    tema: row.tema as string,
+    explicacion: (row.explanation ?? row.explicacion ?? "") as string,
+    fuente: (row.source_document ?? row.fuente ?? "") as string,
+    tema: String(row.bloque ?? ""),
     dificultad: String(row.dificultad ?? "1"),
   };
 }
@@ -86,31 +99,31 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const tema = searchParams.get("tema");
 
-    if (!isValidTopic(tema)) {
+    if (!isValidSlug(tema)) {
       return NextResponse.json({ error: "Tema inválido." }, { status: 400 });
     }
 
+    const bloque = SLUG_TO_BLOQUE[tema];
     const sb = supabaseAdmin();
 
-    // ── Fetch active questions (admin bypasses RLS) ────────────────────────
+    // ── Fetch active questions ────────────────────────────────────────────
     const { data: rows, error: qErr } = await sb
-      .from("quiz_bank")
+      .from("question_bank")
       .select(
-        "id, pregunta, opcion_a, opcion_b, opcion_c, opcion_d, opciones, " +
-          "respuesta_correcta, explicacion, fuente_documento, tema, dificultad"
+        "id, bloque, stem, options, correct_answer, explanation, source_document, dificultad"
       )
-      .eq("tema", tema)
-      .eq("active", true);
+      .eq("bloque", bloque)
+      .eq("status", "active");
 
     if (qErr) {
-      console.error("[lesson/questions] quiz_bank error:", qErr.message);
+      console.error("[lesson/questions] question_bank error:", qErr.message);
       return NextResponse.json({ error: qErr.message }, { status: 500 });
     }
 
     const questions = (rows ?? []).map(normaliseRow);
 
-    // ── Fetch due spaced-review question IDs for this user ─────────────────
-    let dueIds: string[] = [];
+    // ── Fetch due spaced-review IDs for this user ─────────────────────────
+    let dueIds: number[] = [];
     if (questions.length > 0) {
       const allIds = questions.map((q) => q.id);
       const { data: dueRows } = await sb
@@ -121,7 +134,7 @@ export async function GET(req: NextRequest) {
         .lte("next_review_at", new Date().toISOString());
 
       dueIds = (dueRows ?? []).map(
-        (r: { question_id: string }) => r.question_id
+        (r: { question_id: number }) => r.question_id
       );
     }
 
