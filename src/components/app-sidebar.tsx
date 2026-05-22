@@ -44,15 +44,14 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
     items: [
       { title: "Ruta de Aprendizaje", url: "/dashboard", icon: Map },
       { title: "Modo Estudio", url: "/estudio", icon: BookOpen, badge: "XP x2", exact: true },
-      { title: "Mis Estadísticas", url: "/estudio/estadisticas", icon: BarChart2 },
       { title: "40 Rec. GAFI", url: "/gafi", icon: Globe },
       { title: "Simulador CENEVAL", url: "/simulator", icon: GraduationCap },
+      { title: "Entidades Financieras", url: "/entities", icon: Building2 },
     ]
   },
   {
     label: "Recursos y Consulta",
     items: [
-      { title: "Entidades Financieras", url: "/entities", icon: Building2 },
       { title: "Chatbot IA", url: "/chatbot", icon: MessageSquare },
       { title: "Guía de Trámites", url: "/tramites", icon: ClipboardList },
     ]
@@ -173,11 +172,10 @@ export function AppSidebar() {
                 })}
               </SidebarMenu>
             </SidebarGroupContent>
+            {/* Dudas y Sugerencias — embedded at the bottom of Recursos y Consulta */}
+            {group.label === "Recursos y Consulta" && <SugerenciasPanel />}
           </SidebarGroup>
         ))}
-
-        {/* Dudas y Sugerencias — below nav groups, above admin */}
-        <SugerenciasPanel />
 
         {/* Admin group — only visible to super admin */}
         {isSuperAdmin && (
@@ -263,6 +261,24 @@ export function AppSidebar() {
                     <span className="font-semibold text-neutral-900 text-[13px] leading-tight tracking-tight">Mi perfil</span>
                     <span className="text-[11px] text-neutral-500 font-medium truncate">Ajustes y progreso</span>
                   </div>
+                </a>
+              )}
+            />
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Mis Estadísticas"
+              isActive={pathname === "/estudio/estadisticas" || pathname.startsWith("/estudio/estadisticas/")}
+              className={cn(
+                "transition-all duration-200 group/menu-button h-10 rounded-xl",
+                pathname === "/estudio/estadisticas" || pathname.startsWith("/estudio/estadisticas/")
+                  ? "bg-brand-50 text-brand-700 font-semibold"
+                  : "text-neutral-600 hover:bg-neutral-50 font-medium"
+              )}
+              render={(props) => (
+                <a href="/estudio/estadisticas" {...props} className={cn(props.className, "flex items-center gap-3 w-full")}>
+                  <BarChart2 className={cn("h-[18px] w-[18px] shrink-0 transition-colors", pathname === "/estudio/estadisticas" ? "text-brand-500" : "text-neutral-400 group-hover/menu-button:text-neutral-600")} strokeWidth={2} />
+                  <span className="truncate text-sm group-data-[collapsible=icon]:hidden tracking-tight">Mis Estadísticas</span>
                 </a>
               )}
             />
