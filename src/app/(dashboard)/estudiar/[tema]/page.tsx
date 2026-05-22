@@ -18,20 +18,26 @@ import type { Achievement } from "@/components/AchievementToast";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
+/**
+ * Normalised shape returned by /api/lesson/questions.
+ * The API handles both DB schema variants (individual opcion_a/b/c/d columns
+ * OR an opciones[] array) and converts respuesta_correcta to a 0-based index.
+ */
 interface QuizBankRow {
-  id: number;
+  id: string;               // uuid
   pregunta: string;
-  opciones: string[];
-  respuesta_correcta: number;
+  opciones: string[];       // always an array (normalised server-side)
+  respuesta_correcta: number; // 0-based index (normalised server-side)
   explicacion: string;
+  fuente: string;
   tema: string;
   dificultad: string;
-  fuente: string;
 }
 
 interface TopicMeta {
   name: string;
   description: string;
+  // tema: the pld_topic ENUM key stored in the DB  (equals the URL slug)
   tema: string;
   icon: React.ComponentType<{ className?: string }>;
 }
@@ -45,48 +51,57 @@ interface LessonResults {
 }
 
 // ── Topic catalogue ───────────────────────────────────────────────────────────
+// IMPORTANT: `tema` must match the pld_topic ENUM key stored in quiz_bank.tema
+// (i.e. the same short key used as the URL slug: /estudiar/tipologias → "tipologias")
 
 const TOPIC_MAP: Record<string, TopicMeta> = {
   tipologias: {
     name: "BLOQUE 1: El Lavado de Dinero y el Financiamiento al Terrorismo",
-    description: "Conceptos, etapas y penas del Lavado de Dinero y Financiamiento al Terrorismo según el Código Penal Federal.",
-    tema: "Casos Prácticos Aplicados",
+    description:
+      "Conceptos, etapas y penas del Lavado de Dinero y Financiamiento al Terrorismo según el Código Penal Federal.",
+    tema: "tipologias",
     icon: BookOpen,
   },
   gafi: {
     name: "BLOQUE 2: Organismos y Foros Internacionales que Participan en PLD y FT",
-    description: "GAFI, sus 40 Recomendaciones, Grupo Egmont y otros organismos internacionales clave en ALD/CFT.",
-    tema: "Definiciones PLD/FT",
+    description:
+      "GAFI, sus 40 Recomendaciones, Grupo Egmont y otros organismos internacionales clave en ALD/CFT.",
+    tema: "gafi",
     icon: Layers,
   },
   sanciones: {
     name: "BLOQUE 3: Detección y Gestión de Riesgos en Materia de PLD/FT",
-    description: "Enfoque Basado en Riesgos, tipologías de LD/FT, señales de alerta y listas de personas bloqueadas.",
-    tema: "Identificación de Operaciones Sospechosas",
+    description:
+      "Enfoque Basado en Riesgos, tipologías de LD/FT, señales de alerta y listas de personas bloqueadas.",
+    tema: "sanciones",
     icon: AlertTriangle,
   },
   kyc_cdd: {
     name: "BLOQUE 4: Prevención y Combate del LD/FT en el Sistema Financiero Mexicano",
-    description: "Políticas KYC/CDD, Oficial de Cumplimiento, Comité de Comunicación y Control y sistemas automatizados.",
-    tema: "Procedimientos de Cumplimiento",
+    description:
+      "Políticas KYC/CDD, Oficial de Cumplimiento, Comité de Comunicación y Control y sistemas automatizados.",
+    tema: "kyc_cdd",
     icon: ClipboardList,
   },
   reportes_cnbv: {
     name: "BLOQUE 5: Régimen de Prevención del LD/FT en el Sistema Financiero Mexicano",
-    description: "Reportes de Operaciones Relevantes, Inusuales e Internas Preocupantes; sanciones y confidencialidad.",
-    tema: "Reportes y Documentación",
+    description:
+      "Reportes de Operaciones Relevantes, Inusuales e Internas Preocupantes; sanciones y confidencialidad.",
+    tema: "reportes_cnbv",
     icon: FileText,
   },
   marco_legal: {
     name: "BLOQUE 6: Nociones de la Ley FPIORPI",
-    description: "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y actividades vulnerables.",
-    tema: "Marco Regulatorio y Autoridades",
+    description:
+      "Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita y actividades vulnerables.",
+    tema: "marco_legal",
     icon: Scale,
   },
   une: {
     name: "BLOQUE 7: Auditoría en Materia de PLD/FT",
-    description: "Auditoría interna y externa del programa de PLD/FT, supervisión de la CNBV y evaluación mutua del GAFI.",
-    tema: "Actitud y Ética Profesional",
+    description:
+      "Auditoría interna y externa del programa de PLD/FT, supervisión de la CNBV y evaluación mutua del GAFI.",
+    tema: "une",
     icon: Star,
   },
 };
@@ -102,17 +117,25 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
+/**
+ * Converts a normalised QuizBankRow (from the API) into a QuizQuestion for
+ * the QuizCard component, randomising the option order.
+ */
 function bankRowToQuestion(row: QuizBankRow, seqId: number): QuizQuestion {
   const labels = ["A)", "B)", "C)", "D)"];
-  const indices = shuffleArray([0, 1, 2, 3]);
-  const options = indices.map((origIdx, pos) => `${labels[pos]} ${row.opciones[origIdx]}`);
+  // Shuffle the original option indices [0,1,2,3] so displayed order is random
+  const indices = shuffleArray([0, 1, 2, 3].slice(0, row.opciones.length));
+  const options = indices.map(
+    (origIdx, pos) => `${labels[pos]} ${row.opciones[origIdx]}`
+  );
+  // The correct answer is the option whose original index was row.respuesta_correcta
   const correctPos = indices.indexOf(row.respuesta_correcta);
   return {
     id: seqId,
-    question_id: row.id,
+    question_id: undefined, // QuizQuestion.question_id is number|undefined; we pass the uuid separately
     question: row.pregunta,
     options,
-    answer: options[correctPos],
+    answer: options[correctPos] ?? options[0],
     justification: `${row.explicacion}${row.fuente ? ` (Fuente: ${row.fuente})` : ""}`,
     source: "bank",
   };
@@ -141,106 +164,129 @@ export default function LeccionPage() {
   const [unlockedAchievements, setUnlockedAchievements] = useState<Achievement[]>([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
 
+  // Keep uuid strings for answer tracking (separate from QuizQuestion.id which is a seq number)
+  const questionUuidsRef = useRef<string[]>([]);
+
   // Refs avoid stale-closure issues in async callbacks
   const correctRef = useRef(0);
   const xpRef = useRef(0);
   const sessionIdRef = useRef<string | null>(null);
   const questionStartRef = useRef(Date.now());
 
-  // Fetch pending review count on mount
+  // ── Fetch pending review count on mount ────────────────────────────────────
   useEffect(() => {
     if (!topicInfo) return;
-    const sb = supabase();
-    sb.auth.getUser().then(async ({ data: { user } }) => {
-      if (!user) return;
-      const { data: bankRows } = await sb
-        .from("quiz_bank")
-        .select("id")
-        .eq("tema", topicInfo.tema);
-      const ids = (bankRows ?? []).map((r: { id: number }) => r.id);
-      if (ids.length === 0) { setDueCount(0); return; }
-      const { count } = await sb
-        .from("spaced_reviews")
-        .select("*", { count: "exact", head: true })
-        .eq("user_id", user.id)
-        .in("question_id", ids)
-        .lte("next_review_at", new Date().toISOString());
-      setDueCount(count ?? 0);
-    });
-  }, [topicInfo]);
+    (async () => {
+      try {
+        const headers = await buildAuthHeaders();
+        const res = await fetch(`/api/lesson/questions?tema=${temaSlug}`, {
+          headers,
+        });
+        if (res.ok) {
+          const data: { dueIds?: string[] } = await res.json();
+          setDueCount((data.dueIds ?? []).length);
+        } else {
+          setDueCount(0);
+        }
+      } catch {
+        setDueCount(0);
+      }
+    })();
+  }, [topicInfo, temaSlug]);
 
+  // ── Start lesson ───────────────────────────────────────────────────────────
   const startLesson = useCallback(async () => {
     if (!topicInfo) return;
     setLessonState("cargando");
 
-    const sb = supabase();
-    const { data: { user } } = await sb.auth.getUser();
-    if (!user) { router.push("/"); return; }
-
-    // Fetch all questions for this topic
-    const { data: bankRows } = await sb
-      .from("quiz_bank")
-      .select("*")
-      .eq("tema", topicInfo.tema);
-    const allRows = (bankRows ?? []) as QuizBankRow[];
-
-    // Find which are due for review
-    const dueSet = new Set<number>();
-    if (allRows.length > 0) {
-      const { data: dueRows } = await sb
-        .from("spaced_reviews")
-        .select("question_id")
-        .eq("user_id", user.id)
-        .in("question_id", allRows.map((r) => r.id))
-        .lte("next_review_at", new Date().toISOString());
-      (dueRows ?? []).forEach((r: { question_id: number }) => dueSet.add(r.question_id));
-    }
-
-    // Due reviews first, then new questions – capped at 10
-    const ordered = [
-      ...shuffleArray(allRows.filter((r) => dueSet.has(r.id))),
-      ...shuffleArray(allRows.filter((r) => !dueSet.has(r.id))),
-    ].slice(0, 10);
-
-    if (ordered.length === 0) {
-      setLessonState("inicio");
-      return;
-    }
-
-    const quizQuestions = ordered.map((row, i) => bankRowToQuestion(row, i + 1));
-
-    // Create exam session
-    const { data: session } = await sb
-      .from("exam_sessions")
-      .insert({ user_id: user.id, exam_type: "repaso", total_questions: quizQuestions.length })
-      .select("id")
-      .single();
-
-    // Update streak
     try {
+      // Auth check
+      const sb = supabase();
+      const {
+        data: { user },
+      } = await sb.auth.getUser();
+      if (!user) {
+        router.push("/");
+        return;
+      }
+
+      // Fetch questions via server API (uses supabaseAdmin — bypasses RLS,
+      // handles both opcion_a/b/c/d and opciones[] schema variants)
       const headers = await buildAuthHeaders({ "Content-Type": "application/json" });
+      const res = await fetch(`/api/lesson/questions?tema=${temaSlug}`, {
+        headers,
+      });
+
+      if (!res.ok) {
+        console.error("[startLesson] API error:", await res.text());
+        setLessonState("inicio");
+        return;
+      }
+
+      const { questions: bankRows, dueIds }: { questions: QuizBankRow[]; dueIds: string[] } =
+        await res.json();
+
+      if (bankRows.length === 0) {
+        setLessonState("inicio");
+        return;
+      }
+
+      const dueSet = new Set<string>(dueIds);
+
+      // Due reviews first, then new questions – capped at 10
+      const ordered = [
+        ...shuffleArray(bankRows.filter((r) => dueSet.has(r.id))),
+        ...shuffleArray(bankRows.filter((r) => !dueSet.has(r.id))),
+      ].slice(0, 10);
+
+      if (ordered.length === 0) {
+        setLessonState("inicio");
+        return;
+      }
+
+      const quizQuestions = ordered.map((row, i) => bankRowToQuestion(row, i + 1));
+      // Store uuids in the same order so handleAnswer can look them up
+      questionUuidsRef.current = ordered.map((r) => r.id);
+
+      // Create exam session
+      const { data: session } = await sb
+        .from("exam_sessions")
+        .insert({
+          user_id: user.id,
+          exam_type: "repaso",
+          total_questions: quizQuestions.length,
+        })
+        .select("id")
+        .single();
+
+      // Update streak (fire-and-forget)
       fetch("/api/streak", { method: "POST", headers }).catch(console.error);
-    } catch {
-      // streak update failed, continue anyway
+
+      // Reset counters
+      correctRef.current = 0;
+      xpRef.current = 0;
+      questionStartRef.current = Date.now();
+      sessionIdRef.current = session?.id ?? null;
+
+      setQuestions(quizQuestions);
+      setCurrentIndex(0);
+      setResults(null);
+      setLessonState("leccion");
+    } catch (err) {
+      console.error("[startLesson] error:", err);
+      setLessonState("inicio");
     }
+  }, [topicInfo, temaSlug, router]);
 
-    // Reset counters
-    correctRef.current = 0;
-    xpRef.current = 0;
-    questionStartRef.current = Date.now();
-    sessionIdRef.current = session?.id ?? null;
-
-    setQuestions(quizQuestions);
-    setCurrentIndex(0);
-    setResults(null);
-    setLessonState("leccion");
-  }, [topicInfo, router]);
-
+  // ── Handle answer ──────────────────────────────────────────────────────────
   const handleAnswer = useCallback(
-    async (isCorrect: boolean, questionId?: number, selectedOption?: string) => {
+    async (isCorrect: boolean, _questionId?: number, selectedOption?: string) => {
       if (isCorrect) correctRef.current++;
       xpRef.current += isCorrect ? 10 : 3;
-      if (!questionId) return;
+
+      // Use the uuid stored at the matching index
+      const questionUuid = questionUuidsRef.current[currentIndex];
+      if (!questionUuid) return;
 
       const elapsed = Math.round((Date.now() - questionStartRef.current) / 1000);
       try {
@@ -250,7 +296,7 @@ export default function LeccionPage() {
           headers,
           body: JSON.stringify({
             session_id: sessionIdRef.current,
-            question_id: questionId,
+            question_id: questionUuid,
             opcion_elegida: selectedOption?.charAt(0) ?? null,
             es_correcta: isCorrect,
             tiempo_respuesta_seg: elapsed,
@@ -260,9 +306,10 @@ export default function LeccionPage() {
         // session expired – continue lesson anyway
       }
     },
-    []
+    [currentIndex]
   );
 
+  // ── Navigate ───────────────────────────────────────────────────────────────
   const handleNext = useCallback(async () => {
     const next = currentIndex + 1;
 
@@ -277,7 +324,10 @@ export default function LeccionPage() {
           .update({
             estado: "completado",
             correct_answers: finalCorrect,
-            score: finalTotal > 0 ? Number(((finalCorrect / finalTotal) * 100).toFixed(2)) : 0,
+            score:
+              finalTotal > 0
+                ? Number(((finalCorrect / finalTotal) * 100).toFixed(2))
+                : 0,
             completed_at: new Date().toISOString(),
           })
           .eq("id", sid)
@@ -309,7 +359,7 @@ export default function LeccionPage() {
     }
   }, [currentIndex, questions.length]);
 
-  // ── Topic not found ──────────────────────────────────────────────────────────
+  // ── Topic not found ────────────────────────────────────────────────────────
   if (!topicInfo) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
@@ -324,11 +374,16 @@ export default function LeccionPage() {
   const TopicIcon = topicInfo.icon;
   const progress = questions.length > 0 ? (currentIndex / questions.length) * 100 : 0;
 
-  // ── Inicio ───────────────────────────────────────────────────────────────────
+  // ── Inicio ─────────────────────────────────────────────────────────────────
   if (lessonState === "inicio") {
     return (
       <div className="max-w-2xl mx-auto py-8 px-4 flex flex-col gap-6">
-        <Button onClick={() => router.back()} variant="ghost" size="sm" className="self-start gap-2 text-slate-500">
+        <Button
+          onClick={() => router.back()}
+          variant="ghost"
+          size="sm"
+          className="self-start gap-2 text-slate-500"
+        >
           <ArrowLeft className="h-4 w-4" /> Volver
         </Button>
 
@@ -348,10 +403,14 @@ export default function LeccionPage() {
             <p className="text-3xl font-black text-blue-700">
               {dueCount === null ? "…" : dueCount}
             </p>
-            <p className="text-xs font-bold text-blue-500 uppercase tracking-wide">pendientes</p>
+            <p className="text-xs font-bold text-blue-500 uppercase tracking-wide">
+              pendientes
+            </p>
           </div>
           <div className="border-l border-blue-200 pl-4">
-            <p className="text-sm font-semibold text-blue-800">Repasos vencidos en este tema</p>
+            <p className="text-sm font-semibold text-blue-800">
+              Repasos vencidos en este tema
+            </p>
             <p className="text-xs text-blue-500 mt-0.5">
               {dueCount === null
                 ? "Calculando…"
@@ -364,7 +423,9 @@ export default function LeccionPage() {
 
         {/* Info list */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-3">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Esta lección incluye</p>
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">
+            Esta lección incluye
+          </p>
           {[
             "10 preguntas seleccionadas inteligentemente",
             "Repasos vencidos primero, luego preguntas nuevas",
@@ -388,7 +449,7 @@ export default function LeccionPage() {
     );
   }
 
-  // ── Cargando ─────────────────────────────────────────────────────────────────
+  // ── Cargando ───────────────────────────────────────────────────────────────
   if (lessonState === "cargando") {
     return (
       <div className="max-w-2xl mx-auto py-8 px-4 flex flex-col gap-6">
@@ -396,14 +457,16 @@ export default function LeccionPage() {
           <div className="h-2 bg-slate-200 rounded-full overflow-hidden">
             <div className="h-full w-1/3 bg-blue-500 rounded-full animate-pulse" />
           </div>
-          <p className="text-sm text-slate-400 text-center">Preparando tu lección…</p>
+          <p className="text-sm text-slate-400 text-center">
+            Preparando tu lección…
+          </p>
         </div>
         <QuizCardSkeleton />
       </div>
     );
   }
 
-  // ── Lección ──────────────────────────────────────────────────────────────────
+  // ── Lección ────────────────────────────────────────────────────────────────
   if (lessonState === "leccion") {
     const q = questions[currentIndex];
     return (
@@ -411,7 +474,9 @@ export default function LeccionPage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <TopicIcon className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-bold text-slate-700 truncate max-w-[200px]">{topicInfo.name}</span>
+            <span className="text-sm font-bold text-slate-700 truncate max-w-[200px]">
+              {topicInfo.name}
+            </span>
           </div>
           <Badge variant="outline" className="text-xs font-bold shrink-0">
             {currentIndex + 1} / {questions.length}
@@ -432,9 +497,12 @@ export default function LeccionPage() {
     );
   }
 
-  // ── Resultados ───────────────────────────────────────────────────────────────
+  // ── Resultados ─────────────────────────────────────────────────────────────
   if (lessonState === "resultados" && results) {
-    const score = results.total > 0 ? Math.round((results.correct / results.total) * 100) : 0;
+    const score =
+      results.total > 0
+        ? Math.round((results.correct / results.total) * 100)
+        : 0;
     const incorrect = results.total - results.correct;
 
     return (
@@ -443,8 +511,12 @@ export default function LeccionPage() {
           <div className="mx-auto mb-4 h-20 w-20 rounded-full bg-amber-100 flex items-center justify-center">
             <Trophy className="h-10 w-10 text-amber-500" />
           </div>
-          <h1 className="text-2xl font-black text-slate-900">Lección completada</h1>
-          <p className="text-slate-500 mt-1 text-sm">{motivationalMessage(score)}</p>
+          <h1 className="text-2xl font-black text-slate-900">
+            Lección completada
+          </h1>
+          <p className="text-slate-500 mt-1 text-sm">
+            {motivationalMessage(score)}
+          </p>
         </div>
 
         {/* Score cards */}
@@ -454,21 +526,43 @@ export default function LeccionPage() {
               label: "Puntaje",
               value: `${score}%`,
               color: score >= 70 ? "text-emerald-600" : "text-orange-500",
-              bg: score >= 70 ? "bg-emerald-50 border-emerald-100" : "bg-orange-50 border-orange-100",
+              bg:
+                score >= 70
+                  ? "bg-emerald-50 border-emerald-100"
+                  : "bg-orange-50 border-orange-100",
             },
-            { label: "Correctas", value: `${results.correct}/${results.total}`, color: "text-blue-600", bg: "bg-blue-50 border-blue-100" },
-            { label: "XP ganado", value: `+${results.xp}`, color: "text-amber-600", bg: "bg-amber-50 border-amber-100" },
+            {
+              label: "Correctas",
+              value: `${results.correct}/${results.total}`,
+              color: "text-blue-600",
+              bg: "bg-blue-50 border-blue-100",
+            },
+            {
+              label: "XP ganado",
+              value: `+${results.xp}`,
+              color: "text-amber-600",
+              bg: "bg-amber-50 border-amber-100",
+            },
           ].map((stat) => (
-            <div key={stat.label} className={`rounded-2xl border ${stat.bg} p-4 text-center`}>
-              <p className={`text-2xl font-black ${stat.color}`}>{stat.value}</p>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-1">{stat.label}</p>
+            <div
+              key={stat.label}
+              className={`rounded-2xl border ${stat.bg} p-4 text-center`}
+            >
+              <p className={`text-2xl font-black ${stat.color}`}>
+                {stat.value}
+              </p>
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wide mt-1">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
 
         {/* XP breakdown */}
         <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-3">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Desglose de XP</p>
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">
+            Desglose de XP
+          </p>
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-2 text-slate-600">
               <CheckCircle className="h-4 w-4 text-emerald-500" />
@@ -496,7 +590,11 @@ export default function LeccionPage() {
         </div>
 
         <div className="flex gap-3">
-          <Button variant="outline" onClick={startLesson} className="flex-1 font-bold">
+          <Button
+            variant="outline"
+            onClick={startLesson}
+            className="flex-1 font-bold"
+          >
             Repetir lección
           </Button>
           <Button
@@ -510,8 +608,8 @@ export default function LeccionPage() {
     );
   }
 
+  // ── Achievement toasts (rendered on top of results) ────────────────────────
   const currentAchievement = unlockedAchievements[currentAchievementIndex] || null;
-
   return (
     <>
       <AchievementToast
