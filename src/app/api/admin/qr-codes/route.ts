@@ -124,3 +124,49 @@ export async function DELETE(req: NextRequest) {
 
   return NextResponse.json({ success: true });
 }
+
+// PATCH /api/admin/qr-codes — reactivate an expired or exhausted QR code
+// Body: { id, expires_in_hours, reset_uses? }
+export async function PATCH(req: NextRequest) {
+  const adminId = await assertAdmin(req);
+  if (!adminId) {
+    return NextResponse.json({ error: "No autorizado" }, { status: 403 });
+  }
+
+  const body = await req.json().catch(() => ({}));
+  const id = typeof body.id === "string" ? body.id : null;
+  if (!id) {
+    return NextResponse.json({ error: "Se requiere id" }, { status: 400 });
+  }
+
+  // expires_in_hours: how many more hours to make the QR valid from now (1–8760)
+  const rawExpHrs = Number(body.expires_in_hours);
+  const expiresInHours: number =
+    isNaN(rawExpHrs) || rawExpHrs < 1 ? 24 : Math.min(Math.floor(rawExpHrs), 8760);
+
+  const resetUses = body.reset_uses === true;
+
+  const newExpiresAt = new Date(Date.now() + expiresInHours * 60 * 60 * 1000);
+
+  const updatePayload: Record<string, unknown> = {
+    expires_at: newExpiresAt.toISOString(),
+  };
+  if (resetUses) {
+    updatePayload.use_count = 0;
+  }
+
+  const sb = supabaseAdmin();
+  const { data, error } = await sb
+    .from("premium_qr_codes")
+    .update(updatePayload)
+    .eq("id", id)
+    .select("id, token, label, expires_at, premium_until, max_uses, use_count, activated_by, activated_at, created_at")
+    .single();
+
+  if (error || !data) {
+    console.error("[qr-codes] reactivate error:", error);
+    return NextResponse.json({ error: "Error reactivando código" }, { status: 500 });
+  }
+
+  return NextResponse.json({ code: data });
+}

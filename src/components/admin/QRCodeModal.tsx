@@ -240,6 +240,12 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
   const [loadingCodes,    setLoadingCodes]    = React.useState(true)
   const [showHistory,     setShowHistory]     = React.useState(false)
   const [deletingId,      setDeletingId]      = React.useState<string | null>(null)
+  // ── Reactivation ────────────────────────────────────────────────────────────
+  const [reactivatingId,      setReactivatingId]      = React.useState<string | null>(null)
+  const [reactivateHrsRaw,    setReactivateHrsRaw]    = React.useState("24")
+  const [reactivateResetUses, setReactivateResetUses] = React.useState(false)
+  const [reactivating,        setReactivating]        = React.useState(false)
+  const [reactivateError,     setReactivateError]     = React.useState<string | null>(null)
   // ── Active code ─────────────────────────────────────────────────────────────
   const [activeCode,      setActiveCode]      = React.useState<QRCode | null>(null)
   const [cardDataUrl,     setCardDataUrl]     = React.useState<string | null>(null)
@@ -351,6 +357,41 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
       if (activeCode?.id === id) { setActiveCode(null); setRedemptions([]) }
     } catch (e) { console.error(e) }
     finally { setDeletingId(null) }
+  }
+
+  function cancelReactivate() {
+    setReactivatingId(null)
+    setReactivateHrsRaw("24")
+    setReactivateResetUses(false)
+    setReactivateError(null)
+  }
+
+  async function handleReactivate(id: string) {
+    setReactivating(true)
+    setReactivateError(null)
+    try {
+      const hrs = parseExpiresHrs(reactivateHrsRaw)
+      const h = await getAuthHeaders()
+      const res = await fetch("/api/admin/qr-codes", {
+        method: "PATCH",
+        headers: h,
+        body: JSON.stringify({
+          id,
+          expires_in_hours: hrs,
+          reset_uses: reactivateResetUses,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? `Error ${res.status}`)
+      // Update the code in the list + active code if needed
+      setCodes(prev => prev.map(c => c.id === id ? data.code : c))
+      if (activeCode?.id === id) setActiveCode(data.code)
+      cancelReactivate()
+    } catch (err: unknown) {
+      setReactivateError(err instanceof Error ? err.message : "Error reactivando código")
+    } finally {
+      setReactivating(false)
+    }
   }
 
   function handleDownload() {
@@ -665,60 +706,161 @@ export function QRCodeModal({ siteUrl, onClose }: QRCodeModalProps) {
                 {!loadingCodes && codes.map(code => {
                   const { fullyUsed, expired } = codeStatus(code)
                   const isActive = activeCode?.id === code.id
+                  const canReactivate = fullyUsed || expired
+                  const isExpandedReactivate = reactivatingId === code.id
                   return (
-                    <div
-                      key={code.id}
-                      className={cn(
-                        "group flex items-start gap-2 rounded-xl p-3 border transition-all text-xs",
-                        isActive
-                          ? "border-indigo-500/60 bg-indigo-500/10"
-                          : fullyUsed || expired
-                            ? "border-white/5 bg-white/[0.03] opacity-55"
-                            : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/[0.08]"
-                      )}
-                    >
-                      {/* Clickable info area — any code can be selected to view details */}
-                      <button
-                        onClick={() => setActiveCode(code)}
-                        className="flex-1 min-w-0 text-left"
+                    <div key={code.id} className="space-y-0">
+                      <div
+                        className={cn(
+                          "group flex items-start gap-2 rounded-xl p-3 border transition-all text-xs",
+                          isExpandedReactivate
+                            ? "rounded-b-none border-b-0 border-emerald-500/30 bg-emerald-500/5"
+                            : isActive
+                              ? "border-indigo-500/60 bg-indigo-500/10"
+                              : canReactivate
+                                ? "border-white/5 bg-white/[0.03] opacity-55"
+                                : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/[0.08]"
+                        )}
                       >
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-mono text-white/60 truncate">{code.token.slice(0, 14)}…</span>
-                          <span className={cn(
-                            "shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold",
-                            fullyUsed ? "bg-amber-500/15 text-amber-400"   :
-                            expired   ? "bg-red-500/15   text-red-400"     :
-                                        "bg-indigo-500/15 text-indigo-400"
-                          )}>
-                            {fullyUsed ? "Agotado" : expired ? "Expirado" : "Activo"}
-                          </span>
-                          {/* Use count badge */}
-                          <span className="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/50">
-                            <Users className="h-2.5 w-2.5" />
-                            {usesLabel(code)}
-                          </span>
-                          <span className="shrink-0 text-white/25 text-[10px]">{getPremiumLabel(code)}</span>
-                        </div>
-                        <div className="flex items-center gap-2 mt-1 text-white/35 flex-wrap">
-                          {code.label && <span className="text-white/50">{code.label}</span>}
-                          <span>{fmtDate(code.created_at)}</span>
-                          {code.activated_name && (
-                            <span className="text-emerald-400/70">→ {code.activated_name}</span>
-                          )}
-                        </div>
-                      </button>
+                        {/* Clickable info area — any code can be selected to view details */}
+                        <button
+                          onClick={() => setActiveCode(code)}
+                          className="flex-1 min-w-0 text-left"
+                        >
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-mono text-white/60 truncate">{code.token.slice(0, 14)}…</span>
+                            <span className={cn(
+                              "shrink-0 px-2 py-0.5 rounded-full text-[10px] font-bold",
+                              fullyUsed ? "bg-amber-500/15 text-amber-400"   :
+                              expired   ? "bg-red-500/15   text-red-400"     :
+                                          "bg-indigo-500/15 text-indigo-400"
+                            )}>
+                              {fullyUsed ? "Agotado" : expired ? "Expirado" : "Activo"}
+                            </span>
+                            {/* Use count badge */}
+                            <span className="shrink-0 flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/50">
+                              <Users className="h-2.5 w-2.5" />
+                              {usesLabel(code)}
+                            </span>
+                            <span className="shrink-0 text-white/25 text-[10px]">{getPremiumLabel(code)}</span>
+                          </div>
+                          <div className="flex items-center gap-2 mt-1 text-white/35 flex-wrap">
+                            {code.label && <span className="text-white/50">{code.label}</span>}
+                            <span>{fmtDate(code.created_at)}</span>
+                            {code.activated_name && (
+                              <span className="text-emerald-400/70">→ {code.activated_name}</span>
+                            )}
+                          </div>
+                        </button>
 
-                      {/* Delete */}
-                      <button
-                        onClick={() => handleDelete(code.id)}
-                        disabled={deletingId === code.id}
-                        title="Eliminar código"
-                        className="shrink-0 h-7 w-7 rounded-lg flex items-center justify-center text-white/25 hover:text-red-400 hover:bg-red-500/10 transition-colors opacity-0 group-hover:opacity-100"
-                      >
-                        {deletingId === code.id
-                          ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                          : <Trash2 className="h-3.5 w-3.5" />}
-                      </button>
+                        {/* Reactivate button — only for expired/exhausted codes */}
+                        {canReactivate && (
+                          <button
+                            onClick={() =>
+                              isExpandedReactivate
+                                ? cancelReactivate()
+                                : (setReactivatingId(code.id), setReactivateError(null))
+                            }
+                            title={isExpandedReactivate ? "Cancelar reactivación" : "Reactivar código"}
+                            className={cn(
+                              "shimmer-btn shrink-0 h-7 w-7 rounded-lg flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100",
+                              isExpandedReactivate
+                                ? "text-emerald-400 bg-emerald-500/15 opacity-100"
+                                : "text-white/25 hover:text-emerald-400 hover:bg-emerald-500/10"
+                            )}
+                          >
+                            <RefreshCw className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+
+                        {/* Delete */}
+                        <button
+                          onClick={() => handleDelete(code.id)}
+                          disabled={deletingId === code.id}
+                          title="Eliminar código"
+                          className="shrink-0 h-7 w-7 rounded-lg flex items-center justify-center text-white/25 hover:text-red-400 hover:bg-red-500/10 transition-colors opacity-0 group-hover:opacity-100"
+                        >
+                          {deletingId === code.id
+                            ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                            : <Trash2 className="h-3.5 w-3.5" />}
+                        </button>
+                      </div>
+
+                      {/* ── Inline reactivation panel ── */}
+                      {isExpandedReactivate && (
+                        <div className="rounded-b-xl border border-t-0 border-emerald-500/30 bg-emerald-500/5 px-3 pb-3 pt-2.5 space-y-2.5">
+                          <p className="text-[10px] font-black text-emerald-400/80 uppercase tracking-widest flex items-center gap-1.5">
+                            <RefreshCw className="h-3 w-3" />
+                            Reactivar código
+                          </p>
+
+                          {/* Duration input */}
+                          <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-[11px] text-white/45 shrink-0">Extender QR</span>
+                              <Input
+                                type="number"
+                                min="1"
+                                value={reactivateHrsRaw}
+                                onChange={e => setReactivateHrsRaw(e.target.value)}
+                                className="bg-white/5 border-white/10 text-white text-sm rounded-lg h-8 w-20 focus:border-emerald-500 focus:ring-emerald-500/20"
+                              />
+                              <span className="text-[11px] text-white/45 shrink-0">horas</span>
+                            </div>
+                            <span className="text-white/20 text-xs hidden sm:inline">
+                              {parseExpiresHrs(reactivateHrsRaw) < 24
+                                ? `${parseExpiresHrs(reactivateHrsRaw)}h`
+                                : parseExpiresHrs(reactivateHrsRaw) < 168
+                                  ? `${Math.round(parseExpiresHrs(reactivateHrsRaw) / 24)}d`
+                                  : `${Math.round(parseExpiresHrs(reactivateHrsRaw) / 168)}sem`}
+                            </span>
+                          </div>
+
+                          {/* Reset uses checkbox — only relevant if code was exhausted */}
+                          {fullyUsed && (
+                            <label className="flex items-center gap-2 cursor-pointer w-fit">
+                              <input
+                                type="checkbox"
+                                checked={reactivateResetUses}
+                                onChange={e => setReactivateResetUses(e.target.checked)}
+                                className="rounded accent-emerald-500 h-3.5 w-3.5"
+                              />
+                              <span className="text-[11px] text-white/50">
+                                Reiniciar contador de usos
+                                <span className="text-white/25 ml-1">
+                                  ({code.use_count}/{code.max_uses ?? "∞"} → 0)
+                                </span>
+                              </span>
+                            </label>
+                          )}
+
+                          {reactivateError && (
+                            <div className="flex items-center gap-1.5 text-[11px] text-red-400 bg-red-500/10 rounded-lg px-2.5 py-1.5">
+                              <AlertTriangle className="h-3 w-3 shrink-0" />{reactivateError}
+                            </div>
+                          )}
+
+                          {/* Action buttons */}
+                          <div className="flex gap-2 pt-0.5">
+                            <button
+                              onClick={() => handleReactivate(code.id)}
+                              disabled={reactivating}
+                              className="shimmer-btn flex items-center justify-center gap-1.5 rounded-lg h-8 px-4 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold transition-colors"
+                            >
+                              {reactivating
+                                ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                : <><RefreshCw className="h-3.5 w-3.5" />Reactivar</>}
+                            </button>
+                            <button
+                              onClick={cancelReactivate}
+                              disabled={reactivating}
+                              className="px-3 rounded-lg h-8 bg-white/5 hover:bg-white/10 text-white/40 hover:text-white/70 text-xs font-semibold transition-colors"
+                            >
+                              Cancelar
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )
                 })}
