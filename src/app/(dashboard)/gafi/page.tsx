@@ -5,10 +5,12 @@ import { motion } from "framer-motion"
 import {
   Globe, GraduationCap, MessageSquare, BookOpen,
   Shield, Users, FileText, AlertTriangle, Scale, ChevronDown,
+  Gamepad2, Zap, Target,
 } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 /* ─── Types ─────────────────────────────────────────────────────────── */
@@ -244,8 +246,90 @@ export default function GafiPage() {
         </Link>
       </motion.div>
 
+      {/* ── PRACTICAR LAS 40 RECOMENDACIONES ── */}
+      <motion.div
+        custom={2} variants={fadeUp} initial="hidden" animate="visible"
+        className="rounded-2xl border-2 border-teal-300 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 overflow-hidden shadow-sm"
+      >
+        {/* Header */}
+        <div className="flex items-center gap-3 px-6 py-4 border-b border-teal-200 bg-white/60">
+          <div className="h-10 w-10 rounded-xl bg-teal-600 flex items-center justify-center shrink-0">
+            <Gamepad2 className="h-5 w-5 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-black text-teal-900 text-base leading-tight">
+              Practica el dominio de las 40 Recomendaciones
+            </p>
+            <p className="text-xs text-teal-600 font-medium mt-0.5">
+              Contenido teórico · Ejercicios interactivos · Quiz tipo CENEVAL
+            </p>
+          </div>
+          <Badge className="bg-teal-100 text-teal-700 border-teal-300 text-xs font-black shrink-0">
+            BLOQUE 2
+          </Badge>
+        </div>
+
+        {/* Exercise types */}
+        <div className="px-6 py-4">
+          <p className="text-[11px] font-black text-teal-700 uppercase tracking-wider mb-3">
+            Formatos de práctica disponibles
+          </p>
+          <div className="flex flex-wrap gap-2 mb-5">
+            {[
+              { label: "Opción múltiple CENEVAL", color: "bg-blue-100 text-blue-800 border-blue-200" },
+              { label: "Sopa de letras",           color: "bg-violet-100 text-violet-800 border-violet-200" },
+              { label: "Crucigrama",               color: "bg-rose-100 text-rose-800 border-rose-200" },
+              { label: "Caso práctico",             color: "bg-amber-100 text-amber-800 border-amber-200" },
+              { label: "Relacionar conceptos",      color: "bg-emerald-100 text-emerald-800 border-emerald-200" },
+              { label: "Completar espacios",        color: "bg-orange-100 text-orange-800 border-orange-200" },
+            ].map((tag) => (
+              <span key={tag.label} className={cn("text-[11px] font-bold px-2.5 py-1 rounded-full border", tag.color)}>
+                {tag.label}
+              </span>
+            ))}
+          </div>
+
+          {/* 3 action buttons — same tabs as Modo Estudio */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <Link href="/estudio/bloque/2?tab=teoria">
+              <Button variant="outline" className="w-full h-12 border-2 border-teal-300 text-teal-800 hover:bg-teal-100 font-bold gap-2 rounded-xl">
+                <BookOpen className="h-4 w-4 shrink-0" />
+                Contenido Teórico
+              </Button>
+            </Link>
+            <Link href="/estudio/bloque/2?tab=ejercicios">
+              <Button variant="outline" className="w-full h-12 border-2 border-violet-300 text-violet-800 hover:bg-violet-50 font-bold gap-2 rounded-xl">
+                <Gamepad2 className="h-4 w-4 shrink-0" />
+                Ejercicios
+              </Button>
+            </Link>
+            <Link href="/estudio/bloque/2?tab=practicar">
+              <Button className="w-full h-12 bg-teal-600 hover:bg-teal-700 text-white font-black gap-2 rounded-xl border-b-4 border-teal-800 active:border-b-0 active:translate-y-0.5 transition-all">
+                <Target className="h-4 w-4 shrink-0" />
+                Practicar Quiz
+              </Button>
+            </Link>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex items-center gap-4 mt-4 pt-4 border-t border-teal-200">
+            {[
+              { icon: Zap,        value: "123",  label: "Preguntas CENEVAL" },
+              { icon: Gamepad2,   value: "6",    label: "Ejercicios interactivos" },
+              { icon: Target,     value: "40",   label: "Recomendaciones cubiertas" },
+            ].map(({ icon: Icon, value, label }) => (
+              <div key={label} className="flex items-center gap-1.5 text-teal-700">
+                <Icon className="h-3.5 w-3.5 shrink-0 text-teal-500" />
+                <span className="text-sm font-black">{value}</span>
+                <span className="text-xs text-teal-600 hidden sm:inline">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
       {/* ── 4 PILARES INTERACTIVOS ── */}
-      <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
+      <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
         <div className="flex items-center gap-2 mb-4">
           <Scale className="h-5 w-5 text-teal-600" />
           <h2 className="text-xl font-bold text-slate-900">Las 40 Recomendaciones GAFI</h2>
@@ -259,7 +343,7 @@ export default function GafiPage() {
 
         <div className="flex flex-col gap-5">
           {PILLARS.map((pillar, pi) => (
-            <motion.div key={pillar.code} custom={3 + pi} variants={fadeUp} initial="hidden" animate="visible">
+            <motion.div key={pillar.code} custom={4 + pi} variants={fadeUp} initial="hidden" animate="visible">
               <div className={cn("rounded-2xl border-2 overflow-hidden shadow-sm", pillar.border)}>
                 {/* Pillar header */}
                 <div className={cn("flex items-center gap-3 px-5 py-4", pillar.color)}>
@@ -409,7 +493,7 @@ export default function GafiPage() {
       </motion.div>
 
       {/* ── TEMAS CLAVE PARA EL EXAMEN ── */}
-      <motion.div custom={7} variants={fadeUp} initial="hidden" animate="visible">
+      <motion.div custom={8} variants={fadeUp} initial="hidden" animate="visible">
         <Card className="border-2 border-amber-200 bg-amber-50/50">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-amber-800 text-lg">

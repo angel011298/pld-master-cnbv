@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import confetti from "canvas-confetti";
@@ -3009,17 +3009,23 @@ function EjercicioCard({
 export default function BloquePage() {
   const params  = useParams();
   const router  = useRouter();
+  const searchParams = useSearchParams();
   const bloqueId = params.id as string;
   const bloqueNum = parseInt(bloqueId, 10);
 
   const syllabus = CNBV_SYLLABUS[bloqueNum - 1];
   const temaSlug = BLOQUE_TEMA_MAP[bloqueId];
 
+  // Allow ?tab=ejercicios or ?tab=practicar to land on a specific tab directly
+  const initialTab = (searchParams.get("tab") ?? "teoria") as "teoria" | "ejercicios" | "practicar";
+
   const [content, setContent]   = useState<ContentItem[]>([]);
   const [ejercicios, setEjercicios] = useState<Ejercicio[]>([]);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"teoria" | "ejercicios" | "practicar">("teoria");
+  const [activeTab, setActiveTab] = useState<"teoria" | "ejercicios" | "practicar">(
+    ["teoria","ejercicios","practicar"].includes(initialTab) ? initialTab : "teoria"
+  );
 
   // Exercise scoring
   const [scores, setScores] = useState<Record<number, number>>({});
