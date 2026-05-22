@@ -151,7 +151,7 @@ export default function GafiPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/educational-content?bloque=2")
+    fetch("/api/educational-content?bloque=8")
       .then((r) => r.json())
       .then((data: { content: ContentItem[] }) => {
         const map: Record<number, RecContent> = {}
@@ -265,7 +265,7 @@ export default function GafiPage() {
             </p>
           </div>
           <Badge className="bg-teal-100 text-teal-700 border-teal-300 text-xs font-black shrink-0">
-            BLOQUE 2
+            40 GAFI
           </Badge>
         </div>
 
@@ -291,19 +291,19 @@ export default function GafiPage() {
 
           {/* 3 action buttons — same tabs as Modo Estudio */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <Link href="/estudio/bloque/2?tab=teoria">
+            <Link href="/gafi/estudiar?tab=teoria">
               <Button variant="outline" className="w-full h-12 border-2 border-teal-300 text-teal-800 hover:bg-teal-100 font-bold gap-2 rounded-xl">
                 <BookOpen className="h-4 w-4 shrink-0" />
                 Contenido Teórico
               </Button>
             </Link>
-            <Link href="/estudio/bloque/2?tab=ejercicios">
+            <Link href="/gafi/estudiar?tab=ejercicios">
               <Button variant="outline" className="w-full h-12 border-2 border-violet-300 text-violet-800 hover:bg-violet-50 font-bold gap-2 rounded-xl">
                 <Gamepad2 className="h-4 w-4 shrink-0" />
                 Ejercicios
               </Button>
             </Link>
-            <Link href="/estudio/bloque/2?tab=practicar">
+            <Link href="/gafi/estudiar?tab=practicar">
               <Button className="w-full h-12 bg-teal-600 hover:bg-teal-700 text-white font-black gap-2 rounded-xl border-b-4 border-teal-800 active:border-b-0 active:translate-y-0.5 transition-all">
                 <Target className="h-4 w-4 shrink-0" />
                 Practicar Quiz

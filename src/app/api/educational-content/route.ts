@@ -14,6 +14,8 @@ const BLOQUE_FILES: Record<number, string[]> = {
   5: ["bloque5-educational.json"],
   6: ["bloque6-educational.json"],
   7: ["bloque7-educational.json"],
+  // bloque 8 = dedicated 40 GAFI Recommendations content (used by /gafi/estudiar)
+  8: ["gafi-educational.json"],
 };
 
 const EJERCICIOS_FILES: Record<number, string> = {
@@ -24,6 +26,8 @@ const EJERCICIOS_FILES: Record<number, string> = {
   5: "bloque5-ejercicios.json",
   6: "bloque6-ejercicios.json",
   7: "bloque7-ejercicios.json",
+  // bloque 8 = dedicated GAFI exercises
+  8: "gafi-ejercicios.json",
 };
 
 function readJsonFile(dir: string, filename: string): unknown[] {
