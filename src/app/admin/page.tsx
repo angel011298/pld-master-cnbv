@@ -115,6 +115,11 @@ export default function AdminPage() {
   const [reminderChs,     setReminderChs]      = React.useState<string[]>(["email"])
   const [reminderSaving,  setReminderSaving]   = React.useState(false)
 
+  // Premium grant / revoke (directo, sin pago)
+  const [premiumPanelFor, setPremiumPanelFor] = React.useState<string | null>(null)
+  const [grantDaysRaw,    setGrantDaysRaw]    = React.useState("61")
+  const [grantingPremium, setGrantingPremium] = React.useState(false)
+
   // Estados UI para Modales y Módulos
   const [showAddModal, setShowAddModal] = React.useState(false)
   const [showQRModal, setShowQRModal] = React.useState(false)
@@ -434,6 +439,45 @@ export default function AdminPage() {
       alert(err.message);
     }
   };
+
+  const handleGrantPremium = async (userId: string) => {
+    const rawDays = parseInt(grantDaysRaw, 10)
+    const premiumDays = isNaN(rawDays) || rawDays < 1 ? 61 : Math.min(rawDays, 3650)
+    setGrantingPremium(true)
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'grant_premium', userId, premiumDays }),
+      })
+      if (!res.ok) throw new Error((await res.json()).error ?? 'Error al otorgar premium')
+      setPremiumPanelFor(null)
+      fetchRealtimeData()
+    } catch (err: any) {
+      alert(err.message)
+    } finally {
+      setGrantingPremium(false)
+    }
+  }
+
+  const handleRevokePremium = async (userId: string) => {
+    if (!confirm('¿Revocar el acceso Premium de este usuario? Pasará a plan Free de inmediato.')) return
+    setGrantingPremium(true)
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'revoke_premium', userId }),
+      })
+      if (!res.ok) throw new Error((await res.json()).error ?? 'Error al revocar premium')
+      setPremiumPanelFor(null)
+      fetchRealtimeData()
+    } catch (err: any) {
+      alert(err.message)
+    } finally {
+      setGrantingPremium(false)
+    }
+  }
 
   // HANDLERS MARKETING INTERACTIVO
   const handleAIAction = async (type: 'copy' | 'segmentation') => {
@@ -1446,7 +1490,7 @@ export default function AdminPage() {
                   const pwVisible = showPasswordFor.has(u.user_id)
 
                   return (
-                    <div key={u.user_id} className={`rounded-xl border shadow-sm transition-colors ${u.status === 'suspended' ? 'bg-red-50 border-red-200 opacity-75' : 'bg-white border-gray-200'}`}>
+                    <div key={u.user_id} className={`rounded-xl border shadow-sm transition-colors overflow-hidden ${u.status === 'suspended' ? 'bg-red-50 border-red-200 opacity-75' : 'bg-white border-gray-200'}`}>
                       {/* Main row */}
                       <div className="flex items-center gap-3 p-4">
                         <div className={`h-10 w-10 rounded-xl flex items-center justify-center shrink-0 ${u.status === 'suspended' ? 'bg-red-100 text-red-700' : 'bg-blue-50 border border-blue-100 text-blue-700'}`}>
@@ -1568,6 +1612,21 @@ export default function AdminPage() {
                           <Button size="sm" variant="ghost" onClick={() => handleToggleStatus(u.user_id, u.status)} className={`h-8 w-8 p-0 ${u.status === 'suspended' ? 'text-emerald-600 hover:bg-emerald-50' : 'text-orange-500 hover:bg-orange-50'}`} title={u.status === 'suspended' ? 'Reactivar Cuenta' : 'Suspender Cuenta'}>
                             {u.status === 'suspended' ? <CheckCircle className="h-4 w-4" /> : <Ban className="h-4 w-4" />}
                           </Button>
+                          {/* ── Premium toggle ── */}
+                          <Button
+                            size="sm" variant="ghost"
+                            onClick={() => { setPremiumPanelFor(premiumPanelFor === u.user_id ? null : u.user_id); setGrantDaysRaw("61") }}
+                            className={`h-8 w-8 p-0 transition-colors ${
+                              premiumPanelFor === u.user_id
+                                ? "text-indigo-600 bg-indigo-50"
+                                : u.tier === "premium"
+                                  ? "text-amber-500 hover:text-amber-700 hover:bg-amber-50"
+                                  : "text-gray-400 hover:text-indigo-600 hover:bg-indigo-50"
+                            }`}
+                            title={u.tier === "premium" ? "Gestionar / Revocar Premium" : "Conceder Acceso Premium"}
+                          >
+                            <Sparkles className="h-4 w-4" />
+                          </Button>
                           <Button
                             size="sm" variant="ghost"
                             onClick={() => {
@@ -1590,6 +1649,100 @@ export default function AdminPage() {
                           </Button>
                         </div>
                       </div>
+
+                      {/* ── Premium Management Panel ── */}
+                      {premiumPanelFor === u.user_id && (
+                        <div className="border-t border-indigo-100 bg-gradient-to-b from-indigo-50/60 to-white px-4 py-3 space-y-3">
+                          <p className="text-[10px] font-black text-indigo-600 uppercase tracking-wide flex items-center gap-1.5">
+                            <Sparkles className="h-3 w-3" />
+                            Gestión de Acceso Premium — Sin Pago ni Paywall
+                          </p>
+
+                          {u.tier === 'premium' ? (
+                            /* ── CURRENT: PREMIUM → allow revoke ── */
+                            <div className="space-y-2.5">
+                              <div className="flex items-start gap-2 text-xs bg-indigo-50 rounded-xl px-3 py-2.5 border border-indigo-100">
+                                <Sparkles className="h-3.5 w-3.5 text-indigo-500 shrink-0 mt-0.5" />
+                                <div className="flex-1 min-w-0">
+                                  <span className="font-semibold text-gray-700">
+                                    Actualmente <span className="font-black text-indigo-700">Premium</span>
+                                    {u.premium_expires_at && (() => {
+                                      const dLeft = Math.ceil((new Date(u.premium_expires_at).getTime() - Date.now()) / 86_400_000)
+                                      return dLeft > 0
+                                        ? ` · expira en ${dLeft} día${dLeft !== 1 ? 's' : ''} (${new Date(u.premium_expires_at).toLocaleDateString("es-MX", { day:"numeric", month:"short", year:"numeric" })})`
+                                        : ` · expiró el ${new Date(u.premium_expires_at).toLocaleDateString("es-MX", { day:"numeric", month:"short", year:"numeric" })}`
+                                    })()}
+                                  </span>
+                                  {u.premium_source && (
+                                    <span className="ml-2 text-[10px] font-bold bg-white border border-indigo-100 text-indigo-500 px-1.5 py-0.5 rounded">
+                                      {u.premium_source === 'admin_grant' ? '⚙ Admin' : u.premium_source === 'qr' ? 'QR' : u.premium_source === 'stripe' ? 'Stripe' : u.premium_source}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleRevokePremium(u.user_id)}
+                                disabled={grantingPremium}
+                                className="border-red-300 text-red-600 hover:bg-red-50 font-bold text-xs h-8 gap-1.5"
+                              >
+                                {grantingPremium
+                                  ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                  : <Ban className="h-3.5 w-3.5" />}
+                                Revocar Premium → Free
+                              </Button>
+                            </div>
+                          ) : (
+                            /* ── CURRENT: FREE → allow grant ── */
+                            <div className="space-y-2.5">
+                              <p className="text-xs text-gray-500">
+                                Usuario en plan <span className="font-bold text-gray-700">Free</span>. Selecciona la duración del acceso Premium:
+                              </p>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {[
+                                  { d: 30,  label: "1 mes"    },
+                                  { d: 61,  label: "2 meses"  },
+                                  { d: 90,  label: "3 meses"  },
+                                  { d: 365, label: "1 año"    },
+                                ].map(({ d, label }) => (
+                                  <button
+                                    key={d}
+                                    onClick={() => setGrantDaysRaw(String(d))}
+                                    className={`text-[11px] font-bold px-2.5 py-1 rounded-lg border transition-all ${
+                                      grantDaysRaw === String(d)
+                                        ? "bg-indigo-600 border-indigo-600 text-white"
+                                        : "bg-white border-indigo-200 text-indigo-600 hover:border-indigo-400"
+                                    }`}
+                                  >
+                                    {label}
+                                  </button>
+                                ))}
+                                <div className="flex items-center gap-1.5">
+                                  <input
+                                    type="number"
+                                    min="1"
+                                    value={grantDaysRaw}
+                                    onChange={e => setGrantDaysRaw(e.target.value)}
+                                    className="w-16 rounded-lg border-2 border-indigo-200 px-2 py-1 text-xs text-gray-800 focus:outline-none focus:border-indigo-500"
+                                  />
+                                  <span className="text-xs text-gray-500">días</span>
+                                </div>
+                              </div>
+                              <Button
+                                size="sm"
+                                onClick={() => handleGrantPremium(u.user_id)}
+                                disabled={grantingPremium}
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs h-8 gap-1.5"
+                              >
+                                {grantingPremium
+                                  ? <><Loader2 className="h-3.5 w-3.5 animate-spin" />Procesando...</>
+                                  : <><Sparkles className="h-3.5 w-3.5" />Conceder Premium</>}
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      )}
 
                       {/* Expanded suggestions panel */}
                       {isExpanded && userSuggestions.length > 0 && (

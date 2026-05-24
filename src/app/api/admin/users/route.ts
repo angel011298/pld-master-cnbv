@@ -10,7 +10,8 @@ const supabaseAdmin = createClient(
 
 export async function POST(request: Request) {
   try {
-    const { action, email, password, fullName, userId, status } = await request.json()
+    const body = await request.json()
+    const { action, email, password, fullName, userId, status } = body
 
     // 1. CREAR USUARIO PREMIUM
     if (action === 'create') {
@@ -54,6 +55,37 @@ export async function POST(request: Request) {
       // Eliminar de auth.users también elimina en user_profiles por el "on delete cascade"
       const { error } = await supabaseAdmin.auth.admin.deleteUser(userId)
       
+      if (error) throw error
+      return NextResponse.json({ success: true })
+    }
+
+    // 4. GRANT PREMIUM ACCESS — direct, no payment required
+    if (action === 'grant_premium') {
+      const rawDays = parseInt(body.premiumDays ?? '61', 10)
+      const premiumDays = isNaN(rawDays) || rawDays < 1 ? 61 : Math.min(rawDays, 3650)
+      const premiumUntil = new Date(Date.now() + premiumDays * 24 * 60 * 60 * 1000)
+      const { error } = await supabaseAdmin
+        .from('user_profiles')
+        .update({
+          tier: 'premium',
+          premium_expires_at: premiumUntil.toISOString(),
+          premium_source: 'admin_grant',
+        })
+        .eq('user_id', userId)
+      if (error) throw error
+      return NextResponse.json({ success: true })
+    }
+
+    // 5. REVOKE PREMIUM ACCESS — downgrade to free immediately
+    if (action === 'revoke_premium') {
+      const { error } = await supabaseAdmin
+        .from('user_profiles')
+        .update({
+          tier: 'free',
+          premium_expires_at: null,
+          premium_source: 'organic',
+        })
+        .eq('user_id', userId)
       if (error) throw error
       return NextResponse.json({ success: true })
     }
