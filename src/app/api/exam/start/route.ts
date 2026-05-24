@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     .from("exam_sessions")
     .select("id, expires_at")
     .eq("user_id", user.id)
-    .eq("exam_type", "ceneval")
+    .eq("exam_type", "simulacro")
     .eq("estado", "en_progreso")
     .order("created_at", { ascending: false })
     .limit(1)
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     .from("exam_sessions")
     .select("question_ids")
     .eq("user_id", user.id)
-    .eq("exam_type", "ceneval")
+    .eq("exam_type", "simulacro")
     .in("estado", ["completado", "terminado"])
     .order("created_at", { ascending: false })
     .limit(1)
@@ -179,7 +179,7 @@ export async function POST(req: NextRequest) {
     .from("exam_sessions")
     .insert({
       user_id:         user.id,
-      exam_type:       "ceneval",
+      exam_type:       "simulacro",
       estado:          "en_progreso",
       total_questions: final.length,
       correct_answers: 0,

@@ -57,7 +57,7 @@ export default function CenvalIntroPage() {
           .from("exam_sessions")
           .select("id, fecha, score, estado, total_questions, correct_answers")
           .eq("user_id", session.user.id)
-          .eq("exam_type", "ceneval")
+          .eq("exam_type", "simulacro")
           .order("created_at", { ascending: false })
           .limit(5);
         setPastSessions((data ?? []) as PastSession[]);
