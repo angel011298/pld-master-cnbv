@@ -1,15 +1,32 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   activePriceCents,
   PLAN_LABELS,
   PLAN_DESCRIPTIONS,
   type PlanKey,
 } from "@/lib/pricing";
+import { applyRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/security";
 
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://certifik-pld.app";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  // Rate limit: max 10 checkout session creations per IP per hour
+  const ip = getClientIp(req);
+  const rate = applyRateLimit({
+    key: ip,
+    route: "checkout",
+    limit: 10,
+    windowMs: 60 * 60 * 1000, // 1 hour
+  });
+  if (!rate.allowed) {
+    return NextResponse.json(
+      { error: "Demasiadas solicitudes. Intenta en unos minutos." },
+      { status: 429 }
+    );
+  }
+
   if (!STRIPE_SECRET_KEY) {
     return NextResponse.json(
       { error: "Stripe no configurado. Contacta al administrador." },
@@ -54,8 +71,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "Error al crear sesión de pago";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("[checkout] Stripe session error:", err);
+    return NextResponse.json({ error: "Error al crear sesión de pago. Intenta de nuevo." }, { status: 500 });
   }
 }

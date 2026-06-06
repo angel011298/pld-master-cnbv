@@ -149,7 +149,6 @@ El campo "pagina" debe ser null si no tienes información de página específica
     return NextResponse.json(response);
   } catch (error: unknown) {
     console.error("Chat error:", error);
-    const message = error instanceof Error ? error.message : "Error desconocido";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: "Error interno del servidor. Intenta de nuevo." }, { status: 500 });
   }
 }

@@ -2,19 +2,49 @@ import { NextRequest } from "next/server";
 import { supabase } from "@/lib/supabase";
 
 export function sanitizeText(input: string, maxLen: number) {
-  return input.replace(/\s+/g, " ").replace(/[<>]/g, "").trim().slice(0, maxLen);
+  return input
+    // Strip null bytes and ASCII control characters (except tab/newline/CR)
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, "")
+    // Collapse whitespace
+    .replace(/\s+/g, " ")
+    // Strip HTML angle brackets
+    .replace(/[<>]/g, "")
+    // Strip javascript: URI scheme (case-insensitive, with optional whitespace)
+    .replace(/j\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t\s*:/gi, "")
+    // Strip HTML event handler attributes (onclick=, onerror=, etc.)
+    .replace(/on\w+\s*=/gi, "")
+    .trim()
+    .slice(0, maxLen);
 }
 
 export function sanitizeFileName(input: string) {
   return input.replace(/[^\w.\-\s]/g, "").trim().slice(0, 120) || "documento.pdf";
 }
 
-export function getClientIp(req: NextRequest) {
+/** Basic IPv4/IPv6 format validator */
+function isValidIp(ip: string): boolean {
+  // IPv4
+  if (/^(\d{1,3}\.){3}\d{1,3}$/.test(ip)) return true;
+  // IPv6 (simplified — accepts full and compressed forms)
+  if (/^[0-9a-fA-F:]{2,39}$/.test(ip)) return true;
+  return false;
+}
+
+export function getClientIp(req: NextRequest): string {
+  // On Vercel, x-real-ip is injected by the edge network and is trustworthy.
+  // x-forwarded-for can be spoofed by the client, so we only use it as fallback.
+  const realIp = req.headers.get("x-real-ip")?.trim();
+  if (realIp && isValidIp(realIp)) return realIp;
+
   const forwarded = req.headers.get("x-forwarded-for");
   if (forwarded) {
-    return forwarded.split(",")[0]?.trim() || "unknown";
+    // Take the LAST entry (added by the outermost trusted proxy, not client-supplied)
+    const ips = forwarded.split(",").map((s) => s.trim()).filter(Boolean);
+    const last = ips[ips.length - 1] ?? "";
+    if (isValidIp(last)) return last;
   }
-  return req.headers.get("x-real-ip") || "unknown";
+
+  return "unknown";
 }
 
 export async function getAuthenticatedUserId(req: NextRequest) {

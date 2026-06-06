@@ -257,7 +257,6 @@ Estructura JSON requerida:
     return NextResponse.json({ success: true, quiz, source: "mixed" });
   } catch (error: unknown) {
     console.error("Quiz generation error:", error);
-    const message = error instanceof Error ? error.message : "Error desconocido";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: "Error interno al generar el quiz. Intenta de nuevo." }, { status: 500 });
   }
 }

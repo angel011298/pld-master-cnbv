@@ -9,8 +9,15 @@ import { getAuthenticatedUserId, getClientIp, sanitizeFileName } from "@/lib/sec
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIp(req);
+
+    // Auth check first so rate limit key can include userId
+    const userId = await getAuthenticatedUserId(req);
+    if (!userId) {
+      return NextResponse.json({ error: "Debes iniciar sesión con Google." }, { status: 401 });
+    }
+
     const rate = applyRateLimit({
-      key: `${ip}`,
+      key: `${userId}:${ip}`,
       route: "ingest",
       limit: 30,
       windowMs: 24 * 60 * 60 * 1000,
@@ -23,10 +30,6 @@ export async function POST(req: NextRequest) {
     }
 
     const sb = supabaseAdmin();
-    const userId = await getAuthenticatedUserId(req);
-    if (!userId) {
-      return NextResponse.json({ error: "Debes iniciar sesión con Google." }, { status: 401 });
-    }
 
     const { count: totalDocumentsCount } = await sb
       .from("documents")
@@ -124,7 +127,6 @@ export async function POST(req: NextRequest) {
 
   } catch (error: unknown) {
     console.error("Ingestion error:", error);
-    const message = error instanceof Error ? error.message : "Error desconocido";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: "Error interno al procesar el archivo. Intenta de nuevo." }, { status: 500 });
   }
 }

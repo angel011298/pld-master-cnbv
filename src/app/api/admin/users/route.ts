@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { getAuthenticatedUserId } from '@/lib/security'
 
 // Usamos el SERVICE_ROLE_KEY para brincar el RLS y tener permisos de administrador
 const supabaseAdmin = createClient(
@@ -8,7 +9,24 @@ const supabaseAdmin = createClient(
   { auth: { autoRefreshToken: false, persistSession: false } }
 )
 
-export async function POST(request: Request) {
+/** E-mail del único súper-admin; configurable por variable de entorno */
+const SUPER_ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "553angelortiz@gmail.com";
+
+/** Verifica que la solicitud provenga del súper-admin autenticado */
+async function assertAdmin(req: NextRequest): Promise<boolean> {
+  const userId = await getAuthenticatedUserId(req);
+  if (!userId) return false;
+  const { data } = await supabaseAdmin.auth.admin.getUserById(userId);
+  return data?.user?.email === SUPER_ADMIN_EMAIL;
+}
+
+export async function POST(request: NextRequest) {
+  // ── Verificación de administrador ──────────────────────────────────────────
+  const isAdmin = await assertAdmin(request);
+  if (!isAdmin) {
+    return NextResponse.json({ error: 'No autorizado' }, { status: 403 });
+  }
+
   try {
     const body = await request.json()
     const { action, email, password, fullName, userId, status } = body
@@ -91,7 +109,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ error: 'Acción no válida' }, { status: 400 })
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+  } catch (error: unknown) {
+    console.error('[admin/users] error:', error)
+    return NextResponse.json({ error: 'Error interno del servidor.' }, { status: 500 })
   }
 }
